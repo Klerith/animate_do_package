@@ -1,3 +1,6 @@
+## [0.1.2] - Example added
+You can find a simple demo in the "example" folder
+
 ## [0.1.1] - Clean format
 Just clean the animate_do main file
 
