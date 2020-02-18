@@ -64,6 +64,10 @@ class Rectangulo extends StatelessWidget {
 
 ```
 
+![alt text](https://res.cloudinary.com/dx0pryfzn/image/upload/v1582046881/x2fqhn05vshgbienhrow.gif "Animate_do")
+
+
+
 For help getting started with Flutter, view our 
 [online documentation](https://flutter.dev/docs), which offers tutorials, 
 samples, guidance on mobile development, and a full API reference.
