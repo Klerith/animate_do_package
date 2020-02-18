@@ -1,3 +1,6 @@
+## [0.1.1] - Clean format
+Just clean the animate_do main file
+
 ## [0.1.0] - Basic functionality.
 
 Production ready, but I want to add more features soon
