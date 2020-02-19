@@ -35,7 +35,7 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin{
     super.initState();
   
     controller = AnimationController( duration: widget.duration,vsync: this);
-    animation = CurvedAnimation(curve: Curves.linear, parent: controller);
+    animation = CurvedAnimation(curve: Curves.easeOut, parent: controller);
 
     Future.delayed( widget.delay, ()=> controller.forward() );
 
@@ -89,7 +89,10 @@ class _FadeInDownState extends State<FadeInDown> with SingleTickerProviderStateM
   
     controller = AnimationController( duration: widget.duration,vsync: this);
 
-    animation = Tween<double>(begin: -160.0, end: 0).animate(controller);
+    animation = Tween<double>(begin: -160.0, end: 0).animate( 
+      CurvedAnimation(parent: controller, curve: Curves.easeOut ) 
+    );
+    
     opacity = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(parent: controller, curve: Interval(0, 0.65)) 
     );
@@ -148,7 +151,9 @@ class _FadeInDownBigState extends State<FadeInDownBig> with SingleTickerProvider
   
     controller = AnimationController( duration: widget.duration, vsync: this);
 
-    animation = Tween<double>(begin: -600.0, end: 0).animate(controller);
+    animation = Tween<double>(begin: -600.0, end: 0).animate(
+      CurvedAnimation(parent: controller, curve: Curves.easeOut )
+    );
     opacity = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(parent: controller, curve: Interval(0, 0.65)) 
     );
@@ -209,7 +214,9 @@ class _FadeInUpState extends State<FadeInUp> with SingleTickerProviderStateMixin
   
     controller = AnimationController( duration: widget.duration, vsync: this );
 
-    animation = Tween<double>(begin: 160.0, end: 0).animate(controller);
+    animation = Tween<double>(begin: 160.0, end: 0).animate(
+      CurvedAnimation(parent: controller, curve: Curves.easeOut ) 
+    );
     opacity = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(parent: controller, curve: Interval(0, 0.65)) 
     );
@@ -269,7 +276,9 @@ class _FadeInUpBigState extends State<FadeInUpBig> with SingleTickerProviderStat
   
     controller = AnimationController( duration: widget.duration, vsync: this );
 
-    animation = Tween<double>(begin: 600.0, end: 0).animate(controller);
+    animation = Tween<double>(begin: 600.0, end: 0).animate(
+      CurvedAnimation(parent: controller, curve: Curves.easeOut ) 
+    );
     opacity = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(parent: controller, curve: Interval(0, 0.65)) 
     );
@@ -330,7 +339,9 @@ class _FadeInLeftState extends State<FadeInLeft> with SingleTickerProviderStateM
   
     controller = AnimationController( duration: widget.duration, vsync: this );
 
-    animation = Tween<double>(begin: -160.0, end: 0).animate(controller);
+    animation = Tween<double>(begin: -160.0, end: 0).animate(
+      CurvedAnimation(parent: controller, curve: Curves.easeOut ) 
+    );
     opacity = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(parent: controller, curve: Interval(0, 0.65)) 
     );
@@ -391,7 +402,9 @@ class _FadeInLeftBigState extends State<FadeInLeftBig> with SingleTickerProvider
   
     controller = AnimationController( duration: widget.duration, vsync: this);
 
-    animation = Tween<double>(begin: -600.0, end: 0).animate(controller);
+    animation = Tween<double>(begin: -600.0, end: 0).animate(
+      CurvedAnimation(parent: controller, curve: Curves.easeOut )
+    );
     opacity = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(parent: controller, curve: Interval(0, 0.65)) 
     );
@@ -451,7 +464,9 @@ class _FadeInRightState extends State<FadeInRight> with SingleTickerProviderStat
   
     controller = AnimationController( duration: widget.duration,vsync: this);
 
-    animation = Tween<double>(begin: 160.0, end: 0).animate(controller);
+    animation = Tween<double>(begin: 160.0, end: 0).animate(
+      CurvedAnimation(parent: controller, curve: Curves.easeOut ) 
+    );
     opacity = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(parent: controller, curve: Interval(0, 0.65)) 
     );
@@ -510,7 +525,9 @@ class _FadeInRightBigState extends State<FadeInRightBig> with SingleTickerProvid
   
     controller = AnimationController( duration: widget.duration,vsync: this);
 
-    animation = Tween<double>(begin: 600.0, end: 0).animate(controller);
+    animation = Tween<double>(begin: 600.0, end: 0).animate(
+      CurvedAnimation(parent: controller, curve: Curves.easeOut ) 
+    );
     opacity = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(parent: controller, curve: Interval(0, 0.65)) 
     );
@@ -1124,6 +1141,216 @@ class _ElasticInRightState extends State<ElasticInRight> with SingleTickerProvid
 //          End Elastics
 // ====================================
 
+// ====================================
+//          Begin Flips
+// ====================================
+
+// ============= FlipInX 
+class FlipInX extends StatefulWidget {
+
+  final Widget child;
+  final Duration duration;
+  final Duration delay;
+
+  FlipInX({ 
+    this.child, 
+    this.duration = const Duration(milliseconds: 800),
+    this.delay    = const Duration(milliseconds: 0)
+  });  
+
+  @override
+  _FlipInXState createState() => _FlipInXState();
+}
+
+class _FlipInXState extends State<FlipInX> with SingleTickerProviderStateMixin {
+
+  AnimationController controller;
+  Animation<double> rotation;
+  Animation<double> opacity;
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() { 
+    super.initState();
+  
+    controller = AnimationController( duration: widget.duration,vsync: this);
+
+    rotation = Tween<double>(begin: 1.5, end: 0.0).animate( 
+      CurvedAnimation(parent: controller, curve: Curves.bounceOut )
+     );
+
+    opacity = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(parent: controller, curve: Interval(0, 0.65)) 
+    );
+
+    Future.delayed( widget.delay, ()=> controller.forward() );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: controller, 
+      builder: (BuildContext context, Widget child) {
+        return Transform(
+            alignment: FractionalOffset.center,
+            transform: Matrix4.identity()
+                      ..rotateX( rotation.value ),
+            child: Opacity(
+              opacity: opacity.value,
+              child: widget.child,
+            )
+          );
+      });
+  }
+}
+
+// ============= FlipInY 
+class FlipInY extends StatefulWidget {
+
+  final Widget child;
+  final Duration duration;
+  final Duration delay;
+
+  FlipInY({ 
+    this.child, 
+    this.duration = const Duration(milliseconds: 800),
+    this.delay    = const Duration(milliseconds: 0)
+  });  
+
+  @override
+  _FlipInYState createState() => _FlipInYState();
+}
+
+class _FlipInYState extends State<FlipInY> with SingleTickerProviderStateMixin {
+
+  AnimationController controller;
+  Animation<double> rotation;
+  Animation<double> opacity;
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() { 
+    super.initState();
+  
+    controller = AnimationController( duration: widget.duration,vsync: this);
+
+    rotation = Tween<double>(begin: 1.5, end: 0.0).animate( 
+      CurvedAnimation(parent: controller, curve: Curves.bounceOut )
+     );
+
+    opacity = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(parent: controller, curve: Interval(0, 0.65)) 
+    );
+
+    Future.delayed( widget.delay, ()=> controller.forward() );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: controller, 
+      builder: (BuildContext context, Widget child) {
+        return Transform(
+            alignment: FractionalOffset.center,
+            transform: Matrix4.identity()
+                      ..rotateY( rotation.value ),
+            child: Opacity(
+              opacity: opacity.value,
+              child: widget.child,
+            )
+          );
+      });
+  }
+}
+
+// ====================================
+//          End Flips
+// ====================================
+
+// ====================================
+//          Begin Special Ins
+// ====================================
+
+// ============= JelloIn 
+class JelloIn extends StatefulWidget {
+
+  final Widget child;
+  final Duration duration;
+  final Duration delay;
+
+  JelloIn({ 
+    this.child, 
+    this.duration = const Duration(milliseconds: 800),
+    this.delay    = const Duration(milliseconds: 0)
+  });  
+
+  @override
+  _JelloInState createState() => _JelloInState();
+}
+
+class _JelloInState extends State<JelloIn> with SingleTickerProviderStateMixin {
+
+  AnimationController controller;
+  Animation<double> rotation;
+  Animation<double> opacity;
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() { 
+    super.initState();
+  
+    controller = AnimationController( duration: widget.duration,vsync: this);
+
+    rotation = Tween<double>(begin: 1.5, end: 0.0).animate( 
+      CurvedAnimation(parent: controller, curve: Curves.bounceOut )
+     );
+
+    opacity = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(parent: controller, curve: Interval(0, 0.65)) 
+    );
+
+    Future.delayed( widget.delay, ()=> controller.forward() );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: controller, 
+      builder: (BuildContext context, Widget child) {
+        return Transform(
+            alignment: FractionalOffset.center,
+            transform: Matrix4.identity()
+                      ..setEntry(0, 0, rotation.value + 1)
+                      ..rotateX( rotation.value ),
+            child: Opacity(
+              opacity: opacity.value,
+              child: widget.child,
+            )
+          );
+      });
+  }
+}
+// ====================================
+//          End Special Ins
+// ====================================
+
+
+
 
 // ====================================
 //       Begin Attention Seekers
@@ -1399,6 +1626,262 @@ class _SwingState extends State<Swing> with SingleTickerProviderStateMixin {
   }
 }
 
+
+// ============= Spin 
+class Spin extends StatefulWidget {
+
+  final Widget child;
+  final Duration duration;
+  final Duration delay;
+  final bool infinite;
+
+  Spin({ 
+    this.child, 
+    this.duration = const Duration(milliseconds: 1500),
+    this.delay    = const Duration(milliseconds: 0),
+    this.infinite = false,
+  });  
+
+  @override
+  _SpinState createState() => _SpinState();
+}
+
+class _SpinState extends State<Spin> with SingleTickerProviderStateMixin {
+
+  AnimationController controller;
+  Animation<double> spin;
+  
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() { 
+    super.initState();
+    
+    controller = AnimationController( duration: widget.duration, vsync: this );
+
+    spin = Tween<double>(begin: 1, end: 2)
+      .animate( CurvedAnimation(parent: controller, curve:  Curves.easeInOut ));
+
+    Future.delayed( widget.delay, (){
+          ( widget.infinite ) ? controller.repeat() : controller.forward();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: controller, 
+      builder: (BuildContext context, Widget child) {
+        return Transform.rotate(
+          angle: spin.value * 3.141516,
+          child: widget.child,
+        );
+        
+    });
+  }
+}
+
+// ============= SpinPerfect 
+class SpinPerfect extends StatefulWidget {
+
+  final Widget child;
+  final Duration duration;
+  final Duration delay;
+  final bool infinite;
+
+  SpinPerfect({ 
+    this.child, 
+    this.duration = const Duration(milliseconds: 1500),
+    this.delay    = const Duration(milliseconds: 0),
+    this.infinite = false,
+  });  
+
+  @override
+  SpinPerfectState createState() => SpinPerfectState();
+}
+
+class SpinPerfectState extends State<SpinPerfect> with SingleTickerProviderStateMixin {
+
+  AnimationController controller;
+  Animation<double> spin;
+  
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() { 
+    super.initState();
+    
+    controller = AnimationController( duration: widget.duration, vsync: this );
+
+    spin = Tween<double>(begin: 1, end: 2)
+      .animate( CurvedAnimation(parent: controller, curve:  Curves.linear ));
+
+    Future.delayed( widget.delay, (){
+          ( widget.infinite ) ? controller.repeat() : controller.forward();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: controller, 
+      builder: (BuildContext context, Widget child) {
+        return Transform.rotate(
+          angle: spin.value * 3.141516,
+          child: widget.child,
+        );
+        
+    });
+  }
+}
+
+// ============= Dance 
+class Dance extends StatefulWidget {
+
+  final Widget child;
+  final Duration duration;
+  final Duration delay;
+  final bool infinite;
+
+  Dance({ 
+    this.child, 
+    this.duration = const Duration(milliseconds: 1000),
+    this.delay    = const Duration(milliseconds: 0),
+    this.infinite = false
+  });  
+
+  @override
+  _DanceState createState() => _DanceState();
+}
+
+class _DanceState extends State<Dance> with SingleTickerProviderStateMixin {
+
+  AnimationController controller;
+  Animation<double> step1;
+  Animation<double> step2;
+  Animation<double> step3;
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() { 
+    super.initState();
+  
+    controller = AnimationController( duration: widget.duration,vsync: this);
+
+    step1 = Tween<double>(begin: 0, end: -0.2).animate( 
+      CurvedAnimation(parent: controller, curve: Interval(0, 0.3333, curve: Curves.bounceOut) )
+     );
+
+    step2 = Tween<double>(begin: -0.2, end: 0.2).animate( 
+      CurvedAnimation(parent: controller, curve: Interval(0.3333, 0.6666, curve: Curves.bounceOut) )
+     );
+
+    step3 = Tween<double>(begin: 0.2, end: 0).animate( 
+      CurvedAnimation(parent: controller, curve: Interval(0.6666, 1, curve: Curves.bounceOut) )
+     );
+
+
+    Future.delayed( widget.delay, (){
+       ( widget.infinite ) ? controller.repeat() : controller.forward();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: controller, 
+      builder: (BuildContext context, Widget child) {
+
+        final animation = ( step1.value != -0.2 ) ? step1.value : 
+                          ( step2.value != 0.2  ) ? step2.value : step3.value;
+        // print(animation);
+
+        return Transform(
+            alignment: FractionalOffset.center,
+            transform: Matrix4.skew(0, animation ),
+            child: widget.child
+          );
+      });
+  }
+}
+
+
+
+// ============= Roulette 
+class Roulette extends StatefulWidget {
+
+  final Widget child;
+  final Duration duration;
+  final Duration delay;
+  final bool infinite;
+
+  Roulette({ 
+    this.child, 
+    this.duration = const Duration(milliseconds: 3500),
+    this.delay    = const Duration(milliseconds: 0),
+    this.infinite = false,
+  });  
+
+  @override
+  _RouletteState createState() => _RouletteState();
+}
+
+class _RouletteState extends State<Roulette> with SingleTickerProviderStateMixin {
+
+  AnimationController controller;
+  Animation<double> spin;
+  
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() { 
+    super.initState();
+    
+    controller = AnimationController( duration: widget.duration, vsync: this );
+
+    spin = Tween<double>(begin: 1, end: 3)
+      .animate( CurvedAnimation(parent: controller, curve:  Curves.elasticOut ));
+
+    Future.delayed( widget.delay, (){
+          ( widget.infinite ) ? controller.repeat() : controller.forward();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: controller, 
+      builder: (BuildContext context, Widget child) {
+        return Transform.rotate(
+          angle: spin.value * 3.141516,
+          child: widget.child,
+        );
+        
+    });
+  }
+}
+
 // ====================================
 //       End Attention Seekers
 // ====================================
+

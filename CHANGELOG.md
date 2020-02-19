@@ -1,3 +1,16 @@
+#### [1.0.0] - Release
+* Retouched all the animations
+* Better FadeIns
+* New animations added
+    * JelloIn
+    * FlipInX
+    * FlipInY
+    * Spin
+    * SpinPerfect
+    * Dance
+    * Roulette
+* Documentation updated
+
 #### [0.2.0] - Delay implemented
 * Implemented delay inside all animated widgets
 * Big stability improvements 

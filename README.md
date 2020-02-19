@@ -30,12 +30,23 @@ This package is very simple to use, all the animations are Widgets that contains
 - ElasticInLeft
 - ElasticInRight
 
+## Flip Animations
+- FlipInX
+- FlipInY
+
+## Special In Animations
+- JelloIn
+
 ## Attention Seeker
 All of the following animations could be infinite with a property called ```infinite``` (type Bool)
 - Bounce
 - Flash
 - Pulse
 - Swing
+- Spin
+- SpinPerfect
+- Dance
+- Roulette
 
 ## Example
 
