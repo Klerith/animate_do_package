@@ -6,6 +6,7 @@ An animation package inspired in [Animate.css](https://daneden.github.io/animate
 
 This package is very simple to use, all the animations are Widgets that contains a duration (type Duration), and recieves a child widget (The widget you want to animate)
 
+## Fades Animations
 - FadeIn
 - FadeInDown
 - FadeInDownBig
@@ -15,13 +16,26 @@ This package is very simple to use, all the animations are Widgets that contains
 - FadeInLeftBig
 - FadeInRight
 - FadeInRightBig
+
+## Bounce Animations
 - BounceInDown
 - BounceInUp
 - BounceInLeft
 - BounceInRight
-- Bounce   ( it could be infinite with a property)
-- Flash    ( it could be infinite with a property)
-- Pulse    ( it could be infinite with a property)
+
+## Elastic Animations
+- ElasticIn
+- ElasticInDown
+- ElasticInUp
+- ElasticInLeft
+- ElasticInRight
+
+## Attention Seeker
+All of the following animations could be infinite with a property called "infinite"
+- Bounce
+- Flash
+- Pulse
+- Swing
 
 ## Example
 
