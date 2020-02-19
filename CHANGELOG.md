@@ -1,3 +1,8 @@
+#### [0.2.0] - Delay implemented
+* Implemented delay inside all animated widgets
+* Big stability improvements 
+* Documentation updated
+
 #### [0.1.5] - Small optimizations
 * Readme updated
 * Formatted the main file

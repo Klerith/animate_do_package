@@ -4,7 +4,7 @@ An animation package inspired in [Animate.css](https://daneden.github.io/animate
 
 ## Getting Started
 
-This package is very simple to use, all the animations are Widgets that contains a duration (type Duration), and recieves a child widget (The widget you want to animate)
+This package is very simple to use, all the animations are Widgets that contains a ```duration``` (type Duration), ```delay``` (type Duration) and recieves a ```child``` widget (The widget you want to animate)
 
 ## Fades Animations
 - FadeIn
@@ -31,7 +31,7 @@ This package is very simple to use, all the animations are Widgets that contains
 - ElasticInRight
 
 ## Attention Seeker
-All of the following animations could be infinite with a property called "infinite"
+All of the following animations could be infinite with a property called ```infinite``` (type Bool)
 - Bounce
 - Flash
 - Pulse
