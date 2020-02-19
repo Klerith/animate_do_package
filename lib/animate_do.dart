@@ -1,5 +1,14 @@
 import 'package:flutter/material.dart';
 
+// Base class
+class BaseAnimation {
+  Widget child;
+  Duration duration;
+  Duration delay;
+
+  // BaseAnimation({ this.child, this.duration, this.delay });
+}
+
 // ====================================
 //              Begin Fades
 // ====================================
@@ -609,17 +618,290 @@ class _BounceInRightState extends State<BounceInRight>
 // ====================================
 
 // ====================================
+//          Begin Elastics
+// ====================================
+// ============= ElasticIn
+class ElasticIn extends StatefulWidget {
+  final Widget child;
+  final Duration duration;
+
+  ElasticIn({this.child, this.duration = const Duration(milliseconds: 1200)});
+
+  @override
+  _ElasticInState createState() => _ElasticInState();
+}
+
+class _ElasticInState extends State<ElasticIn>
+    with SingleTickerProviderStateMixin {
+  AnimationController controller;
+  Animation<double> bouncing;
+  Animation<double> opacity;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller = AnimationController(duration: widget.duration, vsync: this)
+      ..forward();
+    opacity = Tween<double>(begin: 0, end: 1)
+        .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.45)));
+
+    bouncing = Tween<double>(begin: 0, end: 1)
+        .animate(CurvedAnimation(parent: controller, curve: Curves.elasticOut));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FadeIn(
+      child: AnimatedBuilder(
+          animation: controller,
+          builder: (BuildContext context, Widget child) {
+            return Transform.scale(
+              scale: bouncing.value,
+              child: Opacity(
+                opacity: opacity.value,
+                child: widget.child,
+              ),
+            );
+          }),
+    );
+  }
+}
+
+// ============= ElasticInDown
+class ElasticInDown extends StatefulWidget {
+  final Widget child;
+  final Duration duration;
+
+  ElasticInDown(
+      {this.child, this.duration = const Duration(milliseconds: 1200)});
+
+  @override
+  _ElasticInDownState createState() => _ElasticInDownState();
+}
+
+class _ElasticInDownState extends State<ElasticInDown>
+    with SingleTickerProviderStateMixin {
+  AnimationController controller;
+  Animation<double> bouncing;
+  Animation<double> falling;
+  Animation<double> opacity;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller = AnimationController(duration: widget.duration, vsync: this)
+      ..forward();
+    opacity = Tween<double>(begin: 0, end: 1)
+        .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.45)));
+
+    falling = Tween<double>(begin: -200.0, end: -100).animate(CurvedAnimation(
+        parent: controller, curve: Interval(0, 0.30, curve: Curves.linear)));
+
+    bouncing = Tween<double>(begin: -100.0, end: 0).animate(CurvedAnimation(
+        parent: controller,
+        curve: Interval(0.30, 1, curve: Curves.elasticOut)));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FadeIn(
+      child: AnimatedBuilder(
+          animation: controller,
+          builder: (BuildContext context, Widget child) {
+            return Transform.translate(
+                offset: Offset(0,
+                    (falling.value == -100) ? bouncing.value : falling.value),
+                child: Opacity(
+                  opacity: opacity.value,
+                  child: widget.child,
+                ));
+          }),
+    );
+  }
+}
+
+// ============= ElasticInUp
+class ElasticInUp extends StatefulWidget {
+  final Widget child;
+  final Duration duration;
+
+  ElasticInUp({this.child, this.duration = const Duration(milliseconds: 1200)});
+
+  @override
+  _ElasticInUpState createState() => _ElasticInUpState();
+}
+
+class _ElasticInUpState extends State<ElasticInUp>
+    with SingleTickerProviderStateMixin {
+  AnimationController controller;
+  Animation<double> bouncing;
+  Animation<double> falling;
+  Animation<double> opacity;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller = AnimationController(duration: widget.duration, vsync: this)
+      ..forward();
+    opacity = Tween<double>(begin: 0, end: 1)
+        .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.45)));
+
+    falling = Tween<double>(begin: 200.0, end: 100).animate(CurvedAnimation(
+        parent: controller, curve: Interval(0, 0.30, curve: Curves.linear)));
+
+    bouncing = Tween<double>(begin: 100.0, end: 0).animate(CurvedAnimation(
+        parent: controller,
+        curve: Interval(0.30, 1, curve: Curves.elasticOut)));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FadeIn(
+      child: AnimatedBuilder(
+          animation: controller,
+          builder: (BuildContext context, Widget child) {
+            return Transform.translate(
+                offset: Offset(
+                    0, (falling.value == 100) ? bouncing.value : falling.value),
+                child: Opacity(
+                  opacity: opacity.value,
+                  child: widget.child,
+                ));
+          }),
+    );
+  }
+}
+
+// ============= ElasticInLeft
+class ElasticInLeft extends StatefulWidget {
+  final Widget child;
+  final Duration duration;
+
+  ElasticInLeft(
+      {this.child, this.duration = const Duration(milliseconds: 1200)});
+
+  @override
+  _ElasticInLeftState createState() => _ElasticInLeftState();
+}
+
+class _ElasticInLeftState extends State<ElasticInLeft>
+    with SingleTickerProviderStateMixin {
+  AnimationController controller;
+  Animation<double> bouncing;
+  Animation<double> falling;
+  Animation<double> opacity;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller = AnimationController(duration: widget.duration, vsync: this)
+      ..forward();
+    opacity = Tween<double>(begin: 0, end: 1)
+        .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.45)));
+
+    falling = Tween<double>(begin: -200.0, end: -100).animate(CurvedAnimation(
+        parent: controller, curve: Interval(0, 0.30, curve: Curves.linear)));
+
+    bouncing = Tween<double>(begin: -100.0, end: 0).animate(CurvedAnimation(
+        parent: controller,
+        curve: Interval(0.30, 1, curve: Curves.elasticOut)));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FadeIn(
+      child: AnimatedBuilder(
+          animation: controller,
+          builder: (BuildContext context, Widget child) {
+            return Transform.translate(
+                offset: Offset(
+                    (falling.value == -100) ? bouncing.value : falling.value,
+                    0),
+                child: Opacity(
+                  opacity: opacity.value,
+                  child: widget.child,
+                ));
+          }),
+    );
+  }
+}
+
+// ============= ElasticInRight
+class ElasticInRight extends StatefulWidget {
+  final Widget child;
+  final Duration duration;
+
+  ElasticInRight(
+      {this.child, this.duration = const Duration(milliseconds: 1200)});
+
+  @override
+  _ElasticInRightState createState() => _ElasticInRightState();
+}
+
+class _ElasticInRightState extends State<ElasticInRight>
+    with SingleTickerProviderStateMixin {
+  AnimationController controller;
+  Animation<double> bouncing;
+  Animation<double> falling;
+  Animation<double> opacity;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller = AnimationController(duration: widget.duration, vsync: this)
+      ..forward();
+    opacity = Tween<double>(begin: 0, end: 1)
+        .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.45)));
+
+    falling = Tween<double>(begin: 200.0, end: 100).animate(CurvedAnimation(
+        parent: controller, curve: Interval(0, 0.30, curve: Curves.linear)));
+
+    bouncing = Tween<double>(begin: 100.0, end: 0).animate(CurvedAnimation(
+        parent: controller,
+        curve: Interval(0.30, 1, curve: Curves.elasticOut)));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FadeIn(
+      child: AnimatedBuilder(
+          animation: controller,
+          builder: (BuildContext context, Widget child) {
+            return Transform.translate(
+                offset: Offset(
+                    (falling.value == 100) ? bouncing.value : falling.value, 0),
+                child: Opacity(
+                  opacity: opacity.value,
+                  child: widget.child,
+                ));
+          }),
+    );
+  }
+}
+
+// ====================================
+//          End Elastics
+// ====================================
+
+// ====================================
 //       Begin Attention Seekers
 // ====================================
 // ============= Bounce
 class Bounce extends StatefulWidget {
   final Widget child;
   final Duration duration;
+  // final Duration delay;
   final bool infinite;
 
   Bounce({
     this.child,
     this.duration = const Duration(milliseconds: 1300),
+    // this.delay = const Duration(milliseconds: 0),
     this.infinite = false,
   });
 
@@ -637,8 +919,10 @@ class _BounceState extends State<Bounce> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    controller = AnimationController(duration: widget.duration, vsync: this)
-      ..forward();
+    controller = AnimationController(
+        duration: widget.duration, vsync: this); //..forward();
+
+    // Future.delayed( widget.delay , () => controller.forward() );
 
     animationUp = Tween<double>(begin: 0, end: -50).animate(CurvedAnimation(
         curve: Interval(0, 0.35, curve: Curves.easeInOut), parent: controller));
@@ -785,6 +1069,100 @@ class _PulseState extends State<Pulse> with SingleTickerProviderStateMixin {
             scale: (controller.value < 0.5)
                 ? animationInc.value
                 : animationDec.value,
+            child: widget.child,
+          );
+        });
+  }
+}
+
+// ============= Swing
+class Swing extends StatefulWidget {
+  final Widget child;
+  final Duration duration;
+  final bool infinite;
+
+  Swing({
+    this.child,
+    this.duration = const Duration(milliseconds: 1500),
+    this.infinite = false,
+  });
+
+  @override
+  _SwingState createState() => _SwingState();
+}
+
+class _SwingState extends State<Swing> with SingleTickerProviderStateMixin {
+  AnimationController controller;
+  Animation<double> animationRotation1;
+  Animation<double> animationRotation2;
+  Animation<double> animationRotation3;
+  Animation<double> animationRotation4;
+  Animation<double> animationRotation5;
+  Animation<double> animationRotation6;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller = AnimationController(duration: widget.duration, vsync: this)
+      ..forward();
+
+    animationRotation1 = Tween<double>(begin: 0, end: -0.5).animate(
+        CurvedAnimation(
+            parent: controller,
+            curve: Interval(0, 0.1666, curve: Curves.easeOut)));
+
+    animationRotation2 = Tween<double>(begin: -0.5, end: 0.5).animate(
+        CurvedAnimation(
+            parent: controller,
+            curve: Interval(0.1666, 0.3333, curve: Curves.easeInOut)));
+
+    animationRotation3 = Tween<double>(begin: 0.5, end: -0.5).animate(
+        CurvedAnimation(
+            parent: controller,
+            curve: Interval(0.3333, 0.4999, curve: Curves.easeInOut)));
+
+    animationRotation4 = Tween<double>(begin: -0.5, end: 0.4).animate(
+        CurvedAnimation(
+            parent: controller,
+            curve: Interval(0.4999, 0.6666, curve: Curves.easeInOut)));
+
+    animationRotation5 = Tween<double>(begin: 0.4, end: -0.4).animate(
+        CurvedAnimation(
+            parent: controller,
+            curve: Interval(0.6666, 0.8333, curve: Curves.easeInOut)));
+
+    animationRotation6 = Tween<double>(begin: -0.4, end: 0).animate(
+        CurvedAnimation(
+            parent: controller,
+            curve: Interval(0.8333, 1, curve: Curves.easeOut)));
+
+    if (widget.infinite) {
+      controller
+        ..stop()
+        ..repeat();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+        animation: controller,
+        builder: (BuildContext context, Widget child) {
+          double angle = (animationRotation1.value != -0.5)
+              ? animationRotation1.value
+              : (animationRotation2.value != 0.5)
+                  ? animationRotation2.value
+                  : (animationRotation3.value != -0.5)
+                      ? animationRotation3.value
+                      : (animationRotation4.value != 0.4)
+                          ? animationRotation4.value
+                          : (animationRotation5.value != -0.4)
+                              ? animationRotation5.value
+                              : animationRotation6.value;
+
+          return Transform.rotate(
+            angle: angle,
             child: widget.child,
           );
         });
