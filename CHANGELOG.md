@@ -1,3 +1,6 @@
+## [0.1.3] - Example added
+Fixing some Kotlin dependencies
+
 ## [0.1.2] - Example added
 You can find a simple demo in the "example" folder
 
