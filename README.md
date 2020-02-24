@@ -6,7 +6,7 @@ An animation package inspired in [Animate.css](https://daneden.github.io/animate
 
 This package is very simple to use, all the animations are Widgets that contains a ```duration``` (type Duration), ```delay``` (type Duration) and recieves a ```child``` widget (The widget you want to animate)
 
-## Fades Animations
+## FadeIn Animations
 - FadeIn
 - FadeInDown
 - FadeInDownBig
@@ -17,30 +17,30 @@ This package is very simple to use, all the animations are Widgets that contains
 - FadeInRight
 - FadeInRightBig
 
-## Bounce Animations
+## BounceIn Animations
 - BounceInDown
 - BounceInUp
 - BounceInLeft
 - BounceInRight
 
-## Elastic Animations
+## ElasticIn Animations
 - ElasticIn
 - ElasticInDown
 - ElasticInUp
 - ElasticInLeft
 - ElasticInRight
 
-## SlideIns
+## SlideIns Animations
 - SlideInDown
 - SlideInUp
 - SlideInLeft
 - SlideInRight
 
-## Flip Animations
+## FlipIn Animations
 - FlipInX
 - FlipInY
 
-## Special In Animations
+## SpecialIn Animations
 - JelloIn
 
 ## Attention Seeker
