@@ -1,3 +1,11 @@
+#### [1.2.0] - Manual Trigger Added
+* Manual Trigger added
+  * (optional) bool manualTrigger
+    * This option will not fire the animation on load. Forces you to provide the controller callback
+  * (optional but mandatory if you use manualTrigger) Function controller
+    * This callback, will give you access to the animationController from the selected animation. **See the example at the end of this documentation.**
+* Minor fixes
+
 #### [1.0.0] - Release
 * Retouched all the animations
 * Better FadeIns

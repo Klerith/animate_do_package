@@ -93,6 +93,22 @@ class Rectangulo extends StatelessWidget {
 
 
 
+## Manual Trigger
+Since version ```1.2.0```, there is a way to get the AnimationController easily, so you can restart it, change the duration, do the animation again.
+
+#### Example 
+```
+  child: FadeInUp(
+    
+    // (optional) if true, will not fire the animation on load
+    manualTrigger: true, 
+
+    //(optional, but mandatory if you use manualTrigger:true) This callback exposes the AnimationController used for the selected animation. Then you can call animationController.forward() to trigger the animation wherever you like manually.
+    controller: ( controller ) => animateController = controller,
+
+    child: YourWidget(),
+```
+
 For help getting started with Flutter, view our 
 [online documentation](https://flutter.dev/docs), which offers tutorials, 
 samples, guidance on mobile development, and a full API reference.
