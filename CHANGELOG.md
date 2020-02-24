@@ -1,3 +1,6 @@
+#### [1.2.1] - Readme updated
+* Readme updated
+
 #### [1.2.0] - Manual Trigger Added
 * Manual Trigger added
   * (optional) bool manualTrigger

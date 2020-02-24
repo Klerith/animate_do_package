@@ -30,6 +30,12 @@ This package is very simple to use, all the animations are Widgets that contains
 - ElasticInLeft
 - ElasticInRight
 
+## SlideIns
+- SlideInDown
+- SlideInUp
+- SlideInLeft
+- SlideInRight
+
 ## Flip Animations
 - FlipInX
 - FlipInY
