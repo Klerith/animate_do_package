@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         body: Center(
           child: BounceInDown(
-            child: Rectangulo()
+            child: Square()
           )
         ),
       ),
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Rectangulo extends StatelessWidget {
+class Square extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {

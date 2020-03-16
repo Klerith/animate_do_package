@@ -49,10 +49,6 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
     controller = AnimationController(duration: widget.duration, vsync: this);
     animation = CurvedAnimation(curve: Curves.easeOut, parent: controller);
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
-    }
-
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -60,8 +56,8 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
-      controller.forward();
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
     }
 
     return AnimatedBuilder(
@@ -130,10 +126,6 @@ class _FadeInDownState extends State<FadeInDown>
     opacity = Tween<double>(begin: 0, end: 1)
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
-    }
-
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -141,8 +133,8 @@ class _FadeInDownState extends State<FadeInDown>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
-      controller.forward();
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
     }
 
     return AnimatedBuilder(
@@ -249,10 +241,6 @@ class _FadeInUpState extends State<FadeInUp>
     opacity = Tween<double>(begin: 0, end: 1)
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
-    }
-
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -260,8 +248,8 @@ class _FadeInUpState extends State<FadeInUp>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
-      controller.forward();
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
     }
 
     return AnimatedBuilder(
@@ -369,10 +357,6 @@ class _FadeInLeftState extends State<FadeInLeft>
     opacity = Tween<double>(begin: 0, end: 1)
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
-    }
-
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -380,8 +364,8 @@ class _FadeInLeftState extends State<FadeInLeft>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
-      controller.forward();
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
     }
 
     return AnimatedBuilder(
@@ -489,10 +473,6 @@ class _FadeInRightState extends State<FadeInRight>
     opacity = Tween<double>(begin: 0, end: 1)
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
-    }
-
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -500,8 +480,8 @@ class _FadeInRightState extends State<FadeInRight>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
-      controller.forward();
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
     }
 
     return AnimatedBuilder(
@@ -616,10 +596,6 @@ class _BounceInDownState extends State<BounceInDown>
     animation = Tween<double>(begin: widget.from * -1, end: 0)
         .animate(CurvedAnimation(parent: controller, curve: Curves.bounceOut));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
-    }
-
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -627,8 +603,8 @@ class _BounceInDownState extends State<BounceInDown>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
-      controller.forward();
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
     }
 
     return AnimatedBuilder(
@@ -733,10 +709,6 @@ class _BounceInLeftState extends State<BounceInLeft>
     animation = Tween<double>(begin: widget.from * -1, end: 0)
         .animate(CurvedAnimation(parent: controller, curve: Curves.bounceOut));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
-    }
-
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -744,8 +716,8 @@ class _BounceInLeftState extends State<BounceInLeft>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
-      controller.forward();
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
     }
 
     return AnimatedBuilder(
@@ -858,10 +830,6 @@ class _ElasticInState extends State<ElasticIn>
     bouncing = Tween<double>(begin: 0, end: 1)
         .animate(CurvedAnimation(parent: controller, curve: Curves.elasticOut));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
-    }
-
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -869,8 +837,8 @@ class _ElasticInState extends State<ElasticIn>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
-      controller.forward();
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
     }
 
     return AnimatedBuilder(
@@ -951,10 +919,6 @@ class _ElasticInDownState extends State<ElasticInDown>
             parent: controller,
             curve: Interval(0.30, 1, curve: Curves.elasticOut)));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
-    }
-
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -962,8 +926,8 @@ class _ElasticInDownState extends State<ElasticInDown>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
-      controller.forward();
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
     }
 
     return AnimatedBuilder(
@@ -1087,10 +1051,6 @@ class _ElasticInLeftState extends State<ElasticInLeft>
             parent: controller,
             curve: Interval(0.30, 1, curve: Curves.elasticOut)));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
-    }
-
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -1098,8 +1058,8 @@ class _ElasticInLeftState extends State<ElasticInLeft>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
-      controller.forward();
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
     }
 
     return AnimatedBuilder(
@@ -1217,10 +1177,6 @@ class _FlipInXState extends State<FlipInX> with SingleTickerProviderStateMixin {
     opacity = Tween<double>(begin: 0, end: 1)
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
-    }
-
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -1228,8 +1184,8 @@ class _FlipInXState extends State<FlipInX> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
-      controller.forward();
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
     }
 
     return AnimatedBuilder(
@@ -1298,10 +1254,6 @@ class _FlipInYState extends State<FlipInY> with SingleTickerProviderStateMixin {
     opacity = Tween<double>(begin: 0, end: 1)
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
-    }
-
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -1309,8 +1261,8 @@ class _FlipInYState extends State<FlipInY> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
-      controller.forward();
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
     }
 
     return AnimatedBuilder(
@@ -1385,10 +1337,6 @@ class _SlideInUpState extends State<SlideInUp>
     animation = Tween<double>(begin: widget.from, end: 0)
         .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
-    }
-
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -1396,8 +1344,8 @@ class _SlideInUpState extends State<SlideInUp>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
-      controller.forward();
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
     }
 
     return AnimatedBuilder(
@@ -1499,10 +1447,6 @@ class _SlideInLeftState extends State<SlideInLeft>
     animation = Tween<double>(begin: widget.from * -1, end: 0)
         .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
-    }
-
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -1510,8 +1454,8 @@ class _SlideInLeftState extends State<SlideInLeft>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
-      controller.forward();
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
     }
 
     return AnimatedBuilder(
@@ -1621,10 +1565,6 @@ class _JelloInState extends State<JelloIn> with SingleTickerProviderStateMixin {
     opacity = Tween<double>(begin: 0, end: 1)
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
-    }
-
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -1632,8 +1572,8 @@ class _JelloInState extends State<JelloIn> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
-      controller.forward();
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
     }
 
     return AnimatedBuilder(
@@ -1718,12 +1658,6 @@ class _BounceState extends State<Bounce> with SingleTickerProviderStateMixin {
             curve: Interval(0.35, 1, curve: Curves.bounceOut),
             parent: controller));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        (widget.infinite) ? controller.repeat() : controller.forward();
-      });
-    }
-
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -1731,8 +1665,14 @@ class _BounceState extends State<Bounce> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
-      controller.forward();
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () {
+        (widget.infinite) ? controller.repeat() : controller.forward();
+      });
+    } else if (!widget.animate) {
+      controller.reverse();
+    } else if (!widget.animate) {
+      controller.reverse();
     }
 
     return AnimatedBuilder(
@@ -1807,12 +1747,6 @@ class _FlashState extends State<Flash> with SingleTickerProviderStateMixin {
     opacityIn2 = Tween<double>(begin: 0, end: 1)
         .animate(CurvedAnimation(parent: controller, curve: Interval(0.75, 1)));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        (widget.infinite) ? controller.repeat() : controller.forward();
-      });
-    }
-
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -1820,8 +1754,12 @@ class _FlashState extends State<Flash> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
-      controller.forward();
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () {
+        (widget.infinite) ? controller.repeat() : controller.forward();
+      });
+    } else if (!widget.animate) {
+      controller.reverse();
     }
 
     return AnimatedBuilder(
@@ -1893,12 +1831,6 @@ class _PulseState extends State<Pulse> with SingleTickerProviderStateMixin {
     animationDec = Tween<double>(begin: 1.5, end: 1).animate(CurvedAnimation(
         parent: controller, curve: Interval(0.5, 1, curve: Curves.easeIn)));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        (widget.infinite) ? controller.repeat() : controller.forward();
-      });
-    }
-
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -1906,8 +1838,12 @@ class _PulseState extends State<Pulse> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
-      controller.forward();
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () {
+        (widget.infinite) ? controller.repeat() : controller.forward();
+      });
+    } else if (!widget.animate) {
+      controller.reverse();
     }
 
     return AnimatedBuilder(
@@ -2004,12 +1940,6 @@ class _SwingState extends State<Swing> with SingleTickerProviderStateMixin {
             parent: controller,
             curve: Interval(0.8333, 1, curve: Curves.easeOut)));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        (widget.infinite) ? controller.repeat() : controller.forward();
-      });
-    }
-
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -2017,8 +1947,12 @@ class _SwingState extends State<Swing> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
-      controller.forward();
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () {
+        (widget.infinite) ? controller.repeat() : controller.forward();
+      });
+    } else if (!widget.animate) {
+      controller.reverse();
     }
 
     return AnimatedBuilder(
@@ -2096,12 +2030,6 @@ class _SpinState extends State<Spin> with SingleTickerProviderStateMixin {
     spin = Tween<double>(begin: 0, end: widget.spins * 2)
         .animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        (widget.infinite) ? controller.repeat() : controller.forward();
-      });
-    }
-
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -2109,8 +2037,12 @@ class _SpinState extends State<Spin> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
-      controller.forward();
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () {
+        (widget.infinite) ? controller.repeat() : controller.forward();
+      });
+    } else if (!widget.animate) {
+      controller.reverse();
     }
 
     return AnimatedBuilder(
@@ -2177,12 +2109,6 @@ class _SpinPerfectState extends State<SpinPerfect>
     spin = Tween<double>(begin: 0, end: widget.spins * 2)
         .animate(CurvedAnimation(parent: controller, curve: Curves.linear));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        (widget.infinite) ? controller.repeat() : controller.forward();
-      });
-    }
-
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -2190,8 +2116,12 @@ class _SpinPerfectState extends State<SpinPerfect>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
-      controller.forward();
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () {
+        (widget.infinite) ? controller.repeat() : controller.forward();
+      });
+    } else if (!widget.animate) {
+      controller.reverse();
     }
 
     return AnimatedBuilder(
@@ -2266,12 +2196,6 @@ class _DanceState extends State<Dance> with SingleTickerProviderStateMixin {
         parent: controller,
         curve: Interval(0.6666, 1, curve: Curves.bounceOut)));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        (widget.infinite) ? controller.repeat() : controller.forward();
-      });
-    }
-
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -2279,8 +2203,12 @@ class _DanceState extends State<Dance> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
-      controller.forward();
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () {
+        (widget.infinite) ? controller.repeat() : controller.forward();
+      });
+    } else if (!widget.animate) {
+      controller.reverse();
     }
 
     return AnimatedBuilder(
@@ -2351,12 +2279,6 @@ class _RouletteState extends State<Roulette>
     spin = Tween<double>(begin: 0, end: widget.spins * 2)
         .animate(CurvedAnimation(parent: controller, curve: Curves.elasticOut));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        (widget.infinite) ? controller.repeat() : controller.forward();
-      });
-    }
-
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -2364,8 +2286,12 @@ class _RouletteState extends State<Roulette>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
-      controller.forward();
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () {
+        (widget.infinite) ? controller.repeat() : controller.forward();
+      });
+    } else if (!widget.animate) {
+      controller.reverse();
     }
 
     return AnimatedBuilder(
@@ -2433,10 +2359,6 @@ class _FadeOutState extends State<FadeOut> with SingleTickerProviderStateMixin {
     animation = Tween(begin: 1.0, end: 0.0)
         .animate(CurvedAnimation(curve: Curves.easeOut, parent: controller));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
-    }
-
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -2444,8 +2366,8 @@ class _FadeOutState extends State<FadeOut> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
-      controller.forward();
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
     }
 
     return AnimatedBuilder(
@@ -2514,10 +2436,6 @@ class _FadeOutDownState extends State<FadeOutDown>
     opacity = Tween<double>(begin: 1.0, end: 0.0)
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
-    }
-
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -2525,8 +2443,8 @@ class _FadeOutDownState extends State<FadeOutDown>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
-      controller.forward();
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
     }
 
     return AnimatedBuilder(
@@ -2634,10 +2552,6 @@ class _FadeOutUpState extends State<FadeOutUp>
     opacity = Tween<double>(begin: 1.0, end: 0.0)
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
-    }
-
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -2645,8 +2559,8 @@ class _FadeOutUpState extends State<FadeOutUp>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
-      controller.forward();
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
     }
 
     return AnimatedBuilder(
@@ -2754,10 +2668,6 @@ class _FadeOutLeftState extends State<FadeOutLeft>
     opacity = Tween<double>(begin: 1.0, end: 0.0)
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
-    }
-
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -2765,8 +2675,8 @@ class _FadeOutLeftState extends State<FadeOutLeft>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
-      controller.forward();
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
     }
 
     return AnimatedBuilder(
@@ -2953,10 +2863,6 @@ class _ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
     fade = Tween(begin: 0.0, end: 1.0)
         .animate(CurvedAnimation(curve: Curves.easeOut, parent: controller));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
-    }
-
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -2964,8 +2870,8 @@ class _ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
-      controller.forward();
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
     }
 
     return AnimatedBuilder(
@@ -3029,10 +2935,6 @@ class _ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
     zoom = Tween(begin: 1.0, end: 0.0)
         .animate(CurvedAnimation(curve: Curves.easeOut, parent: controller));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
-    }
-
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -3040,8 +2942,8 @@ class _ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
-      controller.forward();
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
     }
 
     return AnimatedBuilder(

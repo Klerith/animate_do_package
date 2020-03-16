@@ -1,3 +1,7 @@
+#### [1.6.0] - Infinite animations can be stoped
+* Now Attention Seekers can be stop, if you set the animate property from ```true``` to ```false```
+* You can use setState, Provider, Bloc, Redux to achieve that
+
 #### [1.5.1] - Description updated
 * Description updated
 
