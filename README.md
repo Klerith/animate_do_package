@@ -1,10 +1,23 @@
 # animate_do
 
-An animation package inspired in [Animate.css](https://daneden.github.io/animate.css/), build using only Flutter animations, no extra packages.
+An animation package inspired in [Animate.css](https://daneden.github.io/animate.css/), built using only Flutter animations, no extra packages.
 
 ## Getting Started
 
-This package is very simple to use, all the animations are Widgets that contains a ```duration``` (type Duration), ```delay``` (type Duration) and recieves a ```child``` widget (The widget you want to animate)
+This package is simple to use. Every single animation contains default values that look beautiful, but you can change properties to accomplish your needs.
+
+## Properties in almost every animated widget:
+* child __Widget__: Child Widget to animate
+* duration __Duration__: Animation duration 
+* delay __Duration__: Delay before the animation
+* from __double__: Initial or final destination, if you want a slide or fade more striking
+* animate __boolean__: Change this property from false to true to starts the animation (useful if you use setState, Bloc, Provider, Redux or any other state management system)
+* infinite __boolean__: Attention seekers can be run infinitely with this property
+* spins __double__: The number of spins that you want (some animations have this, ex: Spin, Roulette, PerfectSpin ) 
+* manualTrigger __boolean__: if you're going to trigger the animation manually (required the controller property) 
+* controller __Function__: Function that exposes the controller (for more control of the animation
+
+# Available **Animations**
 
 ## FadeIn Animations
 - FadeIn
@@ -16,6 +29,17 @@ This package is very simple to use, all the animations are Widgets that contains
 - FadeInLeftBig
 - FadeInRight
 - FadeInRightBig
+
+## FadeOut Animations
+- FadeOut
+- FadeOutDown
+- FadeOutDownBig
+- FadeOutUp
+- FadeOutUpBig
+- FadeOutLeft
+- FadeOutLeftBig
+- FadeOutRight
+- FadeOutRightBig
 
 ## BounceIn Animations
 - BounceInDown
@@ -39,6 +63,10 @@ This package is very simple to use, all the animations are Widgets that contains
 ## FlipIn Animations
 - FlipInX
 - FlipInY
+
+## Zooms
+- ZoomIn
+- ZoomOut
 
 ## SpecialIn Animations
 - JelloIn
@@ -64,10 +92,10 @@ home: Scaffold(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
 
-            FadeInLeft(child: Rectangulo() ),
-            FadeInUp(child: Rectangulo() ),
-            FadeInDown(child: Rectangulo() ),
-            FadeInRight(child: Rectangulo() ),
+            FadeInLeft(child: Square() ),
+            FadeInUp(child: Square() ),
+            FadeInDown(child: Square() ),
+            FadeInRight(child: Square() ),
             
         ],
         ),
@@ -77,9 +105,9 @@ home: Scaffold(
 
 ```
 
-### Note: Rectangulo, is just a Square blue container
+### Note: Square, is just a Square blue container
 ```
-class Rectangulo extends StatelessWidget {
+class Square extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -102,8 +130,17 @@ class Rectangulo extends StatelessWidget {
 ## Manual Trigger
 Since version ```1.2.0```, there is a way to get the AnimationController easily, so you can restart it, change the duration, do the animation again.
 
-#### Example 
+#### Example
+
+
 ```
+  class FadeOutDownBig extends StatelessWidget/StatefulWidget {
+  
+  AnimationController animateController;
+  ...
+  ...
+  ...
+
   child: FadeInUp(
     
     // (optional) if true, will not fire the animation on load

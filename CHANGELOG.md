@@ -1,3 +1,25 @@
+#### [1.5.0] - Big step forward
+* Readme updaded
+* New animations
+  * ZoomIn
+  * Zoomout
+  * FadeOut
+  * FadeOutDown
+  * FadeOutDownBig
+  * FadeOutUp
+  * FadeOutUpBig
+  * FadeOutLeft
+  * FadeOutLeftBig
+  * FadeOutRight
+  * FadeOutRightBig
+* New properties added
+  * from
+  * animate
+  * spins
+* Smaller package size
+* Smoother animations
+* More customization
+
 #### [1.2.1] - Readme updated
 * Readme updated
 
