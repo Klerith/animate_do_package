@@ -2824,6 +2824,7 @@ class ZoomIn extends StatefulWidget {
   final Function(AnimationController) controller;
   final bool manualTrigger;
   final bool animate;
+  final double from;
 
   ZoomIn(
       {this.child,
@@ -2831,7 +2832,8 @@ class ZoomIn extends StatefulWidget {
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
-      this.animate = true})
+      this.animate = true,
+      this.from = 1.0})
       : assert(() {
           if (manualTrigger == true && controller == null) {
             throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -2848,6 +2850,7 @@ class ZoomIn extends StatefulWidget {
 class _ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
   AnimationController controller;
   Animation<double> fade;
+  Animation<double> opacity;
 
   @override
   void dispose() {
@@ -2860,8 +2863,11 @@ class _ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
     super.initState();
 
     controller = AnimationController(duration: widget.duration, vsync: this);
-    fade = Tween(begin: 0.0, end: 1.0)
+    fade = Tween(begin: 0.0, end: widget.from)
         .animate(CurvedAnimation(curve: Curves.easeOut, parent: controller));
+
+    opacity = Tween<double>(begin: 0.0, end: 1)
+        .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
     if (widget.controller is Function) {
       widget.controller(controller);
@@ -2880,7 +2886,7 @@ class _ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
           return Transform.scale(
             scale: fade.value,
             child: Opacity(
-              opacity: fade.value,
+              opacity: opacity.value,
               child: widget.child,
             ),
           );
@@ -2896,6 +2902,7 @@ class ZoomOut extends StatefulWidget {
   final Function(AnimationController) controller;
   final bool manualTrigger;
   final bool animate;
+  final double from;
 
   ZoomOut(
       {this.child,
@@ -2903,7 +2910,8 @@ class ZoomOut extends StatefulWidget {
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
-      this.animate = true})
+      this.animate = true,
+      this.from = 0.0})
       : assert(() {
           if (manualTrigger == true && controller == null) {
             throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -2920,6 +2928,7 @@ class ZoomOut extends StatefulWidget {
 class _ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
   AnimationController controller;
   Animation<double> zoom;
+  Animation<double> opacity;
 
   @override
   void dispose() {
@@ -2932,8 +2941,12 @@ class _ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
     super.initState();
 
     controller = AnimationController(duration: widget.duration, vsync: this);
-    zoom = Tween(begin: 1.0, end: 0.0)
+
+    zoom = Tween(begin: 1.0, end: widget.from)
         .animate(CurvedAnimation(curve: Curves.easeOut, parent: controller));
+
+    opacity = Tween<double>(begin: 1.0, end: 0.0)
+        .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
     if (widget.controller is Function) {
       widget.controller(controller);
@@ -2952,7 +2965,7 @@ class _ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
           return Transform.scale(
             scale: zoom.value,
             child: Opacity(
-              opacity: zoom.value,
+              opacity: opacity.value,
               child: widget.child,
             ),
           );
