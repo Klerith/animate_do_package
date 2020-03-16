@@ -1,9 +1,7 @@
 name: animate_do
-description: Simple animations inspired on Animate.css
+description: Beautiful animations inspired on Animate.css
 version: 1.5.0
 homepage: https://fernando-herrera.com
-authors:
-  - Fernando Herrera <fernando.herrera85@gmail.com>
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
