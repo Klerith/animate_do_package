@@ -1,3 +1,6 @@
+#### [1.5.1] - Description updated
+* Description updated
+
 #### [1.5.0] - Big step forward
 * Readme updaded
 * New animations
