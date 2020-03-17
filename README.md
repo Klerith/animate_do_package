@@ -7,15 +7,19 @@ An animation package inspired in [Animate.css](https://daneden.github.io/animate
 This package is simple to use. Every single animation contains default values that look beautiful, but you can change properties to accomplish your needs.
 
 ## Properties in almost every animated widget:
-* child __Widget__: Child Widget to animate
-* duration __Duration__: Animation duration 
-* delay __Duration__: Delay before the animation
-* from __double__: Initial or final destination, if you want a slide or fade more striking
-* animate __boolean__: Change this property from false to true to starts the animation (useful if you use setState, Bloc, Provider, Redux or any other state management system)
-* infinite __boolean__: Attention seekers can be run infinitely with this property
-* spins __double__: The number of spins that you want (some animations have this, ex: Spin, Roulette, PerfectSpin ) 
-* manualTrigger __boolean__: if you're going to trigger the animation manually (required the controller property) 
-* controller __Function__: Function that exposes the controller (for more control of the animation
+
+| Property        | Type           | Description  |
+| ------------- |-------------| -----|
+| child | __Widget__ | Child Widget to animate |
+| duration | __Duration__ | Animation duration  |
+| delay | __Duration__ | Delay before the animation |
+| from | __double__ | Initial or final destination, if you want a slide or fade more striking |
+| animate | __boolean__ | Change this property from false to true to starts the animation (useful if you use setState, Bloc, Provider, Redux or any other state management system) |
+| infinite | __boolean__ | Attention seekers can be run infinitely with this property |
+| spins | __double__ | The number of spins that you want (some animations have this, ex: Spin, Roulette, PerfectSpin )  |
+| manualTrigger | __boolean__ | if you're going to trigger the animation manually (required the controller property)  |
+| controller | __Function__ | Function that exposes the controller (for more control of the animation |
+
 
 # Available **Animations**
 
