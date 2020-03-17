@@ -1,3 +1,6 @@
+#### [1.6.3] - Docs Updated
+* Minor update
+
 #### [1.6.2] - ZoomIn / ZoomOut
 * Added a **from** property
 
