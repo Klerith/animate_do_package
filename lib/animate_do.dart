@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 // ====================================
 // ============= FadeIn
 class FadeIn extends StatefulWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -13,20 +14,20 @@ class FadeIn extends StatefulWidget {
   final bool animate;
 
   FadeIn(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 300),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
       this.animate = true})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   _FadeInState createState() => _FadeInState();
@@ -49,6 +50,10 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
     controller = AnimationController(duration: widget.duration, vsync: this);
     animation = CurvedAnimation(curve: Curves.easeOut, parent: controller);
 
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
+    }
+
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -56,8 +61,8 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+    if (widget.animate) {
+      controller.forward();
     }
 
     return AnimatedBuilder(
@@ -73,6 +78,7 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
 
 // ============= FadeInDown
 class FadeInDown extends StatefulWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -82,21 +88,21 @@ class FadeInDown extends StatefulWidget {
   final double from;
 
   FadeInDown(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
       this.from = 100})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   _FadeInDownState createState() => _FadeInDownState();
@@ -126,6 +132,10 @@ class _FadeInDownState extends State<FadeInDown>
     opacity = Tween<double>(begin: 0, end: 1)
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
+    }
+
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -133,8 +143,8 @@ class _FadeInDownState extends State<FadeInDown>
 
   @override
   Widget build(BuildContext context) {
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+    if (widget.animate) {
+      controller.forward();
     }
 
     return AnimatedBuilder(
@@ -152,6 +162,7 @@ class _FadeInDownState extends State<FadeInDown>
 
 // ============= FadeInDownBig
 class FadeInDownBig extends StatelessWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -161,21 +172,21 @@ class FadeInDownBig extends StatelessWidget {
   final double from;
 
   FadeInDownBig(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 1300),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
       this.from = 600})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   Widget build(BuildContext context) => FadeInDown(
@@ -190,6 +201,7 @@ class FadeInDownBig extends StatelessWidget {
 
 // ============= FadeInUp
 class FadeInUp extends StatefulWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -199,21 +211,21 @@ class FadeInUp extends StatefulWidget {
   final double from;
 
   FadeInUp(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
       this.from = 100})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   _FadeInUpState createState() => _FadeInUpState();
@@ -241,6 +253,10 @@ class _FadeInUpState extends State<FadeInUp>
     opacity = Tween<double>(begin: 0, end: 1)
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
+    }
+
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -248,8 +264,8 @@ class _FadeInUpState extends State<FadeInUp>
 
   @override
   Widget build(BuildContext context) {
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+    if (widget.animate) {
+      controller.forward();
     }
 
     return AnimatedBuilder(
@@ -267,6 +283,7 @@ class _FadeInUpState extends State<FadeInUp>
 
 // ============= FadeInUpBig
 class FadeInUpBig extends StatelessWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -276,21 +293,21 @@ class FadeInUpBig extends StatelessWidget {
   final double from;
 
   FadeInUpBig(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 1300),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
       this.from = 600})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   Widget build(BuildContext context) => FadeInUp(
@@ -306,6 +323,7 @@ class FadeInUpBig extends StatelessWidget {
 
 // ============= FadeInLeft
 class FadeInLeft extends StatefulWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -315,21 +333,21 @@ class FadeInLeft extends StatefulWidget {
   final double from;
 
   FadeInLeft(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
       this.from = 100})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   _FadeInLeftState createState() => _FadeInLeftState();
@@ -357,6 +375,10 @@ class _FadeInLeftState extends State<FadeInLeft>
     opacity = Tween<double>(begin: 0, end: 1)
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
+    }
+
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -364,8 +386,8 @@ class _FadeInLeftState extends State<FadeInLeft>
 
   @override
   Widget build(BuildContext context) {
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+    if (widget.animate) {
+      controller.forward();
     }
 
     return AnimatedBuilder(
@@ -383,6 +405,7 @@ class _FadeInLeftState extends State<FadeInLeft>
 
 // ============= FadeInLeftBig
 class FadeInLeftBig extends StatelessWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -392,21 +415,21 @@ class FadeInLeftBig extends StatelessWidget {
   final double from;
 
   FadeInLeftBig(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 1300),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
       this.from = 600})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   Widget build(BuildContext context) => FadeInLeft(
@@ -422,6 +445,7 @@ class FadeInLeftBig extends StatelessWidget {
 
 // ============= FadeInRight
 class FadeInRight extends StatefulWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -431,21 +455,21 @@ class FadeInRight extends StatefulWidget {
   final double from;
 
   FadeInRight(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
       this.from = 100})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   _FadeInRightState createState() => _FadeInRightState();
@@ -473,6 +497,10 @@ class _FadeInRightState extends State<FadeInRight>
     opacity = Tween<double>(begin: 0, end: 1)
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
+    }
+
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -480,8 +508,8 @@ class _FadeInRightState extends State<FadeInRight>
 
   @override
   Widget build(BuildContext context) {
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+    if (widget.animate) {
+      controller.forward();
     }
 
     return AnimatedBuilder(
@@ -499,6 +527,7 @@ class _FadeInRightState extends State<FadeInRight>
 
 // ============= FadeInRightBig
 class FadeInRightBig extends StatelessWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -508,21 +537,21 @@ class FadeInRightBig extends StatelessWidget {
   final double from;
 
   FadeInRightBig(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 1200),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
       this.from = 600})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   Widget build(BuildContext context) => FadeInRight(
@@ -544,6 +573,7 @@ class FadeInRightBig extends StatelessWidget {
 // ====================================
 // ============= BounceInDown
 class BounceInDown extends StatefulWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -553,21 +583,21 @@ class BounceInDown extends StatefulWidget {
   final double from;
 
   BounceInDown(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
       this.from = 75})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   _BounceInDownState createState() => _BounceInDownState();
@@ -596,6 +626,10 @@ class _BounceInDownState extends State<BounceInDown>
     animation = Tween<double>(begin: widget.from * -1, end: 0)
         .animate(CurvedAnimation(parent: controller, curve: Curves.bounceOut));
 
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
+    }
+
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -603,8 +637,8 @@ class _BounceInDownState extends State<BounceInDown>
 
   @override
   Widget build(BuildContext context) {
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+    if (widget.animate) {
+      controller.forward();
     }
 
     return AnimatedBuilder(
@@ -619,6 +653,7 @@ class _BounceInDownState extends State<BounceInDown>
 
 // ============= BounceInUp
 class BounceInUp extends StatelessWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -628,21 +663,21 @@ class BounceInUp extends StatelessWidget {
   final double from;
 
   BounceInUp(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
       this.from = 75})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   Widget build(BuildContext context) => BounceInDown(
@@ -658,6 +693,7 @@ class BounceInUp extends StatelessWidget {
 
 // ============= BounceInLeft
 class BounceInLeft extends StatefulWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -667,21 +703,21 @@ class BounceInLeft extends StatefulWidget {
   final double from;
 
   BounceInLeft(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
       this.from = 75})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   _BounceInLeftState createState() => _BounceInLeftState();
@@ -709,6 +745,10 @@ class _BounceInLeftState extends State<BounceInLeft>
     animation = Tween<double>(begin: widget.from * -1, end: 0)
         .animate(CurvedAnimation(parent: controller, curve: Curves.bounceOut));
 
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
+    }
+
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -716,8 +756,8 @@ class _BounceInLeftState extends State<BounceInLeft>
 
   @override
   Widget build(BuildContext context) {
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+    if (widget.animate) {
+      controller.forward();
     }
 
     return AnimatedBuilder(
@@ -735,6 +775,7 @@ class _BounceInLeftState extends State<BounceInLeft>
 
 // ============= BounceInRight
 class BounceInRight extends StatelessWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -744,21 +785,21 @@ class BounceInRight extends StatelessWidget {
   final double from;
 
   BounceInRight(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
       this.from = 75})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   Widget build(BuildContext context) => BounceInLeft(
@@ -780,6 +821,7 @@ class BounceInRight extends StatelessWidget {
 // ====================================
 // ============= ElasticIn
 class ElasticIn extends StatefulWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -788,20 +830,20 @@ class ElasticIn extends StatefulWidget {
   final bool animate;
 
   ElasticIn(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
       this.animate = true})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   _ElasticInState createState() => _ElasticInState();
@@ -830,6 +872,10 @@ class _ElasticInState extends State<ElasticIn>
     bouncing = Tween<double>(begin: 0, end: 1)
         .animate(CurvedAnimation(parent: controller, curve: Curves.elasticOut));
 
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
+    }
+
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -837,8 +883,8 @@ class _ElasticInState extends State<ElasticIn>
 
   @override
   Widget build(BuildContext context) {
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+    if (widget.animate) {
+      controller.forward();
     }
 
     return AnimatedBuilder(
@@ -857,6 +903,7 @@ class _ElasticInState extends State<ElasticIn>
 
 // ============= ElasticInDown
 class ElasticInDown extends StatefulWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -867,7 +914,8 @@ class ElasticInDown extends StatefulWidget {
   final double to;
 
   ElasticInDown(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -875,14 +923,13 @@ class ElasticInDown extends StatefulWidget {
       this.animate = true,
       this.from = 200,
       this.to = 100})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   _ElasticInDownState createState() => _ElasticInDownState();
@@ -919,6 +966,10 @@ class _ElasticInDownState extends State<ElasticInDown>
             parent: controller,
             curve: Interval(0.30, 1, curve: Curves.elasticOut)));
 
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
+    }
+
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -926,8 +977,8 @@ class _ElasticInDownState extends State<ElasticInDown>
 
   @override
   Widget build(BuildContext context) {
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+    if (widget.animate) {
+      controller.forward();
     }
 
     return AnimatedBuilder(
@@ -949,6 +1000,7 @@ class _ElasticInDownState extends State<ElasticInDown>
 
 // ============= ElasticInUp
 class ElasticInUp extends StatelessWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -958,21 +1010,21 @@ class ElasticInUp extends StatelessWidget {
   final double from;
 
   ElasticInUp(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
       this.from = 200})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   Widget build(BuildContext context) => ElasticInDown(
@@ -989,6 +1041,7 @@ class ElasticInUp extends StatelessWidget {
 
 // ============= ElasticInLeft
 class ElasticInLeft extends StatefulWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -999,7 +1052,8 @@ class ElasticInLeft extends StatefulWidget {
   final double to;
 
   ElasticInLeft(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -1007,14 +1061,13 @@ class ElasticInLeft extends StatefulWidget {
       this.animate = true,
       this.from = 200,
       this.to = 100})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   _ElasticInLeftState createState() => _ElasticInLeftState();
@@ -1051,6 +1104,10 @@ class _ElasticInLeftState extends State<ElasticInLeft>
             parent: controller,
             curve: Interval(0.30, 1, curve: Curves.elasticOut)));
 
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
+    }
+
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -1058,8 +1115,8 @@ class _ElasticInLeftState extends State<ElasticInLeft>
 
   @override
   Widget build(BuildContext context) {
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+    if (widget.animate) {
+      controller.forward();
     }
 
     return AnimatedBuilder(
@@ -1081,6 +1138,7 @@ class _ElasticInLeftState extends State<ElasticInLeft>
 
 // ============= ElasticInRight
 class ElasticInRight extends StatelessWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -1090,21 +1148,21 @@ class ElasticInRight extends StatelessWidget {
   final double from;
 
   ElasticInRight(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
       this.from = 200})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   Widget build(BuildContext context) => ElasticInLeft(
@@ -1127,6 +1185,7 @@ class ElasticInRight extends StatelessWidget {
 
 // ============= FlipInX
 class FlipInX extends StatefulWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -1135,20 +1194,20 @@ class FlipInX extends StatefulWidget {
   final bool animate;
 
   FlipInX(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
       this.animate = true})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   _FlipInXState createState() => _FlipInXState();
@@ -1177,6 +1236,10 @@ class _FlipInXState extends State<FlipInX> with SingleTickerProviderStateMixin {
     opacity = Tween<double>(begin: 0, end: 1)
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
+    }
+
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -1184,8 +1247,8 @@ class _FlipInXState extends State<FlipInX> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+    if (widget.animate) {
+      controller.forward();
     }
 
     return AnimatedBuilder(
@@ -1204,6 +1267,7 @@ class _FlipInXState extends State<FlipInX> with SingleTickerProviderStateMixin {
 
 // ============= FlipInY
 class FlipInY extends StatefulWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -1212,20 +1276,20 @@ class FlipInY extends StatefulWidget {
   final bool animate;
 
   FlipInY(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
       this.animate = true})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   _FlipInYState createState() => _FlipInYState();
@@ -1254,6 +1318,10 @@ class _FlipInYState extends State<FlipInY> with SingleTickerProviderStateMixin {
     opacity = Tween<double>(begin: 0, end: 1)
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
+    }
+
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -1261,8 +1329,8 @@ class _FlipInYState extends State<FlipInY> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+    if (widget.animate) {
+      controller.forward();
     }
 
     return AnimatedBuilder(
@@ -1288,6 +1356,7 @@ class _FlipInYState extends State<FlipInY> with SingleTickerProviderStateMixin {
 // ====================================
 // ============= SlideInUp
 class SlideInUp extends StatefulWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -1297,21 +1366,21 @@ class SlideInUp extends StatefulWidget {
   final double from;
 
   SlideInUp(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 600),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
       this.from = 100})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   _SlideInUpState createState() => _SlideInUpState();
@@ -1337,6 +1406,10 @@ class _SlideInUpState extends State<SlideInUp>
     animation = Tween<double>(begin: widget.from, end: 0)
         .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
 
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
+    }
+
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -1344,8 +1417,8 @@ class _SlideInUpState extends State<SlideInUp>
 
   @override
   Widget build(BuildContext context) {
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+    if (widget.animate) {
+      controller.forward();
     }
 
     return AnimatedBuilder(
@@ -1359,6 +1432,7 @@ class _SlideInUpState extends State<SlideInUp>
 
 // ============= SlideInDown
 class SlideInDown extends StatelessWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -1368,21 +1442,21 @@ class SlideInDown extends StatelessWidget {
   final double from;
 
   SlideInDown(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 600),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
       this.from = 100})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   Widget build(BuildContext context) => SlideInUp(
@@ -1398,6 +1472,7 @@ class SlideInDown extends StatelessWidget {
 
 // ============= SlideInLeft
 class SlideInLeft extends StatefulWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -1407,21 +1482,21 @@ class SlideInLeft extends StatefulWidget {
   final double from;
 
   SlideInLeft(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 600),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
       this.from = 100})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   _SlideInLeftState createState() => _SlideInLeftState();
@@ -1447,6 +1522,10 @@ class _SlideInLeftState extends State<SlideInLeft>
     animation = Tween<double>(begin: widget.from * -1, end: 0)
         .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
 
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
+    }
+
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -1454,8 +1533,8 @@ class _SlideInLeftState extends State<SlideInLeft>
 
   @override
   Widget build(BuildContext context) {
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+    if (widget.animate) {
+      controller.forward();
     }
 
     return AnimatedBuilder(
@@ -1469,6 +1548,7 @@ class _SlideInLeftState extends State<SlideInLeft>
 
 // ============= SlideInRight
 class SlideInRight extends StatelessWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -1478,21 +1558,21 @@ class SlideInRight extends StatelessWidget {
   final double from;
 
   SlideInRight(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 600),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
       this.from = 100})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   Widget build(BuildContext context) => SlideInLeft(
@@ -1515,6 +1595,7 @@ class SlideInRight extends StatelessWidget {
 
 // ============= JelloIn
 class JelloIn extends StatefulWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -1523,20 +1604,20 @@ class JelloIn extends StatefulWidget {
   final bool animate;
 
   JelloIn(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
       this.animate = true})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   _JelloInState createState() => _JelloInState();
@@ -1565,6 +1646,10 @@ class _JelloInState extends State<JelloIn> with SingleTickerProviderStateMixin {
     opacity = Tween<double>(begin: 0, end: 1)
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
+    }
+
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -1572,8 +1657,8 @@ class _JelloInState extends State<JelloIn> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+    if (widget.animate) {
+      controller.forward();
     }
 
     return AnimatedBuilder(
@@ -1600,6 +1685,7 @@ class _JelloInState extends State<JelloIn> with SingleTickerProviderStateMixin {
 // ====================================
 // ============= Bounce
 class Bounce extends StatefulWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -1610,7 +1696,8 @@ class Bounce extends StatefulWidget {
   final double from;
 
   Bounce(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 1300),
       this.delay = const Duration(milliseconds: 0),
       this.infinite = false,
@@ -1618,14 +1705,13 @@ class Bounce extends StatefulWidget {
       this.manualTrigger = false,
       this.animate = true,
       this.from = 50})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   _BounceState createState() => _BounceState();
@@ -1658,6 +1744,12 @@ class _BounceState extends State<Bounce> with SingleTickerProviderStateMixin {
             curve: Interval(0.35, 1, curve: Curves.bounceOut),
             parent: controller));
 
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () {
+        (widget.infinite) ? controller.repeat() : controller.forward();
+      });
+    }
+
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -1665,14 +1757,8 @@ class _BounceState extends State<Bounce> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        (widget.infinite) ? controller.repeat() : controller.forward();
-      });
-    } else if (!widget.animate) {
-      controller.reverse();
-    } else if (!widget.animate) {
-      controller.reverse();
+    if (widget.animate) {
+      controller.forward();
     }
 
     return AnimatedBuilder(
@@ -1691,6 +1777,7 @@ class _BounceState extends State<Bounce> with SingleTickerProviderStateMixin {
 
 // ============= Flash
 class Flash extends StatefulWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -1700,21 +1787,21 @@ class Flash extends StatefulWidget {
   final bool animate;
 
   Flash(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.infinite = false,
       this.controller,
       this.manualTrigger = false,
       this.animate = true})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   _FlashState createState() => _FlashState();
@@ -1747,6 +1834,12 @@ class _FlashState extends State<Flash> with SingleTickerProviderStateMixin {
     opacityIn2 = Tween<double>(begin: 0, end: 1)
         .animate(CurvedAnimation(parent: controller, curve: Interval(0.75, 1)));
 
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () {
+        (widget.infinite) ? controller.repeat() : controller.forward();
+      });
+    }
+
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -1754,12 +1847,8 @@ class _FlashState extends State<Flash> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        (widget.infinite) ? controller.repeat() : controller.forward();
-      });
-    } else if (!widget.animate) {
-      controller.reverse();
+    if (widget.animate) {
+      controller.forward();
     }
 
     return AnimatedBuilder(
@@ -1780,6 +1869,7 @@ class _FlashState extends State<Flash> with SingleTickerProviderStateMixin {
 
 // ============= Pulse
 class Pulse extends StatefulWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -1789,21 +1879,21 @@ class Pulse extends StatefulWidget {
   final bool animate;
 
   Pulse(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.infinite = false,
       this.controller,
       this.manualTrigger = false,
       this.animate = true})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   _PulseState createState() => _PulseState();
@@ -1831,6 +1921,12 @@ class _PulseState extends State<Pulse> with SingleTickerProviderStateMixin {
     animationDec = Tween<double>(begin: 1.5, end: 1).animate(CurvedAnimation(
         parent: controller, curve: Interval(0.5, 1, curve: Curves.easeIn)));
 
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () {
+        (widget.infinite) ? controller.repeat() : controller.forward();
+      });
+    }
+
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -1838,12 +1934,8 @@ class _PulseState extends State<Pulse> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        (widget.infinite) ? controller.repeat() : controller.forward();
-      });
-    } else if (!widget.animate) {
-      controller.reverse();
+    if (widget.animate) {
+      controller.forward();
     }
 
     return AnimatedBuilder(
@@ -1861,6 +1953,7 @@ class _PulseState extends State<Pulse> with SingleTickerProviderStateMixin {
 
 // ============= Swing
 class Swing extends StatefulWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -1870,21 +1963,21 @@ class Swing extends StatefulWidget {
   final bool animate;
 
   Swing(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.infinite = false,
       this.controller,
       this.manualTrigger = false,
       this.animate = true})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   _SwingState createState() => _SwingState();
@@ -1940,6 +2033,12 @@ class _SwingState extends State<Swing> with SingleTickerProviderStateMixin {
             parent: controller,
             curve: Interval(0.8333, 1, curve: Curves.easeOut)));
 
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () {
+        (widget.infinite) ? controller.repeat() : controller.forward();
+      });
+    }
+
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -1947,12 +2046,8 @@ class _SwingState extends State<Swing> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        (widget.infinite) ? controller.repeat() : controller.forward();
-      });
-    } else if (!widget.animate) {
-      controller.reverse();
+    if (widget.animate) {
+      controller.forward();
     }
 
     return AnimatedBuilder(
@@ -1980,6 +2075,7 @@ class _SwingState extends State<Swing> with SingleTickerProviderStateMixin {
 
 // ============= Spin
 class Spin extends StatefulWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -1990,7 +2086,8 @@ class Spin extends StatefulWidget {
   final double spins;
 
   Spin(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.infinite = false,
@@ -1998,14 +2095,13 @@ class Spin extends StatefulWidget {
       this.manualTrigger = false,
       this.animate = true,
       this.spins = 1})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   _SpinState createState() => _SpinState();
@@ -2030,6 +2126,12 @@ class _SpinState extends State<Spin> with SingleTickerProviderStateMixin {
     spin = Tween<double>(begin: 0, end: widget.spins * 2)
         .animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut));
 
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () {
+        (widget.infinite) ? controller.repeat() : controller.forward();
+      });
+    }
+
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -2037,12 +2139,8 @@ class _SpinState extends State<Spin> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        (widget.infinite) ? controller.repeat() : controller.forward();
-      });
-    } else if (!widget.animate) {
-      controller.reverse();
+    if (widget.animate) {
+      controller.forward();
     }
 
     return AnimatedBuilder(
@@ -2058,6 +2156,7 @@ class _SpinState extends State<Spin> with SingleTickerProviderStateMixin {
 
 // ============= SpinPerfect
 class SpinPerfect extends StatefulWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -2068,7 +2167,8 @@ class SpinPerfect extends StatefulWidget {
   final double spins;
 
   SpinPerfect(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.infinite = false,
@@ -2076,14 +2176,13 @@ class SpinPerfect extends StatefulWidget {
       this.manualTrigger = false,
       this.animate = true,
       this.spins = 1})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   _SpinPerfectState createState() => _SpinPerfectState();
@@ -2109,6 +2208,12 @@ class _SpinPerfectState extends State<SpinPerfect>
     spin = Tween<double>(begin: 0, end: widget.spins * 2)
         .animate(CurvedAnimation(parent: controller, curve: Curves.linear));
 
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () {
+        (widget.infinite) ? controller.repeat() : controller.forward();
+      });
+    }
+
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -2116,12 +2221,8 @@ class _SpinPerfectState extends State<SpinPerfect>
 
   @override
   Widget build(BuildContext context) {
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        (widget.infinite) ? controller.repeat() : controller.forward();
-      });
-    } else if (!widget.animate) {
-      controller.reverse();
+    if (widget.animate) {
+      controller.forward();
     }
 
     return AnimatedBuilder(
@@ -2137,6 +2238,7 @@ class _SpinPerfectState extends State<SpinPerfect>
 
 // ============= Dance
 class Dance extends StatefulWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -2146,21 +2248,21 @@ class Dance extends StatefulWidget {
   final bool animate;
 
   Dance(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.infinite = false,
       this.controller,
       this.manualTrigger = false,
       this.animate = true})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   _DanceState createState() => _DanceState();
@@ -2196,6 +2298,12 @@ class _DanceState extends State<Dance> with SingleTickerProviderStateMixin {
         parent: controller,
         curve: Interval(0.6666, 1, curve: Curves.bounceOut)));
 
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () {
+        (widget.infinite) ? controller.repeat() : controller.forward();
+      });
+    }
+
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -2203,12 +2311,8 @@ class _DanceState extends State<Dance> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        (widget.infinite) ? controller.repeat() : controller.forward();
-      });
-    } else if (!widget.animate) {
-      controller.reverse();
+    if (widget.animate) {
+      controller.forward();
     }
 
     return AnimatedBuilder(
@@ -2228,6 +2332,7 @@ class _DanceState extends State<Dance> with SingleTickerProviderStateMixin {
 
 // ============= Roulette
 class Roulette extends StatefulWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -2238,7 +2343,8 @@ class Roulette extends StatefulWidget {
   final double spins;
 
   Roulette(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 3500),
       this.delay = const Duration(milliseconds: 0),
       this.infinite = false,
@@ -2246,14 +2352,13 @@ class Roulette extends StatefulWidget {
       this.manualTrigger = false,
       this.animate = true,
       this.spins = 2})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   _RouletteState createState() => _RouletteState();
@@ -2279,6 +2384,12 @@ class _RouletteState extends State<Roulette>
     spin = Tween<double>(begin: 0, end: widget.spins * 2)
         .animate(CurvedAnimation(parent: controller, curve: Curves.elasticOut));
 
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () {
+        (widget.infinite) ? controller.repeat() : controller.forward();
+      });
+    }
+
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -2286,12 +2397,8 @@ class _RouletteState extends State<Roulette>
 
   @override
   Widget build(BuildContext context) {
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        (widget.infinite) ? controller.repeat() : controller.forward();
-      });
-    } else if (!widget.animate) {
-      controller.reverse();
+    if (widget.animate) {
+      controller.forward();
     }
 
     return AnimatedBuilder(
@@ -2314,6 +2421,7 @@ class _RouletteState extends State<Roulette>
 // ====================================
 // ============= FadeOut
 class FadeOut extends StatefulWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -2322,20 +2430,20 @@ class FadeOut extends StatefulWidget {
   final bool animate;
 
   FadeOut(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 300),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
       this.animate = false})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   _FadeOutState createState() => _FadeOutState();
@@ -2359,6 +2467,10 @@ class _FadeOutState extends State<FadeOut> with SingleTickerProviderStateMixin {
     animation = Tween(begin: 1.0, end: 0.0)
         .animate(CurvedAnimation(curve: Curves.easeOut, parent: controller));
 
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
+    }
+
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -2366,8 +2478,8 @@ class _FadeOutState extends State<FadeOut> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+    if (widget.animate) {
+      controller.forward();
     }
 
     return AnimatedBuilder(
@@ -2383,6 +2495,7 @@ class _FadeOutState extends State<FadeOut> with SingleTickerProviderStateMixin {
 
 // ============= FadeOutDown
 class FadeOutDown extends StatefulWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -2392,21 +2505,21 @@ class FadeOutDown extends StatefulWidget {
   final double from;
 
   FadeOutDown(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
       this.animate = false,
       this.from = 100})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   _FadeOutDownState createState() => _FadeOutDownState();
@@ -2436,6 +2549,10 @@ class _FadeOutDownState extends State<FadeOutDown>
     opacity = Tween<double>(begin: 1.0, end: 0.0)
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
+    }
+
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -2443,8 +2560,8 @@ class _FadeOutDownState extends State<FadeOutDown>
 
   @override
   Widget build(BuildContext context) {
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+    if (widget.animate) {
+      controller.forward();
     }
 
     return AnimatedBuilder(
@@ -2462,6 +2579,7 @@ class _FadeOutDownState extends State<FadeOutDown>
 
 // ============= FadeOutDownBig
 class FadeOutDownBig extends StatelessWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -2471,21 +2589,21 @@ class FadeOutDownBig extends StatelessWidget {
   final double from;
 
   FadeOutDownBig(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 1300),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
       this.animate = false,
       this.from = 600})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   Widget build(BuildContext context) => FadeOutDown(
@@ -2501,6 +2619,7 @@ class FadeOutDownBig extends StatelessWidget {
 
 // ============= FadeOutUp
 class FadeOutUp extends StatefulWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -2510,21 +2629,21 @@ class FadeOutUp extends StatefulWidget {
   final double from;
 
   FadeOutUp(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
       this.animate = false,
       this.from = 100})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   _FadeOutUpState createState() => _FadeOutUpState();
@@ -2552,6 +2671,10 @@ class _FadeOutUpState extends State<FadeOutUp>
     opacity = Tween<double>(begin: 1.0, end: 0.0)
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
+    }
+
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -2559,8 +2682,8 @@ class _FadeOutUpState extends State<FadeOutUp>
 
   @override
   Widget build(BuildContext context) {
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+    if (widget.animate) {
+      controller.forward();
     }
 
     return AnimatedBuilder(
@@ -2578,6 +2701,7 @@ class _FadeOutUpState extends State<FadeOutUp>
 
 // ============= FadeOutUpBig
 class FadeOutUpBig extends StatelessWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -2587,21 +2711,21 @@ class FadeOutUpBig extends StatelessWidget {
   final double from;
 
   FadeOutUpBig(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 1300),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
       this.animate = false,
       this.from = 600})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   Widget build(BuildContext context) => FadeOutUp(
@@ -2617,6 +2741,7 @@ class FadeOutUpBig extends StatelessWidget {
 
 // ============= FadeOutLeft
 class FadeOutLeft extends StatefulWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -2626,21 +2751,21 @@ class FadeOutLeft extends StatefulWidget {
   final double from;
 
   FadeOutLeft(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
       this.animate = false,
       this.from = 100})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   _FadeOutLeftState createState() => _FadeOutLeftState();
@@ -2668,6 +2793,10 @@ class _FadeOutLeftState extends State<FadeOutLeft>
     opacity = Tween<double>(begin: 1.0, end: 0.0)
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
+    }
+
     if (widget.controller is Function) {
       widget.controller(controller);
     }
@@ -2675,8 +2804,8 @@ class _FadeOutLeftState extends State<FadeOutLeft>
 
   @override
   Widget build(BuildContext context) {
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+    if (widget.animate) {
+      controller.forward();
     }
 
     return AnimatedBuilder(
@@ -2694,6 +2823,7 @@ class _FadeOutLeftState extends State<FadeOutLeft>
 
 // ============= FadeOutLeftBig
 class FadeOutLeftBig extends StatelessWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -2703,21 +2833,21 @@ class FadeOutLeftBig extends StatelessWidget {
   final double from;
 
   FadeOutLeftBig(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 1300),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
       this.animate = false,
       this.from = 600})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   Widget build(BuildContext context) => FadeOutLeft(
@@ -2733,6 +2863,7 @@ class FadeOutLeftBig extends StatelessWidget {
 
 // ============= FadeOutRight
 class FadeOutRight extends StatelessWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -2742,21 +2873,21 @@ class FadeOutRight extends StatelessWidget {
   final double from;
 
   FadeOutRight(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
       this.animate = false,
       this.from = 100})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   Widget build(BuildContext context) => FadeOutLeft(
@@ -2772,6 +2903,7 @@ class FadeOutRight extends StatelessWidget {
 
 // ============= FadeOutRightBig
 class FadeOutRightBig extends StatelessWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -2781,21 +2913,21 @@ class FadeOutRightBig extends StatelessWidget {
   final double from;
 
   FadeOutRightBig(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 1200),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
       this.animate = false,
       this.from = 600})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   Widget build(BuildContext context) => FadeOutLeft(
@@ -2818,30 +2950,29 @@ class FadeOutRightBig extends StatelessWidget {
 // ====================================
 // ============= ZoomIn
 class ZoomIn extends StatefulWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
   final Function(AnimationController) controller;
   final bool manualTrigger;
   final bool animate;
-  final double from;
 
   ZoomIn(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 500),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
-      this.animate = true,
-      this.from = 1.0})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      this.animate = true})
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   _ZoomInState createState() => _ZoomInState();
@@ -2850,7 +2981,6 @@ class ZoomIn extends StatefulWidget {
 class _ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
   AnimationController controller;
   Animation<double> fade;
-  Animation<double> opacity;
 
   @override
   void dispose() {
@@ -2863,11 +2993,12 @@ class _ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
     super.initState();
 
     controller = AnimationController(duration: widget.duration, vsync: this);
-    fade = Tween(begin: 0.0, end: widget.from)
+    fade = Tween(begin: 0.0, end: 1.0)
         .animate(CurvedAnimation(curve: Curves.easeOut, parent: controller));
 
-    opacity = Tween<double>(begin: 0.0, end: 1)
-        .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
+    }
 
     if (widget.controller is Function) {
       widget.controller(controller);
@@ -2876,8 +3007,8 @@ class _ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+    if (widget.animate) {
+      controller.forward();
     }
 
     return AnimatedBuilder(
@@ -2886,7 +3017,7 @@ class _ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
           return Transform.scale(
             scale: fade.value,
             child: Opacity(
-              opacity: opacity.value,
+              opacity: fade.value,
               child: widget.child,
             ),
           );
@@ -2896,30 +3027,29 @@ class _ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
 
 // ============= ZoomOut
 class ZoomOut extends StatefulWidget {
+  final Key key;
   final Widget child;
   final Duration duration;
   final Duration delay;
   final Function(AnimationController) controller;
   final bool manualTrigger;
   final bool animate;
-  final double from;
 
   ZoomOut(
-      {this.child,
+      {this.key,
+      this.child,
       this.duration = const Duration(milliseconds: 500),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
-      this.animate = true,
-      this.from = 0.0})
-      : assert(() {
-          if (manualTrigger == true && controller == null) {
-            throw FlutterError('If you want to use manualTrigger:true, \n\n'
-                'Then you must provide the controller property, that is a callback like:\n\n'
-                ' ( controller: AnimationController) => yourController = controller \n\n');
-          }
-          return true;
-        }());
+      this.animate = true})
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
 
   @override
   _ZoomOutState createState() => _ZoomOutState();
@@ -2928,7 +3058,6 @@ class ZoomOut extends StatefulWidget {
 class _ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
   AnimationController controller;
   Animation<double> zoom;
-  Animation<double> opacity;
 
   @override
   void dispose() {
@@ -2941,12 +3070,12 @@ class _ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
     super.initState();
 
     controller = AnimationController(duration: widget.duration, vsync: this);
-
-    zoom = Tween(begin: 1.0, end: widget.from)
+    zoom = Tween(begin: 1.0, end: 0.0)
         .animate(CurvedAnimation(curve: Curves.easeOut, parent: controller));
 
-    opacity = Tween<double>(begin: 1.0, end: 0.0)
-        .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () => controller.forward());
+    }
 
     if (widget.controller is Function) {
       widget.controller(controller);
@@ -2955,8 +3084,8 @@ class _ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+    if (widget.animate) {
+      controller.forward();
     }
 
     return AnimatedBuilder(
@@ -2965,7 +3094,7 @@ class _ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
           return Transform.scale(
             scale: zoom.value,
             child: Opacity(
-              opacity: opacity.value,
+              opacity: zoom.value,
               child: widget.child,
             ),
           );

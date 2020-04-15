@@ -10,6 +10,7 @@ This package is simple to use. Every single animation contains default values th
 
 | Property        | Type           | Description  |
 | ------------- |-------------| -----|
+| key | __Key__ | (optional) Widget key |
 | child | __Widget__ | Child Widget to animate |
 | duration | __Duration__ | Animation duration  |
 | delay | __Duration__ | Delay before the animation |

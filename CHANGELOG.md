@@ -1,3 +1,6 @@
+#### [1.7.0] - Key added
+* Key property added in every widget, now you can access the widget via Key and the AnimationController
+
 #### [1.6.3] - Docs Updated
 * Minor update
 
