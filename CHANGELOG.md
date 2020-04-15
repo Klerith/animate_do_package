@@ -1,3 +1,7 @@
+#### [1.7.1] - controller.forward fix
+* Bug fixed:
+When you were calling the animation with delay, and you dispose the widget before the animation takes place, was throwing an error because the controller was destroyed, this version fixes that.
+
 #### [1.7.0] - Key added
 * Key property added in every widget, now you can access the widget via Key and the AnimationController
 

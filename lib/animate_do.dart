@@ -51,7 +51,7 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
     animation = CurvedAnimation(curve: Curves.easeOut, parent: controller);
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+      Future.delayed(widget.delay, () => controller?.forward());
     }
 
     if (widget.controller is Function) {
@@ -62,7 +62,7 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     if (widget.animate) {
-      controller.forward();
+      controller?.forward();
     }
 
     return AnimatedBuilder(
@@ -133,7 +133,7 @@ class _FadeInDownState extends State<FadeInDown>
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+      Future.delayed(widget.delay, () => controller?.forward());
     }
 
     if (widget.controller is Function) {
@@ -144,7 +144,7 @@ class _FadeInDownState extends State<FadeInDown>
   @override
   Widget build(BuildContext context) {
     if (widget.animate) {
-      controller.forward();
+      controller?.forward();
     }
 
     return AnimatedBuilder(
@@ -254,7 +254,7 @@ class _FadeInUpState extends State<FadeInUp>
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+      Future.delayed(widget.delay, () => controller?.forward());
     }
 
     if (widget.controller is Function) {
@@ -265,7 +265,7 @@ class _FadeInUpState extends State<FadeInUp>
   @override
   Widget build(BuildContext context) {
     if (widget.animate) {
-      controller.forward();
+      controller?.forward();
     }
 
     return AnimatedBuilder(
@@ -376,7 +376,7 @@ class _FadeInLeftState extends State<FadeInLeft>
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+      Future.delayed(widget.delay, () => controller?.forward());
     }
 
     if (widget.controller is Function) {
@@ -387,7 +387,7 @@ class _FadeInLeftState extends State<FadeInLeft>
   @override
   Widget build(BuildContext context) {
     if (widget.animate) {
-      controller.forward();
+      controller?.forward();
     }
 
     return AnimatedBuilder(
@@ -498,7 +498,7 @@ class _FadeInRightState extends State<FadeInRight>
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+      Future.delayed(widget.delay, () => controller?.forward());
     }
 
     if (widget.controller is Function) {
@@ -509,7 +509,7 @@ class _FadeInRightState extends State<FadeInRight>
   @override
   Widget build(BuildContext context) {
     if (widget.animate) {
-      controller.forward();
+      controller?.forward();
     }
 
     return AnimatedBuilder(
@@ -627,7 +627,7 @@ class _BounceInDownState extends State<BounceInDown>
         .animate(CurvedAnimation(parent: controller, curve: Curves.bounceOut));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+      Future.delayed(widget.delay, () => controller?.forward());
     }
 
     if (widget.controller is Function) {
@@ -638,7 +638,7 @@ class _BounceInDownState extends State<BounceInDown>
   @override
   Widget build(BuildContext context) {
     if (widget.animate) {
-      controller.forward();
+      controller?.forward();
     }
 
     return AnimatedBuilder(
@@ -746,7 +746,7 @@ class _BounceInLeftState extends State<BounceInLeft>
         .animate(CurvedAnimation(parent: controller, curve: Curves.bounceOut));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+      Future.delayed(widget.delay, () => controller?.forward());
     }
 
     if (widget.controller is Function) {
@@ -757,7 +757,7 @@ class _BounceInLeftState extends State<BounceInLeft>
   @override
   Widget build(BuildContext context) {
     if (widget.animate) {
-      controller.forward();
+      controller?.forward();
     }
 
     return AnimatedBuilder(
@@ -873,7 +873,7 @@ class _ElasticInState extends State<ElasticIn>
         .animate(CurvedAnimation(parent: controller, curve: Curves.elasticOut));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+      Future.delayed(widget.delay, () => controller?.forward());
     }
 
     if (widget.controller is Function) {
@@ -884,7 +884,7 @@ class _ElasticInState extends State<ElasticIn>
   @override
   Widget build(BuildContext context) {
     if (widget.animate) {
-      controller.forward();
+      controller?.forward();
     }
 
     return AnimatedBuilder(
@@ -967,7 +967,7 @@ class _ElasticInDownState extends State<ElasticInDown>
             curve: Interval(0.30, 1, curve: Curves.elasticOut)));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+      Future.delayed(widget.delay, () => controller?.forward());
     }
 
     if (widget.controller is Function) {
@@ -978,7 +978,7 @@ class _ElasticInDownState extends State<ElasticInDown>
   @override
   Widget build(BuildContext context) {
     if (widget.animate) {
-      controller.forward();
+      controller?.forward();
     }
 
     return AnimatedBuilder(
@@ -1105,7 +1105,7 @@ class _ElasticInLeftState extends State<ElasticInLeft>
             curve: Interval(0.30, 1, curve: Curves.elasticOut)));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+      Future.delayed(widget.delay, () => controller?.forward());
     }
 
     if (widget.controller is Function) {
@@ -1116,7 +1116,7 @@ class _ElasticInLeftState extends State<ElasticInLeft>
   @override
   Widget build(BuildContext context) {
     if (widget.animate) {
-      controller.forward();
+      controller?.forward();
     }
 
     return AnimatedBuilder(
@@ -1237,7 +1237,7 @@ class _FlipInXState extends State<FlipInX> with SingleTickerProviderStateMixin {
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+      Future.delayed(widget.delay, () => controller?.forward());
     }
 
     if (widget.controller is Function) {
@@ -1248,7 +1248,7 @@ class _FlipInXState extends State<FlipInX> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     if (widget.animate) {
-      controller.forward();
+      controller?.forward();
     }
 
     return AnimatedBuilder(
@@ -1319,7 +1319,7 @@ class _FlipInYState extends State<FlipInY> with SingleTickerProviderStateMixin {
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+      Future.delayed(widget.delay, () => controller?.forward());
     }
 
     if (widget.controller is Function) {
@@ -1330,7 +1330,7 @@ class _FlipInYState extends State<FlipInY> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     if (widget.animate) {
-      controller.forward();
+      controller?.forward();
     }
 
     return AnimatedBuilder(
@@ -1407,7 +1407,7 @@ class _SlideInUpState extends State<SlideInUp>
         .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+      Future.delayed(widget.delay, () => controller?.forward());
     }
 
     if (widget.controller is Function) {
@@ -1418,7 +1418,7 @@ class _SlideInUpState extends State<SlideInUp>
   @override
   Widget build(BuildContext context) {
     if (widget.animate) {
-      controller.forward();
+      controller?.forward();
     }
 
     return AnimatedBuilder(
@@ -1523,7 +1523,7 @@ class _SlideInLeftState extends State<SlideInLeft>
         .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+      Future.delayed(widget.delay, () => controller?.forward());
     }
 
     if (widget.controller is Function) {
@@ -1534,7 +1534,7 @@ class _SlideInLeftState extends State<SlideInLeft>
   @override
   Widget build(BuildContext context) {
     if (widget.animate) {
-      controller.forward();
+      controller?.forward();
     }
 
     return AnimatedBuilder(
@@ -1647,7 +1647,7 @@ class _JelloInState extends State<JelloIn> with SingleTickerProviderStateMixin {
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+      Future.delayed(widget.delay, () => controller?.forward());
     }
 
     if (widget.controller is Function) {
@@ -1658,7 +1658,7 @@ class _JelloInState extends State<JelloIn> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     if (widget.animate) {
-      controller.forward();
+      controller?.forward();
     }
 
     return AnimatedBuilder(
@@ -1746,7 +1746,7 @@ class _BounceState extends State<Bounce> with SingleTickerProviderStateMixin {
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        (widget.infinite) ? controller.repeat() : controller.forward();
+        (widget.infinite) ? controller.repeat() : controller?.forward();
       });
     }
 
@@ -1758,7 +1758,7 @@ class _BounceState extends State<Bounce> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     if (widget.animate) {
-      controller.forward();
+      controller?.forward();
     }
 
     return AnimatedBuilder(
@@ -1836,7 +1836,7 @@ class _FlashState extends State<Flash> with SingleTickerProviderStateMixin {
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        (widget.infinite) ? controller.repeat() : controller.forward();
+        (widget.infinite) ? controller.repeat() : controller?.forward();
       });
     }
 
@@ -1848,7 +1848,7 @@ class _FlashState extends State<Flash> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     if (widget.animate) {
-      controller.forward();
+      controller?.forward();
     }
 
     return AnimatedBuilder(
@@ -1923,7 +1923,7 @@ class _PulseState extends State<Pulse> with SingleTickerProviderStateMixin {
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        (widget.infinite) ? controller.repeat() : controller.forward();
+        (widget.infinite) ? controller.repeat() : controller?.forward();
       });
     }
 
@@ -1935,7 +1935,7 @@ class _PulseState extends State<Pulse> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     if (widget.animate) {
-      controller.forward();
+      controller?.forward();
     }
 
     return AnimatedBuilder(
@@ -2035,7 +2035,7 @@ class _SwingState extends State<Swing> with SingleTickerProviderStateMixin {
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        (widget.infinite) ? controller.repeat() : controller.forward();
+        (widget.infinite) ? controller.repeat() : controller?.forward();
       });
     }
 
@@ -2047,7 +2047,7 @@ class _SwingState extends State<Swing> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     if (widget.animate) {
-      controller.forward();
+      controller?.forward();
     }
 
     return AnimatedBuilder(
@@ -2128,7 +2128,7 @@ class _SpinState extends State<Spin> with SingleTickerProviderStateMixin {
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        (widget.infinite) ? controller.repeat() : controller.forward();
+        (widget.infinite) ? controller.repeat() : controller?.forward();
       });
     }
 
@@ -2140,7 +2140,7 @@ class _SpinState extends State<Spin> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     if (widget.animate) {
-      controller.forward();
+      controller?.forward();
     }
 
     return AnimatedBuilder(
@@ -2210,7 +2210,7 @@ class _SpinPerfectState extends State<SpinPerfect>
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        (widget.infinite) ? controller.repeat() : controller.forward();
+        (widget.infinite) ? controller.repeat() : controller?.forward();
       });
     }
 
@@ -2222,7 +2222,7 @@ class _SpinPerfectState extends State<SpinPerfect>
   @override
   Widget build(BuildContext context) {
     if (widget.animate) {
-      controller.forward();
+      controller?.forward();
     }
 
     return AnimatedBuilder(
@@ -2300,7 +2300,7 @@ class _DanceState extends State<Dance> with SingleTickerProviderStateMixin {
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        (widget.infinite) ? controller.repeat() : controller.forward();
+        (widget.infinite) ? controller.repeat() : controller?.forward();
       });
     }
 
@@ -2312,7 +2312,7 @@ class _DanceState extends State<Dance> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     if (widget.animate) {
-      controller.forward();
+      controller?.forward();
     }
 
     return AnimatedBuilder(
@@ -2386,7 +2386,7 @@ class _RouletteState extends State<Roulette>
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        (widget.infinite) ? controller.repeat() : controller.forward();
+        (widget.infinite) ? controller.repeat() : controller?.forward();
       });
     }
 
@@ -2398,7 +2398,7 @@ class _RouletteState extends State<Roulette>
   @override
   Widget build(BuildContext context) {
     if (widget.animate) {
-      controller.forward();
+      controller?.forward();
     }
 
     return AnimatedBuilder(
@@ -2468,7 +2468,7 @@ class _FadeOutState extends State<FadeOut> with SingleTickerProviderStateMixin {
         .animate(CurvedAnimation(curve: Curves.easeOut, parent: controller));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+      Future.delayed(widget.delay, () => controller?.forward());
     }
 
     if (widget.controller is Function) {
@@ -2479,7 +2479,7 @@ class _FadeOutState extends State<FadeOut> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     if (widget.animate) {
-      controller.forward();
+      controller?.forward();
     }
 
     return AnimatedBuilder(
@@ -2550,7 +2550,7 @@ class _FadeOutDownState extends State<FadeOutDown>
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+      Future.delayed(widget.delay, () => controller?.forward());
     }
 
     if (widget.controller is Function) {
@@ -2561,7 +2561,7 @@ class _FadeOutDownState extends State<FadeOutDown>
   @override
   Widget build(BuildContext context) {
     if (widget.animate) {
-      controller.forward();
+      controller?.forward();
     }
 
     return AnimatedBuilder(
@@ -2672,7 +2672,7 @@ class _FadeOutUpState extends State<FadeOutUp>
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+      Future.delayed(widget.delay, () => controller?.forward());
     }
 
     if (widget.controller is Function) {
@@ -2683,7 +2683,7 @@ class _FadeOutUpState extends State<FadeOutUp>
   @override
   Widget build(BuildContext context) {
     if (widget.animate) {
-      controller.forward();
+      controller?.forward();
     }
 
     return AnimatedBuilder(
@@ -2794,7 +2794,7 @@ class _FadeOutLeftState extends State<FadeOutLeft>
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+      Future.delayed(widget.delay, () => controller?.forward());
     }
 
     if (widget.controller is Function) {
@@ -2805,7 +2805,7 @@ class _FadeOutLeftState extends State<FadeOutLeft>
   @override
   Widget build(BuildContext context) {
     if (widget.animate) {
-      controller.forward();
+      controller?.forward();
     }
 
     return AnimatedBuilder(
@@ -2997,7 +2997,7 @@ class _ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
         .animate(CurvedAnimation(curve: Curves.easeOut, parent: controller));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+      Future.delayed(widget.delay, () => controller?.forward());
     }
 
     if (widget.controller is Function) {
@@ -3008,7 +3008,7 @@ class _ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     if (widget.animate) {
-      controller.forward();
+      controller?.forward();
     }
 
     return AnimatedBuilder(
@@ -3074,7 +3074,7 @@ class _ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
         .animate(CurvedAnimation(curve: Curves.easeOut, parent: controller));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller.forward());
+      Future.delayed(widget.delay, () => controller?.forward());
     }
 
     if (widget.controller is Function) {
@@ -3085,7 +3085,7 @@ class _ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     if (widget.animate) {
-      controller.forward();
+      controller?.forward();
     }
 
     return AnimatedBuilder(
