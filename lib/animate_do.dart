@@ -2972,7 +2972,7 @@ class ZoomIn extends StatefulWidget {
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
-      this.from = 1.0 })
+      this.from = 1.0})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -3055,7 +3055,7 @@ class ZoomOut extends StatefulWidget {
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
-      this.from = 0.0 })
+      this.from = 0.0})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
