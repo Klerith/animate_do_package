@@ -1,3 +1,6 @@
+#### [1.7.2] - Delay fixed
+Fixed: Some issue in version 1.7.1 was blocking the delay. 
+
 #### [1.7.1] - controller.forward fix
 * Bug fixed:
 When you were calling the animation with delay, and you dispose the widget before the animation takes place, was throwing an error because the controller was destroyed, this version fixes that.

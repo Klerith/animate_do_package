@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+/*
+  Author: Fernando Herrera
+  website: fernando-herrera.com
+  Version: 1.7.2
+*/
 
 // ====================================
 //              Begin Fades
@@ -61,7 +66,7 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
+    if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
     }
 
@@ -143,7 +148,7 @@ class _FadeInDownState extends State<FadeInDown>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
+    if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
     }
 
@@ -264,7 +269,7 @@ class _FadeInUpState extends State<FadeInUp>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
+    if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
     }
 
@@ -386,7 +391,7 @@ class _FadeInLeftState extends State<FadeInLeft>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
+    if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
     }
 
@@ -508,7 +513,7 @@ class _FadeInRightState extends State<FadeInRight>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
+    if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
     }
 
@@ -637,7 +642,7 @@ class _BounceInDownState extends State<BounceInDown>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
+    if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
     }
 
@@ -756,7 +761,7 @@ class _BounceInLeftState extends State<BounceInLeft>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
+    if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
     }
 
@@ -883,7 +888,7 @@ class _ElasticInState extends State<ElasticIn>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
+    if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
     }
 
@@ -977,7 +982,7 @@ class _ElasticInDownState extends State<ElasticInDown>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
+    if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
     }
 
@@ -1115,7 +1120,7 @@ class _ElasticInLeftState extends State<ElasticInLeft>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
+    if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
     }
 
@@ -1247,7 +1252,7 @@ class _FlipInXState extends State<FlipInX> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
+    if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
     }
 
@@ -1329,7 +1334,7 @@ class _FlipInYState extends State<FlipInY> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
+    if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
     }
 
@@ -1417,7 +1422,7 @@ class _SlideInUpState extends State<SlideInUp>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
+    if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
     }
 
@@ -1533,7 +1538,7 @@ class _SlideInLeftState extends State<SlideInLeft>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
+    if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
     }
 
@@ -1657,7 +1662,7 @@ class _JelloInState extends State<JelloIn> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
+    if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
     }
 
@@ -1757,7 +1762,7 @@ class _BounceState extends State<Bounce> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
+    if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
     }
 
@@ -1847,7 +1852,7 @@ class _FlashState extends State<Flash> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
+    if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
     }
 
@@ -1934,7 +1939,7 @@ class _PulseState extends State<Pulse> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
+    if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
     }
 
@@ -2046,7 +2051,7 @@ class _SwingState extends State<Swing> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
+    if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
     }
 
@@ -2139,7 +2144,7 @@ class _SpinState extends State<Spin> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
+    if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
     }
 
@@ -2221,7 +2226,7 @@ class _SpinPerfectState extends State<SpinPerfect>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
+    if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
     }
 
@@ -2311,7 +2316,7 @@ class _DanceState extends State<Dance> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
+    if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
     }
 
@@ -2397,7 +2402,7 @@ class _RouletteState extends State<Roulette>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
+    if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
     }
 
@@ -2478,7 +2483,7 @@ class _FadeOutState extends State<FadeOut> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
+    if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
     }
 
@@ -2560,7 +2565,7 @@ class _FadeOutDownState extends State<FadeOutDown>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
+    if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
     }
 
@@ -2682,7 +2687,7 @@ class _FadeOutUpState extends State<FadeOutUp>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
+    if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
     }
 
@@ -2804,7 +2809,7 @@ class _FadeOutLeftState extends State<FadeOutLeft>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
+    if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
     }
 
@@ -2957,6 +2962,7 @@ class ZoomIn extends StatefulWidget {
   final Function(AnimationController) controller;
   final bool manualTrigger;
   final bool animate;
+  final double from;
 
   ZoomIn(
       {this.key,
@@ -2965,7 +2971,8 @@ class ZoomIn extends StatefulWidget {
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
-      this.animate = true})
+      this.animate = true,
+      this.from = 1.0 })
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -2981,6 +2988,7 @@ class ZoomIn extends StatefulWidget {
 class _ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
   AnimationController controller;
   Animation<double> fade;
+  Animation<double> opacity;
 
   @override
   void dispose() {
@@ -2993,8 +3001,11 @@ class _ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
     super.initState();
 
     controller = AnimationController(duration: widget.duration, vsync: this);
-    fade = Tween(begin: 0.0, end: 1.0)
+    fade = Tween(begin: 0.0, end: widget.from)
         .animate(CurvedAnimation(curve: Curves.easeOut, parent: controller));
+
+    opacity = Tween<double>(begin: 0.0, end: 1)
+        .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () => controller?.forward());
@@ -3007,7 +3018,7 @@ class _ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
+    if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
     }
 
@@ -3017,7 +3028,7 @@ class _ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
           return Transform.scale(
             scale: fade.value,
             child: Opacity(
-              opacity: fade.value,
+              opacity: opacity.value,
               child: widget.child,
             ),
           );
@@ -3034,6 +3045,7 @@ class ZoomOut extends StatefulWidget {
   final Function(AnimationController) controller;
   final bool manualTrigger;
   final bool animate;
+  final double from;
 
   ZoomOut(
       {this.key,
@@ -3042,7 +3054,8 @@ class ZoomOut extends StatefulWidget {
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
-      this.animate = true})
+      this.animate = true,
+      this.from = 0.0 })
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -3058,6 +3071,7 @@ class ZoomOut extends StatefulWidget {
 class _ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
   AnimationController controller;
   Animation<double> zoom;
+  Animation<double> opacity;
 
   @override
   void dispose() {
@@ -3070,8 +3084,12 @@ class _ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
     super.initState();
 
     controller = AnimationController(duration: widget.duration, vsync: this);
-    zoom = Tween(begin: 1.0, end: 0.0)
+
+    zoom = Tween(begin: 1.0, end: widget.from)
         .animate(CurvedAnimation(curve: Curves.easeOut, parent: controller));
+
+    opacity = Tween<double>(begin: 1.0, end: 0.0)
+        .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () => controller?.forward());
@@ -3084,7 +3102,7 @@ class _ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
+    if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
     }
 
@@ -3094,7 +3112,7 @@ class _ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
           return Transform.scale(
             scale: zoom.value,
             child: Opacity(
-              opacity: zoom.value,
+              opacity: opacity.value,
               child: widget.child,
             ),
           );
