@@ -1,14 +1,32 @@
 import 'package:flutter/material.dart';
-/*
-  Author: Fernando Herrera
-  website: fernando-herrera.com
-  Version: 1.7.2
-*/
 
-// ====================================
-//              Begin Fades
-// ====================================
-// ============= FadeIn
+/// Author: Fernando Herrera
+/// website: fernando-herrera.com
+
+/// General information
+/// All the widgets are stateful that tracks the state and everything happends there.
+/// The Widget definition contains the properties and the state the animation itself.
+///
+/// [key] is the widget key for references
+/// [child] is the widget to animate
+/// [duration] is the duration that you want for the animation
+/// [delay] is the delay that you want before the animation starts
+/// [manualTrigger] will help you to prevent any animation until you call it via the
+/// animation controller, [controller] is a normal AnimationController class that
+/// contains the forward, repeat and everything else to control the animation.
+/// [animate] is a boolean property that will trigger the animation when is set to true,
+/// this is very useful if you use StatefulWidgets with setState or other State Management system.
+
+/// Some Animations contains special properties
+/// [from] will help you to change how far the animation should start or end
+/// [spins] is related to the number of spins that you want for certain animation
+/// [infinite] gives you the power to never stop the animation
+
+/// ===================================
+///              [Fades]
+/// ===================================
+///
+/// [FadeIn] Widget definition and its properties
 class FadeIn extends StatefulWidget {
   final Key key;
   final Widget child;
@@ -81,7 +99,8 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
   }
 }
 
-// ============= FadeInDown
+///
+/// [FadeInDown] Widget definition and its properties
 class FadeInDown extends StatefulWidget {
   final Key key;
   final Widget child;
@@ -165,7 +184,8 @@ class _FadeInDownState extends State<FadeInDown>
   }
 }
 
-// ============= FadeInDownBig
+///
+/// [FadeInDownBig] Widget definition and its properties
 class FadeInDownBig extends StatelessWidget {
   final Key key;
   final Widget child;
@@ -204,7 +224,8 @@ class FadeInDownBig extends StatelessWidget {
       from: from);
 }
 
-// ============= FadeInUp
+///
+/// [FadeInUp] Widget definition and its properties
 class FadeInUp extends StatefulWidget {
   final Key key;
   final Widget child;
@@ -286,7 +307,8 @@ class _FadeInUpState extends State<FadeInUp>
   }
 }
 
-// ============= FadeInUpBig
+///
+/// [FadeInUpBig] Widget definition and its properties
 class FadeInUpBig extends StatelessWidget {
   final Key key;
   final Widget child;
@@ -326,7 +348,8 @@ class FadeInUpBig extends StatelessWidget {
       );
 }
 
-// ============= FadeInLeft
+///
+/// [FadeInLeft] Widget definition and its properties
 class FadeInLeft extends StatefulWidget {
   final Key key;
   final Widget child;
@@ -408,7 +431,8 @@ class _FadeInLeftState extends State<FadeInLeft>
   }
 }
 
-// ============= FadeInLeftBig
+///
+/// [FadeInLeftBig] Widget definition and its properties
 class FadeInLeftBig extends StatelessWidget {
   final Key key;
   final Widget child;
@@ -448,7 +472,8 @@ class FadeInLeftBig extends StatelessWidget {
       );
 }
 
-// ============= FadeInRight
+///
+/// [FadeInRight] Widget definition and its properties
 class FadeInRight extends StatefulWidget {
   final Key key;
   final Widget child;
@@ -530,7 +555,8 @@ class _FadeInRightState extends State<FadeInRight>
   }
 }
 
-// ============= FadeInRightBig
+///
+/// [FadeInRightBig] Widget definition and its properties
 class FadeInRightBig extends StatelessWidget {
   final Key key;
   final Widget child;
@@ -569,14 +595,17 @@ class FadeInRightBig extends StatelessWidget {
         from: from,
       );
 }
-// ====================================
-//              End Fades
-// ====================================
 
-// ====================================
-//              Begin Bounce
-// ====================================
-// ============= BounceInDown
+/// ===================================
+///         [END of Fades]
+/// ===================================
+
+/// ===================================
+///              [Bounce]
+/// ===================================
+
+///
+/// [BounceInDown] Widget definition and its properties
 class BounceInDown extends StatefulWidget {
   final Key key;
   final Widget child;
@@ -656,7 +685,8 @@ class _BounceInDownState extends State<BounceInDown>
   }
 }
 
-// ============= BounceInUp
+///
+///[BounceInUp]
 class BounceInUp extends StatelessWidget {
   final Key key;
   final Widget child;
@@ -696,7 +726,8 @@ class BounceInUp extends StatelessWidget {
       );
 }
 
-// ============= BounceInLeft
+///
+/// [BounceInLeft] Widget definition and its properties
 class BounceInLeft extends StatefulWidget {
   final Key key;
   final Widget child;
@@ -778,7 +809,8 @@ class _BounceInLeftState extends State<BounceInLeft>
   }
 }
 
-// ============= BounceInRight
+///
+/// [BounceInRight] Widget definition and its properties
 class BounceInRight extends StatelessWidget {
   final Key key;
   final Widget child;
@@ -817,14 +849,17 @@ class BounceInRight extends StatelessWidget {
         from: from * -1,
       );
 }
-// ====================================
-//              End Bounce
-// ====================================
 
-// ====================================
-//          Begin Elastics
-// ====================================
-// ============= ElasticIn
+/// ===================================
+///            [End Bounce]
+/// ===================================
+
+/// ===================================
+///             [Elastics]
+/// ===================================
+
+///
+/// [ElasticIn] Widget definition and its properties
 class ElasticIn extends StatefulWidget {
   final Key key;
   final Widget child;
@@ -906,7 +941,8 @@ class _ElasticInState extends State<ElasticIn>
   }
 }
 
-// ============= ElasticInDown
+///
+/// [ElasticInDown] Widget definition and its properties
 class ElasticInDown extends StatefulWidget {
   final Key key;
   final Widget child;
@@ -1003,7 +1039,8 @@ class _ElasticInDownState extends State<ElasticInDown>
   }
 }
 
-// ============= ElasticInUp
+///
+/// [ElasticInUp] Widget definition and its properties
 class ElasticInUp extends StatelessWidget {
   final Key key;
   final Widget child;
@@ -1044,7 +1081,8 @@ class ElasticInUp extends StatelessWidget {
       );
 }
 
-// ============= ElasticInLeft
+///
+/// [ElasticInLeft] Widget definition and its properties
 class ElasticInLeft extends StatefulWidget {
   final Key key;
   final Widget child;
@@ -1141,7 +1179,8 @@ class _ElasticInLeftState extends State<ElasticInLeft>
   }
 }
 
-// ============= ElasticInRight
+///
+/// [ElasticInRight] Widget definition and its properties
 class ElasticInRight extends StatelessWidget {
   final Key key;
   final Widget child;
@@ -1180,15 +1219,17 @@ class ElasticInRight extends StatelessWidget {
       from: from * -1,
       to: -100);
 }
-// ====================================
-//          End Elastics
-// ====================================
 
-// ====================================
-//          Begin Flips
-// ====================================
+/// ====================================
+///           [End Elastics]
+/// ====================================
 
-// ============= FlipInX
+/// ====================================
+///               [Flips]
+/// ====================================
+
+///
+/// [FlipInX] Widget definition and its properties
 class FlipInX extends StatefulWidget {
   final Key key;
   final Widget child;
@@ -1270,7 +1311,8 @@ class _FlipInXState extends State<FlipInX> with SingleTickerProviderStateMixin {
   }
 }
 
-// ============= FlipInY
+///
+/// [FlipInY] Widget definition and its properties
 class FlipInY extends StatefulWidget {
   final Key key;
   final Widget child;
@@ -1352,14 +1394,16 @@ class _FlipInYState extends State<FlipInY> with SingleTickerProviderStateMixin {
   }
 }
 
-// ====================================
-//          End Flips
-// ====================================
+/// ====================================
+///            [End Flips]
+/// ====================================
 
-// ====================================
-//          Begin SlideIns
-// ====================================
-// ============= SlideInUp
+/// ====================================
+///             [SlideIns]
+/// ====================================
+
+///
+/// [SlideInUp] Widget definition and its properties
 class SlideInUp extends StatefulWidget {
   final Key key;
   final Widget child;
@@ -1435,7 +1479,8 @@ class _SlideInUpState extends State<SlideInUp>
   }
 }
 
-// ============= SlideInDown
+///
+/// [SlideInDown] Widget definition and its properties
 class SlideInDown extends StatelessWidget {
   final Key key;
   final Widget child;
@@ -1475,7 +1520,8 @@ class SlideInDown extends StatelessWidget {
       );
 }
 
-// ============= SlideInLeft
+///
+/// [SlideInLeft] Widget definition and its properties
 class SlideInLeft extends StatefulWidget {
   final Key key;
   final Widget child;
@@ -1551,7 +1597,8 @@ class _SlideInLeftState extends State<SlideInLeft>
   }
 }
 
-// ============= SlideInRight
+///
+/// [SlideInRight] Widget definition and its properties
 class SlideInRight extends StatelessWidget {
   final Key key;
   final Widget child;
@@ -1590,15 +1637,17 @@ class SlideInRight extends StatelessWidget {
         from: from * -1,
       );
 }
-// ====================================
-//          End SlideIns
-// ====================================
 
-// ====================================
-//          Begin Special Ins
-// ====================================
+/// ====================================
+///            [End SlideIns]
+/// ====================================
 
-// ============= JelloIn
+/// ====================================
+///          [Special Ins]
+/// ====================================
+
+///
+/// [JelloIn] Widget definition and its properties
 class JelloIn extends StatefulWidget {
   final Key key;
   final Widget child;
@@ -1681,14 +1730,17 @@ class _JelloInState extends State<JelloIn> with SingleTickerProviderStateMixin {
         });
   }
 }
-// ====================================
-//          End Special Ins
-// ====================================
 
-// ====================================
-//       Begin Attention Seekers
-// ====================================
-// ============= Bounce
+/// ====================================
+///          [End Special Ins]
+/// ====================================
+
+/// ====================================
+///         [Attention Seekers]
+/// ====================================
+
+///
+/// [Bounce] Widget definition and its properties
 class Bounce extends StatefulWidget {
   final Key key;
   final Widget child;
@@ -1780,7 +1832,8 @@ class _BounceState extends State<Bounce> with SingleTickerProviderStateMixin {
   }
 }
 
-// ============= Flash
+///
+/// [Flash] Widget definition and its properties
 class Flash extends StatefulWidget {
   final Key key;
   final Widget child;
@@ -1872,7 +1925,8 @@ class _FlashState extends State<Flash> with SingleTickerProviderStateMixin {
   }
 }
 
-// ============= Pulse
+///
+/// [Pulse] Widget definition and its properties
 class Pulse extends StatefulWidget {
   final Key key;
   final Widget child;
@@ -1956,7 +2010,8 @@ class _PulseState extends State<Pulse> with SingleTickerProviderStateMixin {
   }
 }
 
-// ============= Swing
+///
+/// [Swing] Widget definition and its properties
 class Swing extends StatefulWidget {
   final Key key;
   final Widget child;
@@ -2078,7 +2133,8 @@ class _SwingState extends State<Swing> with SingleTickerProviderStateMixin {
   }
 }
 
-// ============= Spin
+///
+/// [Spin] Widget definition and its properties
 class Spin extends StatefulWidget {
   final Key key;
   final Widget child;
@@ -2159,7 +2215,8 @@ class _SpinState extends State<Spin> with SingleTickerProviderStateMixin {
   }
 }
 
-// ============= SpinPerfect
+///
+/// [SpinPerfect] Widget definition and its properties
 class SpinPerfect extends StatefulWidget {
   final Key key;
   final Widget child;
@@ -2241,7 +2298,8 @@ class _SpinPerfectState extends State<SpinPerfect>
   }
 }
 
-// ============= Dance
+///
+/// [Dance] Widget definition and its properties
 class Dance extends StatefulWidget {
   final Key key;
   final Widget child;
@@ -2335,7 +2393,8 @@ class _DanceState extends State<Dance> with SingleTickerProviderStateMixin {
   }
 }
 
-// ============= Roulette
+///
+/// [Roulette] Widget definition and its properties
 class Roulette extends StatefulWidget {
   final Key key;
   final Widget child;
@@ -2417,14 +2476,16 @@ class _RouletteState extends State<Roulette>
   }
 }
 
-// ====================================
-//       End Attention Seekers
-// ====================================
+/// ====================================
+///        [End Attention Seekers]
+/// ====================================
 
-// ====================================
-//       FadeOuts Animations
-// ====================================
-// ============= FadeOut
+/// ====================================
+///              [FadeOuts]
+/// ====================================
+
+///
+/// [FadeOut] Widget definition and its properties
 class FadeOut extends StatefulWidget {
   final Key key;
   final Widget child;
@@ -2498,7 +2559,8 @@ class _FadeOutState extends State<FadeOut> with SingleTickerProviderStateMixin {
   }
 }
 
-// ============= FadeOutDown
+///
+/// [FadeOutDown] Widget definition and its properties
 class FadeOutDown extends StatefulWidget {
   final Key key;
   final Widget child;
@@ -2582,7 +2644,8 @@ class _FadeOutDownState extends State<FadeOutDown>
   }
 }
 
-// ============= FadeOutDownBig
+///
+/// [FadeOutDownBig] Widget definition and its properties
 class FadeOutDownBig extends StatelessWidget {
   final Key key;
   final Widget child;
@@ -2622,7 +2685,8 @@ class FadeOutDownBig extends StatelessWidget {
       );
 }
 
-// ============= FadeOutUp
+///
+/// [FadeOutUp] Widget definition and its properties
 class FadeOutUp extends StatefulWidget {
   final Key key;
   final Widget child;
@@ -2704,7 +2768,8 @@ class _FadeOutUpState extends State<FadeOutUp>
   }
 }
 
-// ============= FadeOutUpBig
+///
+/// [FadeOutUpBig] Widget definition and its properties
 class FadeOutUpBig extends StatelessWidget {
   final Key key;
   final Widget child;
@@ -2744,7 +2809,8 @@ class FadeOutUpBig extends StatelessWidget {
       );
 }
 
-// ============= FadeOutLeft
+///
+/// [FadeOutLeft] Widget definition and its properties
 class FadeOutLeft extends StatefulWidget {
   final Key key;
   final Widget child;
@@ -2826,7 +2892,8 @@ class _FadeOutLeftState extends State<FadeOutLeft>
   }
 }
 
-// ============= FadeOutLeftBig
+///
+/// [FadeOutLeftBig] Widget definition and its properties
 class FadeOutLeftBig extends StatelessWidget {
   final Key key;
   final Widget child;
@@ -2866,7 +2933,8 @@ class FadeOutLeftBig extends StatelessWidget {
       );
 }
 
-// ============= FadeOutRight
+///
+/// [FadeOutRight] Widget definition and its properties
 class FadeOutRight extends StatelessWidget {
   final Key key;
   final Widget child;
@@ -2906,7 +2974,8 @@ class FadeOutRight extends StatelessWidget {
       );
 }
 
-// ============= FadeOutRightBig
+///
+/// [FadeOutRightBig] Widget definition and its properties
 class FadeOutRightBig extends StatelessWidget {
   final Key key;
   final Widget child;
@@ -2946,14 +3015,16 @@ class FadeOutRightBig extends StatelessWidget {
       );
 }
 
-// ====================================
-//          End FadeOuts
-// ====================================
+/// ====================================
+///          [End FadeOuts]
+/// ====================================
 
-// ====================================
-//     Begin ZoomIn/out Animations
-// ====================================
-// ============= ZoomIn
+/// ====================================
+///      [ZoomIn/out Animations]
+/// ====================================
+
+///
+/// [ZoomIn] Widget definition and its properties
 class ZoomIn extends StatefulWidget {
   final Key key;
   final Widget child;
@@ -3036,7 +3107,8 @@ class _ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
   }
 }
 
-// ============= ZoomOut
+///
+/// [ZoomOut] Widget definition and its properties
 class ZoomOut extends StatefulWidget {
   final Key key;
   final Widget child;
@@ -3120,6 +3192,6 @@ class _ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
   }
 }
 
-// ====================================
-//      End ZoomIn/out Animations
-// ====================================
+/// ====================================
+///    [End ZoomIn/out Animations]
+/// ====================================

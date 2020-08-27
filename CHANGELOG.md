@@ -1,3 +1,8 @@
+#### [1.7.3] - Documentation updated
+* Github repo open
+* Description inside the library
+* Github issues now open
+
 #### [1.7.2] - Delay fixed
 Fixed: Some issue in version 1.7.1 was blocking the delay. 
 

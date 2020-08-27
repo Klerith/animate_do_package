@@ -1,7 +1,11 @@
 name: animate_do
 description: Beautiful animations inspired on Animate.css, every animation is a widget that contains default but customizable values that look attractive.
-version: 1.7.2
+version: 1.7.3
 homepage: https://fernando-herrera.com
+repository: https://github.com/Klerith/animate_do_package
+issue_tracker: https://github.com/Klerith/animate_do_package/issues
+
+
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
