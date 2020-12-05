@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 /*
   Author: Fernando Herrera
   website: fernando-herrera.com
-  Version: 1.7.2
+  Version: 1.7.1
 */
 
 // ====================================
@@ -40,10 +40,12 @@ class FadeIn extends StatefulWidget {
 
 class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
   AnimationController controller;
+  bool disposed = false;
   Animation<double> animation;
 
   @override
   void dispose() {
+    disposed = true;
     controller.dispose();
     super.dispose();
   }
@@ -56,7 +58,11 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
     animation = CurvedAnimation(curve: Curves.easeOut, parent: controller);
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller?.forward());
+      Future.delayed(widget.delay, () {
+        if( !disposed ) {
+          controller?.forward();
+        }
+      });
     }
 
     if (widget.controller is Function) {
@@ -116,11 +122,13 @@ class FadeInDown extends StatefulWidget {
 class _FadeInDownState extends State<FadeInDown>
     with SingleTickerProviderStateMixin {
   AnimationController controller;
+  bool disposed = false;
   Animation<double> animation;
   Animation<double> opacity;
 
   @override
   void dispose() {
+    disposed = true;
     controller.dispose();
     super.dispose();
   }
@@ -138,7 +146,11 @@ class _FadeInDownState extends State<FadeInDown>
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller?.forward());
+      Future.delayed(widget.delay, () {
+        if( !disposed ) {
+          controller?.forward();
+        }
+      });
     }
 
     if (widget.controller is Function) {
@@ -239,10 +251,12 @@ class FadeInUp extends StatefulWidget {
 class _FadeInUpState extends State<FadeInUp>
     with SingleTickerProviderStateMixin {
   AnimationController controller;
+  bool disposed = false;
   Animation<double> animation;
   Animation<double> opacity;
   @override
   void dispose() {
+    disposed = true;
     controller.dispose();
     super.dispose();
   }
@@ -259,7 +273,11 @@ class _FadeInUpState extends State<FadeInUp>
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller?.forward());
+      Future.delayed(widget.delay, () {
+        if( !disposed ) {
+          controller?.forward();
+        }
+      });
     }
 
     if (widget.controller is Function) {
@@ -361,10 +379,12 @@ class FadeInLeft extends StatefulWidget {
 class _FadeInLeftState extends State<FadeInLeft>
     with SingleTickerProviderStateMixin {
   AnimationController controller;
+  bool disposed = false;
   Animation<double> animation;
   Animation<double> opacity;
   @override
   void dispose() {
+    disposed = true;
     controller.dispose();
     super.dispose();
   }
@@ -381,7 +401,11 @@ class _FadeInLeftState extends State<FadeInLeft>
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller?.forward());
+      Future.delayed(widget.delay, () {
+        if( !disposed ) {
+          controller?.forward();
+        }
+      });
     }
 
     if (widget.controller is Function) {
@@ -483,10 +507,12 @@ class FadeInRight extends StatefulWidget {
 class _FadeInRightState extends State<FadeInRight>
     with SingleTickerProviderStateMixin {
   AnimationController controller;
+  bool disposed = false;
   Animation<double> animation;
   Animation<double> opacity;
   @override
   void dispose() {
+    disposed = true;
     controller.dispose();
     super.dispose();
   }
@@ -503,7 +529,11 @@ class _FadeInRightState extends State<FadeInRight>
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller?.forward());
+      Future.delayed(widget.delay, () {
+        if( !disposed ) {
+          controller?.forward();
+        }
+      });
     }
 
     if (widget.controller is Function) {
@@ -611,10 +641,12 @@ class BounceInDown extends StatefulWidget {
 class _BounceInDownState extends State<BounceInDown>
     with SingleTickerProviderStateMixin {
   AnimationController controller;
+  bool disposed = false;
   Animation<double> animation;
   Animation<double> opacity;
   @override
   void dispose() {
+    disposed = true;
     controller.dispose();
     super.dispose();
   }
@@ -632,7 +664,11 @@ class _BounceInDownState extends State<BounceInDown>
         .animate(CurvedAnimation(parent: controller, curve: Curves.bounceOut));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller?.forward());
+      Future.delayed(widget.delay, () {
+        if( !disposed ) {
+          controller?.forward();
+        }
+      });
     }
 
     if (widget.controller is Function) {
@@ -731,10 +767,12 @@ class BounceInLeft extends StatefulWidget {
 class _BounceInLeftState extends State<BounceInLeft>
     with SingleTickerProviderStateMixin {
   AnimationController controller;
+  bool disposed = false;
   Animation<double> animation;
   Animation<double> opacity;
   @override
   void dispose() {
+    disposed = true;
     controller.dispose();
     super.dispose();
   }
@@ -751,7 +789,11 @@ class _BounceInLeftState extends State<BounceInLeft>
         .animate(CurvedAnimation(parent: controller, curve: Curves.bounceOut));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller?.forward());
+      Future.delayed(widget.delay, () {
+        if( !disposed ) {
+          controller?.forward();
+        }
+      });
     }
 
     if (widget.controller is Function) {
@@ -857,10 +899,12 @@ class ElasticIn extends StatefulWidget {
 class _ElasticInState extends State<ElasticIn>
     with SingleTickerProviderStateMixin {
   AnimationController controller;
+  bool disposed = false;
   Animation<double> bouncing;
   Animation<double> opacity;
   @override
   void dispose() {
+    disposed = true;
     controller.dispose();
     super.dispose();
   }
@@ -878,7 +922,11 @@ class _ElasticInState extends State<ElasticIn>
         .animate(CurvedAnimation(parent: controller, curve: Curves.elasticOut));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller?.forward());
+      Future.delayed(widget.delay, () {
+        if( !disposed ) {
+          controller?.forward();
+        }
+      });
     }
 
     if (widget.controller is Function) {
@@ -943,11 +991,13 @@ class ElasticInDown extends StatefulWidget {
 class _ElasticInDownState extends State<ElasticInDown>
     with SingleTickerProviderStateMixin {
   AnimationController controller;
+  bool disposed = false;
   Animation<double> bouncing;
   Animation<double> falling;
   Animation<double> opacity;
   @override
   void dispose() {
+    disposed = true;
     controller.dispose();
     super.dispose();
   }
@@ -972,7 +1022,11 @@ class _ElasticInDownState extends State<ElasticInDown>
             curve: Interval(0.30, 1, curve: Curves.elasticOut)));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller?.forward());
+      Future.delayed(widget.delay, () {
+        if( !disposed ) {
+          controller?.forward();
+        }
+      });
     }
 
     if (widget.controller is Function) {
@@ -1081,11 +1135,13 @@ class ElasticInLeft extends StatefulWidget {
 class _ElasticInLeftState extends State<ElasticInLeft>
     with SingleTickerProviderStateMixin {
   AnimationController controller;
+  bool disposed = false;
   Animation<double> bouncing;
   Animation<double> falling;
   Animation<double> opacity;
   @override
   void dispose() {
+    disposed = true;
     controller.dispose();
     super.dispose();
   }
@@ -1110,7 +1166,11 @@ class _ElasticInLeftState extends State<ElasticInLeft>
             curve: Interval(0.30, 1, curve: Curves.elasticOut)));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller?.forward());
+      Future.delayed(widget.delay, () {
+        if( !disposed ) {
+          controller?.forward();
+        }
+      });
     }
 
     if (widget.controller is Function) {
@@ -1220,11 +1280,13 @@ class FlipInX extends StatefulWidget {
 
 class _FlipInXState extends State<FlipInX> with SingleTickerProviderStateMixin {
   AnimationController controller;
+  bool disposed = false;
   Animation<double> rotation;
   Animation<double> opacity;
 
   @override
   void dispose() {
+    disposed = true;
     controller.dispose();
     super.dispose();
   }
@@ -1242,7 +1304,11 @@ class _FlipInXState extends State<FlipInX> with SingleTickerProviderStateMixin {
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller?.forward());
+      Future.delayed(widget.delay, () {
+        if( !disposed ) {
+          controller?.forward();
+        }
+      });
     }
 
     if (widget.controller is Function) {
@@ -1302,11 +1368,13 @@ class FlipInY extends StatefulWidget {
 
 class _FlipInYState extends State<FlipInY> with SingleTickerProviderStateMixin {
   AnimationController controller;
+  bool disposed = false;
   Animation<double> rotation;
   Animation<double> opacity;
 
   @override
   void dispose() {
+    disposed = true;
     controller.dispose();
     super.dispose();
   }
@@ -1324,7 +1392,11 @@ class _FlipInYState extends State<FlipInY> with SingleTickerProviderStateMixin {
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller?.forward());
+      Future.delayed(widget.delay, () {
+        if( !disposed ) {
+          controller?.forward();
+        }
+      });
     }
 
     if (widget.controller is Function) {
@@ -1394,10 +1466,12 @@ class SlideInUp extends StatefulWidget {
 class _SlideInUpState extends State<SlideInUp>
     with SingleTickerProviderStateMixin {
   AnimationController controller;
+  bool disposed = false;
   Animation<double> animation;
 
   @override
   void dispose() {
+    disposed = true;
     controller.dispose();
     super.dispose();
   }
@@ -1412,7 +1486,11 @@ class _SlideInUpState extends State<SlideInUp>
         .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller?.forward());
+      Future.delayed(widget.delay, () {
+        if( !disposed ) {
+          controller?.forward();
+        }
+      });
     }
 
     if (widget.controller is Function) {
@@ -1510,10 +1588,12 @@ class SlideInLeft extends StatefulWidget {
 class _SlideInLeftState extends State<SlideInLeft>
     with SingleTickerProviderStateMixin {
   AnimationController controller;
+  bool disposed = false;
   Animation<double> animation;
 
   @override
   void dispose() {
+    disposed = true;
     controller.dispose();
     super.dispose();
   }
@@ -1528,7 +1608,11 @@ class _SlideInLeftState extends State<SlideInLeft>
         .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller?.forward());
+      Future.delayed(widget.delay, () {
+        if( !disposed ) {
+          controller?.forward();
+        }
+      });
     }
 
     if (widget.controller is Function) {
@@ -1630,11 +1714,13 @@ class JelloIn extends StatefulWidget {
 
 class _JelloInState extends State<JelloIn> with SingleTickerProviderStateMixin {
   AnimationController controller;
+  bool disposed = false;
   Animation<double> rotation;
   Animation<double> opacity;
 
   @override
   void dispose() {
+    disposed = true;
     controller.dispose();
     super.dispose();
   }
@@ -1652,7 +1738,11 @@ class _JelloInState extends State<JelloIn> with SingleTickerProviderStateMixin {
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller?.forward());
+      Future.delayed(widget.delay, () {
+        if( !disposed ) {
+          controller?.forward();
+        }
+      });
     }
 
     if (widget.controller is Function) {
@@ -1724,11 +1814,13 @@ class Bounce extends StatefulWidget {
 
 class _BounceState extends State<Bounce> with SingleTickerProviderStateMixin {
   AnimationController controller;
+  bool disposed = false;
   Animation<double> animationBounce;
 
   Animation<double> animationUp;
   @override
   void dispose() {
+    disposed = true;
     controller.dispose();
     super.dispose();
   }
@@ -1751,7 +1843,9 @@ class _BounceState extends State<Bounce> with SingleTickerProviderStateMixin {
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        (widget.infinite) ? controller.repeat() : controller?.forward();
+        if( !disposed ) {
+          (widget.infinite) ? controller.repeat() : controller?.forward();
+        }
       });
     }
 
@@ -1814,12 +1908,14 @@ class Flash extends StatefulWidget {
 
 class _FlashState extends State<Flash> with SingleTickerProviderStateMixin {
   AnimationController controller;
+  bool disposed = false;
   Animation<double> opacityOut1;
   Animation<double> opacityIn1;
   Animation<double> opacityOut2;
   Animation<double> opacityIn2;
   @override
   void dispose() {
+    disposed = true;
     controller.dispose();
     super.dispose();
   }
@@ -1841,7 +1937,9 @@ class _FlashState extends State<Flash> with SingleTickerProviderStateMixin {
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        (widget.infinite) ? controller.repeat() : controller?.forward();
+        if( !disposed ) {
+          (widget.infinite) ? controller.repeat() : controller?.forward();
+        }
       });
     }
 
@@ -1906,10 +2004,12 @@ class Pulse extends StatefulWidget {
 
 class _PulseState extends State<Pulse> with SingleTickerProviderStateMixin {
   AnimationController controller;
+  bool disposed = false;
   Animation<double> animationInc;
   Animation<double> animationDec;
   @override
   void dispose() {
+    disposed = true;
     controller.dispose();
     super.dispose();
   }
@@ -1928,7 +2028,9 @@ class _PulseState extends State<Pulse> with SingleTickerProviderStateMixin {
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        (widget.infinite) ? controller.repeat() : controller?.forward();
+        if( !disposed ) {
+          (widget.infinite) ? controller.repeat() : controller?.forward();
+        }
       });
     }
 
@@ -1990,6 +2092,7 @@ class Swing extends StatefulWidget {
 
 class _SwingState extends State<Swing> with SingleTickerProviderStateMixin {
   AnimationController controller;
+  bool disposed = false;
   Animation<double> animationRotation1;
   Animation<double> animationRotation2;
   Animation<double> animationRotation3;
@@ -1998,6 +2101,7 @@ class _SwingState extends State<Swing> with SingleTickerProviderStateMixin {
   Animation<double> animationRotation6;
   @override
   void dispose() {
+    disposed = true;
     controller.dispose();
     super.dispose();
   }
@@ -2040,7 +2144,9 @@ class _SwingState extends State<Swing> with SingleTickerProviderStateMixin {
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        (widget.infinite) ? controller.repeat() : controller?.forward();
+        if( !disposed ) {
+          (widget.infinite) ? controller.repeat() : controller?.forward();
+        }
       });
     }
 
@@ -2114,10 +2220,12 @@ class Spin extends StatefulWidget {
 
 class _SpinState extends State<Spin> with SingleTickerProviderStateMixin {
   AnimationController controller;
+  bool disposed = false;
   Animation<double> spin;
 
   @override
   void dispose() {
+    disposed = true;
     controller.dispose();
     super.dispose();
   }
@@ -2133,7 +2241,9 @@ class _SpinState extends State<Spin> with SingleTickerProviderStateMixin {
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        (widget.infinite) ? controller.repeat() : controller?.forward();
+        if( !disposed ) {
+          (widget.infinite) ? controller.repeat() : controller?.forward();
+        }
       });
     }
 
@@ -2196,10 +2306,12 @@ class SpinPerfect extends StatefulWidget {
 class _SpinPerfectState extends State<SpinPerfect>
     with SingleTickerProviderStateMixin {
   AnimationController controller;
+  bool disposed = false;
   Animation<double> spin;
 
   @override
   void dispose() {
+    disposed = true;
     controller.dispose();
     super.dispose();
   }
@@ -2215,7 +2327,9 @@ class _SpinPerfectState extends State<SpinPerfect>
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        (widget.infinite) ? controller.repeat() : controller?.forward();
+        if( !disposed ) {
+          (widget.infinite) ? controller.repeat() : controller?.forward();
+        }
       });
     }
 
@@ -2275,12 +2389,14 @@ class Dance extends StatefulWidget {
 
 class _DanceState extends State<Dance> with SingleTickerProviderStateMixin {
   AnimationController controller;
+  bool disposed = false;
   Animation<double> step1;
   Animation<double> step2;
   Animation<double> step3;
 
   @override
   void dispose() {
+    disposed = true;
     controller.dispose();
     super.dispose();
   }
@@ -2305,7 +2421,9 @@ class _DanceState extends State<Dance> with SingleTickerProviderStateMixin {
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        (widget.infinite) ? controller.repeat() : controller?.forward();
+        if( !disposed ) {
+          (widget.infinite) ? controller.repeat() : controller?.forward();
+        }
       });
     }
 
@@ -2372,10 +2490,12 @@ class Roulette extends StatefulWidget {
 class _RouletteState extends State<Roulette>
     with SingleTickerProviderStateMixin {
   AnimationController controller;
+  bool disposed = false;
   Animation<double> spin;
 
   @override
   void dispose() {
+    disposed = true;
     controller.dispose();
     super.dispose();
   }
@@ -2391,7 +2511,9 @@ class _RouletteState extends State<Roulette>
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        (widget.infinite) ? controller.repeat() : controller?.forward();
+        if( !disposed ) {
+          (widget.infinite) ? controller.repeat() : controller?.forward();
+        }
       });
     }
 
@@ -2456,10 +2578,12 @@ class FadeOut extends StatefulWidget {
 
 class _FadeOutState extends State<FadeOut> with SingleTickerProviderStateMixin {
   AnimationController controller;
+  bool disposed = false;
   Animation<double> animation;
 
   @override
   void dispose() {
+    disposed = true;
     controller.dispose();
     super.dispose();
   }
@@ -2473,7 +2597,11 @@ class _FadeOutState extends State<FadeOut> with SingleTickerProviderStateMixin {
         .animate(CurvedAnimation(curve: Curves.easeOut, parent: controller));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller?.forward());
+      Future.delayed(widget.delay, () {
+        if( !disposed ) {
+          controller?.forward();
+        }
+      });
     }
 
     if (widget.controller is Function) {
@@ -2533,11 +2661,13 @@ class FadeOutDown extends StatefulWidget {
 class _FadeOutDownState extends State<FadeOutDown>
     with SingleTickerProviderStateMixin {
   AnimationController controller;
+  bool disposed = false;
   Animation<double> animation;
   Animation<double> opacity;
 
   @override
   void dispose() {
+    disposed = true;
     controller.dispose();
     super.dispose();
   }
@@ -2555,7 +2685,11 @@ class _FadeOutDownState extends State<FadeOutDown>
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller?.forward());
+      Future.delayed(widget.delay, () {
+        if( !disposed ) {
+          controller?.forward();
+        }
+      });
     }
 
     if (widget.controller is Function) {
@@ -2657,10 +2791,12 @@ class FadeOutUp extends StatefulWidget {
 class _FadeOutUpState extends State<FadeOutUp>
     with SingleTickerProviderStateMixin {
   AnimationController controller;
+  bool disposed = false;
   Animation<double> animation;
   Animation<double> opacity;
   @override
   void dispose() {
+    disposed = true;
     controller.dispose();
     super.dispose();
   }
@@ -2677,7 +2813,11 @@ class _FadeOutUpState extends State<FadeOutUp>
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller?.forward());
+      Future.delayed(widget.delay, () {
+        if( !disposed ) {
+          controller?.forward();
+        }
+      });
     }
 
     if (widget.controller is Function) {
@@ -2779,10 +2919,12 @@ class FadeOutLeft extends StatefulWidget {
 class _FadeOutLeftState extends State<FadeOutLeft>
     with SingleTickerProviderStateMixin {
   AnimationController controller;
+  bool disposed = false;
   Animation<double> animation;
   Animation<double> opacity;
   @override
   void dispose() {
+    disposed = true;
     controller.dispose();
     super.dispose();
   }
@@ -2799,7 +2941,11 @@ class _FadeOutLeftState extends State<FadeOutLeft>
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller?.forward());
+      Future.delayed(widget.delay, () {
+        if( !disposed ) {
+          controller?.forward();
+        }
+      });
     }
 
     if (widget.controller is Function) {
@@ -2972,7 +3118,7 @@ class ZoomIn extends StatefulWidget {
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
-      this.from = 1.0})
+      this.from = 1.0 })
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -2987,11 +3133,13 @@ class ZoomIn extends StatefulWidget {
 
 class _ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
   AnimationController controller;
+  bool disposed = false;
   Animation<double> fade;
   Animation<double> opacity;
 
   @override
   void dispose() {
+    disposed = true;
     controller.dispose();
     super.dispose();
   }
@@ -3008,7 +3156,11 @@ class _ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller?.forward());
+      Future.delayed(widget.delay, () {
+        if( !disposed ) {
+          controller?.forward();
+        }
+      });
     }
 
     if (widget.controller is Function) {
@@ -3055,7 +3207,7 @@ class ZoomOut extends StatefulWidget {
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
-      this.from = 0.0})
+      this.from = 0.0 })
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -3070,11 +3222,13 @@ class ZoomOut extends StatefulWidget {
 
 class _ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
   AnimationController controller;
+  bool disposed = false;
   Animation<double> zoom;
   Animation<double> opacity;
 
   @override
   void dispose() {
+    disposed = true;
     controller.dispose();
     super.dispose();
   }
@@ -3092,7 +3246,11 @@ class _ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
         .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () => controller?.forward());
+      Future.delayed(widget.delay, () {
+        if( !disposed ) {
+          controller?.forward();
+        }
+      });
     }
 
     if (widget.controller is Function) {

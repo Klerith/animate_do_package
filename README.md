@@ -128,8 +128,6 @@ class Square extends StatelessWidget {
 
 ```
 
-![alt text](https://res.cloudinary.com/dx0pryfzn/image/upload/v1582046881/x2fqhn05vshgbienhrow.gif "Animate_do")
-
 
 
 ## Manual Trigger

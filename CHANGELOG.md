@@ -1,3 +1,7 @@
+#### [1.7.4] - Delay fixed
+* Fixed: Calling forward on a disposed widget.
+* Fixed: Some animations didn't have delayed.
+
 #### [1.7.2] - Delay fixed
 Fixed: Some issue in version 1.7.1 was blocking the delay. 
 
