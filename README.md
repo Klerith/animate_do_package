@@ -128,6 +128,8 @@ class Square extends StatelessWidget {
 
 ```
 
+![Animate_do demo animation](https://raw.githubusercontent.com/Klerith/animate_do_package/master/animate_do.gif "Animate_do")
+
 
 
 ## Manual Trigger
