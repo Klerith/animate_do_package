@@ -59,7 +59,7 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        if( !disposed ) {
+        if (!disposed) {
           controller?.forward();
         }
       });
@@ -147,7 +147,7 @@ class _FadeInDownState extends State<FadeInDown>
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        if( !disposed ) {
+        if (!disposed) {
           controller?.forward();
         }
       });
@@ -274,7 +274,7 @@ class _FadeInUpState extends State<FadeInUp>
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        if( !disposed ) {
+        if (!disposed) {
           controller?.forward();
         }
       });
@@ -402,7 +402,7 @@ class _FadeInLeftState extends State<FadeInLeft>
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        if( !disposed ) {
+        if (!disposed) {
           controller?.forward();
         }
       });
@@ -530,7 +530,7 @@ class _FadeInRightState extends State<FadeInRight>
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        if( !disposed ) {
+        if (!disposed) {
           controller?.forward();
         }
       });
@@ -665,7 +665,7 @@ class _BounceInDownState extends State<BounceInDown>
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        if( !disposed ) {
+        if (!disposed) {
           controller?.forward();
         }
       });
@@ -790,7 +790,7 @@ class _BounceInLeftState extends State<BounceInLeft>
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        if( !disposed ) {
+        if (!disposed) {
           controller?.forward();
         }
       });
@@ -923,7 +923,7 @@ class _ElasticInState extends State<ElasticIn>
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        if( !disposed ) {
+        if (!disposed) {
           controller?.forward();
         }
       });
@@ -1023,7 +1023,7 @@ class _ElasticInDownState extends State<ElasticInDown>
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        if( !disposed ) {
+        if (!disposed) {
           controller?.forward();
         }
       });
@@ -1167,7 +1167,7 @@ class _ElasticInLeftState extends State<ElasticInLeft>
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        if( !disposed ) {
+        if (!disposed) {
           controller?.forward();
         }
       });
@@ -1305,7 +1305,7 @@ class _FlipInXState extends State<FlipInX> with SingleTickerProviderStateMixin {
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        if( !disposed ) {
+        if (!disposed) {
           controller?.forward();
         }
       });
@@ -1393,7 +1393,7 @@ class _FlipInYState extends State<FlipInY> with SingleTickerProviderStateMixin {
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        if( !disposed ) {
+        if (!disposed) {
           controller?.forward();
         }
       });
@@ -1487,7 +1487,7 @@ class _SlideInUpState extends State<SlideInUp>
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        if( !disposed ) {
+        if (!disposed) {
           controller?.forward();
         }
       });
@@ -1609,7 +1609,7 @@ class _SlideInLeftState extends State<SlideInLeft>
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        if( !disposed ) {
+        if (!disposed) {
           controller?.forward();
         }
       });
@@ -1739,7 +1739,7 @@ class _JelloInState extends State<JelloIn> with SingleTickerProviderStateMixin {
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        if( !disposed ) {
+        if (!disposed) {
           controller?.forward();
         }
       });
@@ -1843,7 +1843,7 @@ class _BounceState extends State<Bounce> with SingleTickerProviderStateMixin {
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        if( !disposed ) {
+        if (!disposed) {
           (widget.infinite) ? controller.repeat() : controller?.forward();
         }
       });
@@ -1937,7 +1937,7 @@ class _FlashState extends State<Flash> with SingleTickerProviderStateMixin {
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        if( !disposed ) {
+        if (!disposed) {
           (widget.infinite) ? controller.repeat() : controller?.forward();
         }
       });
@@ -2028,7 +2028,7 @@ class _PulseState extends State<Pulse> with SingleTickerProviderStateMixin {
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        if( !disposed ) {
+        if (!disposed) {
           (widget.infinite) ? controller.repeat() : controller?.forward();
         }
       });
@@ -2144,7 +2144,7 @@ class _SwingState extends State<Swing> with SingleTickerProviderStateMixin {
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        if( !disposed ) {
+        if (!disposed) {
           (widget.infinite) ? controller.repeat() : controller?.forward();
         }
       });
@@ -2241,7 +2241,7 @@ class _SpinState extends State<Spin> with SingleTickerProviderStateMixin {
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        if( !disposed ) {
+        if (!disposed) {
           (widget.infinite) ? controller.repeat() : controller?.forward();
         }
       });
@@ -2327,7 +2327,7 @@ class _SpinPerfectState extends State<SpinPerfect>
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        if( !disposed ) {
+        if (!disposed) {
           (widget.infinite) ? controller.repeat() : controller?.forward();
         }
       });
@@ -2421,7 +2421,7 @@ class _DanceState extends State<Dance> with SingleTickerProviderStateMixin {
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        if( !disposed ) {
+        if (!disposed) {
           (widget.infinite) ? controller.repeat() : controller?.forward();
         }
       });
@@ -2511,7 +2511,7 @@ class _RouletteState extends State<Roulette>
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        if( !disposed ) {
+        if (!disposed) {
           (widget.infinite) ? controller.repeat() : controller?.forward();
         }
       });
@@ -2598,7 +2598,7 @@ class _FadeOutState extends State<FadeOut> with SingleTickerProviderStateMixin {
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        if( !disposed ) {
+        if (!disposed) {
           controller?.forward();
         }
       });
@@ -2686,7 +2686,7 @@ class _FadeOutDownState extends State<FadeOutDown>
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        if( !disposed ) {
+        if (!disposed) {
           controller?.forward();
         }
       });
@@ -2814,7 +2814,7 @@ class _FadeOutUpState extends State<FadeOutUp>
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        if( !disposed ) {
+        if (!disposed) {
           controller?.forward();
         }
       });
@@ -2942,7 +2942,7 @@ class _FadeOutLeftState extends State<FadeOutLeft>
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        if( !disposed ) {
+        if (!disposed) {
           controller?.forward();
         }
       });
@@ -3118,7 +3118,7 @@ class ZoomIn extends StatefulWidget {
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
-      this.from = 1.0 })
+      this.from = 1.0})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -3157,7 +3157,7 @@ class _ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        if( !disposed ) {
+        if (!disposed) {
           controller?.forward();
         }
       });
@@ -3207,7 +3207,7 @@ class ZoomOut extends StatefulWidget {
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
-      this.from = 0.0 })
+      this.from = 0.0})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -3247,7 +3247,7 @@ class _ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        if( !disposed ) {
+        if (!disposed) {
           controller?.forward();
         }
       });
