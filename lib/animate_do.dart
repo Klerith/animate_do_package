@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-/*
-  Author: Fernando Herrera
-  website: fernando-herrera.com
-  Version: 1.7.6
-  NullSafety-Checked!
-*/
 
-// ====================================
-//              Begin Fades
-// ====================================
-// ============= FadeIn
+///  Author: Fernando Herrera
+///  website: fernando-herrera.com
+///  Version: 2.0.0
+///  Null-Safety: checked!
+
+/// Animate_do offers a simple and easy way to animate widgets using only native widgets
+/// This library is inspired on Animate.css
+
+/// ====================================
+///              Begin Fades
+/// ====================================
+/// ============= FadeIn
 class FadeIn extends StatefulWidget {
   final Key? key;
   final Widget child;
@@ -88,7 +90,7 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
   }
 }
 
-// ============= FadeInDown
+/// ============= FadeInDown
 class FadeInDown extends StatefulWidget {
   final Key? key;
   final Widget child;
@@ -143,8 +145,8 @@ class _FadeInDownState extends State<FadeInDown>
     animation = Tween<double>(begin: widget.from * -1, end: 0)
         .animate(CurvedAnimation(parent: controller!, curve: Curves.easeOut));
 
-    opacity = Tween<double>(begin: 0, end: 1)
-        .animate(CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
+    opacity = Tween<double>(begin: 0, end: 1).animate(
+        CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -178,7 +180,7 @@ class _FadeInDownState extends State<FadeInDown>
   }
 }
 
-// ============= FadeInDownBig
+/// ============= FadeInDownBig
 class FadeInDownBig extends StatelessWidget {
   final Key? key;
   final Widget child;
@@ -217,7 +219,7 @@ class FadeInDownBig extends StatelessWidget {
       from: from);
 }
 
-// ============= FadeInUp
+/// ============= FadeInUp
 class FadeInUp extends StatefulWidget {
   final Key? key;
   final Widget child;
@@ -270,8 +272,8 @@ class _FadeInUpState extends State<FadeInUp>
 
     animation = Tween<double>(begin: widget.from, end: 0)
         .animate(CurvedAnimation(parent: controller!, curve: Curves.easeOut));
-    opacity = Tween<double>(begin: 0, end: 1)
-        .animate(CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
+    opacity = Tween<double>(begin: 0, end: 1).animate(
+        CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -305,7 +307,7 @@ class _FadeInUpState extends State<FadeInUp>
   }
 }
 
-// ============= FadeInUpBig
+/// ============= FadeInUpBig
 class FadeInUpBig extends StatelessWidget {
   final Key? key;
   final Widget child;
@@ -345,7 +347,7 @@ class FadeInUpBig extends StatelessWidget {
       );
 }
 
-// ============= FadeInLeft
+/// ============= FadeInLeft
 class FadeInLeft extends StatefulWidget {
   final Key? key;
   final Widget child;
@@ -398,8 +400,8 @@ class _FadeInLeftState extends State<FadeInLeft>
 
     animation = Tween<double>(begin: widget.from * -1, end: 0)
         .animate(CurvedAnimation(parent: controller!, curve: Curves.easeOut));
-    opacity = Tween<double>(begin: 0, end: 1)
-        .animate(CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
+    opacity = Tween<double>(begin: 0, end: 1).animate(
+        CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -433,7 +435,7 @@ class _FadeInLeftState extends State<FadeInLeft>
   }
 }
 
-// ============= FadeInLeftBig
+/// ============= FadeInLeftBig
 class FadeInLeftBig extends StatelessWidget {
   final Key? key;
   final Widget child;
@@ -473,7 +475,7 @@ class FadeInLeftBig extends StatelessWidget {
       );
 }
 
-// ============= FadeInRight
+/// ============= FadeInRight
 class FadeInRight extends StatefulWidget {
   final Key? key;
   final Widget child;
@@ -526,8 +528,8 @@ class _FadeInRightState extends State<FadeInRight>
 
     animation = Tween<double>(begin: widget.from, end: 0)
         .animate(CurvedAnimation(parent: controller!, curve: Curves.easeOut));
-    opacity = Tween<double>(begin: 0, end: 1)
-        .animate(CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
+    opacity = Tween<double>(begin: 0, end: 1).animate(
+        CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -561,7 +563,7 @@ class _FadeInRightState extends State<FadeInRight>
   }
 }
 
-// ============= FadeInRightBig
+/// ============= FadeInRightBig
 class FadeInRightBig extends StatelessWidget {
   final Key? key;
   final Widget child;
@@ -600,14 +602,15 @@ class FadeInRightBig extends StatelessWidget {
         from: from,
       );
 }
-// ====================================
-//              End Fades
-// ====================================
 
-// ====================================
-//              Begin Bounce
-// ====================================
-// ============= BounceInDown
+/// ====================================
+///              End Fades
+/// ====================================
+
+/// ====================================
+///              Begin Bounce
+/// ====================================
+/// ============= BounceInDown
 class BounceInDown extends StatefulWidget {
   final Key? key;
   final Widget child;
@@ -658,8 +661,8 @@ class _BounceInDownState extends State<BounceInDown>
 
     controller = AnimationController(duration: widget.duration, vsync: this);
 
-    opacity = Tween<double>(begin: 0, end: 1)
-        .animate(CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
+    opacity = Tween<double>(begin: 0, end: 1).animate(
+        CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
 
     animation = Tween<double>(begin: widget.from * -1, end: 0)
         .animate(CurvedAnimation(parent: controller!, curve: Curves.bounceOut));
@@ -693,7 +696,7 @@ class _BounceInDownState extends State<BounceInDown>
   }
 }
 
-// ============= BounceInUp
+/// ============= BounceInUp
 class BounceInUp extends StatelessWidget {
   final Key? key;
   final Widget child;
@@ -733,7 +736,7 @@ class BounceInUp extends StatelessWidget {
       );
 }
 
-// ============= BounceInLeft
+/// ============= BounceInLeft
 class BounceInLeft extends StatefulWidget {
   final Key? key;
   final Widget child;
@@ -783,8 +786,8 @@ class _BounceInLeftState extends State<BounceInLeft>
     super.initState();
 
     controller = AnimationController(duration: widget.duration, vsync: this);
-    opacity = Tween<double>(begin: 0, end: 1)
-        .animate(CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
+    opacity = Tween<double>(begin: 0, end: 1).animate(
+        CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
 
     animation = Tween<double>(begin: widget.from * -1, end: 0)
         .animate(CurvedAnimation(parent: controller!, curve: Curves.bounceOut));
@@ -821,7 +824,7 @@ class _BounceInLeftState extends State<BounceInLeft>
   }
 }
 
-// ============= BounceInRight
+/// ============= BounceInRight
 class BounceInRight extends StatelessWidget {
   final Key? key;
   final Widget child;
@@ -860,14 +863,15 @@ class BounceInRight extends StatelessWidget {
         from: from * -1,
       );
 }
-// ====================================
-//              End Bounce
-// ====================================
 
-// ====================================
-//          Begin Elastics
-// ====================================
-// ============= ElasticIn
+/// ====================================
+///              End Bounce
+/// ====================================
+
+/// ====================================
+///          Begin Elastics
+/// ====================================
+/// ============= ElasticIn
 class ElasticIn extends StatefulWidget {
   final Key? key;
   final Widget child;
@@ -916,11 +920,11 @@ class _ElasticInState extends State<ElasticIn>
 
     controller = AnimationController(duration: widget.duration, vsync: this);
 
-    opacity = Tween<double>(begin: 0, end: 1)
-        .animate(CurvedAnimation(parent: controller!, curve: Interval(0, 0.45)));
+    opacity = Tween<double>(begin: 0, end: 1).animate(
+        CurvedAnimation(parent: controller!, curve: Interval(0, 0.45)));
 
-    bouncing = Tween<double>(begin: 0, end: 1)
-        .animate(CurvedAnimation(parent: controller!, curve: Curves.elasticOut));
+    bouncing = Tween<double>(begin: 0, end: 1).animate(
+        CurvedAnimation(parent: controller!, curve: Curves.elasticOut));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -955,7 +959,7 @@ class _ElasticInState extends State<ElasticIn>
   }
 }
 
-// ============= ElasticInDown
+/// ============= ElasticInDown
 class ElasticInDown extends StatefulWidget {
   final Key? key;
   final Widget child;
@@ -1009,8 +1013,8 @@ class _ElasticInDownState extends State<ElasticInDown>
 
     controller = AnimationController(duration: widget.duration, vsync: this);
 
-    opacity = Tween<double>(begin: 0, end: 1)
-        .animate(CurvedAnimation(parent: controller!, curve: Interval(0, 0.45)));
+    opacity = Tween<double>(begin: 0, end: 1).animate(
+        CurvedAnimation(parent: controller!, curve: Interval(0, 0.45)));
 
     falling = Tween<double>(begin: widget.from * -1, end: widget.to * -1)
         .animate(CurvedAnimation(
@@ -1058,7 +1062,7 @@ class _ElasticInDownState extends State<ElasticInDown>
   }
 }
 
-// ============= ElasticInUp
+/// ============= ElasticInUp
 class ElasticInUp extends StatelessWidget {
   final Key? key;
   final Widget child;
@@ -1099,7 +1103,7 @@ class ElasticInUp extends StatelessWidget {
       );
 }
 
-// ============= ElasticInLeft
+/// ============= ElasticInLeft
 class ElasticInLeft extends StatefulWidget {
   final Key? key;
   final Widget child;
@@ -1153,8 +1157,8 @@ class _ElasticInLeftState extends State<ElasticInLeft>
 
     controller = AnimationController(duration: widget.duration, vsync: this);
 
-    opacity = Tween<double>(begin: 0, end: 1)
-        .animate(CurvedAnimation(parent: controller!, curve: Interval(0, 0.45)));
+    opacity = Tween<double>(begin: 0, end: 1).animate(
+        CurvedAnimation(parent: controller!, curve: Interval(0, 0.45)));
 
     falling = Tween<double>(begin: widget.from * -1, end: widget.to * -1)
         .animate(CurvedAnimation(
@@ -1202,7 +1206,7 @@ class _ElasticInLeftState extends State<ElasticInLeft>
   }
 }
 
-// ============= ElasticInRight
+/// ============= ElasticInRight
 class ElasticInRight extends StatelessWidget {
   final Key? key;
   final Widget child;
@@ -1241,15 +1245,16 @@ class ElasticInRight extends StatelessWidget {
       from: from * -1,
       to: -100);
 }
-// ====================================
-//          End Elastics
-// ====================================
 
-// ====================================
-//          Begin Flips
-// ====================================
+/// ====================================
+///          End Elastics
+/// ====================================
 
-// ============= FlipInX
+/// ====================================
+///          Begin Flips
+/// ====================================
+
+/// ============= FlipInX
 class FlipInX extends StatefulWidget {
   final Key? key;
   final Widget child;
@@ -1301,8 +1306,8 @@ class _FlipInXState extends State<FlipInX> with SingleTickerProviderStateMixin {
     rotation = Tween<double>(begin: 1.5, end: 0.0)
         .animate(CurvedAnimation(parent: controller!, curve: Curves.bounceOut));
 
-    opacity = Tween<double>(begin: 0, end: 1)
-        .animate(CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
+    opacity = Tween<double>(begin: 0, end: 1).animate(
+        CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -1337,7 +1342,7 @@ class _FlipInXState extends State<FlipInX> with SingleTickerProviderStateMixin {
   }
 }
 
-// ============= FlipInY
+/// ============= FlipInY
 class FlipInY extends StatefulWidget {
   final Key? key;
   final Widget child;
@@ -1389,8 +1394,8 @@ class _FlipInYState extends State<FlipInY> with SingleTickerProviderStateMixin {
     rotation = Tween<double>(begin: 1.5, end: 0.0)
         .animate(CurvedAnimation(parent: controller!, curve: Curves.bounceOut));
 
-    opacity = Tween<double>(begin: 0, end: 1)
-        .animate(CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
+    opacity = Tween<double>(begin: 0, end: 1).animate(
+        CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -1425,14 +1430,14 @@ class _FlipInYState extends State<FlipInY> with SingleTickerProviderStateMixin {
   }
 }
 
-// ====================================
-//          End Flips
-// ====================================
+/// ====================================
+///          End Flips
+/// ====================================
 
-// ====================================
-//          Begin SlideIns
-// ====================================
-// ============= SlideInUp
+/// ====================================
+///          Begin SlideIns
+/// ====================================
+/// ============= SlideInUp
 class SlideInUp extends StatefulWidget {
   final Key? key;
   final Widget child;
@@ -1514,7 +1519,7 @@ class _SlideInUpState extends State<SlideInUp>
   }
 }
 
-// ============= SlideInDown
+/// ============= SlideInDown
 class SlideInDown extends StatelessWidget {
   final Key? key;
   final Widget child;
@@ -1554,7 +1559,7 @@ class SlideInDown extends StatelessWidget {
       );
 }
 
-// ============= SlideInLeft
+/// ============= SlideInLeft
 class SlideInLeft extends StatefulWidget {
   final Key? key;
   final Widget child;
@@ -1636,7 +1641,7 @@ class _SlideInLeftState extends State<SlideInLeft>
   }
 }
 
-// ============= SlideInRight
+/// ============= SlideInRight
 class SlideInRight extends StatelessWidget {
   final Key? key;
   final Widget child;
@@ -1675,15 +1680,16 @@ class SlideInRight extends StatelessWidget {
         from: from * -1,
       );
 }
-// ====================================
-//          End SlideIns
-// ====================================
 
-// ====================================
-//          Begin Special Ins
-// ====================================
+/// ====================================
+///          End SlideIns
+/// ====================================
 
-// ============= JelloIn
+/// ====================================
+///          Begin Special Ins
+/// ====================================
+
+/// ============= JelloIn
 class JelloIn extends StatefulWidget {
   final Key? key;
   final Widget child;
@@ -1735,8 +1741,8 @@ class _JelloInState extends State<JelloIn> with SingleTickerProviderStateMixin {
     rotation = Tween<double>(begin: 1.5, end: 0.0)
         .animate(CurvedAnimation(parent: controller!, curve: Curves.bounceOut));
 
-    opacity = Tween<double>(begin: 0, end: 1)
-        .animate(CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
+    opacity = Tween<double>(begin: 0, end: 1).animate(
+        CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -1772,14 +1778,15 @@ class _JelloInState extends State<JelloIn> with SingleTickerProviderStateMixin {
         });
   }
 }
-// ====================================
-//          End Special Ins
-// ====================================
 
-// ====================================
-//       Begin Attention Seekers
-// ====================================
-// ============= Bounce
+/// ====================================
+///          End Special Ins
+/// ====================================
+
+/// ====================================
+///       Begin Attention Seekers
+/// ====================================
+/// ============= Bounce
 class Bounce extends StatefulWidget {
   final Key? key;
   final Widget child;
@@ -1875,7 +1882,7 @@ class _BounceState extends State<Bounce> with SingleTickerProviderStateMixin {
   }
 }
 
-// ============= Flash
+/// ============= Flash
 class Flash extends StatefulWidget {
   final Key? key;
   final Widget child;
@@ -1927,14 +1934,14 @@ class _FlashState extends State<Flash> with SingleTickerProviderStateMixin {
 
     controller = AnimationController(duration: widget.duration, vsync: this);
 
-    opacityOut1 = Tween<double>(begin: 1, end: 0)
-        .animate(CurvedAnimation(parent: controller!, curve: Interval(0, 0.25)));
+    opacityOut1 = Tween<double>(begin: 1, end: 0).animate(
+        CurvedAnimation(parent: controller!, curve: Interval(0, 0.25)));
     opacityIn1 = Tween<double>(begin: 0, end: 1).animate(
         CurvedAnimation(parent: controller!, curve: Interval(0.25, 0.5)));
     opacityOut2 = Tween<double>(begin: 1, end: 0).animate(
         CurvedAnimation(parent: controller!, curve: Interval(0.5, 0.75)));
-    opacityIn2 = Tween<double>(begin: 0, end: 1)
-        .animate(CurvedAnimation(parent: controller!, curve: Interval(0.75, 1)));
+    opacityIn2 = Tween<double>(begin: 0, end: 1).animate(
+        CurvedAnimation(parent: controller!, curve: Interval(0.75, 1)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -1971,7 +1978,7 @@ class _FlashState extends State<Flash> with SingleTickerProviderStateMixin {
   }
 }
 
-// ============= Pulse
+/// ============= Pulse
 class Pulse extends StatefulWidget {
   final Key? key;
   final Widget child;
@@ -2059,7 +2066,7 @@ class _PulseState extends State<Pulse> with SingleTickerProviderStateMixin {
   }
 }
 
-// ============= Swing
+/// ============= Swing
 class Swing extends StatefulWidget {
   final Key? key;
   final Widget child;
@@ -2185,7 +2192,7 @@ class _SwingState extends State<Swing> with SingleTickerProviderStateMixin {
   }
 }
 
-// ============= Spin
+/// ============= Spin
 class Spin extends StatefulWidget {
   final Key? key;
   final Widget child;
@@ -2270,7 +2277,7 @@ class _SpinState extends State<Spin> with SingleTickerProviderStateMixin {
   }
 }
 
-// ============= SpinPerfect
+/// ============= SpinPerfect
 class SpinPerfect extends StatefulWidget {
   final Key? key;
   final Widget child;
@@ -2356,7 +2363,7 @@ class _SpinPerfectState extends State<SpinPerfect>
   }
 }
 
-// ============= Dance
+/// ============= Dance
 class Dance extends StatefulWidget {
   final Key? key;
   final Widget child;
@@ -2444,7 +2451,9 @@ class _DanceState extends State<Dance> with SingleTickerProviderStateMixin {
         builder: (BuildContext context, Widget? child) {
           final animation = (step1.value != -0.2)
               ? step1.value
-              : (step2.value != 0.2) ? step2.value : step3.value;
+              : (step2.value != 0.2)
+                  ? step2.value
+                  : step3.value;
 
           return Transform(
               alignment: FractionalOffset.center,
@@ -2454,7 +2463,7 @@ class _DanceState extends State<Dance> with SingleTickerProviderStateMixin {
   }
 }
 
-// ============= Roulette
+/// ============= Roulette
 class Roulette extends StatefulWidget {
   final Key? key;
   final Widget child;
@@ -2507,8 +2516,8 @@ class _RouletteState extends State<Roulette>
 
     controller = AnimationController(duration: widget.duration, vsync: this);
 
-    spin = Tween<double>(begin: 0, end: widget.spins * 2)
-        .animate(CurvedAnimation(parent: controller!, curve: Curves.elasticOut));
+    spin = Tween<double>(begin: 0, end: widget.spins * 2).animate(
+        CurvedAnimation(parent: controller!, curve: Curves.elasticOut));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -2540,14 +2549,14 @@ class _RouletteState extends State<Roulette>
   }
 }
 
-// ====================================
-//       End Attention Seekers
-// ====================================
+/// ====================================
+///       End Attention Seekers
+/// ====================================
 
-// ====================================
-//       FadeOuts Animations
-// ====================================
-// ============= FadeOut
+/// ====================================
+///       FadeOuts Animations
+/// ====================================
+/// ============= FadeOut
 class FadeOut extends StatefulWidget {
   final Key? key;
   final Widget child;
@@ -2627,7 +2636,7 @@ class _FadeOutState extends State<FadeOut> with SingleTickerProviderStateMixin {
   }
 }
 
-// ============= FadeOutDown
+/// ============= FadeOutDown
 class FadeOutDown extends StatefulWidget {
   final Key? key;
   final Widget child;
@@ -2682,8 +2691,8 @@ class _FadeOutDownState extends State<FadeOutDown>
     animation = Tween<double>(begin: 0, end: widget.from)
         .animate(CurvedAnimation(parent: controller!, curve: Curves.easeOut));
 
-    opacity = Tween<double>(begin: 1.0, end: 0.0)
-        .animate(CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
+    opacity = Tween<double>(begin: 1.0, end: 0.0).animate(
+        CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -2717,7 +2726,7 @@ class _FadeOutDownState extends State<FadeOutDown>
   }
 }
 
-// ============= FadeOutDownBig
+/// ============= FadeOutDownBig
 class FadeOutDownBig extends StatelessWidget {
   final Key? key;
   final Widget child;
@@ -2757,7 +2766,7 @@ class FadeOutDownBig extends StatelessWidget {
       );
 }
 
-// ============= FadeOutUp
+/// ============= FadeOutUp
 class FadeOutUp extends StatefulWidget {
   final Key? key;
   final Widget child;
@@ -2810,8 +2819,8 @@ class _FadeOutUpState extends State<FadeOutUp>
 
     animation = Tween<double>(begin: 0.0, end: widget.from * -1)
         .animate(CurvedAnimation(parent: controller!, curve: Curves.easeOut));
-    opacity = Tween<double>(begin: 1.0, end: 0.0)
-        .animate(CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
+    opacity = Tween<double>(begin: 1.0, end: 0.0).animate(
+        CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -2845,7 +2854,7 @@ class _FadeOutUpState extends State<FadeOutUp>
   }
 }
 
-// ============= FadeOutUpBig
+/// ============= FadeOutUpBig
 class FadeOutUpBig extends StatelessWidget {
   final Key? key;
   final Widget child;
@@ -2885,7 +2894,7 @@ class FadeOutUpBig extends StatelessWidget {
       );
 }
 
-// ============= FadeOutLeft
+/// ============= FadeOutLeft
 class FadeOutLeft extends StatefulWidget {
   final Key? key;
   final Widget child;
@@ -2938,8 +2947,8 @@ class _FadeOutLeftState extends State<FadeOutLeft>
 
     animation = Tween<double>(begin: 0, end: widget.from * -1)
         .animate(CurvedAnimation(parent: controller!, curve: Curves.easeOut));
-    opacity = Tween<double>(begin: 1.0, end: 0.0)
-        .animate(CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
+    opacity = Tween<double>(begin: 1.0, end: 0.0).animate(
+        CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -2973,7 +2982,7 @@ class _FadeOutLeftState extends State<FadeOutLeft>
   }
 }
 
-// ============= FadeOutLeftBig
+/// ============= FadeOutLeftBig
 class FadeOutLeftBig extends StatelessWidget {
   final Key? key;
   final Widget child;
@@ -3013,7 +3022,7 @@ class FadeOutLeftBig extends StatelessWidget {
       );
 }
 
-// ============= FadeOutRight
+/// ============= FadeOutRight
 class FadeOutRight extends StatelessWidget {
   final Key? key;
   final Widget child;
@@ -3053,7 +3062,7 @@ class FadeOutRight extends StatelessWidget {
       );
 }
 
-// ============= FadeOutRightBig
+/// ============= FadeOutRightBig
 class FadeOutRightBig extends StatelessWidget {
   final Key? key;
   final Widget child;
@@ -3093,14 +3102,14 @@ class FadeOutRightBig extends StatelessWidget {
       );
 }
 
-// ====================================
-//          End FadeOuts
-// ====================================
+/// ====================================
+///          End FadeOuts
+/// ====================================
 
-// ====================================
-//     Begin ZoomIn/out Animations
-// ====================================
-// ============= ZoomIn
+/// ====================================
+///     Begin ZoomIn/out Animations
+/// ====================================
+/// ============= ZoomIn
 class ZoomIn extends StatefulWidget {
   final Key? key;
   final Widget child;
@@ -3153,8 +3162,8 @@ class _ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
     fade = Tween(begin: 0.0, end: widget.from)
         .animate(CurvedAnimation(curve: Curves.easeOut, parent: controller!));
 
-    opacity = Tween<double>(begin: 0.0, end: 1)
-        .animate(CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
+    opacity = Tween<double>(begin: 0.0, end: 1).animate(
+        CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -3189,7 +3198,7 @@ class _ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
   }
 }
 
-// ============= ZoomOut
+/// ============= ZoomOut
 class ZoomOut extends StatefulWidget {
   final Key? key;
   final Widget child;
@@ -3243,8 +3252,8 @@ class _ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
     zoom = Tween(begin: 1.0, end: widget.from)
         .animate(CurvedAnimation(curve: Curves.easeOut, parent: controller!));
 
-    opacity = Tween<double>(begin: 1.0, end: 0.0)
-        .animate(CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
+    opacity = Tween<double>(begin: 1.0, end: 0.0).animate(
+        CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -3279,6 +3288,6 @@ class _ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
   }
 }
 
-// ====================================
-//      End ZoomIn/out Animations
-// ====================================
+/// ====================================
+///      End ZoomIn/out Animations
+/// ====================================

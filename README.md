@@ -1,4 +1,5 @@
-# animate_do
+# animate_do 
+## Null-Safety checked!
 
 An animation package inspired in [Animate.css](https://daneden.github.io/animate.css/), built using only Flutter animations, no extra packages.
 
