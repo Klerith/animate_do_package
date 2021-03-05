@@ -1,3 +1,7 @@
+#### [2.0.0-dev.1] - Null-safety
+* Testing new null-safety version
+* Refactored the entire library
+
 #### [1.7.4] - Delay fixed
 * Fixed: Calling forward on a disposed widget.
 * Fixed: Some animations didn't have delayed.
