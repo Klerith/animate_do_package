@@ -1,3 +1,7 @@
+#### [2.0.0] - Null-safety
+* Now Animate_do its a library
+* Null-safety checked and passed
+
 #### [2.0.0-dev.1] - Null-safety
 * Testing new null-safety version
 * Refactored the entire library

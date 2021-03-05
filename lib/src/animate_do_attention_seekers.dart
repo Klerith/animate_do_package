@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
+/// [from] from where you want to start the animation
+/// [infinite] loops the animation until the widget is destroyed
 class Bounce extends StatefulWidget {
   final Key? key;
   final Widget child;
@@ -110,6 +112,8 @@ class _BounceState extends State<Bounce> with SingleTickerProviderStateMixin {
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
+/// [from] from where you want to start the animation
+/// [infinite] loops the animation until the widget is destroyed
 class Flash extends StatefulWidget {
   final Key? key;
   final Widget child;
@@ -213,6 +217,8 @@ class _FlashState extends State<Flash> with SingleTickerProviderStateMixin {
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
+/// [from] from where you want to start the animation
+/// [infinite] loops the animation until the widget is destroyed
 class Pulse extends StatefulWidget {
   final Key? key;
   final Widget child;
@@ -308,6 +314,8 @@ class _PulseState extends State<Pulse> with SingleTickerProviderStateMixin {
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
+/// [from] from where you want to start the animation
+/// [infinite] loops the animation until the widget is destroyed
 class Swing extends StatefulWidget {
   final Key? key;
   final Widget child;
@@ -441,6 +449,9 @@ class _SwingState extends State<Swing> with SingleTickerProviderStateMixin {
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
+/// [from] from where you want to start the animation
+/// [infinite] loops the animation until the widget is destroyed
+/// [spins] number of spins that you want
 class Spin extends StatefulWidget {
   final Key? key;
   final Widget child;
@@ -533,6 +544,8 @@ class _SpinState extends State<Spin> with SingleTickerProviderStateMixin {
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
+/// [from] from where you want to start the animation
+/// [infinite] loops the animation until the widget is destroyed
 class SpinPerfect extends StatefulWidget {
   final Key? key;
   final Widget child;
@@ -626,6 +639,8 @@ class _SpinPerfectState extends State<SpinPerfect>
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
+/// [from] from where you want to start the animation
+/// [infinite] loops the animation until the widget is destroyed
 class Dance extends StatefulWidget {
   final Key? key;
   final Widget child;
@@ -733,6 +748,8 @@ class _DanceState extends State<Dance> with SingleTickerProviderStateMixin {
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
+/// [from] from where you want to start the animation
+/// [infinite] loops the animation until the widget is destroyed
 class Roulette extends StatefulWidget {
   final Key? key;
   final Widget child;
