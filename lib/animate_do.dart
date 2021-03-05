@@ -208,7 +208,7 @@ class FadeInDownBig extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => FadeInDown(
-      child: child!,
+      child: child,
       duration: duration,
       delay: delay,
       controller: controller,
