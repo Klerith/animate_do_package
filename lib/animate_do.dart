@@ -16,4 +16,3 @@ export 'src/animate_do_specials.dart';
 export 'src/animate_do_attention_seekers.dart';
 export 'src/animate_do_fadeouts.dart';
 export 'src/animate_do_zooms.dart';
-
