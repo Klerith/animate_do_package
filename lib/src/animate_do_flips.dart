@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 /// Class [FlipInX]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate

@@ -2,7 +2,7 @@ library animate_do;
 
 ///  Author: Fernando Herrera
 ///  website: fernando-herrera.com
-///  Version: 2.0.0
+///  Version: 2.0.0-dev.1
 ///  Null-Safety: checked!
 
 /// Animate_do offers a simple and easy way to animate widgets using only native widgets
