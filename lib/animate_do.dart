@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 /*
   Author: Fernando Herrera
   website: fernando-herrera.com
-  Version: 1.7.1
+  Version: 1.7.6
+  NullSafety-Checked!
 */
 
 // ====================================
@@ -10,17 +11,17 @@ import 'package:flutter/material.dart';
 // ====================================
 // ============= FadeIn
 class FadeIn extends StatefulWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
 
   FadeIn(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 300),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -39,14 +40,14 @@ class FadeIn extends StatefulWidget {
 }
 
 class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
-  AnimationController controller;
+  AnimationController? controller;
   bool disposed = false;
-  Animation<double> animation;
+  late Animation<double> animation;
 
   @override
   void dispose() {
     disposed = true;
-    controller.dispose();
+    controller!.dispose();
     super.dispose();
   }
 
@@ -55,7 +56,7 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
     super.initState();
 
     controller = AnimationController(duration: widget.duration, vsync: this);
-    animation = CurvedAnimation(curve: Curves.easeOut, parent: controller);
+    animation = CurvedAnimation(curve: Curves.easeOut, parent: controller!);
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -66,7 +67,7 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
     }
 
     if (widget.controller is Function) {
-      widget.controller(controller);
+      widget.controller!(controller!);
     }
   }
 
@@ -78,7 +79,7 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
 
     return AnimatedBuilder(
         animation: animation,
-        builder: (BuildContext context, Widget child) {
+        builder: (BuildContext context, Widget? child) {
           return Opacity(
             opacity: animation.value,
             child: widget.child,
@@ -89,18 +90,18 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
 
 // ============= FadeInDown
 class FadeInDown extends StatefulWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
   final double from;
 
   FadeInDown(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -121,15 +122,15 @@ class FadeInDown extends StatefulWidget {
 
 class _FadeInDownState extends State<FadeInDown>
     with SingleTickerProviderStateMixin {
-  AnimationController controller;
+  AnimationController? controller;
   bool disposed = false;
-  Animation<double> animation;
-  Animation<double> opacity;
+  late Animation<double> animation;
+  late Animation<double> opacity;
 
   @override
   void dispose() {
     disposed = true;
-    controller.dispose();
+    controller!.dispose();
     super.dispose();
   }
 
@@ -140,10 +141,10 @@ class _FadeInDownState extends State<FadeInDown>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     animation = Tween<double>(begin: widget.from * -1, end: 0)
-        .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
+        .animate(CurvedAnimation(parent: controller!, curve: Curves.easeOut));
 
     opacity = Tween<double>(begin: 0, end: 1)
-        .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
+        .animate(CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -154,7 +155,7 @@ class _FadeInDownState extends State<FadeInDown>
     }
 
     if (widget.controller is Function) {
-      widget.controller(controller);
+      widget.controller!(controller!);
     }
   }
 
@@ -165,8 +166,8 @@ class _FadeInDownState extends State<FadeInDown>
     }
 
     return AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget child) {
+        animation: controller!,
+        builder: (BuildContext context, Widget? child) {
           return Transform.translate(
               offset: Offset(0, animation.value),
               child: Opacity(
@@ -179,18 +180,18 @@ class _FadeInDownState extends State<FadeInDown>
 
 // ============= FadeInDownBig
 class FadeInDownBig extends StatelessWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
   final double from;
 
   FadeInDownBig(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 1300),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -207,7 +208,7 @@ class FadeInDownBig extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => FadeInDown(
-      child: child,
+      child: child!,
       duration: duration,
       delay: delay,
       controller: controller,
@@ -218,18 +219,18 @@ class FadeInDownBig extends StatelessWidget {
 
 // ============= FadeInUp
 class FadeInUp extends StatefulWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
   final double from;
 
   FadeInUp(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -250,14 +251,14 @@ class FadeInUp extends StatefulWidget {
 
 class _FadeInUpState extends State<FadeInUp>
     with SingleTickerProviderStateMixin {
-  AnimationController controller;
+  AnimationController? controller;
   bool disposed = false;
-  Animation<double> animation;
-  Animation<double> opacity;
+  late Animation<double> animation;
+  late Animation<double> opacity;
   @override
   void dispose() {
     disposed = true;
-    controller.dispose();
+    controller!.dispose();
     super.dispose();
   }
 
@@ -268,9 +269,9 @@ class _FadeInUpState extends State<FadeInUp>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     animation = Tween<double>(begin: widget.from, end: 0)
-        .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
+        .animate(CurvedAnimation(parent: controller!, curve: Curves.easeOut));
     opacity = Tween<double>(begin: 0, end: 1)
-        .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
+        .animate(CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -281,7 +282,7 @@ class _FadeInUpState extends State<FadeInUp>
     }
 
     if (widget.controller is Function) {
-      widget.controller(controller);
+      widget.controller!(controller!);
     }
   }
 
@@ -292,8 +293,8 @@ class _FadeInUpState extends State<FadeInUp>
     }
 
     return AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget child) {
+        animation: controller!,
+        builder: (BuildContext context, Widget? child) {
           return Transform.translate(
               offset: Offset(0, animation.value),
               child: Opacity(
@@ -306,18 +307,18 @@ class _FadeInUpState extends State<FadeInUp>
 
 // ============= FadeInUpBig
 class FadeInUpBig extends StatelessWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
   final double from;
 
   FadeInUpBig(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 1300),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -346,18 +347,18 @@ class FadeInUpBig extends StatelessWidget {
 
 // ============= FadeInLeft
 class FadeInLeft extends StatefulWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
   final double from;
 
   FadeInLeft(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -378,14 +379,14 @@ class FadeInLeft extends StatefulWidget {
 
 class _FadeInLeftState extends State<FadeInLeft>
     with SingleTickerProviderStateMixin {
-  AnimationController controller;
+  AnimationController? controller;
   bool disposed = false;
-  Animation<double> animation;
-  Animation<double> opacity;
+  late Animation<double> animation;
+  late Animation<double> opacity;
   @override
   void dispose() {
     disposed = true;
-    controller.dispose();
+    controller!.dispose();
     super.dispose();
   }
 
@@ -396,9 +397,9 @@ class _FadeInLeftState extends State<FadeInLeft>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     animation = Tween<double>(begin: widget.from * -1, end: 0)
-        .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
+        .animate(CurvedAnimation(parent: controller!, curve: Curves.easeOut));
     opacity = Tween<double>(begin: 0, end: 1)
-        .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
+        .animate(CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -409,7 +410,7 @@ class _FadeInLeftState extends State<FadeInLeft>
     }
 
     if (widget.controller is Function) {
-      widget.controller(controller);
+      widget.controller!(controller!);
     }
   }
 
@@ -420,8 +421,8 @@ class _FadeInLeftState extends State<FadeInLeft>
     }
 
     return AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget child) {
+        animation: controller!,
+        builder: (BuildContext context, Widget? child) {
           return Transform.translate(
               offset: Offset(animation.value, 0),
               child: Opacity(
@@ -434,18 +435,18 @@ class _FadeInLeftState extends State<FadeInLeft>
 
 // ============= FadeInLeftBig
 class FadeInLeftBig extends StatelessWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
   final double from;
 
   FadeInLeftBig(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 1300),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -474,18 +475,18 @@ class FadeInLeftBig extends StatelessWidget {
 
 // ============= FadeInRight
 class FadeInRight extends StatefulWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
   final double from;
 
   FadeInRight(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -506,14 +507,14 @@ class FadeInRight extends StatefulWidget {
 
 class _FadeInRightState extends State<FadeInRight>
     with SingleTickerProviderStateMixin {
-  AnimationController controller;
+  AnimationController? controller;
   bool disposed = false;
-  Animation<double> animation;
-  Animation<double> opacity;
+  late Animation<double> animation;
+  late Animation<double> opacity;
   @override
   void dispose() {
     disposed = true;
-    controller.dispose();
+    controller!.dispose();
     super.dispose();
   }
 
@@ -524,9 +525,9 @@ class _FadeInRightState extends State<FadeInRight>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     animation = Tween<double>(begin: widget.from, end: 0)
-        .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
+        .animate(CurvedAnimation(parent: controller!, curve: Curves.easeOut));
     opacity = Tween<double>(begin: 0, end: 1)
-        .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
+        .animate(CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -537,7 +538,7 @@ class _FadeInRightState extends State<FadeInRight>
     }
 
     if (widget.controller is Function) {
-      widget.controller(controller);
+      widget.controller!(controller!);
     }
   }
 
@@ -548,8 +549,8 @@ class _FadeInRightState extends State<FadeInRight>
     }
 
     return AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget child) {
+        animation: controller!,
+        builder: (BuildContext context, Widget? child) {
           return Transform.translate(
               offset: Offset(animation.value, 0),
               child: Opacity(
@@ -562,18 +563,18 @@ class _FadeInRightState extends State<FadeInRight>
 
 // ============= FadeInRightBig
 class FadeInRightBig extends StatelessWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
   final double from;
 
   FadeInRightBig(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 1200),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -608,18 +609,18 @@ class FadeInRightBig extends StatelessWidget {
 // ====================================
 // ============= BounceInDown
 class BounceInDown extends StatefulWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
   final double from;
 
   BounceInDown(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -640,14 +641,14 @@ class BounceInDown extends StatefulWidget {
 
 class _BounceInDownState extends State<BounceInDown>
     with SingleTickerProviderStateMixin {
-  AnimationController controller;
+  AnimationController? controller;
   bool disposed = false;
-  Animation<double> animation;
-  Animation<double> opacity;
+  late Animation<double> animation;
+  late Animation<double> opacity;
   @override
   void dispose() {
     disposed = true;
-    controller.dispose();
+    controller!.dispose();
     super.dispose();
   }
 
@@ -658,10 +659,10 @@ class _BounceInDownState extends State<BounceInDown>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     opacity = Tween<double>(begin: 0, end: 1)
-        .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
+        .animate(CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
 
     animation = Tween<double>(begin: widget.from * -1, end: 0)
-        .animate(CurvedAnimation(parent: controller, curve: Curves.bounceOut));
+        .animate(CurvedAnimation(parent: controller!, curve: Curves.bounceOut));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -672,7 +673,7 @@ class _BounceInDownState extends State<BounceInDown>
     }
 
     if (widget.controller is Function) {
-      widget.controller(controller);
+      widget.controller!(controller!);
     }
   }
 
@@ -683,8 +684,8 @@ class _BounceInDownState extends State<BounceInDown>
     }
 
     return AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget child) {
+        animation: controller!,
+        builder: (BuildContext context, Widget? child) {
           return Transform.translate(
               offset: Offset(0, animation.value),
               child: Opacity(opacity: opacity.value, child: widget.child));
@@ -694,18 +695,18 @@ class _BounceInDownState extends State<BounceInDown>
 
 // ============= BounceInUp
 class BounceInUp extends StatelessWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
   final double from;
 
   BounceInUp(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -734,18 +735,18 @@ class BounceInUp extends StatelessWidget {
 
 // ============= BounceInLeft
 class BounceInLeft extends StatefulWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
   final double from;
 
   BounceInLeft(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -766,14 +767,14 @@ class BounceInLeft extends StatefulWidget {
 
 class _BounceInLeftState extends State<BounceInLeft>
     with SingleTickerProviderStateMixin {
-  AnimationController controller;
+  AnimationController? controller;
   bool disposed = false;
-  Animation<double> animation;
-  Animation<double> opacity;
+  late Animation<double> animation;
+  late Animation<double> opacity;
   @override
   void dispose() {
     disposed = true;
-    controller.dispose();
+    controller!.dispose();
     super.dispose();
   }
 
@@ -783,10 +784,10 @@ class _BounceInLeftState extends State<BounceInLeft>
 
     controller = AnimationController(duration: widget.duration, vsync: this);
     opacity = Tween<double>(begin: 0, end: 1)
-        .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
+        .animate(CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
 
     animation = Tween<double>(begin: widget.from * -1, end: 0)
-        .animate(CurvedAnimation(parent: controller, curve: Curves.bounceOut));
+        .animate(CurvedAnimation(parent: controller!, curve: Curves.bounceOut));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -797,7 +798,7 @@ class _BounceInLeftState extends State<BounceInLeft>
     }
 
     if (widget.controller is Function) {
-      widget.controller(controller);
+      widget.controller!(controller!);
     }
   }
 
@@ -808,8 +809,8 @@ class _BounceInLeftState extends State<BounceInLeft>
     }
 
     return AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget child) {
+        animation: controller!,
+        builder: (BuildContext context, Widget? child) {
           return Transform.translate(
               offset: Offset(animation.value, 0),
               child: Opacity(
@@ -822,18 +823,18 @@ class _BounceInLeftState extends State<BounceInLeft>
 
 // ============= BounceInRight
 class BounceInRight extends StatelessWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
   final double from;
 
   BounceInRight(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -868,17 +869,17 @@ class BounceInRight extends StatelessWidget {
 // ====================================
 // ============= ElasticIn
 class ElasticIn extends StatefulWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
 
   ElasticIn(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -898,14 +899,14 @@ class ElasticIn extends StatefulWidget {
 
 class _ElasticInState extends State<ElasticIn>
     with SingleTickerProviderStateMixin {
-  AnimationController controller;
+  AnimationController? controller;
   bool disposed = false;
-  Animation<double> bouncing;
-  Animation<double> opacity;
+  late Animation<double> bouncing;
+  late Animation<double> opacity;
   @override
   void dispose() {
     disposed = true;
-    controller.dispose();
+    controller!.dispose();
     super.dispose();
   }
 
@@ -916,10 +917,10 @@ class _ElasticInState extends State<ElasticIn>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     opacity = Tween<double>(begin: 0, end: 1)
-        .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.45)));
+        .animate(CurvedAnimation(parent: controller!, curve: Interval(0, 0.45)));
 
     bouncing = Tween<double>(begin: 0, end: 1)
-        .animate(CurvedAnimation(parent: controller, curve: Curves.elasticOut));
+        .animate(CurvedAnimation(parent: controller!, curve: Curves.elasticOut));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -930,7 +931,7 @@ class _ElasticInState extends State<ElasticIn>
     }
 
     if (widget.controller is Function) {
-      widget.controller(controller);
+      widget.controller!(controller!);
     }
   }
 
@@ -941,8 +942,8 @@ class _ElasticInState extends State<ElasticIn>
     }
 
     return AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget child) {
+        animation: controller!,
+        builder: (BuildContext context, Widget? child) {
           return Transform.scale(
             scale: bouncing.value,
             child: Opacity(
@@ -956,11 +957,11 @@ class _ElasticInState extends State<ElasticIn>
 
 // ============= ElasticInDown
 class ElasticInDown extends StatefulWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
   final double from;
@@ -968,7 +969,7 @@ class ElasticInDown extends StatefulWidget {
 
   ElasticInDown(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -990,15 +991,15 @@ class ElasticInDown extends StatefulWidget {
 
 class _ElasticInDownState extends State<ElasticInDown>
     with SingleTickerProviderStateMixin {
-  AnimationController controller;
+  AnimationController? controller;
   bool disposed = false;
-  Animation<double> bouncing;
-  Animation<double> falling;
-  Animation<double> opacity;
+  late Animation<double> bouncing;
+  late Animation<double> falling;
+  late Animation<double> opacity;
   @override
   void dispose() {
     disposed = true;
-    controller.dispose();
+    controller!.dispose();
     super.dispose();
   }
 
@@ -1009,16 +1010,16 @@ class _ElasticInDownState extends State<ElasticInDown>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     opacity = Tween<double>(begin: 0, end: 1)
-        .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.45)));
+        .animate(CurvedAnimation(parent: controller!, curve: Interval(0, 0.45)));
 
     falling = Tween<double>(begin: widget.from * -1, end: widget.to * -1)
         .animate(CurvedAnimation(
-            parent: controller,
+            parent: controller!,
             curve: Interval(0, 0.30, curve: Curves.linear)));
 
     bouncing = Tween<double>(begin: widget.to * -1, end: 0).animate(
         CurvedAnimation(
-            parent: controller,
+            parent: controller!,
             curve: Interval(0.30, 1, curve: Curves.elasticOut)));
 
     if (!widget.manualTrigger && widget.animate) {
@@ -1030,7 +1031,7 @@ class _ElasticInDownState extends State<ElasticInDown>
     }
 
     if (widget.controller is Function) {
-      widget.controller(controller);
+      widget.controller!(controller!);
     }
   }
 
@@ -1041,8 +1042,8 @@ class _ElasticInDownState extends State<ElasticInDown>
     }
 
     return AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget child) {
+        animation: controller!,
+        builder: (BuildContext context, Widget? child) {
           return Transform.translate(
               offset: Offset(
                   0,
@@ -1059,18 +1060,18 @@ class _ElasticInDownState extends State<ElasticInDown>
 
 // ============= ElasticInUp
 class ElasticInUp extends StatelessWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
   final double from;
 
   ElasticInUp(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -1100,11 +1101,11 @@ class ElasticInUp extends StatelessWidget {
 
 // ============= ElasticInLeft
 class ElasticInLeft extends StatefulWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
   final double from;
@@ -1112,7 +1113,7 @@ class ElasticInLeft extends StatefulWidget {
 
   ElasticInLeft(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -1134,15 +1135,15 @@ class ElasticInLeft extends StatefulWidget {
 
 class _ElasticInLeftState extends State<ElasticInLeft>
     with SingleTickerProviderStateMixin {
-  AnimationController controller;
+  AnimationController? controller;
   bool disposed = false;
-  Animation<double> bouncing;
-  Animation<double> falling;
-  Animation<double> opacity;
+  late Animation<double> bouncing;
+  late Animation<double> falling;
+  late Animation<double> opacity;
   @override
   void dispose() {
     disposed = true;
-    controller.dispose();
+    controller!.dispose();
     super.dispose();
   }
 
@@ -1153,16 +1154,16 @@ class _ElasticInLeftState extends State<ElasticInLeft>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     opacity = Tween<double>(begin: 0, end: 1)
-        .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.45)));
+        .animate(CurvedAnimation(parent: controller!, curve: Interval(0, 0.45)));
 
     falling = Tween<double>(begin: widget.from * -1, end: widget.to * -1)
         .animate(CurvedAnimation(
-            parent: controller,
+            parent: controller!,
             curve: Interval(0, 0.30, curve: Curves.linear)));
 
     bouncing = Tween<double>(begin: widget.to * -1, end: 0).animate(
         CurvedAnimation(
-            parent: controller,
+            parent: controller!,
             curve: Interval(0.30, 1, curve: Curves.elasticOut)));
 
     if (!widget.manualTrigger && widget.animate) {
@@ -1174,7 +1175,7 @@ class _ElasticInLeftState extends State<ElasticInLeft>
     }
 
     if (widget.controller is Function) {
-      widget.controller(controller);
+      widget.controller!(controller!);
     }
   }
 
@@ -1185,8 +1186,8 @@ class _ElasticInLeftState extends State<ElasticInLeft>
     }
 
     return AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget child) {
+        animation: controller!,
+        builder: (BuildContext context, Widget? child) {
           return Transform.translate(
               offset: Offset(
                   (falling.value == (widget.to * -1))
@@ -1203,18 +1204,18 @@ class _ElasticInLeftState extends State<ElasticInLeft>
 
 // ============= ElasticInRight
 class ElasticInRight extends StatelessWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
   final double from;
 
   ElasticInRight(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -1250,17 +1251,17 @@ class ElasticInRight extends StatelessWidget {
 
 // ============= FlipInX
 class FlipInX extends StatefulWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
 
   FlipInX(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -1279,15 +1280,15 @@ class FlipInX extends StatefulWidget {
 }
 
 class _FlipInXState extends State<FlipInX> with SingleTickerProviderStateMixin {
-  AnimationController controller;
+  AnimationController? controller;
   bool disposed = false;
-  Animation<double> rotation;
-  Animation<double> opacity;
+  late Animation<double> rotation;
+  late Animation<double> opacity;
 
   @override
   void dispose() {
     disposed = true;
-    controller.dispose();
+    controller!.dispose();
     super.dispose();
   }
 
@@ -1298,10 +1299,10 @@ class _FlipInXState extends State<FlipInX> with SingleTickerProviderStateMixin {
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     rotation = Tween<double>(begin: 1.5, end: 0.0)
-        .animate(CurvedAnimation(parent: controller, curve: Curves.bounceOut));
+        .animate(CurvedAnimation(parent: controller!, curve: Curves.bounceOut));
 
     opacity = Tween<double>(begin: 0, end: 1)
-        .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
+        .animate(CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -1312,7 +1313,7 @@ class _FlipInXState extends State<FlipInX> with SingleTickerProviderStateMixin {
     }
 
     if (widget.controller is Function) {
-      widget.controller(controller);
+      widget.controller!(controller!);
     }
   }
 
@@ -1323,8 +1324,8 @@ class _FlipInXState extends State<FlipInX> with SingleTickerProviderStateMixin {
     }
 
     return AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget child) {
+        animation: controller!,
+        builder: (BuildContext context, Widget? child) {
           return Transform(
               alignment: FractionalOffset.center,
               transform: Matrix4.identity()..rotateX(rotation.value),
@@ -1338,17 +1339,17 @@ class _FlipInXState extends State<FlipInX> with SingleTickerProviderStateMixin {
 
 // ============= FlipInY
 class FlipInY extends StatefulWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
 
   FlipInY(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -1367,15 +1368,15 @@ class FlipInY extends StatefulWidget {
 }
 
 class _FlipInYState extends State<FlipInY> with SingleTickerProviderStateMixin {
-  AnimationController controller;
+  AnimationController? controller;
   bool disposed = false;
-  Animation<double> rotation;
-  Animation<double> opacity;
+  late Animation<double> rotation;
+  late Animation<double> opacity;
 
   @override
   void dispose() {
     disposed = true;
-    controller.dispose();
+    controller!.dispose();
     super.dispose();
   }
 
@@ -1386,10 +1387,10 @@ class _FlipInYState extends State<FlipInY> with SingleTickerProviderStateMixin {
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     rotation = Tween<double>(begin: 1.5, end: 0.0)
-        .animate(CurvedAnimation(parent: controller, curve: Curves.bounceOut));
+        .animate(CurvedAnimation(parent: controller!, curve: Curves.bounceOut));
 
     opacity = Tween<double>(begin: 0, end: 1)
-        .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
+        .animate(CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -1400,7 +1401,7 @@ class _FlipInYState extends State<FlipInY> with SingleTickerProviderStateMixin {
     }
 
     if (widget.controller is Function) {
-      widget.controller(controller);
+      widget.controller!(controller!);
     }
   }
 
@@ -1411,8 +1412,8 @@ class _FlipInYState extends State<FlipInY> with SingleTickerProviderStateMixin {
     }
 
     return AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget child) {
+        animation: controller!,
+        builder: (BuildContext context, Widget? child) {
           return Transform(
               alignment: FractionalOffset.center,
               transform: Matrix4.identity()..rotateY(rotation.value),
@@ -1433,18 +1434,18 @@ class _FlipInYState extends State<FlipInY> with SingleTickerProviderStateMixin {
 // ====================================
 // ============= SlideInUp
 class SlideInUp extends StatefulWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
   final double from;
 
   SlideInUp(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 600),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -1465,14 +1466,14 @@ class SlideInUp extends StatefulWidget {
 
 class _SlideInUpState extends State<SlideInUp>
     with SingleTickerProviderStateMixin {
-  AnimationController controller;
+  AnimationController? controller;
   bool disposed = false;
-  Animation<double> animation;
+  late Animation<double> animation;
 
   @override
   void dispose() {
     disposed = true;
-    controller.dispose();
+    controller!.dispose();
     super.dispose();
   }
 
@@ -1483,7 +1484,7 @@ class _SlideInUpState extends State<SlideInUp>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     animation = Tween<double>(begin: widget.from, end: 0)
-        .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
+        .animate(CurvedAnimation(parent: controller!, curve: Curves.easeOut));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -1494,7 +1495,7 @@ class _SlideInUpState extends State<SlideInUp>
     }
 
     if (widget.controller is Function) {
-      widget.controller(controller);
+      widget.controller!(controller!);
     }
   }
 
@@ -1505,8 +1506,8 @@ class _SlideInUpState extends State<SlideInUp>
     }
 
     return AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget child) {
+        animation: controller!,
+        builder: (BuildContext context, Widget? child) {
           return Transform.translate(
               offset: Offset(0, animation.value), child: widget.child);
         });
@@ -1515,18 +1516,18 @@ class _SlideInUpState extends State<SlideInUp>
 
 // ============= SlideInDown
 class SlideInDown extends StatelessWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
   final double from;
 
   SlideInDown(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 600),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -1555,18 +1556,18 @@ class SlideInDown extends StatelessWidget {
 
 // ============= SlideInLeft
 class SlideInLeft extends StatefulWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
   final double from;
 
   SlideInLeft(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 600),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -1587,14 +1588,14 @@ class SlideInLeft extends StatefulWidget {
 
 class _SlideInLeftState extends State<SlideInLeft>
     with SingleTickerProviderStateMixin {
-  AnimationController controller;
+  AnimationController? controller;
   bool disposed = false;
-  Animation<double> animation;
+  late Animation<double> animation;
 
   @override
   void dispose() {
     disposed = true;
-    controller.dispose();
+    controller!.dispose();
     super.dispose();
   }
 
@@ -1605,7 +1606,7 @@ class _SlideInLeftState extends State<SlideInLeft>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     animation = Tween<double>(begin: widget.from * -1, end: 0)
-        .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
+        .animate(CurvedAnimation(parent: controller!, curve: Curves.easeOut));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -1616,7 +1617,7 @@ class _SlideInLeftState extends State<SlideInLeft>
     }
 
     if (widget.controller is Function) {
-      widget.controller(controller);
+      widget.controller!(controller!);
     }
   }
 
@@ -1627,8 +1628,8 @@ class _SlideInLeftState extends State<SlideInLeft>
     }
 
     return AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget child) {
+        animation: controller!,
+        builder: (BuildContext context, Widget? child) {
           return Transform.translate(
               offset: Offset(animation.value, 0), child: widget.child);
         });
@@ -1637,18 +1638,18 @@ class _SlideInLeftState extends State<SlideInLeft>
 
 // ============= SlideInRight
 class SlideInRight extends StatelessWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
   final double from;
 
   SlideInRight(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 600),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -1684,17 +1685,17 @@ class SlideInRight extends StatelessWidget {
 
 // ============= JelloIn
 class JelloIn extends StatefulWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
 
   JelloIn(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -1713,15 +1714,15 @@ class JelloIn extends StatefulWidget {
 }
 
 class _JelloInState extends State<JelloIn> with SingleTickerProviderStateMixin {
-  AnimationController controller;
+  AnimationController? controller;
   bool disposed = false;
-  Animation<double> rotation;
-  Animation<double> opacity;
+  late Animation<double> rotation;
+  late Animation<double> opacity;
 
   @override
   void dispose() {
     disposed = true;
-    controller.dispose();
+    controller!.dispose();
     super.dispose();
   }
 
@@ -1732,10 +1733,10 @@ class _JelloInState extends State<JelloIn> with SingleTickerProviderStateMixin {
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     rotation = Tween<double>(begin: 1.5, end: 0.0)
-        .animate(CurvedAnimation(parent: controller, curve: Curves.bounceOut));
+        .animate(CurvedAnimation(parent: controller!, curve: Curves.bounceOut));
 
     opacity = Tween<double>(begin: 0, end: 1)
-        .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
+        .animate(CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -1746,7 +1747,7 @@ class _JelloInState extends State<JelloIn> with SingleTickerProviderStateMixin {
     }
 
     if (widget.controller is Function) {
-      widget.controller(controller);
+      widget.controller!(controller!);
     }
   }
 
@@ -1757,8 +1758,8 @@ class _JelloInState extends State<JelloIn> with SingleTickerProviderStateMixin {
     }
 
     return AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget child) {
+        animation: controller!,
+        builder: (BuildContext context, Widget? child) {
           return Transform(
               alignment: FractionalOffset.center,
               transform: Matrix4.identity()
@@ -1780,19 +1781,19 @@ class _JelloInState extends State<JelloIn> with SingleTickerProviderStateMixin {
 // ====================================
 // ============= Bounce
 class Bounce extends StatefulWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
   final bool infinite;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
   final double from;
 
   Bounce(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 1300),
       this.delay = const Duration(milliseconds: 0),
       this.infinite = false,
@@ -1813,15 +1814,15 @@ class Bounce extends StatefulWidget {
 }
 
 class _BounceState extends State<Bounce> with SingleTickerProviderStateMixin {
-  AnimationController controller;
+  AnimationController? controller;
   bool disposed = false;
-  Animation<double> animationBounce;
+  late Animation<double> animationBounce;
 
-  Animation<double> animationUp;
+  late Animation<double> animationUp;
   @override
   void dispose() {
     disposed = true;
-    controller.dispose();
+    controller!.dispose();
     super.dispose();
   }
 
@@ -1834,23 +1835,23 @@ class _BounceState extends State<Bounce> with SingleTickerProviderStateMixin {
     animationUp = Tween<double>(begin: 0, end: widget.from * -1).animate(
         CurvedAnimation(
             curve: Interval(0, 0.35, curve: Curves.easeInOut),
-            parent: controller));
+            parent: controller!));
 
     animationBounce = Tween<double>(begin: widget.from * -1, end: 0.0).animate(
         CurvedAnimation(
             curve: Interval(0.35, 1, curve: Curves.bounceOut),
-            parent: controller));
+            parent: controller!));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          (widget.infinite) ? controller.repeat() : controller?.forward();
+          (widget.infinite) ? controller!.repeat() : controller?.forward();
         }
       });
     }
 
     if (widget.controller is Function) {
-      widget.controller(controller);
+      widget.controller!(controller!);
     }
   }
 
@@ -1861,8 +1862,8 @@ class _BounceState extends State<Bounce> with SingleTickerProviderStateMixin {
     }
 
     return AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget child) {
+        animation: controller!,
+        builder: (BuildContext context, Widget? child) {
           return Transform.translate(
               offset: Offset(
                   0,
@@ -1876,18 +1877,18 @@ class _BounceState extends State<Bounce> with SingleTickerProviderStateMixin {
 
 // ============= Flash
 class Flash extends StatefulWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
   final bool infinite;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
 
   Flash(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.infinite = false,
@@ -1907,16 +1908,16 @@ class Flash extends StatefulWidget {
 }
 
 class _FlashState extends State<Flash> with SingleTickerProviderStateMixin {
-  AnimationController controller;
+  AnimationController? controller;
   bool disposed = false;
-  Animation<double> opacityOut1;
-  Animation<double> opacityIn1;
-  Animation<double> opacityOut2;
-  Animation<double> opacityIn2;
+  late Animation<double> opacityOut1;
+  late Animation<double> opacityIn1;
+  late Animation<double> opacityOut2;
+  late Animation<double> opacityIn2;
   @override
   void dispose() {
     disposed = true;
-    controller.dispose();
+    controller!.dispose();
     super.dispose();
   }
 
@@ -1927,24 +1928,24 @@ class _FlashState extends State<Flash> with SingleTickerProviderStateMixin {
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     opacityOut1 = Tween<double>(begin: 1, end: 0)
-        .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.25)));
+        .animate(CurvedAnimation(parent: controller!, curve: Interval(0, 0.25)));
     opacityIn1 = Tween<double>(begin: 0, end: 1).animate(
-        CurvedAnimation(parent: controller, curve: Interval(0.25, 0.5)));
+        CurvedAnimation(parent: controller!, curve: Interval(0.25, 0.5)));
     opacityOut2 = Tween<double>(begin: 1, end: 0).animate(
-        CurvedAnimation(parent: controller, curve: Interval(0.5, 0.75)));
+        CurvedAnimation(parent: controller!, curve: Interval(0.5, 0.75)));
     opacityIn2 = Tween<double>(begin: 0, end: 1)
-        .animate(CurvedAnimation(parent: controller, curve: Interval(0.75, 1)));
+        .animate(CurvedAnimation(parent: controller!, curve: Interval(0.75, 1)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          (widget.infinite) ? controller.repeat() : controller?.forward();
+          (widget.infinite) ? controller!.repeat() : controller?.forward();
         }
       });
     }
 
     if (widget.controller is Function) {
-      widget.controller(controller);
+      widget.controller!(controller!);
     }
   }
 
@@ -1955,14 +1956,14 @@ class _FlashState extends State<Flash> with SingleTickerProviderStateMixin {
     }
 
     return AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget child) {
+        animation: controller!,
+        builder: (BuildContext context, Widget? child) {
           return Opacity(
-              opacity: (controller.value < 0.25)
+              opacity: (controller!.value < 0.25)
                   ? opacityOut1.value
-                  : (controller.value < 0.5)
+                  : (controller!.value < 0.5)
                       ? opacityIn1.value
-                      : (controller.value < 0.75)
+                      : (controller!.value < 0.75)
                           ? opacityOut2.value
                           : opacityIn2.value,
               child: widget.child);
@@ -1972,18 +1973,18 @@ class _FlashState extends State<Flash> with SingleTickerProviderStateMixin {
 
 // ============= Pulse
 class Pulse extends StatefulWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
   final bool infinite;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
 
   Pulse(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.infinite = false,
@@ -2003,14 +2004,14 @@ class Pulse extends StatefulWidget {
 }
 
 class _PulseState extends State<Pulse> with SingleTickerProviderStateMixin {
-  AnimationController controller;
+  AnimationController? controller;
   bool disposed = false;
-  Animation<double> animationInc;
-  Animation<double> animationDec;
+  late Animation<double> animationInc;
+  late Animation<double> animationDec;
   @override
   void dispose() {
     disposed = true;
-    controller.dispose();
+    controller!.dispose();
     super.dispose();
   }
 
@@ -2021,21 +2022,21 @@ class _PulseState extends State<Pulse> with SingleTickerProviderStateMixin {
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     animationInc = Tween<double>(begin: 1, end: 1.5).animate(CurvedAnimation(
-        parent: controller, curve: Interval(0, 0.5, curve: Curves.easeOut)));
+        parent: controller!, curve: Interval(0, 0.5, curve: Curves.easeOut)));
 
     animationDec = Tween<double>(begin: 1.5, end: 1).animate(CurvedAnimation(
-        parent: controller, curve: Interval(0.5, 1, curve: Curves.easeIn)));
+        parent: controller!, curve: Interval(0.5, 1, curve: Curves.easeIn)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          (widget.infinite) ? controller.repeat() : controller?.forward();
+          (widget.infinite) ? controller!.repeat() : controller?.forward();
         }
       });
     }
 
     if (widget.controller is Function) {
-      widget.controller(controller);
+      widget.controller!(controller!);
     }
   }
 
@@ -2046,10 +2047,10 @@ class _PulseState extends State<Pulse> with SingleTickerProviderStateMixin {
     }
 
     return AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget child) {
+        animation: controller!,
+        builder: (BuildContext context, Widget? child) {
           return Transform.scale(
-            scale: (controller.value < 0.5)
+            scale: (controller!.value < 0.5)
                 ? animationInc.value
                 : animationDec.value,
             child: widget.child,
@@ -2060,18 +2061,18 @@ class _PulseState extends State<Pulse> with SingleTickerProviderStateMixin {
 
 // ============= Swing
 class Swing extends StatefulWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
   final bool infinite;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
 
   Swing(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.infinite = false,
@@ -2091,18 +2092,18 @@ class Swing extends StatefulWidget {
 }
 
 class _SwingState extends State<Swing> with SingleTickerProviderStateMixin {
-  AnimationController controller;
+  AnimationController? controller;
   bool disposed = false;
-  Animation<double> animationRotation1;
-  Animation<double> animationRotation2;
-  Animation<double> animationRotation3;
-  Animation<double> animationRotation4;
-  Animation<double> animationRotation5;
-  Animation<double> animationRotation6;
+  late Animation<double> animationRotation1;
+  late Animation<double> animationRotation2;
+  late Animation<double> animationRotation3;
+  late Animation<double> animationRotation4;
+  late Animation<double> animationRotation5;
+  late Animation<double> animationRotation6;
   @override
   void dispose() {
     disposed = true;
-    controller.dispose();
+    controller!.dispose();
     super.dispose();
   }
 
@@ -2114,44 +2115,44 @@ class _SwingState extends State<Swing> with SingleTickerProviderStateMixin {
 
     animationRotation1 = Tween<double>(begin: 0, end: -0.5).animate(
         CurvedAnimation(
-            parent: controller,
+            parent: controller!,
             curve: Interval(0, 0.1666, curve: Curves.easeOut)));
 
     animationRotation2 = Tween<double>(begin: -0.5, end: 0.5).animate(
         CurvedAnimation(
-            parent: controller,
+            parent: controller!,
             curve: Interval(0.1666, 0.3333, curve: Curves.easeInOut)));
 
     animationRotation3 = Tween<double>(begin: 0.5, end: -0.5).animate(
         CurvedAnimation(
-            parent: controller,
+            parent: controller!,
             curve: Interval(0.3333, 0.4999, curve: Curves.easeInOut)));
 
     animationRotation4 = Tween<double>(begin: -0.5, end: 0.4).animate(
         CurvedAnimation(
-            parent: controller,
+            parent: controller!,
             curve: Interval(0.4999, 0.6666, curve: Curves.easeInOut)));
 
     animationRotation5 = Tween<double>(begin: 0.4, end: -0.4).animate(
         CurvedAnimation(
-            parent: controller,
+            parent: controller!,
             curve: Interval(0.6666, 0.8333, curve: Curves.easeInOut)));
 
     animationRotation6 = Tween<double>(begin: -0.4, end: 0).animate(
         CurvedAnimation(
-            parent: controller,
+            parent: controller!,
             curve: Interval(0.8333, 1, curve: Curves.easeOut)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          (widget.infinite) ? controller.repeat() : controller?.forward();
+          (widget.infinite) ? controller!.repeat() : controller?.forward();
         }
       });
     }
 
     if (widget.controller is Function) {
-      widget.controller(controller);
+      widget.controller!(controller!);
     }
   }
 
@@ -2162,8 +2163,8 @@ class _SwingState extends State<Swing> with SingleTickerProviderStateMixin {
     }
 
     return AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget child) {
+        animation: controller!,
+        builder: (BuildContext context, Widget? child) {
           double angle = (animationRotation1.value != -0.5)
               ? animationRotation1.value
               : (animationRotation2.value != 0.5)
@@ -2186,19 +2187,19 @@ class _SwingState extends State<Swing> with SingleTickerProviderStateMixin {
 
 // ============= Spin
 class Spin extends StatefulWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
   final bool infinite;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
   final double spins;
 
   Spin(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.infinite = false,
@@ -2219,14 +2220,14 @@ class Spin extends StatefulWidget {
 }
 
 class _SpinState extends State<Spin> with SingleTickerProviderStateMixin {
-  AnimationController controller;
+  AnimationController? controller;
   bool disposed = false;
-  Animation<double> spin;
+  late Animation<double> spin;
 
   @override
   void dispose() {
     disposed = true;
-    controller.dispose();
+    controller!.dispose();
     super.dispose();
   }
 
@@ -2237,18 +2238,18 @@ class _SpinState extends State<Spin> with SingleTickerProviderStateMixin {
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     spin = Tween<double>(begin: 0, end: widget.spins * 2)
-        .animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut));
+        .animate(CurvedAnimation(parent: controller!, curve: Curves.easeInOut));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          (widget.infinite) ? controller.repeat() : controller?.forward();
+          (widget.infinite) ? controller!.repeat() : controller?.forward();
         }
       });
     }
 
     if (widget.controller is Function) {
-      widget.controller(controller);
+      widget.controller!(controller!);
     }
   }
 
@@ -2259,8 +2260,8 @@ class _SpinState extends State<Spin> with SingleTickerProviderStateMixin {
     }
 
     return AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget child) {
+        animation: controller!,
+        builder: (BuildContext context, Widget? child) {
           return Transform.rotate(
             angle: spin.value * 3.1415926535,
             child: widget.child,
@@ -2271,19 +2272,19 @@ class _SpinState extends State<Spin> with SingleTickerProviderStateMixin {
 
 // ============= SpinPerfect
 class SpinPerfect extends StatefulWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
   final bool infinite;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
   final double spins;
 
   SpinPerfect(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.infinite = false,
@@ -2305,14 +2306,14 @@ class SpinPerfect extends StatefulWidget {
 
 class _SpinPerfectState extends State<SpinPerfect>
     with SingleTickerProviderStateMixin {
-  AnimationController controller;
+  AnimationController? controller;
   bool disposed = false;
-  Animation<double> spin;
+  late Animation<double> spin;
 
   @override
   void dispose() {
     disposed = true;
-    controller.dispose();
+    controller!.dispose();
     super.dispose();
   }
 
@@ -2323,18 +2324,18 @@ class _SpinPerfectState extends State<SpinPerfect>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     spin = Tween<double>(begin: 0, end: widget.spins * 2)
-        .animate(CurvedAnimation(parent: controller, curve: Curves.linear));
+        .animate(CurvedAnimation(parent: controller!, curve: Curves.linear));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          (widget.infinite) ? controller.repeat() : controller?.forward();
+          (widget.infinite) ? controller!.repeat() : controller?.forward();
         }
       });
     }
 
     if (widget.controller is Function) {
-      widget.controller(controller);
+      widget.controller!(controller!);
     }
   }
 
@@ -2345,8 +2346,8 @@ class _SpinPerfectState extends State<SpinPerfect>
     }
 
     return AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget child) {
+        animation: controller!,
+        builder: (BuildContext context, Widget? child) {
           return Transform.rotate(
             angle: spin.value * 3.141516,
             child: widget.child,
@@ -2357,18 +2358,18 @@ class _SpinPerfectState extends State<SpinPerfect>
 
 // ============= Dance
 class Dance extends StatefulWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
   final bool infinite;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
 
   Dance(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.infinite = false,
@@ -2388,16 +2389,16 @@ class Dance extends StatefulWidget {
 }
 
 class _DanceState extends State<Dance> with SingleTickerProviderStateMixin {
-  AnimationController controller;
+  AnimationController? controller;
   bool disposed = false;
-  Animation<double> step1;
-  Animation<double> step2;
-  Animation<double> step3;
+  late Animation<double> step1;
+  late Animation<double> step2;
+  late Animation<double> step3;
 
   @override
   void dispose() {
     disposed = true;
-    controller.dispose();
+    controller!.dispose();
     super.dispose();
   }
 
@@ -2408,27 +2409,27 @@ class _DanceState extends State<Dance> with SingleTickerProviderStateMixin {
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     step1 = Tween<double>(begin: 0, end: -0.2).animate(CurvedAnimation(
-        parent: controller,
+        parent: controller!,
         curve: Interval(0, 0.3333, curve: Curves.bounceOut)));
 
     step2 = Tween<double>(begin: -0.2, end: 0.2).animate(CurvedAnimation(
-        parent: controller,
+        parent: controller!,
         curve: Interval(0.3333, 0.6666, curve: Curves.bounceOut)));
 
     step3 = Tween<double>(begin: 0.2, end: 0).animate(CurvedAnimation(
-        parent: controller,
+        parent: controller!,
         curve: Interval(0.6666, 1, curve: Curves.bounceOut)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          (widget.infinite) ? controller.repeat() : controller?.forward();
+          (widget.infinite) ? controller!.repeat() : controller?.forward();
         }
       });
     }
 
     if (widget.controller is Function) {
-      widget.controller(controller);
+      widget.controller!(controller!);
     }
   }
 
@@ -2439,8 +2440,8 @@ class _DanceState extends State<Dance> with SingleTickerProviderStateMixin {
     }
 
     return AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget child) {
+        animation: controller!,
+        builder: (BuildContext context, Widget? child) {
           final animation = (step1.value != -0.2)
               ? step1.value
               : (step2.value != 0.2) ? step2.value : step3.value;
@@ -2455,19 +2456,19 @@ class _DanceState extends State<Dance> with SingleTickerProviderStateMixin {
 
 // ============= Roulette
 class Roulette extends StatefulWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
   final bool infinite;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
   final double spins;
 
   Roulette(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 3500),
       this.delay = const Duration(milliseconds: 0),
       this.infinite = false,
@@ -2489,14 +2490,14 @@ class Roulette extends StatefulWidget {
 
 class _RouletteState extends State<Roulette>
     with SingleTickerProviderStateMixin {
-  AnimationController controller;
+  AnimationController? controller;
   bool disposed = false;
-  Animation<double> spin;
+  late Animation<double> spin;
 
   @override
   void dispose() {
     disposed = true;
-    controller.dispose();
+    controller!.dispose();
     super.dispose();
   }
 
@@ -2507,18 +2508,18 @@ class _RouletteState extends State<Roulette>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     spin = Tween<double>(begin: 0, end: widget.spins * 2)
-        .animate(CurvedAnimation(parent: controller, curve: Curves.elasticOut));
+        .animate(CurvedAnimation(parent: controller!, curve: Curves.elasticOut));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          (widget.infinite) ? controller.repeat() : controller?.forward();
+          (widget.infinite) ? controller!.repeat() : controller?.forward();
         }
       });
     }
 
     if (widget.controller is Function) {
-      widget.controller(controller);
+      widget.controller!(controller!);
     }
   }
 
@@ -2529,8 +2530,8 @@ class _RouletteState extends State<Roulette>
     }
 
     return AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget child) {
+        animation: controller!,
+        builder: (BuildContext context, Widget? child) {
           return Transform.rotate(
             angle: spin.value * 3.141516,
             child: widget.child,
@@ -2548,17 +2549,17 @@ class _RouletteState extends State<Roulette>
 // ====================================
 // ============= FadeOut
 class FadeOut extends StatefulWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
 
   FadeOut(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 300),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -2577,14 +2578,14 @@ class FadeOut extends StatefulWidget {
 }
 
 class _FadeOutState extends State<FadeOut> with SingleTickerProviderStateMixin {
-  AnimationController controller;
+  AnimationController? controller;
   bool disposed = false;
-  Animation<double> animation;
+  late Animation<double> animation;
 
   @override
   void dispose() {
     disposed = true;
-    controller.dispose();
+    controller!.dispose();
     super.dispose();
   }
 
@@ -2594,7 +2595,7 @@ class _FadeOutState extends State<FadeOut> with SingleTickerProviderStateMixin {
 
     controller = AnimationController(duration: widget.duration, vsync: this);
     animation = Tween(begin: 1.0, end: 0.0)
-        .animate(CurvedAnimation(curve: Curves.easeOut, parent: controller));
+        .animate(CurvedAnimation(curve: Curves.easeOut, parent: controller!));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -2605,7 +2606,7 @@ class _FadeOutState extends State<FadeOut> with SingleTickerProviderStateMixin {
     }
 
     if (widget.controller is Function) {
-      widget.controller(controller);
+      widget.controller!(controller!);
     }
   }
 
@@ -2617,7 +2618,7 @@ class _FadeOutState extends State<FadeOut> with SingleTickerProviderStateMixin {
 
     return AnimatedBuilder(
         animation: animation,
-        builder: (BuildContext context, Widget child) {
+        builder: (BuildContext context, Widget? child) {
           return Opacity(
             opacity: animation.value,
             child: widget.child,
@@ -2628,18 +2629,18 @@ class _FadeOutState extends State<FadeOut> with SingleTickerProviderStateMixin {
 
 // ============= FadeOutDown
 class FadeOutDown extends StatefulWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
   final double from;
 
   FadeOutDown(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -2660,15 +2661,15 @@ class FadeOutDown extends StatefulWidget {
 
 class _FadeOutDownState extends State<FadeOutDown>
     with SingleTickerProviderStateMixin {
-  AnimationController controller;
+  AnimationController? controller;
   bool disposed = false;
-  Animation<double> animation;
-  Animation<double> opacity;
+  late Animation<double> animation;
+  late Animation<double> opacity;
 
   @override
   void dispose() {
     disposed = true;
-    controller.dispose();
+    controller!.dispose();
     super.dispose();
   }
 
@@ -2679,10 +2680,10 @@ class _FadeOutDownState extends State<FadeOutDown>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     animation = Tween<double>(begin: 0, end: widget.from)
-        .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
+        .animate(CurvedAnimation(parent: controller!, curve: Curves.easeOut));
 
     opacity = Tween<double>(begin: 1.0, end: 0.0)
-        .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
+        .animate(CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -2693,7 +2694,7 @@ class _FadeOutDownState extends State<FadeOutDown>
     }
 
     if (widget.controller is Function) {
-      widget.controller(controller);
+      widget.controller!(controller!);
     }
   }
 
@@ -2704,8 +2705,8 @@ class _FadeOutDownState extends State<FadeOutDown>
     }
 
     return AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget child) {
+        animation: controller!,
+        builder: (BuildContext context, Widget? child) {
           return Transform.translate(
               offset: Offset(0, animation.value),
               child: Opacity(
@@ -2718,18 +2719,18 @@ class _FadeOutDownState extends State<FadeOutDown>
 
 // ============= FadeOutDownBig
 class FadeOutDownBig extends StatelessWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
   final double from;
 
   FadeOutDownBig(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 1300),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -2758,18 +2759,18 @@ class FadeOutDownBig extends StatelessWidget {
 
 // ============= FadeOutUp
 class FadeOutUp extends StatefulWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
   final double from;
 
   FadeOutUp(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -2790,14 +2791,14 @@ class FadeOutUp extends StatefulWidget {
 
 class _FadeOutUpState extends State<FadeOutUp>
     with SingleTickerProviderStateMixin {
-  AnimationController controller;
+  AnimationController? controller;
   bool disposed = false;
-  Animation<double> animation;
-  Animation<double> opacity;
+  late Animation<double> animation;
+  late Animation<double> opacity;
   @override
   void dispose() {
     disposed = true;
-    controller.dispose();
+    controller!.dispose();
     super.dispose();
   }
 
@@ -2808,9 +2809,9 @@ class _FadeOutUpState extends State<FadeOutUp>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     animation = Tween<double>(begin: 0.0, end: widget.from * -1)
-        .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
+        .animate(CurvedAnimation(parent: controller!, curve: Curves.easeOut));
     opacity = Tween<double>(begin: 1.0, end: 0.0)
-        .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
+        .animate(CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -2821,7 +2822,7 @@ class _FadeOutUpState extends State<FadeOutUp>
     }
 
     if (widget.controller is Function) {
-      widget.controller(controller);
+      widget.controller!(controller!);
     }
   }
 
@@ -2832,8 +2833,8 @@ class _FadeOutUpState extends State<FadeOutUp>
     }
 
     return AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget child) {
+        animation: controller!,
+        builder: (BuildContext context, Widget? child) {
           return Transform.translate(
               offset: Offset(0, animation.value),
               child: Opacity(
@@ -2846,18 +2847,18 @@ class _FadeOutUpState extends State<FadeOutUp>
 
 // ============= FadeOutUpBig
 class FadeOutUpBig extends StatelessWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
   final double from;
 
   FadeOutUpBig(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 1300),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -2886,18 +2887,18 @@ class FadeOutUpBig extends StatelessWidget {
 
 // ============= FadeOutLeft
 class FadeOutLeft extends StatefulWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
   final double from;
 
   FadeOutLeft(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -2918,14 +2919,14 @@ class FadeOutLeft extends StatefulWidget {
 
 class _FadeOutLeftState extends State<FadeOutLeft>
     with SingleTickerProviderStateMixin {
-  AnimationController controller;
+  AnimationController? controller;
   bool disposed = false;
-  Animation<double> animation;
-  Animation<double> opacity;
+  late Animation<double> animation;
+  late Animation<double> opacity;
   @override
   void dispose() {
     disposed = true;
-    controller.dispose();
+    controller!.dispose();
     super.dispose();
   }
 
@@ -2936,9 +2937,9 @@ class _FadeOutLeftState extends State<FadeOutLeft>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     animation = Tween<double>(begin: 0, end: widget.from * -1)
-        .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
+        .animate(CurvedAnimation(parent: controller!, curve: Curves.easeOut));
     opacity = Tween<double>(begin: 1.0, end: 0.0)
-        .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
+        .animate(CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -2949,7 +2950,7 @@ class _FadeOutLeftState extends State<FadeOutLeft>
     }
 
     if (widget.controller is Function) {
-      widget.controller(controller);
+      widget.controller!(controller!);
     }
   }
 
@@ -2960,8 +2961,8 @@ class _FadeOutLeftState extends State<FadeOutLeft>
     }
 
     return AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget child) {
+        animation: controller!,
+        builder: (BuildContext context, Widget? child) {
           return Transform.translate(
               offset: Offset(animation.value, 0),
               child: Opacity(
@@ -2974,18 +2975,18 @@ class _FadeOutLeftState extends State<FadeOutLeft>
 
 // ============= FadeOutLeftBig
 class FadeOutLeftBig extends StatelessWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
   final double from;
 
   FadeOutLeftBig(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 1300),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -3014,18 +3015,18 @@ class FadeOutLeftBig extends StatelessWidget {
 
 // ============= FadeOutRight
 class FadeOutRight extends StatelessWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
   final double from;
 
   FadeOutRight(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -3054,18 +3055,18 @@ class FadeOutRight extends StatelessWidget {
 
 // ============= FadeOutRightBig
 class FadeOutRightBig extends StatelessWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
   final double from;
 
   FadeOutRightBig(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 1200),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -3101,18 +3102,18 @@ class FadeOutRightBig extends StatelessWidget {
 // ====================================
 // ============= ZoomIn
 class ZoomIn extends StatefulWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
   final double from;
 
   ZoomIn(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 500),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -3132,15 +3133,15 @@ class ZoomIn extends StatefulWidget {
 }
 
 class _ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
-  AnimationController controller;
+  AnimationController? controller;
   bool disposed = false;
-  Animation<double> fade;
-  Animation<double> opacity;
+  late Animation<double> fade;
+  late Animation<double> opacity;
 
   @override
   void dispose() {
     disposed = true;
-    controller.dispose();
+    controller!.dispose();
     super.dispose();
   }
 
@@ -3150,10 +3151,10 @@ class _ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
 
     controller = AnimationController(duration: widget.duration, vsync: this);
     fade = Tween(begin: 0.0, end: widget.from)
-        .animate(CurvedAnimation(curve: Curves.easeOut, parent: controller));
+        .animate(CurvedAnimation(curve: Curves.easeOut, parent: controller!));
 
     opacity = Tween<double>(begin: 0.0, end: 1)
-        .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
+        .animate(CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -3164,7 +3165,7 @@ class _ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
     }
 
     if (widget.controller is Function) {
-      widget.controller(controller);
+      widget.controller!(controller!);
     }
   }
 
@@ -3176,7 +3177,7 @@ class _ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
 
     return AnimatedBuilder(
         animation: fade,
-        builder: (BuildContext context, Widget child) {
+        builder: (BuildContext context, Widget? child) {
           return Transform.scale(
             scale: fade.value,
             child: Opacity(
@@ -3190,18 +3191,18 @@ class _ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
 
 // ============= ZoomOut
 class ZoomOut extends StatefulWidget {
-  final Key key;
+  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final Function(AnimationController) controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
   final double from;
 
   ZoomOut(
       {this.key,
-      this.child,
+      required this.child,
       this.duration = const Duration(milliseconds: 500),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -3221,15 +3222,15 @@ class ZoomOut extends StatefulWidget {
 }
 
 class _ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
-  AnimationController controller;
+  AnimationController? controller;
   bool disposed = false;
-  Animation<double> zoom;
-  Animation<double> opacity;
+  late Animation<double> zoom;
+  late Animation<double> opacity;
 
   @override
   void dispose() {
     disposed = true;
-    controller.dispose();
+    controller!.dispose();
     super.dispose();
   }
 
@@ -3240,10 +3241,10 @@ class _ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     zoom = Tween(begin: 1.0, end: widget.from)
-        .animate(CurvedAnimation(curve: Curves.easeOut, parent: controller));
+        .animate(CurvedAnimation(curve: Curves.easeOut, parent: controller!));
 
     opacity = Tween<double>(begin: 1.0, end: 0.0)
-        .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.65)));
+        .animate(CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -3254,7 +3255,7 @@ class _ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
     }
 
     if (widget.controller is Function) {
-      widget.controller(controller);
+      widget.controller!(controller!);
     }
   }
 
@@ -3265,8 +3266,8 @@ class _ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
     }
 
     return AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget child) {
+        animation: controller!,
+        builder: (BuildContext context, Widget? child) {
           return Transform.scale(
             scale: zoom.value,
             child: Opacity(

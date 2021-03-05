@@ -9,7 +9,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Material App',
       home: Scaffold(
-        body: Center(child: BounceInDown(child: Square())),
+        body: Center(
+          child: BounceInDown( child: Square() )
+        ),
       ),
     );
   }
