@@ -88,7 +88,7 @@ class _BounceInDownState extends State<BounceInDown>
         builder: (BuildContext context, Widget? child) {
           return Transform.translate(
               offset: Offset(0, animation.value),
-              child: Opacity(opacity: opacity.value, child: widget.child));
+              child: FadeTransition(opacity: opacity, child: widget.child));
         });
   }
 }
@@ -226,8 +226,8 @@ class _BounceInLeftState extends State<BounceInLeft>
         builder: (BuildContext context, Widget? child) {
           return Transform.translate(
               offset: Offset(animation.value, 0),
-              child: Opacity(
-                opacity: opacity.value,
+              child: FadeTransition(
+                opacity: opacity,
                 child: widget.child,
               ));
         });

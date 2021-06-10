@@ -87,8 +87,8 @@ class _FlipInXState extends State<FlipInX> with SingleTickerProviderStateMixin {
           return Transform(
               alignment: FractionalOffset.center,
               transform: Matrix4.identity()..rotateX(rotation.value),
-              child: Opacity(
-                opacity: opacity.value,
+              child: FadeTransition(
+                opacity: opacity,
                 child: widget.child,
               ));
         });
@@ -182,8 +182,8 @@ class _FlipInYState extends State<FlipInY> with SingleTickerProviderStateMixin {
           return Transform(
               alignment: FractionalOffset.center,
               transform: Matrix4.identity()..rotateY(rotation.value),
-              child: Opacity(
-                opacity: opacity.value,
+              child: FadeTransition(
+                opacity: opacity,
                 child: widget.child,
               ));
         });

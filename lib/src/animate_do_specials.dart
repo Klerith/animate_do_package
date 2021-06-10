@@ -89,8 +89,8 @@ class _JelloInState extends State<JelloIn> with SingleTickerProviderStateMixin {
               transform: Matrix4.identity()
                 ..setEntry(0, 0, rotation.value + 1)
                 ..rotateX(rotation.value),
-              child: Opacity(
-                opacity: opacity.value,
+              child: FadeTransition(
+                opacity: opacity,
                 child: widget.child,
               ));
         });
