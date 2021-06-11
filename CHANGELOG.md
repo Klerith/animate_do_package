@@ -1,3 +1,6 @@
+#### [2.0.1] - Performance improvements
+* Fade-ins and fade-outs use FadeTransition instead of Opacity now.
+
 #### [2.0.0] - Null-safety
 * Now Animate_do its a library
 * Null-safety checked and passed

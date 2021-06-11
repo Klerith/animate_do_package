@@ -197,6 +197,7 @@ class _FlashState extends State<Flash> with SingleTickerProviderStateMixin {
     return AnimatedBuilder(
         animation: controller!,
         builder: (BuildContext context, Widget? child) {
+          // TODO: refactor into FadeTransition for performance improvement
           return Opacity(
               opacity: (controller!.value < 0.25)
                   ? opacityOut1.value

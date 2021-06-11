@@ -77,14 +77,10 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
       controller?.forward();
     }
 
-    return AnimatedBuilder(
-        animation: animation,
-        builder: (BuildContext context, Widget? child) {
-          return Opacity(
-            opacity: animation.value,
-            child: widget.child,
-          );
-        });
+    return FadeTransition(
+      opacity: animation,
+      child: widget.child,
+    );
   }
 }
 
@@ -132,7 +128,7 @@ class _FadeInDownState extends State<FadeInDown>
     with SingleTickerProviderStateMixin {
   AnimationController? controller;
   bool disposed = false;
-  late Animation<double> animation;
+  late Animation<Offset> animation;
   late Animation<double> opacity;
 
   @override
@@ -148,7 +144,8 @@ class _FadeInDownState extends State<FadeInDown>
 
     controller = AnimationController(duration: widget.duration, vsync: this);
 
-    animation = Tween<double>(begin: widget.from * -1, end: 0)
+    animation = Tween<Offset>(
+            begin: Offset(0, widget.from * -1), end: Offset.zero)
         .animate(CurvedAnimation(parent: controller!, curve: Curves.easeOut));
 
     opacity = Tween<double>(begin: 0, end: 1).animate(
@@ -173,16 +170,13 @@ class _FadeInDownState extends State<FadeInDown>
       controller?.forward();
     }
 
-    return AnimatedBuilder(
-        animation: controller!,
-        builder: (BuildContext context, Widget? child) {
-          return Transform.translate(
-              offset: Offset(0, animation.value),
-              child: Opacity(
-                opacity: opacity.value,
-                child: widget.child,
-              ));
-        });
+    return SlideTransition(
+      position: animation,
+      child: FadeTransition(
+        opacity: opacity,
+        child: widget.child,
+      ),
+    );
   }
 }
 
@@ -275,7 +269,7 @@ class _FadeInUpState extends State<FadeInUp>
     with SingleTickerProviderStateMixin {
   AnimationController? controller;
   bool disposed = false;
-  late Animation<double> animation;
+  late Animation<Offset> animation;
   late Animation<double> opacity;
   @override
   void dispose() {
@@ -290,7 +284,7 @@ class _FadeInUpState extends State<FadeInUp>
 
     controller = AnimationController(duration: widget.duration, vsync: this);
 
-    animation = Tween<double>(begin: widget.from, end: 0)
+    animation = Tween<Offset>(begin: Offset(0, widget.from), end: Offset.zero)
         .animate(CurvedAnimation(parent: controller!, curve: Curves.easeOut));
     opacity = Tween<double>(begin: 0, end: 1).animate(
         CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
@@ -314,16 +308,13 @@ class _FadeInUpState extends State<FadeInUp>
       controller?.forward();
     }
 
-    return AnimatedBuilder(
-        animation: controller!,
-        builder: (BuildContext context, Widget? child) {
-          return Transform.translate(
-              offset: Offset(0, animation.value),
-              child: Opacity(
-                opacity: opacity.value,
-                child: widget.child,
-              ));
-        });
+    return SlideTransition(
+      position: animation,
+      child: FadeTransition(
+        opacity: opacity,
+        child: widget.child,
+      ),
+    );
   }
 }
 
@@ -417,7 +408,7 @@ class _FadeInLeftState extends State<FadeInLeft>
     with SingleTickerProviderStateMixin {
   AnimationController? controller;
   bool disposed = false;
-  late Animation<double> animation;
+  late Animation<Offset> animation;
   late Animation<double> opacity;
   @override
   void dispose() {
@@ -432,7 +423,8 @@ class _FadeInLeftState extends State<FadeInLeft>
 
     controller = AnimationController(duration: widget.duration, vsync: this);
 
-    animation = Tween<double>(begin: widget.from * -1, end: 0)
+    animation = Tween<Offset>(
+            begin: Offset(widget.from * -1, 0), end: Offset.zero)
         .animate(CurvedAnimation(parent: controller!, curve: Curves.easeOut));
     opacity = Tween<double>(begin: 0, end: 1).animate(
         CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
@@ -456,16 +448,13 @@ class _FadeInLeftState extends State<FadeInLeft>
       controller?.forward();
     }
 
-    return AnimatedBuilder(
-        animation: controller!,
-        builder: (BuildContext context, Widget? child) {
-          return Transform.translate(
-              offset: Offset(animation.value, 0),
-              child: Opacity(
-                opacity: opacity.value,
-                child: widget.child,
-              ));
-        });
+    return SlideTransition(
+      position: animation,
+      child: FadeTransition(
+        opacity: opacity,
+        child: widget.child,
+      ),
+    );
   }
 }
 
@@ -559,7 +548,7 @@ class _FadeInRightState extends State<FadeInRight>
     with SingleTickerProviderStateMixin {
   AnimationController? controller;
   bool disposed = false;
-  late Animation<double> animation;
+  late Animation<Offset> animation;
   late Animation<double> opacity;
   @override
   void dispose() {
@@ -574,7 +563,7 @@ class _FadeInRightState extends State<FadeInRight>
 
     controller = AnimationController(duration: widget.duration, vsync: this);
 
-    animation = Tween<double>(begin: widget.from, end: 0)
+    animation = Tween<Offset>(begin: Offset(widget.from, 0), end: Offset.zero)
         .animate(CurvedAnimation(parent: controller!, curve: Curves.easeOut));
     opacity = Tween<double>(begin: 0, end: 1).animate(
         CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
@@ -598,16 +587,13 @@ class _FadeInRightState extends State<FadeInRight>
       controller?.forward();
     }
 
-    return AnimatedBuilder(
-        animation: controller!,
-        builder: (BuildContext context, Widget? child) {
-          return Transform.translate(
-              offset: Offset(animation.value, 0),
-              child: Opacity(
-                opacity: opacity.value,
-                child: widget.child,
-              ));
-        });
+    return SlideTransition(
+      position: animation,
+      child: FadeTransition(
+        opacity: opacity,
+        child: widget.child,
+      ),
+    );
   }
 }
 

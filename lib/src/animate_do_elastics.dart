@@ -86,8 +86,8 @@ class _ElasticInState extends State<ElasticIn>
         builder: (BuildContext context, Widget? child) {
           return Transform.scale(
             scale: bouncing.value,
-            child: Opacity(
-              opacity: opacity.value,
+            child: FadeTransition(
+              opacity: opacity,
               child: widget.child,
             ),
           );
@@ -197,8 +197,8 @@ class _ElasticInDownState extends State<ElasticInDown>
                   (falling.value == (widget.to * -1))
                       ? bouncing.value
                       : falling.value),
-              child: Opacity(
-                opacity: opacity.value,
+              child: FadeTransition(
+                opacity: opacity,
                 child: widget.child,
               ));
         });
@@ -354,8 +354,8 @@ class _ElasticInLeftState extends State<ElasticInLeft>
                       ? bouncing.value
                       : falling.value,
                   0),
-              child: Opacity(
-                opacity: opacity.value,
+              child: FadeTransition(
+                opacity: opacity,
                 child: widget.child,
               ));
         });

@@ -87,8 +87,8 @@ class _ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
         builder: (BuildContext context, Widget? child) {
           return Transform.scale(
             scale: fade.value,
-            child: Opacity(
-              opacity: opacity.value,
+            child: FadeTransition(
+              opacity: opacity,
               child: widget.child,
             ),
           );
@@ -184,8 +184,8 @@ class _ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
         builder: (BuildContext context, Widget? child) {
           return Transform.scale(
             scale: zoom.value,
-            child: Opacity(
-              opacity: opacity.value,
+            child: FadeTransition(
+              opacity: opacity,
               child: widget.child,
             ),
           );

@@ -76,14 +76,10 @@ class _FadeOutState extends State<FadeOut> with SingleTickerProviderStateMixin {
       controller?.forward();
     }
 
-    return AnimatedBuilder(
-        animation: animation,
-        builder: (BuildContext context, Widget? child) {
-          return Opacity(
-            opacity: animation.value,
-            child: widget.child,
-          );
-        });
+    return FadeTransition(
+      opacity: animation,
+      child: widget.child,
+    );
   }
 }
 
@@ -130,7 +126,7 @@ class _FadeOutDownState extends State<FadeOutDown>
     with SingleTickerProviderStateMixin {
   AnimationController? controller;
   bool disposed = false;
-  late Animation<double> animation;
+  late Animation<Offset> animation;
   late Animation<double> opacity;
 
   @override
@@ -146,7 +142,7 @@ class _FadeOutDownState extends State<FadeOutDown>
 
     controller = AnimationController(duration: widget.duration, vsync: this);
 
-    animation = Tween<double>(begin: 0, end: widget.from)
+    animation = Tween<Offset>(begin: Offset.zero, end: Offset(0, widget.from))
         .animate(CurvedAnimation(parent: controller!, curve: Curves.easeOut));
 
     opacity = Tween<double>(begin: 1.0, end: 0.0).animate(
@@ -171,16 +167,13 @@ class _FadeOutDownState extends State<FadeOutDown>
       controller?.forward();
     }
 
-    return AnimatedBuilder(
-        animation: controller!,
-        builder: (BuildContext context, Widget? child) {
-          return Transform.translate(
-              offset: Offset(0, animation.value),
-              child: Opacity(
-                opacity: opacity.value,
-                child: widget.child,
-              ));
-        });
+    return SlideTransition(
+      position: animation,
+      child: FadeTransition(
+        opacity: opacity,
+        child: widget.child,
+      ),
+    );
   }
 }
 
@@ -273,7 +266,7 @@ class _FadeOutUpState extends State<FadeOutUp>
     with SingleTickerProviderStateMixin {
   AnimationController? controller;
   bool disposed = false;
-  late Animation<double> animation;
+  late Animation<Offset> animation;
   late Animation<double> opacity;
   @override
   void dispose() {
@@ -288,7 +281,8 @@ class _FadeOutUpState extends State<FadeOutUp>
 
     controller = AnimationController(duration: widget.duration, vsync: this);
 
-    animation = Tween<double>(begin: 0.0, end: widget.from * -1)
+    animation = Tween<Offset>(
+            begin: Offset.zero, end: Offset(0, widget.from * -1))
         .animate(CurvedAnimation(parent: controller!, curve: Curves.easeOut));
     opacity = Tween<double>(begin: 1.0, end: 0.0).animate(
         CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
@@ -312,16 +306,13 @@ class _FadeOutUpState extends State<FadeOutUp>
       controller?.forward();
     }
 
-    return AnimatedBuilder(
-        animation: controller!,
-        builder: (BuildContext context, Widget? child) {
-          return Transform.translate(
-              offset: Offset(0, animation.value),
-              child: Opacity(
-                opacity: opacity.value,
-                child: widget.child,
-              ));
-        });
+    return SlideTransition(
+      position: animation,
+      child: FadeTransition(
+        opacity: opacity,
+        child: widget.child,
+      ),
+    );
   }
 }
 
@@ -414,7 +405,7 @@ class _FadeOutLeftState extends State<FadeOutLeft>
     with SingleTickerProviderStateMixin {
   AnimationController? controller;
   bool disposed = false;
-  late Animation<double> animation;
+  late Animation<Offset> animation;
   late Animation<double> opacity;
   @override
   void dispose() {
@@ -429,7 +420,8 @@ class _FadeOutLeftState extends State<FadeOutLeft>
 
     controller = AnimationController(duration: widget.duration, vsync: this);
 
-    animation = Tween<double>(begin: 0, end: widget.from * -1)
+    animation = Tween<Offset>(
+            begin: Offset.zero, end: Offset(widget.from * -1, 0))
         .animate(CurvedAnimation(parent: controller!, curve: Curves.easeOut));
     opacity = Tween<double>(begin: 1.0, end: 0.0).animate(
         CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
@@ -453,16 +445,13 @@ class _FadeOutLeftState extends State<FadeOutLeft>
       controller?.forward();
     }
 
-    return AnimatedBuilder(
-        animation: controller!,
-        builder: (BuildContext context, Widget? child) {
-          return Transform.translate(
-              offset: Offset(animation.value, 0),
-              child: Opacity(
-                opacity: opacity.value,
-                child: widget.child,
-              ));
-        });
+    return SlideTransition(
+      position: animation,
+      child: FadeTransition(
+        opacity: opacity,
+        child: widget.child,
+      ),
+    );
   }
 }
 
