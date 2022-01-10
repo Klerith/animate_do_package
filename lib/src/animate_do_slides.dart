@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
 class SlideInUp extends StatefulWidget {
-  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -18,7 +17,7 @@ class SlideInUp extends StatefulWidget {
   final double from;
 
   SlideInUp(
-      {this.key,
+      {key,
       required this.child,
       this.duration = const Duration(milliseconds: 600),
       this.delay = const Duration(milliseconds: 0),
@@ -97,7 +96,6 @@ class _SlideInUpState extends State<SlideInUp>
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
 class SlideInDown extends StatelessWidget {
-  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -107,7 +105,7 @@ class SlideInDown extends StatelessWidget {
   final double from;
 
   SlideInDown(
-      {this.key,
+      {key,
       required this.child,
       this.duration = const Duration(milliseconds: 600),
       this.delay = const Duration(milliseconds: 0),
@@ -143,7 +141,6 @@ class SlideInDown extends StatelessWidget {
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
 class SlideInLeft extends StatefulWidget {
-  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -153,7 +150,7 @@ class SlideInLeft extends StatefulWidget {
   final double from;
 
   SlideInLeft(
-      {this.key,
+      {key,
       required this.child,
       this.duration = const Duration(milliseconds: 600),
       this.delay = const Duration(milliseconds: 0),
@@ -232,7 +229,6 @@ class _SlideInLeftState extends State<SlideInLeft>
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
 class SlideInRight extends StatelessWidget {
-  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -242,7 +238,7 @@ class SlideInRight extends StatelessWidget {
   final double from;
 
   SlideInRight(
-      {this.key,
+      {key,
       required this.child,
       this.duration = const Duration(milliseconds: 600),
       this.delay = const Duration(milliseconds: 0),

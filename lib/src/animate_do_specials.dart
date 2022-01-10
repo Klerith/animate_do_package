@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
 class JelloIn extends StatefulWidget {
-  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -17,7 +16,7 @@ class JelloIn extends StatefulWidget {
   final bool animate;
 
   JelloIn(
-      {this.key,
+      {key,
       required this.child,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
@@ -60,7 +59,7 @@ class _JelloInState extends State<JelloIn> with SingleTickerProviderStateMixin {
         .animate(CurvedAnimation(parent: controller!, curve: Curves.bounceOut));
 
     opacity = Tween<double>(begin: 0, end: 1).animate(
-        CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
+        CurvedAnimation(parent: controller!, curve: const Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {

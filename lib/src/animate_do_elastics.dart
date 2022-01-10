@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
 class ElasticIn extends StatefulWidget {
-  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -17,7 +16,7 @@ class ElasticIn extends StatefulWidget {
   final bool animate;
 
   ElasticIn(
-      {this.key,
+      {key,
       required this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
@@ -57,7 +56,7 @@ class _ElasticInState extends State<ElasticIn>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     opacity = Tween<double>(begin: 0, end: 1).animate(
-        CurvedAnimation(parent: controller!, curve: Interval(0, 0.45)));
+        CurvedAnimation(parent: controller!, curve: const Interval(0, 0.45)));
 
     bouncing = Tween<double>(begin: 0, end: 1).animate(
         CurvedAnimation(parent: controller!, curve: Curves.elasticOut));
@@ -103,7 +102,6 @@ class _ElasticInState extends State<ElasticIn>
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
 class ElasticInDown extends StatefulWidget {
-  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -114,7 +112,7 @@ class ElasticInDown extends StatefulWidget {
   final double to;
 
   ElasticInDown(
-      {this.key,
+      {key,
       required this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
@@ -157,17 +155,17 @@ class _ElasticInDownState extends State<ElasticInDown>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     opacity = Tween<double>(begin: 0, end: 1).animate(
-        CurvedAnimation(parent: controller!, curve: Interval(0, 0.45)));
+        CurvedAnimation(parent: controller!, curve: const Interval(0, 0.45)));
 
     falling = Tween<double>(begin: widget.from * -1, end: widget.to * -1)
         .animate(CurvedAnimation(
             parent: controller!,
-            curve: Interval(0, 0.30, curve: Curves.linear)));
+            curve: const Interval(0, 0.30, curve: Curves.linear)));
 
     bouncing = Tween<double>(begin: widget.to * -1, end: 0).animate(
         CurvedAnimation(
             parent: controller!,
-            curve: Interval(0.30, 1, curve: Curves.elasticOut)));
+            curve: const Interval(0.30, 1, curve: Curves.elasticOut)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -213,7 +211,6 @@ class _ElasticInDownState extends State<ElasticInDown>
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
 class ElasticInUp extends StatelessWidget {
-  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -223,7 +220,7 @@ class ElasticInUp extends StatelessWidget {
   final double from;
 
   ElasticInUp(
-      {this.key,
+      {key,
       required this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
@@ -260,7 +257,6 @@ class ElasticInUp extends StatelessWidget {
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
 class ElasticInLeft extends StatefulWidget {
-  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -271,7 +267,7 @@ class ElasticInLeft extends StatefulWidget {
   final double to;
 
   ElasticInLeft(
-      {this.key,
+      {key,
       required this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
@@ -314,17 +310,17 @@ class _ElasticInLeftState extends State<ElasticInLeft>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     opacity = Tween<double>(begin: 0, end: 1).animate(
-        CurvedAnimation(parent: controller!, curve: Interval(0, 0.45)));
+        CurvedAnimation(parent: controller!, curve: const Interval(0, 0.45)));
 
     falling = Tween<double>(begin: widget.from * -1, end: widget.to * -1)
         .animate(CurvedAnimation(
             parent: controller!,
-            curve: Interval(0, 0.30, curve: Curves.linear)));
+            curve: const Interval(0, 0.30, curve: Curves.linear)));
 
     bouncing = Tween<double>(begin: widget.to * -1, end: 0).animate(
         CurvedAnimation(
             parent: controller!,
-            curve: Interval(0.30, 1, curve: Curves.elasticOut)));
+            curve: const Interval(0.30, 1, curve: Curves.elasticOut)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -370,7 +366,6 @@ class _ElasticInLeftState extends State<ElasticInLeft>
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
 class ElasticInRight extends StatelessWidget {
-  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -380,7 +375,7 @@ class ElasticInRight extends StatelessWidget {
   final double from;
 
   ElasticInRight(
-      {this.key,
+      {key,
       required this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),

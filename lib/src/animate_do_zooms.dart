@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
 class ZoomIn extends StatefulWidget {
-  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -18,7 +17,7 @@ class ZoomIn extends StatefulWidget {
   final double from;
 
   ZoomIn(
-      {this.key,
+      {key,
       required this.child,
       this.duration = const Duration(milliseconds: 500),
       this.delay = const Duration(milliseconds: 0),
@@ -61,7 +60,7 @@ class _ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
         .animate(CurvedAnimation(curve: Curves.easeOut, parent: controller!));
 
     opacity = Tween<double>(begin: 0.0, end: 1).animate(
-        CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
+        CurvedAnimation(parent: controller!, curve: const Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -104,7 +103,6 @@ class _ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
 class ZoomOut extends StatefulWidget {
-  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -114,7 +112,7 @@ class ZoomOut extends StatefulWidget {
   final double from;
 
   ZoomOut(
-      {this.key,
+      {key,
       required this.child,
       this.duration = const Duration(milliseconds: 500),
       this.delay = const Duration(milliseconds: 0),
@@ -158,7 +156,7 @@ class _ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
         .animate(CurvedAnimation(curve: Curves.easeOut, parent: controller!));
 
     opacity = Tween<double>(begin: 1.0, end: 0.0).animate(
-        CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
+        CurvedAnimation(parent: controller!, curve: const Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {

@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 /// [from] from where you want to start the animation
 /// [infinite] loops the animation until the widget is destroyed
 class Bounce extends StatefulWidget {
-  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -21,7 +20,7 @@ class Bounce extends StatefulWidget {
   final double from;
 
   Bounce(
-      {this.key,
+      {key,
       required this.child,
       this.duration = const Duration(milliseconds: 1300),
       this.delay = const Duration(milliseconds: 0),
@@ -64,12 +63,12 @@ class _BounceState extends State<Bounce> with SingleTickerProviderStateMixin {
 
     animationUp = Tween<double>(begin: 0, end: widget.from * -1).animate(
         CurvedAnimation(
-            curve: Interval(0, 0.35, curve: Curves.easeInOut),
+            curve: const Interval(0, 0.35, curve: Curves.easeInOut),
             parent: controller!));
 
     animationBounce = Tween<double>(begin: widget.from * -1, end: 0.0).animate(
         CurvedAnimation(
-            curve: Interval(0.35, 1, curve: Curves.bounceOut),
+            curve: const Interval(0.35, 1, curve: Curves.bounceOut),
             parent: controller!));
 
     if (!widget.manualTrigger && widget.animate) {
@@ -115,7 +114,6 @@ class _BounceState extends State<Bounce> with SingleTickerProviderStateMixin {
 /// [from] from where you want to start the animation
 /// [infinite] loops the animation until the widget is destroyed
 class Flash extends StatefulWidget {
-  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -125,7 +123,7 @@ class Flash extends StatefulWidget {
   final bool animate;
 
   Flash(
-      {this.key,
+      {key,
       required this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
@@ -167,13 +165,13 @@ class _FlashState extends State<Flash> with SingleTickerProviderStateMixin {
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     opacityOut1 = Tween<double>(begin: 1, end: 0).animate(
-        CurvedAnimation(parent: controller!, curve: Interval(0, 0.25)));
+        CurvedAnimation(parent: controller!, curve: const Interval(0, 0.25)));
     opacityIn1 = Tween<double>(begin: 0, end: 1).animate(
-        CurvedAnimation(parent: controller!, curve: Interval(0.25, 0.5)));
+        CurvedAnimation(parent: controller!, curve: const Interval(0.25, 0.5)));
     opacityOut2 = Tween<double>(begin: 1, end: 0).animate(
-        CurvedAnimation(parent: controller!, curve: Interval(0.5, 0.75)));
+        CurvedAnimation(parent: controller!, curve: const Interval(0.5, 0.75)));
     opacityIn2 = Tween<double>(begin: 0, end: 1).animate(
-        CurvedAnimation(parent: controller!, curve: Interval(0.75, 1)));
+        CurvedAnimation(parent: controller!, curve: const Interval(0.75, 1)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -220,7 +218,6 @@ class _FlashState extends State<Flash> with SingleTickerProviderStateMixin {
 /// [from] from where you want to start the animation
 /// [infinite] loops the animation until the widget is destroyed
 class Pulse extends StatefulWidget {
-  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -230,7 +227,7 @@ class Pulse extends StatefulWidget {
   final bool animate;
 
   Pulse(
-      {this.key,
+      {key,
       required this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
@@ -270,10 +267,12 @@ class _PulseState extends State<Pulse> with SingleTickerProviderStateMixin {
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     animationInc = Tween<double>(begin: 1, end: 1.5).animate(CurvedAnimation(
-        parent: controller!, curve: Interval(0, 0.5, curve: Curves.easeOut)));
+        parent: controller!,
+        curve: const Interval(0, 0.5, curve: Curves.easeOut)));
 
     animationDec = Tween<double>(begin: 1.5, end: 1).animate(CurvedAnimation(
-        parent: controller!, curve: Interval(0.5, 1, curve: Curves.easeIn)));
+        parent: controller!,
+        curve: const Interval(0.5, 1, curve: Curves.easeIn)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -317,7 +316,6 @@ class _PulseState extends State<Pulse> with SingleTickerProviderStateMixin {
 /// [from] from where you want to start the animation
 /// [infinite] loops the animation until the widget is destroyed
 class Swing extends StatefulWidget {
-  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -327,7 +325,7 @@ class Swing extends StatefulWidget {
   final bool animate;
 
   Swing(
-      {this.key,
+      {key,
       required this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
@@ -373,32 +371,32 @@ class _SwingState extends State<Swing> with SingleTickerProviderStateMixin {
     animationRotation1 = Tween<double>(begin: 0, end: -0.5).animate(
         CurvedAnimation(
             parent: controller!,
-            curve: Interval(0, 0.1666, curve: Curves.easeOut)));
+            curve: const Interval(0, 0.1666, curve: Curves.easeOut)));
 
     animationRotation2 = Tween<double>(begin: -0.5, end: 0.5).animate(
         CurvedAnimation(
             parent: controller!,
-            curve: Interval(0.1666, 0.3333, curve: Curves.easeInOut)));
+            curve: const Interval(0.1666, 0.3333, curve: Curves.easeInOut)));
 
     animationRotation3 = Tween<double>(begin: 0.5, end: -0.5).animate(
         CurvedAnimation(
             parent: controller!,
-            curve: Interval(0.3333, 0.4999, curve: Curves.easeInOut)));
+            curve: const Interval(0.3333, 0.4999, curve: Curves.easeInOut)));
 
     animationRotation4 = Tween<double>(begin: -0.5, end: 0.4).animate(
         CurvedAnimation(
             parent: controller!,
-            curve: Interval(0.4999, 0.6666, curve: Curves.easeInOut)));
+            curve: const Interval(0.4999, 0.6666, curve: Curves.easeInOut)));
 
     animationRotation5 = Tween<double>(begin: 0.4, end: -0.4).animate(
         CurvedAnimation(
             parent: controller!,
-            curve: Interval(0.6666, 0.8333, curve: Curves.easeInOut)));
+            curve: const Interval(0.6666, 0.8333, curve: Curves.easeInOut)));
 
     animationRotation6 = Tween<double>(begin: -0.4, end: 0).animate(
         CurvedAnimation(
             parent: controller!,
-            curve: Interval(0.8333, 1, curve: Curves.easeOut)));
+            curve: const Interval(0.8333, 1, curve: Curves.easeOut)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -453,7 +451,6 @@ class _SwingState extends State<Swing> with SingleTickerProviderStateMixin {
 /// [infinite] loops the animation until the widget is destroyed
 /// [spins] number of spins that you want
 class Spin extends StatefulWidget {
-  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -464,7 +461,7 @@ class Spin extends StatefulWidget {
   final double spins;
 
   Spin(
-      {this.key,
+      {key,
       required this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
@@ -547,7 +544,6 @@ class _SpinState extends State<Spin> with SingleTickerProviderStateMixin {
 /// [from] from where you want to start the animation
 /// [infinite] loops the animation until the widget is destroyed
 class SpinPerfect extends StatefulWidget {
-  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -558,7 +554,7 @@ class SpinPerfect extends StatefulWidget {
   final double spins;
 
   SpinPerfect(
-      {this.key,
+      {key,
       required this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
@@ -642,7 +638,6 @@ class _SpinPerfectState extends State<SpinPerfect>
 /// [from] from where you want to start the animation
 /// [infinite] loops the animation until the widget is destroyed
 class Dance extends StatefulWidget {
-  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -652,7 +647,7 @@ class Dance extends StatefulWidget {
   final bool animate;
 
   Dance(
-      {this.key,
+      {key,
       required this.child,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
@@ -695,15 +690,15 @@ class _DanceState extends State<Dance> with SingleTickerProviderStateMixin {
 
     step1 = Tween<double>(begin: 0, end: -0.2).animate(CurvedAnimation(
         parent: controller!,
-        curve: Interval(0, 0.3333, curve: Curves.bounceOut)));
+        curve: const Interval(0, 0.3333, curve: Curves.bounceOut)));
 
     step2 = Tween<double>(begin: -0.2, end: 0.2).animate(CurvedAnimation(
         parent: controller!,
-        curve: Interval(0.3333, 0.6666, curve: Curves.bounceOut)));
+        curve: const Interval(0.3333, 0.6666, curve: Curves.bounceOut)));
 
     step3 = Tween<double>(begin: 0.2, end: 0).animate(CurvedAnimation(
         parent: controller!,
-        curve: Interval(0.6666, 1, curve: Curves.bounceOut)));
+        curve: const Interval(0.6666, 1, curve: Curves.bounceOut)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -751,7 +746,6 @@ class _DanceState extends State<Dance> with SingleTickerProviderStateMixin {
 /// [from] from where you want to start the animation
 /// [infinite] loops the animation until the widget is destroyed
 class Roulette extends StatefulWidget {
-  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -762,7 +756,7 @@ class Roulette extends StatefulWidget {
   final double spins;
 
   Roulette(
-      {this.key,
+      {key,
       required this.child,
       this.duration = const Duration(milliseconds: 3500),
       this.delay = const Duration(milliseconds: 0),

@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 /// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
 /// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired inmediatelly
 class FadeIn extends StatefulWidget {
-  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -18,7 +17,7 @@ class FadeIn extends StatefulWidget {
   final bool animate;
 
   FadeIn(
-      {this.key,
+      {key,
       required this.child,
       this.duration = const Duration(milliseconds: 300),
       this.delay = const Duration(milliseconds: 0),
@@ -96,7 +95,6 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
 class FadeInDown extends StatefulWidget {
-  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -106,7 +104,7 @@ class FadeInDown extends StatefulWidget {
   final double from;
 
   FadeInDown(
-      {this.key,
+      {key,
       required this.child,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
@@ -152,7 +150,7 @@ class _FadeInDownState extends State<FadeInDown>
         .animate(CurvedAnimation(parent: controller!, curve: Curves.easeOut));
 
     opacity = Tween<double>(begin: 0, end: 1).animate(
-        CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
+        CurvedAnimation(parent: controller!, curve: const Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -194,7 +192,6 @@ class _FadeInDownState extends State<FadeInDown>
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
 class FadeInDownBig extends StatelessWidget {
-  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -204,7 +201,7 @@ class FadeInDownBig extends StatelessWidget {
   final double from;
 
   FadeInDownBig(
-      {this.key,
+      {key,
       required this.child,
       this.duration = const Duration(milliseconds: 1300),
       this.delay = const Duration(milliseconds: 0),
@@ -239,7 +236,6 @@ class FadeInDownBig extends StatelessWidget {
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
 class FadeInUp extends StatefulWidget {
-  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -249,7 +245,7 @@ class FadeInUp extends StatefulWidget {
   final double from;
 
   FadeInUp(
-      {this.key,
+      {key,
       required this.child,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
@@ -293,7 +289,7 @@ class _FadeInUpState extends State<FadeInUp>
     animation = Tween<double>(begin: widget.from, end: 0)
         .animate(CurvedAnimation(parent: controller!, curve: Curves.easeOut));
     opacity = Tween<double>(begin: 0, end: 1).animate(
-        CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
+        CurvedAnimation(parent: controller!, curve: const Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -335,7 +331,6 @@ class _FadeInUpState extends State<FadeInUp>
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
 class FadeInUpBig extends StatelessWidget {
-  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -345,7 +340,7 @@ class FadeInUpBig extends StatelessWidget {
   final double from;
 
   FadeInUpBig(
-      {this.key,
+      {key,
       required this.child,
       this.duration = const Duration(milliseconds: 1300),
       this.delay = const Duration(milliseconds: 0),
@@ -381,7 +376,6 @@ class FadeInUpBig extends StatelessWidget {
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
 class FadeInLeft extends StatefulWidget {
-  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -391,7 +385,7 @@ class FadeInLeft extends StatefulWidget {
   final double from;
 
   FadeInLeft(
-      {this.key,
+      {key,
       required this.child,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
@@ -435,7 +429,7 @@ class _FadeInLeftState extends State<FadeInLeft>
     animation = Tween<double>(begin: widget.from * -1, end: 0)
         .animate(CurvedAnimation(parent: controller!, curve: Curves.easeOut));
     opacity = Tween<double>(begin: 0, end: 1).animate(
-        CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
+        CurvedAnimation(parent: controller!, curve: const Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -477,7 +471,6 @@ class _FadeInLeftState extends State<FadeInLeft>
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
 class FadeInLeftBig extends StatelessWidget {
-  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -487,7 +480,7 @@ class FadeInLeftBig extends StatelessWidget {
   final double from;
 
   FadeInLeftBig(
-      {this.key,
+      {key,
       required this.child,
       this.duration = const Duration(milliseconds: 1300),
       this.delay = const Duration(milliseconds: 0),
@@ -523,7 +516,6 @@ class FadeInLeftBig extends StatelessWidget {
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
 class FadeInRight extends StatefulWidget {
-  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -533,7 +525,7 @@ class FadeInRight extends StatefulWidget {
   final double from;
 
   FadeInRight(
-      {this.key,
+      {key,
       required this.child,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
@@ -577,7 +569,7 @@ class _FadeInRightState extends State<FadeInRight>
     animation = Tween<double>(begin: widget.from, end: 0)
         .animate(CurvedAnimation(parent: controller!, curve: Curves.easeOut));
     opacity = Tween<double>(begin: 0, end: 1).animate(
-        CurvedAnimation(parent: controller!, curve: Interval(0, 0.65)));
+        CurvedAnimation(parent: controller!, curve: const Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -619,7 +611,6 @@ class _FadeInRightState extends State<FadeInRight>
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
 class FadeInRightBig extends StatelessWidget {
-  final Key? key;
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -629,7 +620,7 @@ class FadeInRightBig extends StatelessWidget {
   final double from;
 
   FadeInRightBig(
-      {this.key,
+      {key,
       required this.child,
       this.duration = const Duration(milliseconds: 1200),
       this.delay = const Duration(milliseconds: 0),
