@@ -1,3 +1,7 @@
+#### [2.1.0] - Key constructors
+* Prefer const
+* Key constructors
+
 #### [2.0.0] - Null-safety
 * Now Animate_do its a library
 * Null-safety checked and passed
