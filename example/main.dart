@@ -1,31 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Material App',
       home: Scaffold(
-        body: Center(
-          child: BounceInDown( child: Square() )
-        ),
+      body: Center(
+
+          child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+
+              ElasticIn(child: const Square() ),
+              FadeInUp(child: const Square() ),
+              FadeInDown(child: const Square() ),
+              BounceInDown(child: const Square() ),
+              
+          ],
+          ),
+
       ),
+  ),
     );
   }
 }
 
+
 class Square extends StatelessWidget {
+  const Square({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 50,
       height: 50,
-      decoration: BoxDecoration(
-        color: Colors.blueAccent,
-      ),
+      color: Colors.blueAccent,
     );
   }
 }
