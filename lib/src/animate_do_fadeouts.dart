@@ -76,7 +76,7 @@ class _FadeOutState extends State<FadeOut> with SingleTickerProviderStateMixin {
     }
 
     /// If FALSE, animate everything back to original
-    if( !widget.animate ) {
+    if (!widget.animate) {
       controller?.animateBack(0);
     }
 
@@ -175,7 +175,7 @@ class _FadeOutDownState extends State<FadeOutDown>
     }
 
     /// If FALSE, animate everything back to original
-    if( !widget.animate ) {
+    if (!widget.animate) {
       controller?.animateBack(0);
     }
 
@@ -319,7 +319,7 @@ class _FadeOutUpState extends State<FadeOutUp>
     }
 
     /// If FALSE, animate everything back to original
-    if( !widget.animate ) {
+    if (!widget.animate) {
       controller?.animateBack(0);
     }
 
@@ -463,7 +463,7 @@ class _FadeOutLeftState extends State<FadeOutLeft>
     }
 
     /// If FALSE, animate everything back to original
-    if( !widget.animate ) {
+    if (!widget.animate) {
       controller?.animateBack(0);
     }
 
