@@ -82,6 +82,11 @@ class _BounceInDownState extends State<BounceInDown>
       controller?.forward();
     }
 
+    /// If FALSE, animate everything back to the original state
+    if (!widget.animate) {
+      controller?.animateBack(0);
+    }
+
     return AnimatedBuilder(
         animation: controller!,
         builder: (BuildContext context, Widget? child) {
@@ -216,6 +221,11 @@ class _BounceInLeftState extends State<BounceInLeft>
   Widget build(BuildContext context) {
     if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
+    }
+
+    /// If FALSE, animate everything back to the original state
+    if (!widget.animate) {
+      controller?.animateBack(0);
     }
 
     return AnimatedBuilder(

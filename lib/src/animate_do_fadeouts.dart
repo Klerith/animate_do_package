@@ -75,6 +75,11 @@ class _FadeOutState extends State<FadeOut> with SingleTickerProviderStateMixin {
       controller?.forward();
     }
 
+    /// If FALSE, animate everything back to original
+    if( !widget.animate ) {
+      controller?.animateBack(0);
+    }
+
     return AnimatedBuilder(
         animation: animation,
         builder: (BuildContext context, Widget? child) {
@@ -167,6 +172,11 @@ class _FadeOutDownState extends State<FadeOutDown>
   Widget build(BuildContext context) {
     if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
+    }
+
+    /// If FALSE, animate everything back to original
+    if( !widget.animate ) {
+      controller?.animateBack(0);
     }
 
     return AnimatedBuilder(
@@ -308,6 +318,11 @@ class _FadeOutUpState extends State<FadeOutUp>
       controller?.forward();
     }
 
+    /// If FALSE, animate everything back to original
+    if( !widget.animate ) {
+      controller?.animateBack(0);
+    }
+
     return AnimatedBuilder(
         animation: controller!,
         builder: (BuildContext context, Widget? child) {
@@ -445,6 +460,11 @@ class _FadeOutLeftState extends State<FadeOutLeft>
   Widget build(BuildContext context) {
     if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
+    }
+
+    /// If FALSE, animate everything back to original
+    if( !widget.animate ) {
+      controller?.animateBack(0);
     }
 
     return AnimatedBuilder(

@@ -90,6 +90,11 @@ class _BounceState extends State<Bounce> with SingleTickerProviderStateMixin {
       controller?.forward();
     }
 
+    /// If FALSE, animate everything back to the original state
+    if (!widget.animate) {
+      controller?.animateBack(0);
+    }
+
     return AnimatedBuilder(
         animation: controller!,
         builder: (BuildContext context, Widget? child) {
@@ -192,6 +197,11 @@ class _FlashState extends State<Flash> with SingleTickerProviderStateMixin {
       controller?.forward();
     }
 
+    /// If FALSE, animate everything back to the original state
+    if (!widget.animate) {
+      controller?.animateBack(0);
+    }
+
     return AnimatedBuilder(
         animation: controller!,
         builder: (BuildContext context, Widget? child) {
@@ -291,6 +301,11 @@ class _PulseState extends State<Pulse> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
+    }
+
+    /// If FALSE, animate everything back to the original state
+    if (!widget.animate) {
+      controller?.animateBack(0);
     }
 
     return AnimatedBuilder(
@@ -417,6 +432,11 @@ class _SwingState extends State<Swing> with SingleTickerProviderStateMixin {
       controller?.forward();
     }
 
+    /// If FALSE, animate everything back to the original state
+    if (!widget.animate) {
+      controller?.animateBack(0);
+    }
+
     return AnimatedBuilder(
         animation: controller!,
         builder: (BuildContext context, Widget? child) {
@@ -523,6 +543,11 @@ class _SpinState extends State<Spin> with SingleTickerProviderStateMixin {
       controller?.forward();
     }
 
+    /// If FALSE, animate everything back to the original state
+    if (!widget.animate) {
+      controller?.animateBack(0);
+    }
+
     return AnimatedBuilder(
         animation: controller!,
         builder: (BuildContext context, Widget? child) {
@@ -615,6 +640,11 @@ class _SpinPerfectState extends State<SpinPerfect>
   Widget build(BuildContext context) {
     if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
+    }
+
+    /// If FALSE, animate everything back to the original state
+    if (!widget.animate) {
+      controller?.animateBack(0);
     }
 
     return AnimatedBuilder(
@@ -719,6 +749,11 @@ class _DanceState extends State<Dance> with SingleTickerProviderStateMixin {
       controller?.forward();
     }
 
+    /// If FALSE, animate everything back to the original state
+    if (!widget.animate) {
+      controller?.animateBack(0);
+    }
+
     return AnimatedBuilder(
         animation: controller!,
         builder: (BuildContext context, Widget? child) {
@@ -817,6 +852,11 @@ class _RouletteState extends State<Roulette>
   Widget build(BuildContext context) {
     if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
+    }
+
+    /// If FALSE, animate everything back to the original state
+    if (!widget.animate) {
+      controller?.animateBack(0);
     }
 
     return AnimatedBuilder(

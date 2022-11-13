@@ -80,6 +80,11 @@ class _ElasticInState extends State<ElasticIn>
       controller?.forward();
     }
 
+    /// If FALSE, animate everything back to the original state
+    if (!widget.animate) {
+      controller?.animateBack(0);
+    }
+
     return AnimatedBuilder(
         animation: controller!,
         builder: (BuildContext context, Widget? child) {
@@ -184,6 +189,11 @@ class _ElasticInDownState extends State<ElasticInDown>
   Widget build(BuildContext context) {
     if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
+    }
+
+    /// If FALSE, animate everything back to the original state
+    if (!widget.animate) {
+      controller?.animateBack(0);
     }
 
     return AnimatedBuilder(
@@ -339,6 +349,11 @@ class _ElasticInLeftState extends State<ElasticInLeft>
   Widget build(BuildContext context) {
     if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
+    }
+
+    /// If FALSE, animate everything back to the original state
+    if (!widget.animate) {
+      controller?.animateBack(0);
     }
 
     return AnimatedBuilder(

@@ -79,6 +79,11 @@ class _SlideInUpState extends State<SlideInUp>
       controller?.forward();
     }
 
+    /// If FALSE, animate everything back to the original state
+    if (!widget.animate) {
+      controller?.animateBack(0);
+    }
+
     return AnimatedBuilder(
         animation: controller!,
         builder: (BuildContext context, Widget? child) {
@@ -210,6 +215,11 @@ class _SlideInLeftState extends State<SlideInLeft>
   Widget build(BuildContext context) {
     if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
+    }
+
+    /// If FALSE, animate everything back to the original state
+    if (!widget.animate) {
+      controller?.animateBack(0);
     }
 
     return AnimatedBuilder(

@@ -19,7 +19,7 @@ class FadeIn extends StatefulWidget {
   FadeIn(
       {key,
       required this.child,
-      this.duration = const Duration(milliseconds: 300),
+      this.duration = const Duration(milliseconds: 500),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
@@ -39,8 +39,13 @@ class FadeIn extends StatefulWidget {
 /// FadeState class
 /// The animation magic happens here
 class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
+  /// Animation controller that controls this animation
   AnimationController? controller;
+
+  /// is the widget disposed?
   bool disposed = false;
+
+  /// Animation movement value
   late Animation<double> animation;
 
   @override
@@ -72,10 +77,18 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+
+    /// Launch the animation ASAP or wait if is needed
     if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
     }
 
+    /// If the animation already happen, we can animate it back
+    if (!widget.animate) {
+      controller?.animateBack(0);
+    }
+
+    /// Builds the animation with the corresponding
     return AnimatedBuilder(
         animation: animation,
         builder: (BuildContext context, Widget? child) {
@@ -129,9 +142,16 @@ class FadeInDown extends StatefulWidget {
 class _FadeInDownState extends State<FadeInDown>
     with SingleTickerProviderStateMixin {
   AnimationController? controller;
+
+  /// is the widget disposed?
   bool disposed = false;
+
+  /// animation movement
   late Animation<double> animation;
+
+  /// animation opacity
   late Animation<double> opacity;
+
 
   @override
   void dispose() {
@@ -160,15 +180,22 @@ class _FadeInDownState extends State<FadeInDown>
       });
     }
 
+    /// Returns the controller if the user requires it
     if (widget.controller is Function) {
       widget.controller!(controller!);
     }
+
   }
 
   @override
   Widget build(BuildContext context) {
     if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
+    }
+
+    /// If FALSE, animate everything back to the original state
+    if (!widget.animate) {
+      controller?.animateBack(0);
     }
 
     return AnimatedBuilder(
@@ -269,10 +296,19 @@ class FadeInUp extends StatefulWidget {
 /// The animation magic happens here
 class _FadeInUpState extends State<FadeInUp>
     with SingleTickerProviderStateMixin {
+
+  /// Animation controller if requested
   AnimationController? controller;
+
+  /// widget is disposed?
   bool disposed = false;
+
+  /// Animation movement
   late Animation<double> animation;
+
+  /// Animation opacity
   late Animation<double> opacity;
+
   @override
   void dispose() {
     disposed = true;
@@ -308,6 +344,11 @@ class _FadeInUpState extends State<FadeInUp>
   Widget build(BuildContext context) {
     if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
+    }
+
+    /// If FALSE, animate everything back to the original state
+    if (!widget.animate) {
+      controller?.animateBack(0);
     }
 
     return AnimatedBuilder(
@@ -450,6 +491,11 @@ class _FadeInLeftState extends State<FadeInLeft>
       controller?.forward();
     }
 
+    /// If FALSE, animate everything back to the original state
+    if (!widget.animate) {
+      controller?.animateBack(0);
+    }
+
     return AnimatedBuilder(
         animation: controller!,
         builder: (BuildContext context, Widget? child) {
@@ -588,6 +634,11 @@ class _FadeInRightState extends State<FadeInRight>
   Widget build(BuildContext context) {
     if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
+    }
+
+    /// If FALSE, animate everything back to the original state
+    if (!widget.animate) {
+      controller?.animateBack(0);
     }
 
     return AnimatedBuilder(
