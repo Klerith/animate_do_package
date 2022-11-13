@@ -88,7 +88,7 @@ All of the following animations could be infinite with a property called ```infi
 - Dance
 - Roulette
 
-## Example
+## Example Basic 
 
 ```
 home: Scaffold(
@@ -111,6 +111,65 @@ home: Scaffold(
 
 ```
 
+
+## Example Basic #2 - Now with Toggle
+Just toggle the __animate__ property to animate in or out easily.
+Check the full code inside the example folder
+```
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  
+  bool launchAnimation = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Material App',
+      home: Scaffold(
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            
+            const Text('Now with a simple Toggle', style: TextStyle(fontSize: 20),),
+            Text('Boolean animate value: $launchAnimation' ),
+            const SizedBox(height: 20 ),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                FadeIn(child: const Square(), animate: launchAnimation,),
+                FadeInUp(child: const Square(), animate: launchAnimation,),
+                FadeInDown(child: const Square(), animate: launchAnimation,),
+                FadeInLeft(child: const Square(), animate: launchAnimation,),
+                FadeInRight(child: const Square(), animate: launchAnimation,),
+                
+              ],
+            ),
+
+            const SizedBox(height: 20 ),
+
+            ElevatedButton(onPressed: () {
+              setState(() {
+                launchAnimation = !launchAnimation;
+              });
+            }, child: const Text('Toggle animation'))
+          ],
+        ),
+      ),
+    );
+  }
+}
+```
+
+
+
+
 ### Note: Square, is just a Square blue container
 ```
 class Square extends StatelessWidget {
@@ -128,6 +187,10 @@ class Square extends StatelessWidget {
 }
 
 ```
+
+
+
+
 
 ![Animate_do demo animation](https://raw.githubusercontent.com/Klerith/animate_do_package/master/animate_do.gif "Animate_do")
 

@@ -1,3 +1,7 @@
+#### [3.0.0] - Animate Toggle
+* Now you can Toggle the animate property
+* All the animations can be executed backwards
+
 #### [2.1.0] - Key constructors
 * Prefer const
 * Key constructors
