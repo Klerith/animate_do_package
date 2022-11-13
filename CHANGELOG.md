@@ -1,3 +1,6 @@
+#### [3.0.1] - Animate Toggle
+* Example #2 added
+
 #### [3.0.0] - Animate Toggle
 * Now you can Toggle the animate property
 * All the animations can be executed backwards
