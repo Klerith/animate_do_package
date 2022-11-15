@@ -1,3 +1,7 @@
+#### [3.0.2] - FadeOuts bug fixed
+* Fadeout bug fixed, now it works as expected
+* Example #3 added - With controller
+
 #### [3.0.1] - Animate Toggle
 * Example #2 added
 

@@ -80,6 +80,7 @@ class _ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
     if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
     }
+
     /// If FALSE, animate everything back to the original state
     if (!widget.animate) {
       controller?.animateBack(0);
@@ -180,6 +181,7 @@ class _ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
     if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
     }
+
     /// If FALSE, animate everything back to the original state
     if (!widget.animate) {
       controller?.animateBack(0);
