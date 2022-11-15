@@ -77,6 +77,7 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+
     /// Launch the animation ASAP or wait if is needed
     if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
@@ -151,6 +152,7 @@ class _FadeInDownState extends State<FadeInDown>
   /// animation opacity
   late Animation<double> opacity;
 
+
   @override
   void dispose() {
     disposed = true;
@@ -182,6 +184,7 @@ class _FadeInDownState extends State<FadeInDown>
     if (widget.controller is Function) {
       widget.controller!(controller!);
     }
+
   }
 
   @override
@@ -293,6 +296,7 @@ class FadeInUp extends StatefulWidget {
 /// The animation magic happens here
 class _FadeInUpState extends State<FadeInUp>
     with SingleTickerProviderStateMixin {
+
   /// Animation controller if requested
   AnimationController? controller;
 

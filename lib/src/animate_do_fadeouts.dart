@@ -18,11 +18,11 @@ class FadeOut extends StatefulWidget {
   FadeOut(
       {key,
       required this.child,
-      this.duration = const Duration(milliseconds: 300),
+      this.duration = const Duration(milliseconds: 500),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
-      this.animate = false})
+      this.animate = true})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -37,14 +37,14 @@ class FadeOut extends StatefulWidget {
 
 /// State class, where the magic happens
 class _FadeOutState extends State<FadeOut> with SingleTickerProviderStateMixin {
-  AnimationController? controller;
+  late AnimationController controller;
   bool disposed = false;
   late Animation<double> animation;
 
   @override
   void dispose() {
     disposed = true;
-    controller!.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -54,30 +54,33 @@ class _FadeOutState extends State<FadeOut> with SingleTickerProviderStateMixin {
 
     controller = AnimationController(duration: widget.duration, vsync: this);
     animation = Tween(begin: 1.0, end: 0.0)
-        .animate(CurvedAnimation(curve: Curves.easeOut, parent: controller!));
+        .animate(CurvedAnimation(curve: Curves.easeOut, parent: controller));
 
+    /// Manual trigger false and animate = true
+    /// No delay in place, then start the animation
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          controller?.forward();
+          controller.forward();
+          print('controller ' + controller.value.toString());
         }
       });
     }
 
     if (widget.controller is Function) {
-      widget.controller!(controller!);
+      widget.controller!(controller);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     if (widget.animate && widget.delay.inMilliseconds == 0) {
-      controller?.forward();
+      controller.forward();
     }
 
     /// If FALSE, animate everything back to original
     if (!widget.animate) {
-      controller?.animateBack(0);
+      controller.animateBack(0);
     }
 
     return AnimatedBuilder(
@@ -114,7 +117,7 @@ class FadeOutDown extends StatefulWidget {
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
-      this.animate = false,
+      this.animate = true,
       this.from = 100})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
@@ -155,6 +158,8 @@ class _FadeOutDownState extends State<FadeOutDown>
     opacity = Tween<double>(begin: 1.0, end: 0.0).animate(
         CurvedAnimation(parent: controller!, curve: const Interval(0, 0.65)));
 
+    /// Manual trigger false and animate = true
+    /// No delay in place, then start the animation
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
@@ -215,7 +220,7 @@ class FadeOutDownBig extends StatelessWidget {
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
-      this.animate = false,
+      this.animate = true,
       this.from = 600})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
@@ -260,7 +265,7 @@ class FadeOutUp extends StatefulWidget {
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
-      this.animate = false,
+      this.animate = true,
       this.from = 100})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
@@ -299,6 +304,8 @@ class _FadeOutUpState extends State<FadeOutUp>
     opacity = Tween<double>(begin: 1.0, end: 0.0).animate(
         CurvedAnimation(parent: controller!, curve: const Interval(0, 0.65)));
 
+    /// Manual trigger false and animate = true
+    /// No delay in place, then start the animation
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
@@ -359,7 +366,7 @@ class FadeOutUpBig extends StatelessWidget {
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
-      this.animate = false,
+      this.animate = true,
       this.from = 600})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
@@ -404,7 +411,7 @@ class FadeOutLeft extends StatefulWidget {
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
-      this.animate = false,
+      this.animate = true,
       this.from = 100})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
@@ -443,6 +450,8 @@ class _FadeOutLeftState extends State<FadeOutLeft>
     opacity = Tween<double>(begin: 1.0, end: 0.0).animate(
         CurvedAnimation(parent: controller!, curve: const Interval(0, 0.65)));
 
+    /// Manual trigger false and animate = true
+    /// No delay in place, then start the animation
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
@@ -503,7 +512,7 @@ class FadeOutLeftBig extends StatelessWidget {
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
-      this.animate = false,
+      this.animate = true,
       this.from = 600})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
@@ -548,7 +557,7 @@ class FadeOutRight extends StatelessWidget {
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
-      this.animate = false,
+      this.animate = true,
       this.from = 100})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
@@ -593,7 +602,7 @@ class FadeOutRightBig extends StatelessWidget {
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
-      this.animate = false,
+      this.animate = true,
       this.from = 600})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
