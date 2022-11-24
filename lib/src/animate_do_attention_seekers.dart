@@ -225,7 +225,8 @@ class _FlashState extends State<Flash> with SingleTickerProviderStateMixin {
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
-/// [from] from where you want to start the animation
+/// [from] from where you want to start the animation (default=1)
+/// [to] where the animations stops (default=1.5)
 /// [infinite] loops the animation until the widget is destroyed
 class Pulse extends StatefulWidget {
   final Widget child;
@@ -235,6 +236,8 @@ class Pulse extends StatefulWidget {
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
+  final double from;
+  final double to;
 
   Pulse(
       {key,
@@ -244,7 +247,9 @@ class Pulse extends StatefulWidget {
       this.infinite = false,
       this.controller,
       this.manualTrigger = false,
-      this.animate = true})
+      this.animate = true,
+      this.from = 1,
+      this.to = 1.5})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -276,13 +281,15 @@ class _PulseState extends State<Pulse> with SingleTickerProviderStateMixin {
 
     controller = AnimationController(duration: widget.duration, vsync: this);
 
-    animationInc = Tween<double>(begin: 1, end: 1.5).animate(CurvedAnimation(
-        parent: controller!,
-        curve: const Interval(0, 0.5, curve: Curves.easeOut)));
+    animationInc = Tween<double>(begin: widget.from, end: widget.to).animate(
+        CurvedAnimation(
+            parent: controller!,
+            curve: const Interval(0, 0.5, curve: Curves.easeOut)));
 
-    animationDec = Tween<double>(begin: 1.5, end: 1).animate(CurvedAnimation(
-        parent: controller!,
-        curve: const Interval(0.5, 1, curve: Curves.easeIn)));
+    animationDec = Tween<double>(begin: widget.to, end: widget.from).animate(
+        CurvedAnimation(
+            parent: controller!,
+            curve: const Interval(0.5, 1, curve: Curves.easeIn)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
