@@ -3,6 +3,9 @@
 
 An animation package inspired in [Animate.css](https://daneden.github.io/animate.css/), built using only Flutter animations, no extra packages.
 
+![Animate_do demo animation](https://raw.githubusercontent.com/Klerith/animate_do_package/master/demo-01.gif "Animate_do")
+
+
 ## Getting Started
 
 This package is simple to use. Every single animation contains default values that look beautiful, but you can change properties to accomplish your needs.
@@ -84,6 +87,8 @@ All of the following animations could be infinite with a property called ```infi
 - Flash
 - Pulse
 - Roulette
+- ShakeX
+- ShakeY
 - Spin
 - SpinPerfect
 - Swing
