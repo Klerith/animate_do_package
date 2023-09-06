@@ -138,12 +138,10 @@ Just add the property animate to **true** to trigger the animation, and to **fal
 
 
 
-```
-
-
 ## Example: 02-Basic - Now with Toggle
 Just toggle the __animate__ property to animate in or out easily.
 Check the full code inside the example folder
+
 ```
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -239,7 +237,3 @@ Since version ```1.2.0```, there is a way to get the AnimationController easily,
 
     child: YourWidget(),
 ```
-
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
