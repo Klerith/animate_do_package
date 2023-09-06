@@ -1,5 +1,6 @@
 # animate_do 
-## Null-Safety checked!
+## Null-Safety, Dart 3, with zero external dependencies
+### IOS, Android, Linux, Mac, Web, Windows ready
 
 An animation package inspired in [Animate.css](https://daneden.github.io/animate.css/), built using only Flutter animations, no extra packages.
 
