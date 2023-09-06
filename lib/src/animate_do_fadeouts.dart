@@ -18,11 +18,11 @@ class FadeOut extends StatefulWidget {
   FadeOut(
       {key,
       required this.child,
-      this.duration = const Duration(milliseconds: 500),
+      this.duration = const Duration(milliseconds: 300),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
-      this.animate = true})
+      this.animate = false})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -32,19 +32,19 @@ class FadeOut extends StatefulWidget {
   }
 
   @override
-  _FadeOutState createState() => _FadeOutState();
+  FadeOutState createState() => FadeOutState();
 }
 
 /// State class, where the magic happens
-class _FadeOutState extends State<FadeOut> with SingleTickerProviderStateMixin {
-  late AnimationController controller;
+class FadeOutState extends State<FadeOut> with SingleTickerProviderStateMixin {
+  AnimationController? controller;
   bool disposed = false;
   late Animation<double> animation;
 
   @override
   void dispose() {
     disposed = true;
-    controller.dispose();
+    controller!.dispose();
     super.dispose();
   }
 
@@ -54,33 +54,30 @@ class _FadeOutState extends State<FadeOut> with SingleTickerProviderStateMixin {
 
     controller = AnimationController(duration: widget.duration, vsync: this);
     animation = Tween(begin: 1.0, end: 0.0)
-        .animate(CurvedAnimation(curve: Curves.easeOut, parent: controller));
+        .animate(CurvedAnimation(curve: Curves.easeOut, parent: controller!));
 
-    /// Manual trigger false and animate = true
-    /// No delay in place, then start the animation
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          controller.forward();
-          print('controller ' + controller.value.toString());
+          controller?.forward();
         }
       });
     }
 
     if (widget.controller is Function) {
-      widget.controller!(controller);
+      widget.controller!(controller!);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     if (widget.animate && widget.delay.inMilliseconds == 0) {
-      controller.forward();
+      controller?.forward();
     }
 
     /// If FALSE, animate everything back to original
-    if (!widget.animate) {
-      controller.animateBack(0);
+    if( !widget.animate ) {
+      controller?.animateBack(0);
     }
 
     return AnimatedBuilder(
@@ -117,7 +114,7 @@ class FadeOutDown extends StatefulWidget {
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
-      this.animate = true,
+      this.animate = false,
       this.from = 100})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
@@ -128,11 +125,11 @@ class FadeOutDown extends StatefulWidget {
   }
 
   @override
-  _FadeOutDownState createState() => _FadeOutDownState();
+  FadeOutDownState createState() => FadeOutDownState();
 }
 
 /// State class, where the magic happens
-class _FadeOutDownState extends State<FadeOutDown>
+class FadeOutDownState extends State<FadeOutDown>
     with SingleTickerProviderStateMixin {
   AnimationController? controller;
   bool disposed = false;
@@ -158,8 +155,6 @@ class _FadeOutDownState extends State<FadeOutDown>
     opacity = Tween<double>(begin: 1.0, end: 0.0).animate(
         CurvedAnimation(parent: controller!, curve: const Interval(0, 0.65)));
 
-    /// Manual trigger false and animate = true
-    /// No delay in place, then start the animation
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
@@ -180,7 +175,7 @@ class _FadeOutDownState extends State<FadeOutDown>
     }
 
     /// If FALSE, animate everything back to original
-    if (!widget.animate) {
+    if( !widget.animate ) {
       controller?.animateBack(0);
     }
 
@@ -220,7 +215,7 @@ class FadeOutDownBig extends StatelessWidget {
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
-      this.animate = true,
+      this.animate = false,
       this.from = 600})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
@@ -232,13 +227,13 @@ class FadeOutDownBig extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => FadeOutDown(
-        child: child,
         duration: duration,
         delay: delay,
         controller: controller,
         manualTrigger: manualTrigger,
         animate: animate,
         from: from,
+        child: child,
       );
 }
 
@@ -265,7 +260,7 @@ class FadeOutUp extends StatefulWidget {
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
-      this.animate = true,
+      this.animate = false,
       this.from = 100})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
@@ -276,11 +271,11 @@ class FadeOutUp extends StatefulWidget {
   }
 
   @override
-  _FadeOutUpState createState() => _FadeOutUpState();
+  FadeOutUpState createState() => FadeOutUpState();
 }
 
 /// State class, where the magic happens
-class _FadeOutUpState extends State<FadeOutUp>
+class FadeOutUpState extends State<FadeOutUp>
     with SingleTickerProviderStateMixin {
   AnimationController? controller;
   bool disposed = false;
@@ -304,8 +299,6 @@ class _FadeOutUpState extends State<FadeOutUp>
     opacity = Tween<double>(begin: 1.0, end: 0.0).animate(
         CurvedAnimation(parent: controller!, curve: const Interval(0, 0.65)));
 
-    /// Manual trigger false and animate = true
-    /// No delay in place, then start the animation
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
@@ -326,7 +319,7 @@ class _FadeOutUpState extends State<FadeOutUp>
     }
 
     /// If FALSE, animate everything back to original
-    if (!widget.animate) {
+    if( !widget.animate ) {
       controller?.animateBack(0);
     }
 
@@ -366,7 +359,7 @@ class FadeOutUpBig extends StatelessWidget {
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
-      this.animate = true,
+      this.animate = false,
       this.from = 600})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
@@ -378,13 +371,13 @@ class FadeOutUpBig extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => FadeOutUp(
-        child: child,
         duration: duration,
         delay: delay,
         controller: controller,
         manualTrigger: manualTrigger,
         animate: animate,
         from: from,
+        child: child,
       );
 }
 
@@ -411,7 +404,7 @@ class FadeOutLeft extends StatefulWidget {
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
-      this.animate = true,
+      this.animate = false,
       this.from = 100})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
@@ -422,11 +415,11 @@ class FadeOutLeft extends StatefulWidget {
   }
 
   @override
-  _FadeOutLeftState createState() => _FadeOutLeftState();
+  FadeOutLeftState createState() => FadeOutLeftState();
 }
 
 /// State class, where the magic happens
-class _FadeOutLeftState extends State<FadeOutLeft>
+class FadeOutLeftState extends State<FadeOutLeft>
     with SingleTickerProviderStateMixin {
   AnimationController? controller;
   bool disposed = false;
@@ -450,8 +443,6 @@ class _FadeOutLeftState extends State<FadeOutLeft>
     opacity = Tween<double>(begin: 1.0, end: 0.0).animate(
         CurvedAnimation(parent: controller!, curve: const Interval(0, 0.65)));
 
-    /// Manual trigger false and animate = true
-    /// No delay in place, then start the animation
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
@@ -472,7 +463,7 @@ class _FadeOutLeftState extends State<FadeOutLeft>
     }
 
     /// If FALSE, animate everything back to original
-    if (!widget.animate) {
+    if( !widget.animate ) {
       controller?.animateBack(0);
     }
 
@@ -512,7 +503,7 @@ class FadeOutLeftBig extends StatelessWidget {
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
-      this.animate = true,
+      this.animate = false,
       this.from = 600})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
@@ -524,13 +515,13 @@ class FadeOutLeftBig extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => FadeOutLeft(
-        child: child,
         duration: duration,
         delay: delay,
         controller: controller,
         manualTrigger: manualTrigger,
         animate: animate,
         from: from,
+        child: child,
       );
 }
 
@@ -557,7 +548,7 @@ class FadeOutRight extends StatelessWidget {
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
-      this.animate = true,
+      this.animate = false,
       this.from = 100})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
@@ -569,13 +560,13 @@ class FadeOutRight extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => FadeOutLeft(
-        child: child,
         duration: duration,
         delay: delay,
         controller: controller,
         manualTrigger: manualTrigger,
         animate: animate,
         from: from * -1,
+        child: child,
       );
 }
 
@@ -602,7 +593,7 @@ class FadeOutRightBig extends StatelessWidget {
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
-      this.animate = true,
+      this.animate = false,
       this.from = 600})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
@@ -614,12 +605,12 @@ class FadeOutRightBig extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => FadeOutLeft(
-        child: child,
         duration: duration,
         delay: delay,
         controller: controller,
         manualTrigger: manualTrigger,
         animate: animate,
         from: from * -1,
+        child: child,
       );
 }

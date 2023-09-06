@@ -38,11 +38,11 @@ class Bounce extends StatefulWidget {
   }
 
   @override
-  _BounceState createState() => _BounceState();
+  BounceState createState() => BounceState();
 }
 
 /// State class, where the magic happens
-class _BounceState extends State<Bounce> with SingleTickerProviderStateMixin {
+class BounceState extends State<Bounce> with SingleTickerProviderStateMixin {
   AnimationController? controller;
   bool disposed = false;
   late Animation<double> animationBounce;
@@ -145,11 +145,11 @@ class Flash extends StatefulWidget {
   }
 
   @override
-  _FlashState createState() => _FlashState();
+  FlashState createState() => FlashState();
 }
 
 /// State class, where the magic happens
-class _FlashState extends State<Flash> with SingleTickerProviderStateMixin {
+class FlashState extends State<Flash> with SingleTickerProviderStateMixin {
   AnimationController? controller;
   bool disposed = false;
   late Animation<double> opacityOut1;
@@ -254,11 +254,11 @@ class Pulse extends StatefulWidget {
   }
 
   @override
-  _PulseState createState() => _PulseState();
+  PulseState createState() => PulseState();
 }
 
 /// State class, where the magic happens
-class _PulseState extends State<Pulse> with SingleTickerProviderStateMixin {
+class PulseState extends State<Pulse> with SingleTickerProviderStateMixin {
   AnimationController? controller;
   bool disposed = false;
   late Animation<double> animationInc;
@@ -357,11 +357,11 @@ class Swing extends StatefulWidget {
   }
 
   @override
-  _SwingState createState() => _SwingState();
+  SwingState createState() => SwingState();
 }
 
 /// State class, where the magic happens
-class _SwingState extends State<Swing> with SingleTickerProviderStateMixin {
+class SwingState extends State<Swing> with SingleTickerProviderStateMixin {
   AnimationController? controller;
   bool disposed = false;
   late Animation<double> animationRotation1;
@@ -499,11 +499,11 @@ class Spin extends StatefulWidget {
   }
 
   @override
-  _SpinState createState() => _SpinState();
+  SpinState createState() => SpinState();
 }
 
 /// State class, where the magic happens
-class _SpinState extends State<Spin> with SingleTickerProviderStateMixin {
+class SpinState extends State<Spin> with SingleTickerProviderStateMixin {
   AnimationController? controller;
   bool disposed = false;
   late Animation<double> spin;
@@ -597,11 +597,11 @@ class SpinPerfect extends StatefulWidget {
   }
 
   @override
-  _SpinPerfectState createState() => _SpinPerfectState();
+  SpinPerfectState createState() => SpinPerfectState();
 }
 
 /// State class, where the magic happens
-class _SpinPerfectState extends State<SpinPerfect>
+class SpinPerfectState extends State<SpinPerfect>
     with SingleTickerProviderStateMixin {
   AnimationController? controller;
   bool disposed = false;
@@ -694,11 +694,11 @@ class Dance extends StatefulWidget {
   }
 
   @override
-  _DanceState createState() => _DanceState();
+  DanceState createState() => DanceState();
 }
 
 /// State class, where the magic happens
-class _DanceState extends State<Dance> with SingleTickerProviderStateMixin {
+class DanceState extends State<Dance> with SingleTickerProviderStateMixin {
   AnimationController? controller;
   bool disposed = false;
   late Animation<double> step1;
@@ -809,11 +809,11 @@ class Roulette extends StatefulWidget {
   }
 
   @override
-  _RouletteState createState() => _RouletteState();
+  RouletteState createState() => RouletteState();
 }
 
 /// State class, where the magic happens
-class _RouletteState extends State<Roulette>
+class RouletteState extends State<Roulette>
     with SingleTickerProviderStateMixin {
   AnimationController? controller;
   bool disposed = false;

@@ -34,11 +34,11 @@ class BounceInDown extends StatefulWidget {
   }
 
   @override
-  _BounceInDownState createState() => _BounceInDownState();
+  BounceInDownState createState() => BounceInDownState();
 }
 
 /// Bounce class State, this is where the magic happens
-class _BounceInDownState extends State<BounceInDown>
+class BounceInDownState extends State<BounceInDown>
     with SingleTickerProviderStateMixin {
   AnimationController? controller;
   bool disposed = false;
@@ -132,13 +132,13 @@ class BounceInUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => BounceInDown(
-        child: child,
         duration: duration,
         delay: delay,
         controller: controller,
         manualTrigger: manualTrigger,
         animate: animate,
         from: from * -1,
+        child: child,
       );
 }
 
@@ -176,11 +176,12 @@ class BounceInLeft extends StatefulWidget {
   }
 
   @override
-  _BounceInLeftState createState() => _BounceInLeftState();
+  BounceInLeftState createState() => BounceInLeftState();
 }
 
-/// Bounce class State, this is where the magic happens
-class _BounceInLeftState extends State<BounceInLeft>
+/// Bounce class State,
+/// It controls the opacity and bouncing mechanims
+class BounceInLeftState extends State<BounceInLeft>
     with SingleTickerProviderStateMixin {
   AnimationController? controller;
   bool disposed = false;
@@ -276,12 +277,12 @@ class BounceInRight extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => BounceInLeft(
-        child: child,
         duration: duration,
         delay: delay,
         controller: controller,
         manualTrigger: manualTrigger,
         animate: animate,
         from: from * -1,
+        child: child,
       );
 }

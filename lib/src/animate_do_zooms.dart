@@ -34,11 +34,11 @@ class ZoomIn extends StatefulWidget {
   }
 
   @override
-  _ZoomInState createState() => _ZoomInState();
+  ZoomInState createState() => ZoomInState();
 }
 
 /// State class, where the magic happens
-class _ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
+class ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
   AnimationController? controller;
   bool disposed = false;
   late Animation<double> fade;
@@ -80,7 +80,6 @@ class _ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
     if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
     }
-
     /// If FALSE, animate everything back to the original state
     if (!widget.animate) {
       controller?.animateBack(0);
@@ -134,11 +133,11 @@ class ZoomOut extends StatefulWidget {
   }
 
   @override
-  _ZoomOutState createState() => _ZoomOutState();
+  ZoomOutState createState() => ZoomOutState();
 }
 
 /// State class, where the magic happens
-class _ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
+class ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
   AnimationController? controller;
   bool disposed = false;
   late Animation<double> zoom;
@@ -181,7 +180,6 @@ class _ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
     if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
     }
-
     /// If FALSE, animate everything back to the original state
     if (!widget.animate) {
       controller?.animateBack(0);

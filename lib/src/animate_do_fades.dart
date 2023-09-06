@@ -33,12 +33,12 @@ class FadeIn extends StatefulWidget {
   }
 
   @override
-  _FadeInState createState() => _FadeInState();
+  FadeInState createState() => FadeInState();
 }
 
 /// FadeState class
 /// The animation magic happens here
-class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
+class FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
   /// Animation controller that controls this animation
   AnimationController? controller;
 
@@ -77,6 +77,7 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+
     /// Launch the animation ASAP or wait if is needed
     if (widget.animate && widget.delay.inMilliseconds == 0) {
       controller?.forward();
@@ -133,12 +134,12 @@ class FadeInDown extends StatefulWidget {
   }
 
   @override
-  _FadeInDownState createState() => _FadeInDownState();
+  FadeInDownState createState() => FadeInDownState();
 }
 
 /// FadeState class
 /// The animation magic happens here
-class _FadeInDownState extends State<FadeInDown>
+class FadeInDownState extends State<FadeInDown>
     with SingleTickerProviderStateMixin {
   AnimationController? controller;
 
@@ -150,6 +151,7 @@ class _FadeInDownState extends State<FadeInDown>
 
   /// animation opacity
   late Animation<double> opacity;
+
 
   @override
   void dispose() {
@@ -182,6 +184,7 @@ class _FadeInDownState extends State<FadeInDown>
     if (widget.controller is Function) {
       widget.controller!(controller!);
     }
+
   }
 
   @override
@@ -243,13 +246,13 @@ class FadeInDownBig extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => FadeInDown(
-      child: child,
       duration: duration,
       delay: delay,
       controller: controller,
       manualTrigger: manualTrigger,
       animate: animate,
-      from: from);
+      from: from,
+      child: child);
 }
 
 /// Class [FadeInUp]:
@@ -286,13 +289,14 @@ class FadeInUp extends StatefulWidget {
   }
 
   @override
-  _FadeInUpState createState() => _FadeInUpState();
+  FadeInUpState createState() => FadeInUpState();
 }
 
 /// FadeState class
 /// The animation magic happens here
-class _FadeInUpState extends State<FadeInUp>
+class FadeInUpState extends State<FadeInUp>
     with SingleTickerProviderStateMixin {
+
   /// Animation controller if requested
   AnimationController? controller;
 
@@ -395,13 +399,13 @@ class FadeInUpBig extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => FadeInUp(
-        child: child,
         duration: duration,
         delay: delay,
         controller: controller,
         manualTrigger: manualTrigger,
         animate: animate,
         from: from,
+        child: child,
       );
 }
 
@@ -439,12 +443,12 @@ class FadeInLeft extends StatefulWidget {
   }
 
   @override
-  _FadeInLeftState createState() => _FadeInLeftState();
+  FadeInLeftState createState() => FadeInLeftState();
 }
 
 /// FadeState class
 /// The animation magic happens here
-class _FadeInLeftState extends State<FadeInLeft>
+class FadeInLeftState extends State<FadeInLeft>
     with SingleTickerProviderStateMixin {
   AnimationController? controller;
   bool disposed = false;
@@ -540,13 +544,13 @@ class FadeInLeftBig extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => FadeInLeft(
-        child: child,
         duration: duration,
         delay: delay,
         controller: controller,
         manualTrigger: manualTrigger,
         animate: animate,
         from: from,
+        child: child,
       );
 }
 
@@ -584,12 +588,12 @@ class FadeInRight extends StatefulWidget {
   }
 
   @override
-  _FadeInRightState createState() => _FadeInRightState();
+  FadeInRightState createState() => FadeInRightState();
 }
 
 /// FadeState class
 /// The animation magic happens here
-class _FadeInRightState extends State<FadeInRight>
+class FadeInRightState extends State<FadeInRight>
     with SingleTickerProviderStateMixin {
   AnimationController? controller;
   bool disposed = false;
@@ -685,12 +689,12 @@ class FadeInRightBig extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => FadeInRight(
-        child: child,
         duration: duration,
         delay: delay,
         controller: controller,
         manualTrigger: manualTrigger,
         animate: animate,
         from: from,
+        child: child,
       );
 }

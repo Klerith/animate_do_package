@@ -32,11 +32,11 @@ class ElasticIn extends StatefulWidget {
   }
 
   @override
-  _ElasticInState createState() => _ElasticInState();
+  ElasticInState createState() => ElasticInState();
 }
 
 /// StateClass, where the magic happens
-class _ElasticInState extends State<ElasticIn>
+class ElasticInState extends State<ElasticIn>
     with SingleTickerProviderStateMixin {
   AnimationController? controller;
   bool disposed = false;
@@ -135,11 +135,11 @@ class ElasticInDown extends StatefulWidget {
   }
 
   @override
-  _ElasticInDownState createState() => _ElasticInDownState();
+  ElasticInDownState createState() => ElasticInDownState();
 }
 
 /// StateClass, where the magic happens
-class _ElasticInDownState extends State<ElasticInDown>
+class ElasticInDownState extends State<ElasticInDown>
     with SingleTickerProviderStateMixin {
   AnimationController? controller;
   bool disposed = false;
@@ -248,7 +248,6 @@ class ElasticInUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ElasticInDown(
-        child: child,
         duration: duration,
         delay: delay,
         controller: controller,
@@ -256,6 +255,7 @@ class ElasticInUp extends StatelessWidget {
         animate: animate,
         from: from * -1,
         to: 100,
+        child: child,
       );
 }
 
@@ -295,11 +295,11 @@ class ElasticInLeft extends StatefulWidget {
   }
 
   @override
-  _ElasticInLeftState createState() => _ElasticInLeftState();
+  ElasticInLeftState createState() => ElasticInLeftState();
 }
 
 /// StateClass, where the magic happens
-class _ElasticInLeftState extends State<ElasticInLeft>
+class ElasticInLeftState extends State<ElasticInLeft>
     with SingleTickerProviderStateMixin {
   AnimationController? controller;
   bool disposed = false;
@@ -408,12 +408,12 @@ class ElasticInRight extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ElasticInLeft(
-      child: child,
       duration: duration,
       delay: delay,
       controller: controller,
       manualTrigger: manualTrigger,
       animate: animate,
       from: from * -1,
-      to: -100);
+      to: -100,
+      child: child);
 }

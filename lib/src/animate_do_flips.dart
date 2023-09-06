@@ -32,11 +32,11 @@ class FlipInX extends StatefulWidget {
   }
 
   @override
-  _FlipInXState createState() => _FlipInXState();
+  FlipInXState createState() => FlipInXState();
 }
 
 /// State class, where the magic happens
-class _FlipInXState extends State<FlipInX> with SingleTickerProviderStateMixin {
+class FlipInXState extends State<FlipInX> with SingleTickerProviderStateMixin {
   AnimationController? controller;
   bool disposed = false;
   late Animation<double> rotation;
@@ -131,11 +131,11 @@ class FlipInY extends StatefulWidget {
   }
 
   @override
-  _FlipInYState createState() => _FlipInYState();
+  FlipInYState createState() => FlipInYState();
 }
 
 /// State class, where the magic happens
-class _FlipInYState extends State<FlipInY> with SingleTickerProviderStateMixin {
+class FlipInYState extends State<FlipInY> with SingleTickerProviderStateMixin {
   AnimationController? controller;
   bool disposed = false;
   late Animation<double> rotation;

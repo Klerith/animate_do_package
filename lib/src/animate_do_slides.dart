@@ -34,11 +34,11 @@ class SlideInUp extends StatefulWidget {
   }
 
   @override
-  _SlideInUpState createState() => _SlideInUpState();
+  SlideInUpState createState() => SlideInUpState();
 }
 
 /// State class, where the magic happens
-class _SlideInUpState extends State<SlideInUp>
+class SlideInUpState extends State<SlideInUp>
     with SingleTickerProviderStateMixin {
   AnimationController? controller;
   bool disposed = false;
@@ -128,13 +128,13 @@ class SlideInDown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => SlideInUp(
-        child: child,
         duration: duration,
         delay: delay,
         controller: controller,
         manualTrigger: manualTrigger,
         animate: animate,
         from: from * -1,
+        child: child,
       );
 }
 
@@ -172,11 +172,11 @@ class SlideInLeft extends StatefulWidget {
   }
 
   @override
-  _SlideInLeftState createState() => _SlideInLeftState();
+  SlideInLeftState createState() => SlideInLeftState();
 }
 
 /// State class, where the magic happens
-class _SlideInLeftState extends State<SlideInLeft>
+class SlideInLeftState extends State<SlideInLeft>
     with SingleTickerProviderStateMixin {
   AnimationController? controller;
   bool disposed = false;
@@ -266,12 +266,12 @@ class SlideInRight extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => SlideInLeft(
-        child: child,
         duration: duration,
         delay: delay,
         controller: controller,
         manualTrigger: manualTrigger,
         animate: animate,
         from: from * -1,
+        child: child,
       );
 }

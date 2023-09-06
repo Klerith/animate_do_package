@@ -80,13 +80,13 @@ This package is simple to use. Every single animation contains default values th
 ## Attention Seeker
 All of the following animations could be infinite with a property called ```infinite``` (type Bool)
 - Bounce
+- Dance
 - Flash
 - Pulse
-- Swing
+- Roulette
 - Spin
 - SpinPerfect
-- Dance
-- Roulette
+- Swing
 
 ## Example Basic 
 

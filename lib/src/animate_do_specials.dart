@@ -32,11 +32,11 @@ class JelloIn extends StatefulWidget {
   }
 
   @override
-  _JelloInState createState() => _JelloInState();
+  JelloInState createState() => JelloInState();
 }
 
 /// State class, where the magic happens
-class _JelloInState extends State<JelloIn> with SingleTickerProviderStateMixin {
+class JelloInState extends State<JelloIn> with SingleTickerProviderStateMixin {
   AnimationController? controller;
   bool disposed = false;
   late Animation<double> rotation;
