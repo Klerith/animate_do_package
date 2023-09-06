@@ -872,7 +872,7 @@ class RouletteState extends State<Roulette>
   }
 }
 
-/// Class [Shake]:
+/// Class [ShakeX]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
@@ -881,7 +881,7 @@ class RouletteState extends State<Roulette>
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
 /// [from] from where you want to start the animation
 /// [infinite] loops the animation until the widget is destroyed
-class Shake extends StatefulWidget {
+class ShakeX extends StatefulWidget {
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -890,7 +890,7 @@ class Shake extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
 
-  Shake(
+  ShakeX(
       {key,
       required this.child,
       this.duration = const Duration(milliseconds: 800),
@@ -908,12 +908,12 @@ class Shake extends StatefulWidget {
   }
 
   @override
-  ShakeState createState() => ShakeState();
+  ShakeXState createState() => ShakeXState();
 }
 
 /// State class,
 /// Controls the animations flow
-class ShakeState extends State<Shake> with SingleTickerProviderStateMixin {
+class ShakeXState extends State<ShakeX> with SingleTickerProviderStateMixin {
   
   late AnimationController controller;
   bool disposed = false;
@@ -961,6 +961,103 @@ class ShakeState extends State<Shake> with SingleTickerProviderStateMixin {
         builder: (context, child) {
           return Transform.translate(
             offset: Offset(sin(4 * pi * controller.value) * 10, 0),
+            child: widget.child,
+          );
+        });
+  }
+}
+
+
+
+/// Class [ShakeX]:
+/// [key]: optional widget key reference
+/// [child]: mandatory, widget to animate
+/// [duration]: how much time the animation should take
+/// [delay]: delay before the animation starts
+/// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
+/// the controller can be use to repeat, reverse and anything you want, its just an animation controller
+/// [from] from where you want to start the animation
+/// [infinite] loops the animation until the widget is destroyed
+class ShakeY extends StatefulWidget {
+  final Widget child;
+  final Duration duration;
+  final Duration delay;
+  final bool infinite;
+  final Function(AnimationController)? controller;
+  final bool manualTrigger;
+  final bool animate;
+
+  ShakeY(
+      {key,
+      required this.child,
+      this.duration = const Duration(milliseconds: 1000),
+      this.delay = const Duration(milliseconds: 0),
+      this.infinite = false,
+      this.controller,
+      this.manualTrigger = false,
+      this.animate = true})
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
+
+  @override
+  ShakeYState createState() => ShakeYState();
+}
+
+/// State class,
+/// Controls the animations flow
+class ShakeYState extends State<ShakeY> with SingleTickerProviderStateMixin {
+  
+  late AnimationController controller;
+  bool disposed = false;
+
+  @override
+  void dispose() {
+    disposed = true;
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller = AnimationController(duration: widget.duration, vsync: this);
+
+    if (!widget.manualTrigger && widget.animate) {
+      
+      Future.delayed(widget.delay, () {
+        if (!disposed) {
+          (widget.infinite) ? controller.repeat() : controller.forward();
+        }
+      });
+    }
+
+    if (widget.controller is Function) {
+      widget.controller!(controller);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
+      (widget.infinite) ? controller.repeat() : controller.forward();
+    }
+
+    /// If FALSE, animate everything back to the original state
+    if (!widget.animate) {
+      controller.animateBack(0);
+    }
+
+    return AnimatedBuilder(
+        animation: controller,
+        builder: (context, child) {
+          return Transform.translate(
+            offset: Offset(0, sin(4 * pi * controller.value) * 10),
             child: widget.child,
           );
         });
