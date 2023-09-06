@@ -130,40 +130,35 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   
-  bool launchAnimation = false;
+  bool animate = true;
+  late AnimationController controller;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Material App',
+      theme: ThemeData.light(useMaterial3: true),
       home: Scaffold(
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             
-            const Text('Now with a simple Toggle', style: TextStyle(fontSize: 20),),
-            Text('Boolean animate value: $launchAnimation' ),
-            const SizedBox(height: 20 ),
 
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-                FadeIn(child: const Square(), animate: launchAnimation,),
-                FadeInUp(child: const Square(), animate: launchAnimation,),
-                FadeInDown(child: const Square(), animate: launchAnimation,),
-                FadeInLeft(child: const Square(), animate: launchAnimation,),
-                FadeInRight(child: const Square(), animate: launchAnimation,),
+
+                /// The animations are just widgets
+                FadeIn(animate: animate,child: const Square(),),
+                FadeInUp(animate: animate,child: const Square(),),
+                FadeInDown(animate: animate,child: const Square(),),
+                FadeInLeft(animate: animate,child: const Square(),),
+                FadeInRight(animate: animate,child: const Square(),),
                 
               ],
             ),
 
-            const SizedBox(height: 20 ),
 
-            ElevatedButton(onPressed: () {
-              setState(() {
-                launchAnimation = !launchAnimation;
-              });
-            }, child: const Text('Toggle animation'))
           ],
         ),
       ),
@@ -178,15 +173,13 @@ class _MyAppState extends State<MyApp> {
 ### Note: Square, is just a Square blue container
 ```
 class Square extends StatelessWidget {
-
+  const Square({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 50,
       height: 50,
-      decoration: BoxDecoration(
-        color: Colors.blueAccent,
-      ),
+      color: const Color(0xff67549B),
     );
   }
 }
@@ -197,7 +190,7 @@ class Square extends StatelessWidget {
 
 
 
-![Animate_do demo animation](https://raw.githubusercontent.com/Klerith/animate_do_package/master/screenshots/animate_do.gif "Animate_do")
+![Animate_do demo animation](https://raw.githubusercontent.com/Klerith/animate_do_package/master/screenshots/demo-00.gif "Animate_do")
 
 
 ![Animate_do demo animation](https://raw.githubusercontent.com/Klerith/animate_do_package/master/screenshots/demo-02.gif "Animate_do")
