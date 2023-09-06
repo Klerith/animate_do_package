@@ -45,7 +45,7 @@ class Bounce extends StatefulWidget {
 
 /// State class, where the magic happens
 class BounceState extends State<Bounce> with SingleTickerProviderStateMixin {
-  AnimationController? controller;
+  late AnimationController controller;
   bool disposed = false;
   late Animation<double> animationBounce;
 
@@ -53,7 +53,7 @@ class BounceState extends State<Bounce> with SingleTickerProviderStateMixin {
   @override
   void dispose() {
     disposed = true;
-    controller!.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -66,39 +66,39 @@ class BounceState extends State<Bounce> with SingleTickerProviderStateMixin {
     animationUp = Tween<double>(begin: 0, end: widget.from * -1).animate(
         CurvedAnimation(
             curve: const Interval(0, 0.35, curve: Curves.easeInOut),
-            parent: controller!));
+            parent: controller));
 
     animationBounce = Tween<double>(begin: widget.from * -1, end: 0.0).animate(
         CurvedAnimation(
             curve: const Interval(0.35, 1, curve: Curves.bounceOut),
-            parent: controller!));
+            parent: controller));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          (widget.infinite) ? controller!.repeat() : controller?.forward();
+          (widget.infinite) ? controller.repeat() : controller.forward();
         }
       });
     }
 
     if (widget.controller is Function) {
-      widget.controller!(controller!);
+      widget.controller!(controller);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     if (widget.animate && widget.delay.inMilliseconds == 0) {
-      controller?.forward();
+      (widget.infinite) ? controller.repeat() : controller.forward();
     }
 
     /// If FALSE, animate everything back to the original state
     if (!widget.animate) {
-      controller?.animateBack(0);
+      controller.animateBack(0);
     }
 
     return AnimatedBuilder(
-        animation: controller!,
+        animation: controller,
         builder: (BuildContext context, Widget? child) {
           return Transform.translate(
               offset: Offset(
@@ -152,7 +152,7 @@ class Flash extends StatefulWidget {
 
 /// State class, where the magic happens
 class FlashState extends State<Flash> with SingleTickerProviderStateMixin {
-  AnimationController? controller;
+  late AnimationController controller;
   bool disposed = false;
   late Animation<double> opacityOut1;
   late Animation<double> opacityIn1;
@@ -161,7 +161,7 @@ class FlashState extends State<Flash> with SingleTickerProviderStateMixin {
   @override
   void dispose() {
     disposed = true;
-    controller!.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -172,47 +172,47 @@ class FlashState extends State<Flash> with SingleTickerProviderStateMixin {
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     opacityOut1 = Tween<double>(begin: 1, end: 0).animate(
-        CurvedAnimation(parent: controller!, curve: const Interval(0, 0.25)));
+        CurvedAnimation(parent: controller, curve: const Interval(0, 0.25)));
     opacityIn1 = Tween<double>(begin: 0, end: 1).animate(
-        CurvedAnimation(parent: controller!, curve: const Interval(0.25, 0.5)));
+        CurvedAnimation(parent: controller, curve: const Interval(0.25, 0.5)));
     opacityOut2 = Tween<double>(begin: 1, end: 0).animate(
-        CurvedAnimation(parent: controller!, curve: const Interval(0.5, 0.75)));
+        CurvedAnimation(parent: controller, curve: const Interval(0.5, 0.75)));
     opacityIn2 = Tween<double>(begin: 0, end: 1).animate(
-        CurvedAnimation(parent: controller!, curve: const Interval(0.75, 1)));
+        CurvedAnimation(parent: controller, curve: const Interval(0.75, 1)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          (widget.infinite) ? controller!.repeat() : controller?.forward();
+          (widget.infinite) ? controller.repeat() : controller.forward();
         }
       });
     }
 
     if (widget.controller is Function) {
-      widget.controller!(controller!);
+      widget.controller!(controller);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     if (widget.animate && widget.delay.inMilliseconds == 0) {
-      controller?.forward();
+      (widget.infinite) ? controller.repeat() : controller.forward();
     }
 
     /// If FALSE, animate everything back to the original state
     if (!widget.animate) {
-      controller?.animateBack(0);
+      controller.animateBack(0);
     }
 
     return AnimatedBuilder(
-        animation: controller!,
+        animation: controller,
         builder: (BuildContext context, Widget? child) {
           return Opacity(
-              opacity: (controller!.value < 0.25)
+              opacity: (controller.value < 0.25)
                   ? opacityOut1.value
-                  : (controller!.value < 0.5)
+                  : (controller.value < 0.5)
                       ? opacityIn1.value
-                      : (controller!.value < 0.75)
+                      : (controller.value < 0.75)
                           ? opacityOut2.value
                           : opacityIn2.value,
               child: widget.child);
@@ -261,14 +261,14 @@ class Pulse extends StatefulWidget {
 
 /// State class, where the magic happens
 class PulseState extends State<Pulse> with SingleTickerProviderStateMixin {
-  AnimationController? controller;
+  late AnimationController controller;
   bool disposed = false;
   late Animation<double> animationInc;
   late Animation<double> animationDec;
   @override
   void dispose() {
     disposed = true;
-    controller!.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -279,42 +279,42 @@ class PulseState extends State<Pulse> with SingleTickerProviderStateMixin {
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     animationInc = Tween<double>(begin: 1, end: 1.5).animate(CurvedAnimation(
-        parent: controller!,
+        parent: controller,
         curve: const Interval(0, 0.5, curve: Curves.easeOut)));
 
     animationDec = Tween<double>(begin: 1.5, end: 1).animate(CurvedAnimation(
-        parent: controller!,
+        parent: controller,
         curve: const Interval(0.5, 1, curve: Curves.easeIn)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          (widget.infinite) ? controller!.repeat() : controller?.forward();
+          (widget.infinite) ? controller.repeat() : controller.forward();
         }
       });
     }
 
     if (widget.controller is Function) {
-      widget.controller!(controller!);
+      widget.controller!(controller);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     if (widget.animate && widget.delay.inMilliseconds == 0) {
-      controller?.forward();
+      (widget.infinite) ? controller.repeat() : controller.forward();
     }
 
     /// If FALSE, animate everything back to the original state
     if (!widget.animate) {
-      controller?.animateBack(0);
+      controller.animateBack(0);
     }
 
     return AnimatedBuilder(
-        animation: controller!,
+        animation: controller,
         builder: (BuildContext context, Widget? child) {
           return Transform.scale(
-            scale: (controller!.value < 0.5)
+            scale: (controller.value < 0.5)
                 ? animationInc.value
                 : animationDec.value,
             child: widget.child,
@@ -364,7 +364,7 @@ class Swing extends StatefulWidget {
 
 /// State class, where the magic happens
 class SwingState extends State<Swing> with SingleTickerProviderStateMixin {
-  AnimationController? controller;
+  late AnimationController controller;
   bool disposed = false;
   late Animation<double> animationRotation1;
   late Animation<double> animationRotation2;
@@ -375,7 +375,7 @@ class SwingState extends State<Swing> with SingleTickerProviderStateMixin {
   @override
   void dispose() {
     disposed = true;
-    controller!.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -387,60 +387,60 @@ class SwingState extends State<Swing> with SingleTickerProviderStateMixin {
 
     animationRotation1 = Tween<double>(begin: 0, end: -0.5).animate(
         CurvedAnimation(
-            parent: controller!,
+            parent: controller,
             curve: const Interval(0, 0.1666, curve: Curves.easeOut)));
 
     animationRotation2 = Tween<double>(begin: -0.5, end: 0.5).animate(
         CurvedAnimation(
-            parent: controller!,
+            parent: controller,
             curve: const Interval(0.1666, 0.3333, curve: Curves.easeInOut)));
 
     animationRotation3 = Tween<double>(begin: 0.5, end: -0.5).animate(
         CurvedAnimation(
-            parent: controller!,
+            parent: controller,
             curve: const Interval(0.3333, 0.4999, curve: Curves.easeInOut)));
 
     animationRotation4 = Tween<double>(begin: -0.5, end: 0.4).animate(
         CurvedAnimation(
-            parent: controller!,
+            parent: controller,
             curve: const Interval(0.4999, 0.6666, curve: Curves.easeInOut)));
 
     animationRotation5 = Tween<double>(begin: 0.4, end: -0.4).animate(
         CurvedAnimation(
-            parent: controller!,
+            parent: controller,
             curve: const Interval(0.6666, 0.8333, curve: Curves.easeInOut)));
 
     animationRotation6 = Tween<double>(begin: -0.4, end: 0).animate(
         CurvedAnimation(
-            parent: controller!,
+            parent: controller,
             curve: const Interval(0.8333, 1, curve: Curves.easeOut)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          (widget.infinite) ? controller!.repeat() : controller?.forward();
+          (widget.infinite) ? controller.repeat() : controller.forward();
         }
       });
     }
 
     if (widget.controller is Function) {
-      widget.controller!(controller!);
+      widget.controller!(controller);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     if (widget.animate && widget.delay.inMilliseconds == 0) {
-      controller?.forward();
+      (widget.infinite) ? controller.repeat() : controller.forward();
     }
 
     /// If FALSE, animate everything back to the original state
     if (!widget.animate) {
-      controller?.animateBack(0);
+      controller.animateBack(0);
     }
 
     return AnimatedBuilder(
-        animation: controller!,
+        animation: controller,
         builder: (BuildContext context, Widget? child) {
           double angle = (animationRotation1.value != -0.5)
               ? animationRotation1.value
@@ -506,14 +506,14 @@ class Spin extends StatefulWidget {
 
 /// State class, where the magic happens
 class SpinState extends State<Spin> with SingleTickerProviderStateMixin {
-  AnimationController? controller;
+  late AnimationController controller;
   bool disposed = false;
   late Animation<double> spin;
 
   @override
   void dispose() {
     disposed = true;
-    controller!.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -524,34 +524,34 @@ class SpinState extends State<Spin> with SingleTickerProviderStateMixin {
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     spin = Tween<double>(begin: 0, end: widget.spins * 2)
-        .animate(CurvedAnimation(parent: controller!, curve: Curves.easeInOut));
+        .animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          (widget.infinite) ? controller!.repeat() : controller?.forward();
+          (widget.infinite) ? controller.repeat() : controller.forward();
         }
       });
     }
 
     if (widget.controller is Function) {
-      widget.controller!(controller!);
+      widget.controller!(controller);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     if (widget.animate && widget.delay.inMilliseconds == 0) {
-      controller?.forward();
+      (widget.infinite) ? controller.repeat() : controller.forward();
     }
 
     /// If FALSE, animate everything back to the original state
     if (!widget.animate) {
-      controller?.animateBack(0);
+      controller.animateBack(0);
     }
 
     return AnimatedBuilder(
-        animation: controller!,
+        animation: controller,
         builder: (BuildContext context, Widget? child) {
           return Transform.rotate(
             angle: spin.value * 3.1415926535,
@@ -605,14 +605,14 @@ class SpinPerfect extends StatefulWidget {
 /// State class, where the magic happens
 class SpinPerfectState extends State<SpinPerfect>
     with SingleTickerProviderStateMixin {
-  AnimationController? controller;
+  late AnimationController controller;
   bool disposed = false;
   late Animation<double> spin;
 
   @override
   void dispose() {
     disposed = true;
-    controller!.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -623,34 +623,34 @@ class SpinPerfectState extends State<SpinPerfect>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     spin = Tween<double>(begin: 0, end: widget.spins * 2)
-        .animate(CurvedAnimation(parent: controller!, curve: Curves.linear));
+        .animate(CurvedAnimation(parent: controller, curve: Curves.linear));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          (widget.infinite) ? controller!.repeat() : controller?.forward();
+          (widget.infinite) ? controller.repeat() : controller.forward();
         }
       });
     }
 
     if (widget.controller is Function) {
-      widget.controller!(controller!);
+      widget.controller!(controller);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     if (widget.animate && widget.delay.inMilliseconds == 0) {
-      controller?.forward();
+      (widget.infinite) ? controller.repeat() : controller.forward();
     }
 
     /// If FALSE, animate everything back to the original state
     if (!widget.animate) {
-      controller?.animateBack(0);
+      controller.animateBack(0);
     }
 
     return AnimatedBuilder(
-        animation: controller!,
+        animation: controller,
         builder: (BuildContext context, Widget? child) {
           return Transform.rotate(
             angle: spin.value * 3.141516,
@@ -701,7 +701,7 @@ class Dance extends StatefulWidget {
 
 /// State class, where the magic happens
 class DanceState extends State<Dance> with SingleTickerProviderStateMixin {
-  AnimationController? controller;
+  late AnimationController controller;
   bool disposed = false;
   late Animation<double> step1;
   late Animation<double> step2;
@@ -710,7 +710,7 @@ class DanceState extends State<Dance> with SingleTickerProviderStateMixin {
   @override
   void dispose() {
     disposed = true;
-    controller!.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -721,43 +721,43 @@ class DanceState extends State<Dance> with SingleTickerProviderStateMixin {
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     step1 = Tween<double>(begin: 0, end: -0.2).animate(CurvedAnimation(
-        parent: controller!,
+        parent: controller,
         curve: const Interval(0, 0.3333, curve: Curves.bounceOut)));
 
     step2 = Tween<double>(begin: -0.2, end: 0.2).animate(CurvedAnimation(
-        parent: controller!,
+        parent: controller,
         curve: const Interval(0.3333, 0.6666, curve: Curves.bounceOut)));
 
     step3 = Tween<double>(begin: 0.2, end: 0).animate(CurvedAnimation(
-        parent: controller!,
+        parent: controller,
         curve: const Interval(0.6666, 1, curve: Curves.bounceOut)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          (widget.infinite) ? controller!.repeat() : controller?.forward();
+          (widget.infinite) ? controller.repeat() : controller.forward();
         }
       });
     }
 
     if (widget.controller is Function) {
-      widget.controller!(controller!);
+      widget.controller!(controller);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     if (widget.animate && widget.delay.inMilliseconds == 0) {
-      controller?.forward();
+      (widget.infinite) ? controller.repeat() : controller.forward();
     }
 
     /// If FALSE, animate everything back to the original state
     if (!widget.animate) {
-      controller?.animateBack(0);
+      controller.animateBack(0);
     }
 
     return AnimatedBuilder(
-        animation: controller!,
+        animation: controller,
         builder: (BuildContext context, Widget? child) {
           final animation = (step1.value != -0.2)
               ? step1.value
@@ -817,14 +817,14 @@ class Roulette extends StatefulWidget {
 /// State class, where the magic happens
 class RouletteState extends State<Roulette>
     with SingleTickerProviderStateMixin {
-  AnimationController? controller;
+  late AnimationController controller;
   bool disposed = false;
   late Animation<double> spin;
 
   @override
   void dispose() {
     disposed = true;
-    controller!.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -835,34 +835,34 @@ class RouletteState extends State<Roulette>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     spin = Tween<double>(begin: 0, end: widget.spins * 2).animate(
-        CurvedAnimation(parent: controller!, curve: Curves.elasticOut));
+        CurvedAnimation(parent: controller, curve: Curves.elasticOut));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          (widget.infinite) ? controller!.repeat() : controller?.forward();
+          (widget.infinite) ? controller.repeat() : controller.forward();
         }
       });
     }
 
     if (widget.controller is Function) {
-      widget.controller!(controller!);
+      widget.controller!(controller);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     if (widget.animate && widget.delay.inMilliseconds == 0) {
-      controller?.forward();
+      (widget.infinite) ? controller.repeat() : controller.forward();
     }
 
     /// If FALSE, animate everything back to the original state
     if (!widget.animate) {
-      controller?.animateBack(0);
+      controller.animateBack(0);
     }
 
     return AnimatedBuilder(
-        animation: controller!,
+        animation: controller,
         builder: (BuildContext context, Widget? child) {
           return Transform.rotate(
             angle: spin.value * 3.141516,
@@ -948,7 +948,7 @@ class ShakeState extends State<Shake> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     if (widget.animate && widget.delay.inMilliseconds == 0) {
-      controller.forward();
+      (widget.infinite) ? controller.repeat() : controller.forward();
     }
 
     /// If FALSE, animate everything back to the original state
