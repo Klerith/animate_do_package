@@ -889,6 +889,7 @@ class ShakeX extends StatefulWidget {
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
+  final double from;
 
   ShakeX(
       {key,
@@ -898,7 +899,8 @@ class ShakeX extends StatefulWidget {
       this.infinite = false,
       this.controller,
       this.manualTrigger = false,
-      this.animate = true})
+      this.animate = true,
+      this.from = 10 })
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -960,7 +962,7 @@ class ShakeXState extends State<ShakeX> with SingleTickerProviderStateMixin {
         animation: controller,
         builder: (context, child) {
           return Transform.translate(
-            offset: Offset(sin(4 * pi * controller.value) * 10, 0),
+            offset: Offset(sin(4 * pi * controller.value) * widget.from, 0),
             child: widget.child,
           );
         });
@@ -969,7 +971,7 @@ class ShakeXState extends State<ShakeX> with SingleTickerProviderStateMixin {
 
 
 
-/// Class [ShakeX]:
+/// Class [ShakeY]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
@@ -986,6 +988,7 @@ class ShakeY extends StatefulWidget {
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
+  final double from;
 
   ShakeY(
       {key,
@@ -995,7 +998,8 @@ class ShakeY extends StatefulWidget {
       this.infinite = false,
       this.controller,
       this.manualTrigger = false,
-      this.animate = true})
+      this.animate = true,
+      this.from = 80})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -1057,9 +1061,10 @@ class ShakeYState extends State<ShakeY> with SingleTickerProviderStateMixin {
         animation: controller,
         builder: (context, child) {
           return Transform.translate(
-            offset: Offset(0, sin(4 * pi * controller.value) * 10),
+            offset: Offset(0, sin(4 * pi * controller.value) * widget.from),
             child: widget.child,
           );
         });
   }
 }
+
