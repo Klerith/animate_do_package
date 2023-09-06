@@ -3,6 +3,7 @@ description: Beautiful animations inspired on Animate.css, every animation is a 
 version: 3.1.0
 homepage: https://fernando-herrera.com
 repository: https://github.com/Klerith/animate_do_package
+issue_tracker: https://github.com/Klerith/animate_do_package/issues
 
 environment:
   sdk: '>=3.1.0 <4.0.0'
@@ -14,6 +15,10 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+screenshots:
+  - description: 'Animate_do example logo'
+    path: screenshots/preview.gif
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

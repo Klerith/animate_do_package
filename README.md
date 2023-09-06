@@ -3,7 +3,7 @@
 
 An animation package inspired in [Animate.css](https://daneden.github.io/animate.css/), built using only Flutter animations, no extra packages.
 
-![Animate_do demo animation](https://raw.githubusercontent.com/Klerith/animate_do_package/master/demo-01.gif "Animate_do")
+![Animate_do demo animation](https://raw.githubusercontent.com/Klerith/animate_do_package/master/screenshots/demo-01.gif "Animate_do")
 
 
 ## Getting Started
@@ -197,7 +197,7 @@ class Square extends StatelessWidget {
 
 
 
-![Animate_do demo animation](https://raw.githubusercontent.com/Klerith/animate_do_package/master/animate_do.gif "Animate_do")
+![Animate_do demo animation](https://raw.githubusercontent.com/Klerith/animate_do_package/master/screenshots/animate_do.gif "Animate_do")
 
 
 
