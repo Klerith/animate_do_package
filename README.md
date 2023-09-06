@@ -2,7 +2,7 @@
 ## Null-Safety, Dart 3, with zero external dependencies
 ### IOS, Android, Linux, Mac, Web, Windows ready
 
-An animation package inspired in [Animate.css](https://daneden.github.io/animate.css/), built using only Flutter animations, no extra packages.
+An animation package inspired in [Animate.css](https://daneden.github.io/animate.css/), built using only Flutter animations, with zero dependencies.
 
 ![Animate_do demo animation](https://raw.githubusercontent.com/Klerith/animate_do_package/master/screenshots/demo-01.gif "Animate_do")
 
@@ -127,7 +127,7 @@ For complete examples, check the ```example``` folder inside the repository
 
 ![Animate_do demo animation](https://raw.githubusercontent.com/Klerith/animate_do_package/master/screenshots/demo-04.gif "Animate_do demo-04")
 
-![Animate_do demo animation](https://raw.githubusercontent.com/Klerith/animate_do_package/master/screenshots/demo-04.gif "Animate_do demo-05")
+![Animate_do demo animation](https://raw.githubusercontent.com/Klerith/animate_do_package/master/screenshots/demo-05.gif "Animate_do demo-05")
 
 
 ## Trigger animation manually (The easy way)

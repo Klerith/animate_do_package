@@ -1,3 +1,6 @@
+#### [3.1.1] - New Docs
+* Typo Readme
+  
 #### [3.1.0] - Shakes and fixes
 * Manual trigger fixed
 * ShakeX and ShakeY added
