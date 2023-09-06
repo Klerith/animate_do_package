@@ -189,11 +189,14 @@ class Square extends StatelessWidget {
 
 
 # Demos
+For complete examples, check the ```example``` folder inside the repository
 
-![Animate_do demo animation](https://raw.githubusercontent.com/Klerith/animate_do_package/master/screenshots/demo-00.gif "Animate_do")
+![Animate_do demo animation](https://raw.githubusercontent.com/Klerith/animate_do_package/master/screenshots/demo-00.gif "Animate_do demo-00")
 
 
-![Animate_do demo animation](https://raw.githubusercontent.com/Klerith/animate_do_package/master/screenshots/demo-02.gif "Animate_do")
+![Animate_do demo animation](https://raw.githubusercontent.com/Klerith/animate_do_package/master/screenshots/demo-02.gif "Animate_do demo-02")
+
+![Animate_do demo animation](https://raw.githubusercontent.com/Klerith/animate_do_package/master/screenshots/demo-04.gif "Animate_do demo-04")
 
 
 ## Trigger animation manually (The easy way)
