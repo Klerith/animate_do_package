@@ -200,6 +200,9 @@ class Square extends StatelessWidget {
 ![Animate_do demo animation](https://raw.githubusercontent.com/Klerith/animate_do_package/master/screenshots/animate_do.gif "Animate_do")
 
 
+![Animate_do demo animation](https://raw.githubusercontent.com/Klerith/animate_do_package/master/screenshots/demo-02.gif "ShakeY")
+
+
 
 ## Manual Trigger
 Since version ```1.2.0```, there is a way to get the AnimationController easily, so you can restart it, change the duration, do the animation again.

@@ -1,3 +1,10 @@
+#### [3.1.0] - Shakes and fixes
+* Manual trigger fixed
+* ShakeX and ShakeY added
+* Other github issues fixed
+* More examples added (Check Github repo)
+
+
 #### [3.0.2] - FadeOuts bug fixed
 * Fadeout bug fixed, now it works as expected
 * Example #3 added - With controller
