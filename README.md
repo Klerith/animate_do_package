@@ -93,7 +93,7 @@ All of the following animations could be infinite with a property called ```infi
 - SpinPerfect
 - Swing
 
-## Example Basic 
+## Example: 01-Basic 
 
 ```
 home: Scaffold(
@@ -114,10 +114,33 @@ home: Scaffold(
     ),
 ),
 
+
+
+# Demos
+For complete examples, check the ```example``` folder inside the repository
+
+![Animate_do demo animation](https://raw.githubusercontent.com/Klerith/animate_do_package/master/screenshots/demo-00.gif "Animate_do demo-00")
+
+
+![Animate_do demo animation](https://raw.githubusercontent.com/Klerith/animate_do_package/master/screenshots/demo-02.gif "Animate_do demo-02")
+
+![Animate_do demo animation](https://raw.githubusercontent.com/Klerith/animate_do_package/master/screenshots/demo-04.gif "Animate_do demo-04")
+
+![Animate_do demo animation](https://raw.githubusercontent.com/Klerith/animate_do_package/master/screenshots/demo-04.gif "Animate_do demo-05")
+
+
+## Trigger animation manually (The easy way)
+Just add the property animate to **true** to trigger the animation, and to **false** to revert the animation.
+
+![Animate_do demo animation](https://raw.githubusercontent.com/Klerith/animate_do_package/master/screenshots/demo-03.gif "animate property")
+
+
+
+
 ```
 
 
-## Example Basic #2 - Now with Toggle
+## Example: 02-Basic - Now with Toggle
 Just toggle the __animate__ property to animate in or out easily.
 Check the full code inside the example folder
 ```
@@ -186,23 +209,6 @@ class Square extends StatelessWidget {
 
 ```
 
-
-
-# Demos
-For complete examples, check the ```example``` folder inside the repository
-
-![Animate_do demo animation](https://raw.githubusercontent.com/Klerith/animate_do_package/master/screenshots/demo-00.gif "Animate_do demo-00")
-
-
-![Animate_do demo animation](https://raw.githubusercontent.com/Klerith/animate_do_package/master/screenshots/demo-02.gif "Animate_do demo-02")
-
-![Animate_do demo animation](https://raw.githubusercontent.com/Klerith/animate_do_package/master/screenshots/demo-04.gif "Animate_do demo-04")
-
-
-## Trigger animation manually (The easy way)
-Just add the property animate to **true** to trigger the animation, and to **false** to revert the animation.
-
-![Animate_do demo animation](https://raw.githubusercontent.com/Klerith/animate_do_package/master/screenshots/demo-03.gif "animate property")
 
 
 
