@@ -88,7 +88,7 @@ class BounceState extends State<Bounce> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0) {
+    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
       (widget.infinite) ? controller.repeat() : controller.forward();
     }
 
@@ -195,7 +195,7 @@ class FlashState extends State<Flash> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0) {
+    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
       (widget.infinite) ? controller.repeat() : controller.forward();
     }
 
@@ -301,7 +301,7 @@ class PulseState extends State<Pulse> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0) {
+    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
       (widget.infinite) ? controller.repeat() : controller.forward();
     }
 
@@ -430,7 +430,7 @@ class SwingState extends State<Swing> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0) {
+    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
       (widget.infinite) ? controller.repeat() : controller.forward();
     }
 
@@ -541,7 +541,7 @@ class SpinState extends State<Spin> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0) {
+    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
       (widget.infinite) ? controller.repeat() : controller.forward();
     }
 
@@ -640,7 +640,7 @@ class SpinPerfectState extends State<SpinPerfect>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0) {
+    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
       (widget.infinite) ? controller.repeat() : controller.forward();
     }
 
@@ -747,7 +747,7 @@ class DanceState extends State<Dance> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0) {
+    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
       (widget.infinite) ? controller.repeat() : controller.forward();
     }
 
@@ -852,7 +852,7 @@ class RouletteState extends State<Roulette>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0) {
+    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
       (widget.infinite) ? controller.repeat() : controller.forward();
     }
 
@@ -947,7 +947,7 @@ class ShakeState extends State<Shake> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0) {
+    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
       (widget.infinite) ? controller.repeat() : controller.forward();
     }
 

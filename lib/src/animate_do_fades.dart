@@ -40,7 +40,7 @@ class FadeIn extends StatefulWidget {
 /// The animation magic happens here
 class FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
   /// Animation controller that controls this animation
-  AnimationController? controller;
+  late AnimationController controller;
 
   /// is the widget disposed?
   bool disposed = false;
@@ -51,7 +51,7 @@ class FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
   @override
   void dispose() {
     disposed = true;
-    controller!.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -60,18 +60,18 @@ class FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
     super.initState();
 
     controller = AnimationController(duration: widget.duration, vsync: this);
-    animation = CurvedAnimation(curve: Curves.easeOut, parent: controller!);
+    animation = CurvedAnimation(curve: Curves.easeOut, parent: controller);
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          controller?.forward();
+          controller.forward();
         }
       });
     }
 
     if (widget.controller is Function) {
-      widget.controller!(controller!);
+      widget.controller!(controller);
     }
   }
 
@@ -79,13 +79,13 @@ class FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
 
     /// Launch the animation ASAP or wait if is needed
-    if (widget.animate && widget.delay.inMilliseconds == 0) {
-      controller?.forward();
+    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
+      controller.forward();
     }
 
     /// If the animation already happen, we can animate it back
     if (!widget.animate) {
-      controller?.animateBack(0);
+      controller.animateBack(0);
     }
 
     /// Builds the animation with the corresponding
@@ -141,7 +141,7 @@ class FadeInDown extends StatefulWidget {
 /// The animation magic happens here
 class FadeInDownState extends State<FadeInDown>
     with SingleTickerProviderStateMixin {
-  AnimationController? controller;
+  late AnimationController controller;
 
   /// is the widget disposed?
   bool disposed = false;
@@ -156,7 +156,7 @@ class FadeInDownState extends State<FadeInDown>
   @override
   void dispose() {
     disposed = true;
-    controller!.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -167,39 +167,39 @@ class FadeInDownState extends State<FadeInDown>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     animation = Tween<double>(begin: widget.from * -1, end: 0)
-        .animate(CurvedAnimation(parent: controller!, curve: Curves.easeOut));
+        .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
 
     opacity = Tween<double>(begin: 0, end: 1).animate(
-        CurvedAnimation(parent: controller!, curve: const Interval(0, 0.65)));
+        CurvedAnimation(parent: controller, curve: const Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          controller?.forward();
+          controller.forward();
         }
       });
     }
 
     /// Returns the controller if the user requires it
     if (widget.controller is Function) {
-      widget.controller!(controller!);
+      widget.controller!(controller);
     }
 
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0) {
-      controller?.forward();
+    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
+      controller.forward();
     }
 
     /// If FALSE, animate everything back to the original state
     if (!widget.animate) {
-      controller?.animateBack(0);
+      controller.animateBack(0);
     }
 
     return AnimatedBuilder(
-        animation: controller!,
+        animation: controller,
         builder: (BuildContext context, Widget? child) {
           return Transform.translate(
               offset: Offset(0, animation.value),
@@ -298,7 +298,7 @@ class FadeInUpState extends State<FadeInUp>
     with SingleTickerProviderStateMixin {
 
   /// Animation controller if requested
-  AnimationController? controller;
+  late AnimationController controller;
 
   /// widget is disposed?
   bool disposed = false;
@@ -312,7 +312,7 @@ class FadeInUpState extends State<FadeInUp>
   @override
   void dispose() {
     disposed = true;
-    controller!.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -323,36 +323,36 @@ class FadeInUpState extends State<FadeInUp>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     animation = Tween<double>(begin: widget.from, end: 0)
-        .animate(CurvedAnimation(parent: controller!, curve: Curves.easeOut));
+        .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
     opacity = Tween<double>(begin: 0, end: 1).animate(
-        CurvedAnimation(parent: controller!, curve: const Interval(0, 0.65)));
+        CurvedAnimation(parent: controller, curve: const Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          controller?.forward();
+          controller.forward();
         }
       });
     }
 
-    if (widget.controller is Function) {
-      widget.controller!(controller!);
+    if ( widget.controller is Function) {
+      widget.controller!(controller);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0) {
-      controller?.forward();
+    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
+      controller.forward();
     }
 
     /// If FALSE, animate everything back to the original state
     if (!widget.animate) {
-      controller?.animateBack(0);
+      controller.animateBack(0);
     }
 
     return AnimatedBuilder(
-        animation: controller!,
+        animation: controller,
         builder: (BuildContext context, Widget? child) {
           return Transform.translate(
               offset: Offset(0, animation.value),
@@ -450,14 +450,14 @@ class FadeInLeft extends StatefulWidget {
 /// The animation magic happens here
 class FadeInLeftState extends State<FadeInLeft>
     with SingleTickerProviderStateMixin {
-  AnimationController? controller;
+  late AnimationController controller;
   bool disposed = false;
   late Animation<double> animation;
   late Animation<double> opacity;
   @override
   void dispose() {
     disposed = true;
-    controller!.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -468,36 +468,36 @@ class FadeInLeftState extends State<FadeInLeft>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     animation = Tween<double>(begin: widget.from * -1, end: 0)
-        .animate(CurvedAnimation(parent: controller!, curve: Curves.easeOut));
+        .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
     opacity = Tween<double>(begin: 0, end: 1).animate(
-        CurvedAnimation(parent: controller!, curve: const Interval(0, 0.65)));
+        CurvedAnimation(parent: controller, curve: const Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          controller?.forward();
+          controller.forward();
         }
       });
     }
 
     if (widget.controller is Function) {
-      widget.controller!(controller!);
+      widget.controller!(controller);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0) {
-      controller?.forward();
+    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
+      controller.forward();
     }
 
     /// If FALSE, animate everything back to the original state
     if (!widget.animate) {
-      controller?.animateBack(0);
+      controller.animateBack(0);
     }
 
     return AnimatedBuilder(
-        animation: controller!,
+        animation: controller,
         builder: (BuildContext context, Widget? child) {
           return Transform.translate(
               offset: Offset(animation.value, 0),
@@ -595,14 +595,14 @@ class FadeInRight extends StatefulWidget {
 /// The animation magic happens here
 class FadeInRightState extends State<FadeInRight>
     with SingleTickerProviderStateMixin {
-  AnimationController? controller;
+  late AnimationController controller;
   bool disposed = false;
   late Animation<double> animation;
   late Animation<double> opacity;
   @override
   void dispose() {
     disposed = true;
-    controller!.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -613,36 +613,36 @@ class FadeInRightState extends State<FadeInRight>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     animation = Tween<double>(begin: widget.from, end: 0)
-        .animate(CurvedAnimation(parent: controller!, curve: Curves.easeOut));
+        .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
     opacity = Tween<double>(begin: 0, end: 1).animate(
-        CurvedAnimation(parent: controller!, curve: const Interval(0, 0.65)));
+        CurvedAnimation(parent: controller, curve: const Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          controller?.forward();
+          controller.forward();
         }
       });
     }
 
     if (widget.controller is Function) {
-      widget.controller!(controller!);
+      widget.controller!(controller);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0) {
-      controller?.forward();
+    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
+      controller.forward();
     }
 
     /// If FALSE, animate everything back to the original state
     if (!widget.animate) {
-      controller?.animateBack(0);
+      controller.animateBack(0);
     }
 
     return AnimatedBuilder(
-        animation: controller!,
+        animation: controller,
         builder: (BuildContext context, Widget? child) {
           return Transform.translate(
               offset: Offset(animation.value, 0),

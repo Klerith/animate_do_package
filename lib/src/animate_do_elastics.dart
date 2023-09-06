@@ -38,14 +38,14 @@ class ElasticIn extends StatefulWidget {
 /// StateClass, where the magic happens
 class ElasticInState extends State<ElasticIn>
     with SingleTickerProviderStateMixin {
-  AnimationController? controller;
+  late AnimationController controller;
   bool disposed = false;
   late Animation<double> bouncing;
   late Animation<double> opacity;
   @override
   void dispose() {
     disposed = true;
-    controller!.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -56,37 +56,37 @@ class ElasticInState extends State<ElasticIn>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     opacity = Tween<double>(begin: 0, end: 1).animate(
-        CurvedAnimation(parent: controller!, curve: const Interval(0, 0.45)));
+        CurvedAnimation(parent: controller, curve: const Interval(0, 0.45)));
 
     bouncing = Tween<double>(begin: 0, end: 1).animate(
-        CurvedAnimation(parent: controller!, curve: Curves.elasticOut));
+        CurvedAnimation(parent: controller, curve: Curves.elasticOut));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          controller?.forward();
+          controller.forward();
         }
       });
     }
 
     if (widget.controller is Function) {
-      widget.controller!(controller!);
+      widget.controller!(controller);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0) {
-      controller?.forward();
+    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
+      controller.forward();
     }
 
     /// If FALSE, animate everything back to the original state
     if (!widget.animate) {
-      controller?.animateBack(0);
+      controller.animateBack(0);
     }
 
     return AnimatedBuilder(
-        animation: controller!,
+        animation: controller,
         builder: (BuildContext context, Widget? child) {
           return Transform.scale(
             scale: bouncing.value,
@@ -141,7 +141,7 @@ class ElasticInDown extends StatefulWidget {
 /// StateClass, where the magic happens
 class ElasticInDownState extends State<ElasticInDown>
     with SingleTickerProviderStateMixin {
-  AnimationController? controller;
+  late AnimationController controller;
   bool disposed = false;
   late Animation<double> bouncing;
   late Animation<double> falling;
@@ -149,7 +149,7 @@ class ElasticInDownState extends State<ElasticInDown>
   @override
   void dispose() {
     disposed = true;
-    controller!.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -160,44 +160,44 @@ class ElasticInDownState extends State<ElasticInDown>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     opacity = Tween<double>(begin: 0, end: 1).animate(
-        CurvedAnimation(parent: controller!, curve: const Interval(0, 0.45)));
+        CurvedAnimation(parent: controller, curve: const Interval(0, 0.45)));
 
     falling = Tween<double>(begin: widget.from * -1, end: widget.to * -1)
         .animate(CurvedAnimation(
-            parent: controller!,
+            parent: controller,
             curve: const Interval(0, 0.30, curve: Curves.linear)));
 
     bouncing = Tween<double>(begin: widget.to * -1, end: 0).animate(
         CurvedAnimation(
-            parent: controller!,
+            parent: controller,
             curve: const Interval(0.30, 1, curve: Curves.elasticOut)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          controller?.forward();
+          controller.forward();
         }
       });
     }
 
     if (widget.controller is Function) {
-      widget.controller!(controller!);
+      widget.controller!(controller);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0) {
-      controller?.forward();
+    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
+      controller.forward();
     }
 
     /// If FALSE, animate everything back to the original state
     if (!widget.animate) {
-      controller?.animateBack(0);
+      controller.animateBack(0);
     }
 
     return AnimatedBuilder(
-        animation: controller!,
+        animation: controller,
         builder: (BuildContext context, Widget? child) {
           return Transform.translate(
               offset: Offset(
@@ -301,7 +301,7 @@ class ElasticInLeft extends StatefulWidget {
 /// StateClass, where the magic happens
 class ElasticInLeftState extends State<ElasticInLeft>
     with SingleTickerProviderStateMixin {
-  AnimationController? controller;
+  late AnimationController controller;
   bool disposed = false;
   late Animation<double> bouncing;
   late Animation<double> falling;
@@ -309,7 +309,7 @@ class ElasticInLeftState extends State<ElasticInLeft>
   @override
   void dispose() {
     disposed = true;
-    controller!.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -320,44 +320,44 @@ class ElasticInLeftState extends State<ElasticInLeft>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     opacity = Tween<double>(begin: 0, end: 1).animate(
-        CurvedAnimation(parent: controller!, curve: const Interval(0, 0.45)));
+        CurvedAnimation(parent: controller, curve: const Interval(0, 0.45)));
 
     falling = Tween<double>(begin: widget.from * -1, end: widget.to * -1)
         .animate(CurvedAnimation(
-            parent: controller!,
+            parent: controller,
             curve: const Interval(0, 0.30, curve: Curves.linear)));
 
     bouncing = Tween<double>(begin: widget.to * -1, end: 0).animate(
         CurvedAnimation(
-            parent: controller!,
+            parent: controller,
             curve: const Interval(0.30, 1, curve: Curves.elasticOut)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          controller?.forward();
+          controller.forward();
         }
       });
     }
 
     if (widget.controller is Function) {
-      widget.controller!(controller!);
+      widget.controller!(controller);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0) {
-      controller?.forward();
+    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
+      controller.forward();
     }
 
     /// If FALSE, animate everything back to the original state
     if (!widget.animate) {
-      controller?.animateBack(0);
+      controller.animateBack(0);
     }
 
     return AnimatedBuilder(
-        animation: controller!,
+        animation: controller,
         builder: (BuildContext context, Widget? child) {
           return Transform.translate(
               offset: Offset(

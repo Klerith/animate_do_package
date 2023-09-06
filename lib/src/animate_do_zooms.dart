@@ -39,7 +39,7 @@ class ZoomIn extends StatefulWidget {
 
 /// State class, where the magic happens
 class ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
-  AnimationController? controller;
+  late AnimationController controller;
   bool disposed = false;
   late Animation<double> fade;
   late Animation<double> opacity;
@@ -47,7 +47,7 @@ class ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
   @override
   void dispose() {
     disposed = true;
-    controller!.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -57,32 +57,32 @@ class ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
 
     controller = AnimationController(duration: widget.duration, vsync: this);
     fade = Tween(begin: 0.0, end: widget.from)
-        .animate(CurvedAnimation(curve: Curves.easeOut, parent: controller!));
+        .animate(CurvedAnimation(curve: Curves.easeOut, parent: controller));
 
     opacity = Tween<double>(begin: 0.0, end: 1).animate(
-        CurvedAnimation(parent: controller!, curve: const Interval(0, 0.65)));
+        CurvedAnimation(parent: controller, curve: const Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          controller?.forward();
+          controller.forward();
         }
       });
     }
 
     if (widget.controller is Function) {
-      widget.controller!(controller!);
+      widget.controller!(controller);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0) {
-      controller?.forward();
+    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
+      controller.forward();
     }
     /// If FALSE, animate everything back to the original state
     if (!widget.animate) {
-      controller?.animateBack(0);
+      controller.animateBack(0);
     }
 
     return AnimatedBuilder(
@@ -138,7 +138,7 @@ class ZoomOut extends StatefulWidget {
 
 /// State class, where the magic happens
 class ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
-  AnimationController? controller;
+  late AnimationController controller;
   bool disposed = false;
   late Animation<double> zoom;
   late Animation<double> opacity;
@@ -146,7 +146,7 @@ class ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
   @override
   void dispose() {
     disposed = true;
-    controller!.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -157,36 +157,36 @@ class ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     zoom = Tween(begin: 1.0, end: widget.from)
-        .animate(CurvedAnimation(curve: Curves.easeOut, parent: controller!));
+        .animate(CurvedAnimation(curve: Curves.easeOut, parent: controller));
 
     opacity = Tween<double>(begin: 1.0, end: 0.0).animate(
-        CurvedAnimation(parent: controller!, curve: const Interval(0, 0.65)));
+        CurvedAnimation(parent: controller, curve: const Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          controller?.forward();
+          controller.forward();
         }
       });
     }
 
     if (widget.controller is Function) {
-      widget.controller!(controller!);
+      widget.controller!(controller);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0) {
-      controller?.forward();
+    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
+      controller.forward();
     }
     /// If FALSE, animate everything back to the original state
     if (!widget.animate) {
-      controller?.animateBack(0);
+      controller.animateBack(0);
     }
 
     return AnimatedBuilder(
-        animation: controller!,
+        animation: controller,
         builder: (BuildContext context, Widget? child) {
           return Transform.scale(
             scale: zoom.value,
