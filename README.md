@@ -19,7 +19,7 @@ This package is simple to use. Every single animation contains default values th
 | duration | __Duration__ | Animation duration  |
 | delay | __Duration__ | Delay before the animation |
 | from | __double__ | Initial or final destination, if you want a slide or fade more striking |
-| animate | __boolean__ | Change this property from false to true to starts the animation (useful if you use setState, Bloc, Provider, Redux or any other state management system) |
+| animate | __boolean__ | Change this property from false to true to start the animation (useful if you use setState, Bloc, Provider, Redux or any other state management system) |
 | infinite | __boolean__ | Attention seekers can be run infinitely with this property |
 | spins | __double__ | The number of spins that you want (some animations have this, ex: Spin, Roulette, PerfectSpin )  |
 | manualTrigger | __boolean__ | if you're going to trigger the animation manually (required the controller property)  |
@@ -200,7 +200,7 @@ class Square extends StatelessWidget {
 ![Animate_do demo animation](https://raw.githubusercontent.com/Klerith/animate_do_package/master/screenshots/animate_do.gif "Animate_do")
 
 
-![Animate_do demo animation](https://raw.githubusercontent.com/Klerith/animate_do_package/master/screenshots/demo-02.gif "ShakeY")
+![Animate_do demo animation](https://raw.githubusercontent.com/Klerith/animate_do_package/master/screenshots/demo-02.gif "Animate_do")
 
 
 
