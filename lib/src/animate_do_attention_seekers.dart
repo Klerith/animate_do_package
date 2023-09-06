@@ -1,4 +1,6 @@
+import 'dart:math' show pi, sin;
 import 'package:flutter/material.dart';
+
 
 /// Class [Bounce]:
 /// [key]: optional widget key reference
@@ -864,6 +866,101 @@ class RouletteState extends State<Roulette>
         builder: (BuildContext context, Widget? child) {
           return Transform.rotate(
             angle: spin.value * 3.141516,
+            child: widget.child,
+          );
+        });
+  }
+}
+
+/// Class [Shake]:
+/// [key]: optional widget key reference
+/// [child]: mandatory, widget to animate
+/// [duration]: how much time the animation should take
+/// [delay]: delay before the animation starts
+/// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
+/// the controller can be use to repeat, reverse and anything you want, its just an animation controller
+/// [from] from where you want to start the animation
+/// [infinite] loops the animation until the widget is destroyed
+class Shake extends StatefulWidget {
+  final Widget child;
+  final Duration duration;
+  final Duration delay;
+  final bool infinite;
+  final Function(AnimationController)? controller;
+  final bool manualTrigger;
+  final bool animate;
+
+  Shake(
+      {key,
+      required this.child,
+      this.duration = const Duration(milliseconds: 800),
+      this.delay = const Duration(milliseconds: 0),
+      this.infinite = false,
+      this.controller,
+      this.manualTrigger = false,
+      this.animate = true})
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
+
+  @override
+  ShakeState createState() => ShakeState();
+}
+
+/// State class,
+/// Controls the animations flow
+class ShakeState extends State<Shake> with SingleTickerProviderStateMixin {
+  
+  late AnimationController controller;
+  bool disposed = false;
+
+  @override
+  void dispose() {
+    disposed = true;
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller = AnimationController(duration: widget.duration, vsync: this);
+
+    if (!widget.manualTrigger && widget.animate) {
+      
+      Future.delayed(widget.delay, () {
+        if (!disposed) {
+          (widget.infinite) ? controller.repeat() : controller.forward();
+        }
+      });
+    }
+
+    if (widget.controller is Function) {
+      widget.controller!(controller);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (widget.animate && widget.delay.inMilliseconds == 0) {
+      controller.forward();
+    }
+
+    /// If FALSE, animate everything back to the original state
+    if (!widget.animate) {
+      controller.animateBack(0);
+    }
+
+    return AnimatedBuilder(
+        animation: controller,
+        builder: (context, child) {
+          return Transform.translate(
+            offset: Offset(sin(4 * pi * controller.value) * 10, 0),
             child: widget.child,
           );
         });
