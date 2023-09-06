@@ -11,6 +11,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  
+  bool animate = true;
   late AnimationController controller;
 
   @override
@@ -22,24 +24,30 @@ class _MyAppState extends State<MyApp> {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('With controller', style: TextStyle(fontSize: 20)),
-            const SizedBox(height: 20),
+            
+            const Text('Now with a simple Toggle', style: TextStyle(fontSize: 20),),
+            Text('Boolean animate value: $animate' ),
+            const SizedBox(height: 20 ),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-                Bounce(
-                    manualTrigger: true,
-                    controller: (animationCtrl) => controller = animationCtrl,
-                    child: const Square()),
+                FadeIn(animate: animate,child: const Square(),),
+                FadeInUp(animate: animate,child: const Square(),),
+                FadeInDown(animate: animate,child: const Square(),),
+                FadeInLeft(animate: animate,child: const Square(),),
+                FadeInRight(animate: animate,child: const Square(),),
               ],
             ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-                onPressed: () {
-                  controller.reset();
-                  controller.forward();
-                },
-                child: const Text('Toggle animation'))
+
+            const SizedBox(height: 20 ),
+
+            ElevatedButton(onPressed: () {
+              // controller.forward();
+              setState(() {
+                animate = !animate;
+              });
+            }, child: const Text('Toggle animation'))
           ],
         ),
       ),
@@ -54,7 +62,7 @@ class Square extends StatelessWidget {
     return Container(
       width: 50,
       height: 50,
-      color: Colors.blueAccent,
+      color: const Color(0xff67549B),
     );
   }
 }
