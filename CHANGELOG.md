@@ -1,3 +1,6 @@
+#### [3.1.2] - New Docs
+* Dart format .
+  
 #### [3.1.1] - New Docs
 * Typo Readme
   

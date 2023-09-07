@@ -76,7 +76,9 @@ class FlipInXState extends State<FlipInX> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
+    if (widget.animate &&
+        widget.delay.inMilliseconds == 0 &&
+        widget.manualTrigger == false) {
       controller.forward();
     }
 
@@ -175,7 +177,9 @@ class FlipInYState extends State<FlipInY> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
+    if (widget.animate &&
+        widget.delay.inMilliseconds == 0 &&
+        widget.manualTrigger == false) {
       controller.forward();
     }
 

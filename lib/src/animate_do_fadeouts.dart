@@ -71,12 +71,14 @@ class FadeOutState extends State<FadeOut> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
+    if (widget.animate &&
+        widget.delay.inMilliseconds == 0 &&
+        widget.manualTrigger == false) {
       controller.forward();
     }
 
     /// If FALSE, animate everything back to original
-    if( !widget.animate ) {
+    if (!widget.animate) {
       controller.animateBack(0);
     }
 
@@ -170,12 +172,14 @@ class FadeOutDownState extends State<FadeOutDown>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
+    if (widget.animate &&
+        widget.delay.inMilliseconds == 0 &&
+        widget.manualTrigger == false) {
       controller.forward();
     }
 
     /// If FALSE, animate everything back to original
-    if( !widget.animate ) {
+    if (!widget.animate) {
       controller.animateBack(0);
     }
 
@@ -314,12 +318,14 @@ class FadeOutUpState extends State<FadeOutUp>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
+    if (widget.animate &&
+        widget.delay.inMilliseconds == 0 &&
+        widget.manualTrigger == false) {
       controller.forward();
     }
 
     /// If FALSE, animate everything back to original
-    if( !widget.animate ) {
+    if (!widget.animate) {
       controller.animateBack(0);
     }
 
@@ -458,12 +464,14 @@ class FadeOutLeftState extends State<FadeOutLeft>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
+    if (widget.animate &&
+        widget.delay.inMilliseconds == 0 &&
+        widget.manualTrigger == false) {
       controller.forward();
     }
 
     /// If FALSE, animate everything back to original
-    if( !widget.animate ) {
+    if (!widget.animate) {
       controller.animateBack(0);
     }
 

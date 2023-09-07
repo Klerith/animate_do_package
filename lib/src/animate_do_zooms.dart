@@ -77,9 +77,12 @@ class ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
+    if (widget.animate &&
+        widget.delay.inMilliseconds == 0 &&
+        widget.manualTrigger == false) {
       controller.forward();
     }
+
     /// If FALSE, animate everything back to the original state
     if (!widget.animate) {
       controller.animateBack(0);
@@ -177,9 +180,12 @@ class ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
+    if (widget.animate &&
+        widget.delay.inMilliseconds == 0 &&
+        widget.manualTrigger == false) {
       controller.forward();
     }
+
     /// If FALSE, animate everything back to the original state
     if (!widget.animate) {
       controller.animateBack(0);

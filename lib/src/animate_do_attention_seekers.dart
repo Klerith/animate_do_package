@@ -1,7 +1,6 @@
 import 'dart:math' show pi, sin;
 import 'package:flutter/material.dart';
 
-
 /// Class [Bounce]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
@@ -88,7 +87,9 @@ class BounceState extends State<Bounce> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
+    if (widget.animate &&
+        widget.delay.inMilliseconds == 0 &&
+        widget.manualTrigger == false) {
       (widget.infinite) ? controller.repeat() : controller.forward();
     }
 
@@ -195,7 +196,9 @@ class FlashState extends State<Flash> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
+    if (widget.animate &&
+        widget.delay.inMilliseconds == 0 &&
+        widget.manualTrigger == false) {
       (widget.infinite) ? controller.repeat() : controller.forward();
     }
 
@@ -301,7 +304,9 @@ class PulseState extends State<Pulse> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
+    if (widget.animate &&
+        widget.delay.inMilliseconds == 0 &&
+        widget.manualTrigger == false) {
       (widget.infinite) ? controller.repeat() : controller.forward();
     }
 
@@ -430,7 +435,9 @@ class SwingState extends State<Swing> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
+    if (widget.animate &&
+        widget.delay.inMilliseconds == 0 &&
+        widget.manualTrigger == false) {
       (widget.infinite) ? controller.repeat() : controller.forward();
     }
 
@@ -541,7 +548,9 @@ class SpinState extends State<Spin> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
+    if (widget.animate &&
+        widget.delay.inMilliseconds == 0 &&
+        widget.manualTrigger == false) {
       (widget.infinite) ? controller.repeat() : controller.forward();
     }
 
@@ -640,7 +649,9 @@ class SpinPerfectState extends State<SpinPerfect>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
+    if (widget.animate &&
+        widget.delay.inMilliseconds == 0 &&
+        widget.manualTrigger == false) {
       (widget.infinite) ? controller.repeat() : controller.forward();
     }
 
@@ -747,7 +758,9 @@ class DanceState extends State<Dance> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
+    if (widget.animate &&
+        widget.delay.inMilliseconds == 0 &&
+        widget.manualTrigger == false) {
       (widget.infinite) ? controller.repeat() : controller.forward();
     }
 
@@ -834,8 +847,8 @@ class RouletteState extends State<Roulette>
 
     controller = AnimationController(duration: widget.duration, vsync: this);
 
-    spin = Tween<double>(begin: 0, end: widget.spins * 2).animate(
-        CurvedAnimation(parent: controller, curve: Curves.elasticOut));
+    spin = Tween<double>(begin: 0, end: widget.spins * 2)
+        .animate(CurvedAnimation(parent: controller, curve: Curves.elasticOut));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -852,7 +865,9 @@ class RouletteState extends State<Roulette>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
+    if (widget.animate &&
+        widget.delay.inMilliseconds == 0 &&
+        widget.manualTrigger == false) {
       (widget.infinite) ? controller.repeat() : controller.forward();
     }
 
@@ -900,7 +915,7 @@ class ShakeX extends StatefulWidget {
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
-      this.from = 10 })
+      this.from = 10})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -916,7 +931,6 @@ class ShakeX extends StatefulWidget {
 /// State class,
 /// Controls the animations flow
 class ShakeXState extends State<ShakeX> with SingleTickerProviderStateMixin {
-  
   late AnimationController controller;
   bool disposed = false;
 
@@ -934,7 +948,6 @@ class ShakeXState extends State<ShakeX> with SingleTickerProviderStateMixin {
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     if (!widget.manualTrigger && widget.animate) {
-      
       Future.delayed(widget.delay, () {
         if (!disposed) {
           (widget.infinite) ? controller.repeat() : controller.forward();
@@ -949,7 +962,9 @@ class ShakeXState extends State<ShakeX> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
+    if (widget.animate &&
+        widget.delay.inMilliseconds == 0 &&
+        widget.manualTrigger == false) {
       (widget.infinite) ? controller.repeat() : controller.forward();
     }
 
@@ -968,8 +983,6 @@ class ShakeXState extends State<ShakeX> with SingleTickerProviderStateMixin {
         });
   }
 }
-
-
 
 /// Class [ShakeY]:
 /// [key]: optional widget key reference
@@ -1015,7 +1028,6 @@ class ShakeY extends StatefulWidget {
 /// State class,
 /// Controls the animations flow
 class ShakeYState extends State<ShakeY> with SingleTickerProviderStateMixin {
-  
   late AnimationController controller;
   bool disposed = false;
 
@@ -1033,7 +1045,6 @@ class ShakeYState extends State<ShakeY> with SingleTickerProviderStateMixin {
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     if (!widget.manualTrigger && widget.animate) {
-      
       Future.delayed(widget.delay, () {
         if (!disposed) {
           (widget.infinite) ? controller.repeat() : controller.forward();
@@ -1048,7 +1059,9 @@ class ShakeYState extends State<ShakeY> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
+    if (widget.animate &&
+        widget.delay.inMilliseconds == 0 &&
+        widget.manualTrigger == false) {
       (widget.infinite) ? controller.repeat() : controller.forward();
     }
 
@@ -1067,4 +1080,3 @@ class ShakeYState extends State<ShakeY> with SingleTickerProviderStateMixin {
         });
   }
 }
-

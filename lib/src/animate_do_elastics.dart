@@ -58,8 +58,8 @@ class ElasticInState extends State<ElasticIn>
     opacity = Tween<double>(begin: 0, end: 1).animate(
         CurvedAnimation(parent: controller, curve: const Interval(0, 0.45)));
 
-    bouncing = Tween<double>(begin: 0, end: 1).animate(
-        CurvedAnimation(parent: controller, curve: Curves.elasticOut));
+    bouncing = Tween<double>(begin: 0, end: 1)
+        .animate(CurvedAnimation(parent: controller, curve: Curves.elasticOut));
 
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
@@ -76,7 +76,9 @@ class ElasticInState extends State<ElasticIn>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
+    if (widget.animate &&
+        widget.delay.inMilliseconds == 0 &&
+        widget.manualTrigger == false) {
       controller.forward();
     }
 
@@ -187,7 +189,9 @@ class ElasticInDownState extends State<ElasticInDown>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
+    if (widget.animate &&
+        widget.delay.inMilliseconds == 0 &&
+        widget.manualTrigger == false) {
       controller.forward();
     }
 
@@ -347,7 +351,9 @@ class ElasticInLeftState extends State<ElasticInLeft>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
+    if (widget.animate &&
+        widget.delay.inMilliseconds == 0 &&
+        widget.manualTrigger == false) {
       controller.forward();
     }
 

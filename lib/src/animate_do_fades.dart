@@ -77,9 +77,10 @@ class FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-
     /// Launch the animation ASAP or wait if is needed
-    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
+    if (widget.animate &&
+        widget.delay.inMilliseconds == 0 &&
+        widget.manualTrigger == false) {
       controller.forward();
     }
 
@@ -152,7 +153,6 @@ class FadeInDownState extends State<FadeInDown>
   /// animation opacity
   late Animation<double> opacity;
 
-
   @override
   void dispose() {
     disposed = true;
@@ -184,12 +184,13 @@ class FadeInDownState extends State<FadeInDown>
     if (widget.controller is Function) {
       widget.controller!(controller);
     }
-
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
+    if (widget.animate &&
+        widget.delay.inMilliseconds == 0 &&
+        widget.manualTrigger == false) {
       controller.forward();
     }
 
@@ -296,7 +297,6 @@ class FadeInUp extends StatefulWidget {
 /// The animation magic happens here
 class FadeInUpState extends State<FadeInUp>
     with SingleTickerProviderStateMixin {
-
   /// Animation controller if requested
   late AnimationController controller;
 
@@ -335,14 +335,16 @@ class FadeInUpState extends State<FadeInUp>
       });
     }
 
-    if ( widget.controller is Function) {
+    if (widget.controller is Function) {
       widget.controller!(controller);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
+    if (widget.animate &&
+        widget.delay.inMilliseconds == 0 &&
+        widget.manualTrigger == false) {
       controller.forward();
     }
 
@@ -487,7 +489,9 @@ class FadeInLeftState extends State<FadeInLeft>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
+    if (widget.animate &&
+        widget.delay.inMilliseconds == 0 &&
+        widget.manualTrigger == false) {
       controller.forward();
     }
 
@@ -632,7 +636,9 @@ class FadeInRightState extends State<FadeInRight>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0 && widget.manualTrigger == false ) {
+    if (widget.animate &&
+        widget.delay.inMilliseconds == 0 &&
+        widget.manualTrigger == false) {
       controller.forward();
     }
 

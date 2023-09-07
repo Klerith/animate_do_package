@@ -2,7 +2,7 @@ library animate_do;
 
 ///  Author: Fernando Herrera
 ///  website: fernando-herrera.com
-///  Version: 2.1.0
+///  Version: 3.2.0
 ///  Null-Safety: checked!
 ///  Prefer Const: checked!
 
