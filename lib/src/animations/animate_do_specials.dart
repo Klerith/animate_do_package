@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../types/animate_do_mixins.dart';
+import '../types/animate_do_types.dart';
+
 /// Class [JelloIn]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
@@ -14,6 +17,7 @@ class JelloIn extends StatefulWidget {
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
+  final Function(AnimateDoDirection direction)? onFinish;
 
   JelloIn(
       {key,
@@ -22,7 +26,8 @@ class JelloIn extends StatefulWidget {
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
-      this.animate = true})
+      this.animate = true,
+      this.onFinish})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -36,7 +41,8 @@ class JelloIn extends StatefulWidget {
 }
 
 /// State class, where the magic happens
-class JelloInState extends State<JelloIn> with SingleTickerProviderStateMixin {
+class JelloInState extends State<JelloIn>
+    with SingleTickerProviderStateMixin, AnimateDoState {
   late AnimationController controller;
   bool disposed = false;
   late Animation<double> rotation;
@@ -61,31 +67,28 @@ class JelloInState extends State<JelloIn> with SingleTickerProviderStateMixin {
     opacity = Tween<double>(begin: 0, end: 1).animate(
         CurvedAnimation(parent: controller, curve: const Interval(0, 0.65)));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        if (!disposed) {
-          controller.forward();
-        }
-      });
-    }
-
-    if (widget.controller is Function) {
-      widget.controller!(controller);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    configAnimation(
+      controller: controller,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate &&
-        widget.delay.inMilliseconds == 0 &&
-        widget.manualTrigger == false) {
-      controller.forward();
-    }
-
-    /// If FALSE, animate everything back to the original state
-    if (!widget.animate) {
-      controller.animateBack(0);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    buildAnimation(
+      controller: controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
 
     return AnimatedBuilder(
         animation: controller,

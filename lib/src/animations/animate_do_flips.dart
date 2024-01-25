@@ -1,30 +1,33 @@
 import 'package:flutter/material.dart';
 
-/// Class [ZoomIn]:
+import '../types/animate_do_mixins.dart';
+import '../types/animate_do_types.dart';
+
+/// Class [FlipInX]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
-class ZoomIn extends StatefulWidget {
+class FlipInX extends StatefulWidget {
   final Widget child;
   final Duration duration;
   final Duration delay;
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
-  final double from;
+  final Function(AnimateDoDirection direction)? onFinish;
 
-  ZoomIn(
+  FlipInX(
       {key,
       required this.child,
-      this.duration = const Duration(milliseconds: 500),
+      this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
-      this.from = 1.0})
+      this.onFinish})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -34,116 +37,15 @@ class ZoomIn extends StatefulWidget {
   }
 
   @override
-  ZoomInState createState() => ZoomInState();
+  FlipInXState createState() => FlipInXState();
 }
 
 /// State class, where the magic happens
-class ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
+class FlipInXState extends State<FlipInX>
+    with SingleTickerProviderStateMixin, AnimateDoState {
   late AnimationController controller;
   bool disposed = false;
-  late Animation<double> fade;
-  late Animation<double> opacity;
-
-  @override
-  void dispose() {
-    disposed = true;
-    controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    controller = AnimationController(duration: widget.duration, vsync: this);
-    fade = Tween(begin: 0.0, end: widget.from)
-        .animate(CurvedAnimation(curve: Curves.easeOut, parent: controller));
-
-    opacity = Tween<double>(begin: 0.0, end: 1).animate(
-        CurvedAnimation(parent: controller, curve: const Interval(0, 0.65)));
-
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        if (!disposed) {
-          controller.forward();
-        }
-      });
-    }
-
-    if (widget.controller is Function) {
-      widget.controller!(controller);
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    if (widget.animate &&
-        widget.delay.inMilliseconds == 0 &&
-        widget.manualTrigger == false) {
-      controller.forward();
-    }
-
-    /// If FALSE, animate everything back to the original state
-    if (!widget.animate) {
-      controller.animateBack(0);
-    }
-
-    return AnimatedBuilder(
-        animation: fade,
-        builder: (BuildContext context, Widget? child) {
-          return Transform.scale(
-            scale: fade.value,
-            child: Opacity(
-              opacity: opacity.value,
-              child: widget.child,
-            ),
-          );
-        });
-  }
-}
-
-/// Class [ZoomOut]:
-/// [key]: optional widget key reference
-/// [child]: mandatory, widget to animate
-/// [duration]: how much time the animation should take
-/// [delay]: delay before the animation starts
-/// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// the controller can be use to repeat, reverse and anything you want, its just an animation controller
-class ZoomOut extends StatefulWidget {
-  final Widget child;
-  final Duration duration;
-  final Duration delay;
-  final Function(AnimationController)? controller;
-  final bool manualTrigger;
-  final bool animate;
-  final double from;
-
-  ZoomOut(
-      {key,
-      required this.child,
-      this.duration = const Duration(milliseconds: 500),
-      this.delay = const Duration(milliseconds: 0),
-      this.controller,
-      this.manualTrigger = false,
-      this.animate = true,
-      this.from = 0.0})
-      : super(key: key) {
-    if (manualTrigger == true && controller == null) {
-      throw FlutterError('If you want to use manualTrigger:true, \n\n'
-          'Then you must provide the controller property, that is a callback like:\n\n'
-          ' ( controller: AnimationController) => yourController = controller \n\n');
-    }
-  }
-
-  @override
-  ZoomOutState createState() => ZoomOutState();
-}
-
-/// State class, where the magic happens
-class ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
-  late AnimationController controller;
-  bool disposed = false;
-  late Animation<double> zoom;
+  late Animation<double> rotation;
   late Animation<double> opacity;
 
   @override
@@ -159,48 +61,146 @@ class ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
 
     controller = AnimationController(duration: widget.duration, vsync: this);
 
-    zoom = Tween(begin: 1.0, end: widget.from)
-        .animate(CurvedAnimation(curve: Curves.easeOut, parent: controller));
+    rotation = Tween<double>(begin: 1.5, end: 0.0)
+        .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
 
-    opacity = Tween<double>(begin: 1.0, end: 0.0).animate(
+    opacity = Tween<double>(begin: 0, end: 1).animate(
         CurvedAnimation(parent: controller, curve: const Interval(0, 0.65)));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        if (!disposed) {
-          controller.forward();
-        }
-      });
-    }
-
-    if (widget.controller is Function) {
-      widget.controller!(controller);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    configAnimation(
+      controller: controller,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate &&
-        widget.delay.inMilliseconds == 0 &&
-        widget.manualTrigger == false) {
-      controller.forward();
-    }
-
-    /// If FALSE, animate everything back to the original state
-    if (!widget.animate) {
-      controller.animateBack(0);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    buildAnimation(
+      controller: controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
 
     return AnimatedBuilder(
         animation: controller,
         builder: (BuildContext context, Widget? child) {
-          return Transform.scale(
-            scale: zoom.value,
-            child: Opacity(
-              opacity: opacity.value,
-              child: widget.child,
-            ),
-          );
+          return Transform(
+              alignment: FractionalOffset.center,
+              transform: Matrix4.identity()..rotateX(rotation.value),
+              child: Opacity(
+                opacity: opacity.value,
+                child: widget.child,
+              ));
+        });
+  }
+}
+
+/// Class [FlipInY]:
+/// [key]: optional widget key reference
+/// [child]: mandatory, widget to animate
+/// [duration]: how much time the animation should take
+/// [delay]: delay before the animation starts
+/// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
+/// the controller can be use to repeat, reverse and anything you want, its just an animation controller
+class FlipInY extends StatefulWidget {
+  final Widget child;
+  final Duration duration;
+  final Duration delay;
+  final Function(AnimationController)? controller;
+  final bool manualTrigger;
+  final bool animate;
+  final Function(AnimateDoDirection direction)? onFinish;
+
+  FlipInY(
+      {key,
+      required this.child,
+      this.duration = const Duration(milliseconds: 800),
+      this.delay = const Duration(milliseconds: 0),
+      this.controller,
+      this.manualTrigger = false,
+      this.animate = true,
+      this.onFinish})
+      : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'Then you must provide the controller property, that is a callback like:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
+
+  @override
+  FlipInYState createState() => FlipInYState();
+}
+
+/// State class, where the magic happens
+class FlipInYState extends State<FlipInY>
+    with SingleTickerProviderStateMixin, AnimateDoState {
+  late AnimationController controller;
+  bool disposed = false;
+  late Animation<double> rotation;
+  late Animation<double> opacity;
+
+  @override
+  void dispose() {
+    disposed = true;
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller = AnimationController(duration: widget.duration, vsync: this);
+
+    rotation = Tween<double>(begin: 1.5, end: 0.0)
+        .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
+
+    opacity = Tween<double>(begin: 0, end: 1).animate(
+        CurvedAnimation(parent: controller, curve: const Interval(0, 0.65)));
+
+    /// Provided by the mixing [AnimateDoState] class
+    configAnimation(
+      controller: controller,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    /// Provided by the mixing [AnimateDoState] class
+    buildAnimation(
+      controller: controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
+
+    return AnimatedBuilder(
+        animation: controller,
+        builder: (BuildContext context, Widget? child) {
+          return Transform(
+              alignment: FractionalOffset.center,
+              transform: Matrix4.identity()..rotateY(rotation.value),
+              child: Opacity(
+                opacity: opacity.value,
+                child: widget.child,
+              ));
         });
   }
 }

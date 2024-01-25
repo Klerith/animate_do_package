@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../types/animate_do_mixins.dart';
+import '../types/animate_do_types.dart';
+
 /// Class [ElasticIn]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
@@ -14,15 +17,17 @@ class ElasticIn extends StatefulWidget {
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
+  final Function(AnimateDoDirection direction)? onFinish;
 
   ElasticIn(
       {key,
       required this.child,
-      this.duration = const Duration(milliseconds: 1000),
-      this.delay = const Duration(milliseconds: 0),
+      this.duration = const Duration(milliseconds: 1500),
+      this.delay = Duration.zero,
       this.controller,
       this.manualTrigger = false,
-      this.animate = true})
+      this.animate = true,
+      this.onFinish})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -37,7 +42,7 @@ class ElasticIn extends StatefulWidget {
 
 /// StateClass, where the magic happens
 class ElasticInState extends State<ElasticIn>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, AnimateDoState {
   late AnimationController controller;
   bool disposed = false;
   late Animation<double> bouncing;
@@ -61,31 +66,28 @@ class ElasticInState extends State<ElasticIn>
     bouncing = Tween<double>(begin: 0, end: 1)
         .animate(CurvedAnimation(parent: controller, curve: Curves.elasticOut));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        if (!disposed) {
-          controller.forward();
-        }
-      });
-    }
-
-    if (widget.controller is Function) {
-      widget.controller!(controller);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    configAnimation(
+      controller: controller,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate &&
-        widget.delay.inMilliseconds == 0 &&
-        widget.manualTrigger == false) {
-      controller.forward();
-    }
-
-    /// If FALSE, animate everything back to the original state
-    if (!widget.animate) {
-      controller.animateBack(0);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    buildAnimation(
+      controller: controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
 
     return AnimatedBuilder(
         animation: controller,
@@ -115,19 +117,21 @@ class ElasticInDown extends StatefulWidget {
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
+  final Function(AnimateDoDirection direction)? onFinish;
   final double from;
   final double to;
 
   ElasticInDown(
       {key,
       required this.child,
-      this.duration = const Duration(milliseconds: 1000),
-      this.delay = const Duration(milliseconds: 0),
+      this.duration = const Duration(milliseconds: 1500),
+      this.delay = Duration.zero,
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
       this.from = 200,
-      this.to = 100})
+      this.to = 100,
+      this.onFinish})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -142,7 +146,7 @@ class ElasticInDown extends StatefulWidget {
 
 /// StateClass, where the magic happens
 class ElasticInDownState extends State<ElasticInDown>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, AnimateDoState {
   late AnimationController controller;
   bool disposed = false;
   late Animation<double> bouncing;
@@ -174,31 +178,28 @@ class ElasticInDownState extends State<ElasticInDown>
             parent: controller,
             curve: const Interval(0.30, 1, curve: Curves.elasticOut)));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        if (!disposed) {
-          controller.forward();
-        }
-      });
-    }
-
-    if (widget.controller is Function) {
-      widget.controller!(controller);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    configAnimation(
+      controller: controller,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate &&
-        widget.delay.inMilliseconds == 0 &&
-        widget.manualTrigger == false) {
-      controller.forward();
-    }
-
-    /// If FALSE, animate everything back to the original state
-    if (!widget.animate) {
-      controller.animateBack(0);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    buildAnimation(
+      controller: controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
 
     return AnimatedBuilder(
         animation: controller,
@@ -231,17 +232,19 @@ class ElasticInUp extends StatelessWidget {
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
+  final Function(AnimateDoDirection direction)? onFinish;
   final double from;
 
   ElasticInUp(
       {key,
       required this.child,
-      this.duration = const Duration(milliseconds: 1000),
-      this.delay = const Duration(milliseconds: 0),
+      this.duration = const Duration(milliseconds: 1500),
+      this.delay = Duration.zero,
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
-      this.from = 200})
+      this.from = 200,
+      this.onFinish})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -259,6 +262,7 @@ class ElasticInUp extends StatelessWidget {
         animate: animate,
         from: from * -1,
         to: 100,
+        onFinish: onFinish,
         child: child,
       );
 }
@@ -277,19 +281,21 @@ class ElasticInLeft extends StatefulWidget {
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
+  final Function(AnimateDoDirection direction)? onFinish;
   final double from;
   final double to;
 
   ElasticInLeft(
       {key,
       required this.child,
-      this.duration = const Duration(milliseconds: 1000),
-      this.delay = const Duration(milliseconds: 0),
+      this.duration = const Duration(milliseconds: 1500),
+      this.delay = Duration.zero,
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
       this.from = 200,
-      this.to = 100})
+      this.to = 100,
+      this.onFinish})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -304,7 +310,7 @@ class ElasticInLeft extends StatefulWidget {
 
 /// StateClass, where the magic happens
 class ElasticInLeftState extends State<ElasticInLeft>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, AnimateDoState {
   late AnimationController controller;
   bool disposed = false;
   late Animation<double> bouncing;
@@ -336,31 +342,28 @@ class ElasticInLeftState extends State<ElasticInLeft>
             parent: controller,
             curve: const Interval(0.30, 1, curve: Curves.elasticOut)));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        if (!disposed) {
-          controller.forward();
-        }
-      });
-    }
-
-    if (widget.controller is Function) {
-      widget.controller!(controller);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    configAnimation(
+      controller: controller,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate &&
-        widget.delay.inMilliseconds == 0 &&
-        widget.manualTrigger == false) {
-      controller.forward();
-    }
-
-    /// If FALSE, animate everything back to the original state
-    if (!widget.animate) {
-      controller.animateBack(0);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    buildAnimation(
+      controller: controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
 
     return AnimatedBuilder(
         animation: controller,
@@ -393,17 +396,19 @@ class ElasticInRight extends StatelessWidget {
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
+  final Function(AnimateDoDirection direction)? onFinish;
   final double from;
 
   ElasticInRight(
       {key,
       required this.child,
-      this.duration = const Duration(milliseconds: 1000),
-      this.delay = const Duration(milliseconds: 0),
+      this.duration = const Duration(milliseconds: 1500),
+      this.delay = Duration.zero,
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
-      this.from = 200})
+      this.from = 200,
+      this.onFinish})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -421,5 +426,6 @@ class ElasticInRight extends StatelessWidget {
       animate: animate,
       from: from * -1,
       to: -100,
+      onFinish: onFinish,
       child: child);
 }

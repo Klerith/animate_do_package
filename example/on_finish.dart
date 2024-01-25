@@ -34,22 +34,32 @@ class _MyAppState extends State<MyApp> {
               children: <Widget>[
                 FadeIn(
                   animate: animate,
+                  delay: const Duration(milliseconds: 0),
+                  onFinish: (direction) => print('$direction'),
                   child: const Square(),
                 ),
                 FadeInUp(
                   animate: animate,
+                  delay: const Duration(milliseconds: 300),
+                  onFinish: (direction) => print('$direction'),
                   child: const Square(),
                 ),
                 FadeInDown(
                   animate: animate,
+                  delay: const Duration(milliseconds: 600),
+                  onFinish: (direction) => print('$direction'),
                   child: const Square(),
                 ),
                 FadeInLeft(
                   animate: animate,
+                  delay: const Duration(milliseconds: 900),
+                  onFinish: (direction) => print('$direction'),
                   child: const Square(),
                 ),
                 FadeInRight(
                   animate: animate,
+                  delay: const Duration(milliseconds: 1200),
+                  onFinish: (direction) => print('$direction'),
                   child: const Square(),
                 ),
               ],

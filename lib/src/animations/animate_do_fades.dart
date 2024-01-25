@@ -1,29 +1,36 @@
+
 import 'package:flutter/material.dart';
 
-/// Class [FadeOut]:
+import '../types/animate_do_mixins.dart';
+import '../types/animate_do_types.dart';
+
+/// Class [FadeIn]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// the controller can be use to repeat, reverse and anything you want, its just an animation controller
-class FadeOut extends StatefulWidget {
+/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
+/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired inmediatelly
+class FadeIn extends StatefulWidget {
   final Widget child;
   final Duration duration;
   final Duration delay;
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
+  final Function(AnimateDoDirection direction)? onFinish;
 
-  FadeOut(
-      {key,
-      required this.child,
-      this.duration = const Duration(milliseconds: 300),
-      this.delay = const Duration(milliseconds: 0),
-      this.controller,
-      this.manualTrigger = false,
-      this.animate = false})
-      : super(key: key) {
+  FadeIn({
+    key,
+    required this.child,
+    this.duration = const Duration(milliseconds: 500),
+    this.delay = Duration.zero,
+    this.controller,
+    this.manualTrigger = false,
+    this.animate = true,
+    this.onFinish,
+  }) : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
           'Then you must provide the controller property, that is a callback like:\n\n'
@@ -32,13 +39,20 @@ class FadeOut extends StatefulWidget {
   }
 
   @override
-  FadeOutState createState() => FadeOutState();
+  FadeInState createState() => FadeInState();
 }
 
-/// State class, where the magic happens
-class FadeOutState extends State<FadeOut> with SingleTickerProviderStateMixin {
+/// FadeState class
+/// The animation magic happens here
+class FadeInState extends State<FadeIn>
+    with SingleTickerProviderStateMixin, AnimateDoState {
+  /// Animation controller that controls this animation
   late AnimationController controller;
+
+  /// is the widget disposed?
   bool disposed = false;
+
+  /// Animation movement value
   late Animation<double> animation;
 
   @override
@@ -52,36 +66,34 @@ class FadeOutState extends State<FadeOut> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
 
+    /// Creates the animation controller
     controller = AnimationController(duration: widget.duration, vsync: this);
-    animation = Tween(begin: 1.0, end: 0.0)
-        .animate(CurvedAnimation(curve: Curves.easeOut, parent: controller));
+    animation = CurvedAnimation(curve: Curves.easeOut, parent: controller);
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        if (!disposed) {
-          controller.forward();
-        }
-      });
-    }
-
-    if (widget.controller is Function) {
-      widget.controller!(controller);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    configAnimation(
+      controller: controller,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate &&
-        widget.delay.inMilliseconds == 0 &&
-        widget.manualTrigger == false) {
-      controller.forward();
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    buildAnimation(
+      controller: controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
 
-    /// If FALSE, animate everything back to original
-    if (!widget.animate) {
-      controller.animateBack(0);
-    }
-
+    /// Builds the animation with the corresponding
     return AnimatedBuilder(
         animation: animation,
         builder: (BuildContext context, Widget? child) {
@@ -93,14 +105,14 @@ class FadeOutState extends State<FadeOut> with SingleTickerProviderStateMixin {
   }
 }
 
-/// Class [FadeOutDown]:
+/// Class [FadeInDown]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
-class FadeOutDown extends StatefulWidget {
+class FadeInDown extends StatefulWidget {
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -108,16 +120,18 @@ class FadeOutDown extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final double from;
+  final Function(AnimateDoDirection direction)? onFinish;
 
-  FadeOutDown(
+  FadeInDown(
       {key,
       required this.child,
       this.duration = const Duration(milliseconds: 800),
-      this.delay = const Duration(milliseconds: 0),
+      this.delay = Duration.zero,
       this.controller,
       this.manualTrigger = false,
-      this.animate = false,
-      this.from = 100})
+      this.animate = true,
+      this.from = 100,
+      this.onFinish})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -127,15 +141,22 @@ class FadeOutDown extends StatefulWidget {
   }
 
   @override
-  FadeOutDownState createState() => FadeOutDownState();
+  FadeInDownState createState() => FadeInDownState();
 }
 
-/// State class, where the magic happens
-class FadeOutDownState extends State<FadeOutDown>
-    with SingleTickerProviderStateMixin {
+/// FadeState class
+/// The animation magic happens here
+class FadeInDownState extends State<FadeInDown>
+    with SingleTickerProviderStateMixin, AnimateDoState {
   late AnimationController controller;
+
+  /// is the widget disposed?
   bool disposed = false;
+
+  /// animation movement
   late Animation<double> animation;
+
+  /// animation opacity
   late Animation<double> opacity;
 
   @override
@@ -151,37 +172,34 @@ class FadeOutDownState extends State<FadeOutDown>
 
     controller = AnimationController(duration: widget.duration, vsync: this);
 
-    animation = Tween<double>(begin: 0, end: widget.from)
+    animation = Tween<double>(begin: widget.from * -1, end: 0)
         .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
 
-    opacity = Tween<double>(begin: 1.0, end: 0.0).animate(
+    opacity = Tween<double>(begin: 0, end: 1).animate(
         CurvedAnimation(parent: controller, curve: const Interval(0, 0.65)));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        if (!disposed) {
-          controller.forward();
-        }
-      });
-    }
-
-    if (widget.controller is Function) {
-      widget.controller!(controller);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    configAnimation(
+      controller: controller,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate &&
-        widget.delay.inMilliseconds == 0 &&
-        widget.manualTrigger == false) {
-      controller.forward();
-    }
-
-    /// If FALSE, animate everything back to original
-    if (!widget.animate) {
-      controller.animateBack(0);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    buildAnimation(
+      controller: controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
 
     return AnimatedBuilder(
         animation: controller,
@@ -196,14 +214,14 @@ class FadeOutDownState extends State<FadeOutDown>
   }
 }
 
-/// Class [FadeOutDownBig]:
+/// Class [FadeInDownBig]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
-class FadeOutDownBig extends StatelessWidget {
+class FadeInDownBig extends StatelessWidget {
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -211,16 +229,18 @@ class FadeOutDownBig extends StatelessWidget {
   final bool manualTrigger;
   final bool animate;
   final double from;
+  final Function(AnimateDoDirection direction)? onFinish;
 
-  FadeOutDownBig(
+  FadeInDownBig(
       {key,
       required this.child,
       this.duration = const Duration(milliseconds: 1300),
-      this.delay = const Duration(milliseconds: 0),
+      this.delay = Duration.zero,
       this.controller,
       this.manualTrigger = false,
-      this.animate = false,
-      this.from = 600})
+      this.animate = true,
+      this.from = 600,
+      this.onFinish})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -230,25 +250,24 @@ class FadeOutDownBig extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) => FadeOutDown(
-        duration: duration,
-        delay: delay,
-        controller: controller,
-        manualTrigger: manualTrigger,
-        animate: animate,
-        from: from,
-        child: child,
-      );
+  Widget build(BuildContext context) => FadeInDown(
+      duration: duration,
+      delay: delay,
+      controller: controller,
+      manualTrigger: manualTrigger,
+      animate: animate,
+      from: from,
+      child: child);
 }
 
-/// Class [FadeOutUp]:
+/// Class [FadeInUp]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
-class FadeOutUp extends StatefulWidget {
+class FadeInUp extends StatefulWidget {
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -256,16 +275,18 @@ class FadeOutUp extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final double from;
+  final Function(AnimateDoDirection direction)? onFinish;
 
-  FadeOutUp(
+  FadeInUp(
       {key,
       required this.child,
       this.duration = const Duration(milliseconds: 800),
-      this.delay = const Duration(milliseconds: 0),
+      this.delay = Duration.zero,
       this.controller,
       this.manualTrigger = false,
-      this.animate = false,
-      this.from = 100})
+      this.animate = true,
+      this.from = 100,
+      this.onFinish})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -275,16 +296,25 @@ class FadeOutUp extends StatefulWidget {
   }
 
   @override
-  FadeOutUpState createState() => FadeOutUpState();
+  FadeInUpState createState() => FadeInUpState();
 }
 
-/// State class, where the magic happens
-class FadeOutUpState extends State<FadeOutUp>
-    with SingleTickerProviderStateMixin {
+/// FadeState class
+/// The animation magic happens here
+class FadeInUpState extends State<FadeInUp>
+    with SingleTickerProviderStateMixin, AnimateDoState {
+  /// Animation controller if requested
   late AnimationController controller;
+
+  /// widget is disposed?
   bool disposed = false;
+
+  /// Animation movement
   late Animation<double> animation;
+
+  /// Animation opacity
   late Animation<double> opacity;
+
   @override
   void dispose() {
     disposed = true;
@@ -298,36 +328,33 @@ class FadeOutUpState extends State<FadeOutUp>
 
     controller = AnimationController(duration: widget.duration, vsync: this);
 
-    animation = Tween<double>(begin: 0.0, end: widget.from * -1)
+    animation = Tween<double>(begin: widget.from, end: 0)
         .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
-    opacity = Tween<double>(begin: 1.0, end: 0.0).animate(
+    opacity = Tween<double>(begin: 0, end: 1).animate(
         CurvedAnimation(parent: controller, curve: const Interval(0, 0.65)));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        if (!disposed) {
-          controller.forward();
-        }
-      });
-    }
-
-    if (widget.controller is Function) {
-      widget.controller!(controller);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    configAnimation(
+      controller: controller,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate &&
-        widget.delay.inMilliseconds == 0 &&
-        widget.manualTrigger == false) {
-      controller.forward();
-    }
-
-    /// If FALSE, animate everything back to original
-    if (!widget.animate) {
-      controller.animateBack(0);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    buildAnimation(
+      controller: controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
 
     return AnimatedBuilder(
         animation: controller,
@@ -342,14 +369,14 @@ class FadeOutUpState extends State<FadeOutUp>
   }
 }
 
-/// Class [FadeOutUpBig]:
+/// Class [FadeInUpBig]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
-class FadeOutUpBig extends StatelessWidget {
+class FadeInUpBig extends StatelessWidget {
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -357,16 +384,18 @@ class FadeOutUpBig extends StatelessWidget {
   final bool manualTrigger;
   final bool animate;
   final double from;
+  final Function(AnimateDoDirection direction)? onFinish;
 
-  FadeOutUpBig(
+  FadeInUpBig(
       {key,
       required this.child,
       this.duration = const Duration(milliseconds: 1300),
-      this.delay = const Duration(milliseconds: 0),
+      this.delay = Duration.zero,
       this.controller,
       this.manualTrigger = false,
-      this.animate = false,
-      this.from = 600})
+      this.animate = true,
+      this.from = 600,
+      this.onFinish})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -376,25 +405,26 @@ class FadeOutUpBig extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) => FadeOutUp(
+  Widget build(BuildContext context) => FadeInUp(
         duration: duration,
         delay: delay,
         controller: controller,
         manualTrigger: manualTrigger,
         animate: animate,
         from: from,
+        onFinish: onFinish,
         child: child,
       );
 }
 
-/// Class [FadeOutLeft]:
+/// Class [FadeInLeft]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
-class FadeOutLeft extends StatefulWidget {
+class FadeInLeft extends StatefulWidget {
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -402,16 +432,18 @@ class FadeOutLeft extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final double from;
+  final Function(AnimateDoDirection direction)? onFinish;
 
-  FadeOutLeft(
+  FadeInLeft(
       {key,
       required this.child,
       this.duration = const Duration(milliseconds: 800),
-      this.delay = const Duration(milliseconds: 0),
+      this.delay = Duration.zero,
       this.controller,
       this.manualTrigger = false,
-      this.animate = false,
-      this.from = 100})
+      this.animate = true,
+      this.from = 100,
+      this.onFinish})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -421,12 +453,13 @@ class FadeOutLeft extends StatefulWidget {
   }
 
   @override
-  FadeOutLeftState createState() => FadeOutLeftState();
+  FadeInLeftState createState() => FadeInLeftState();
 }
 
-/// State class, where the magic happens
-class FadeOutLeftState extends State<FadeOutLeft>
-    with SingleTickerProviderStateMixin {
+/// FadeState class
+/// The animation magic happens here
+class FadeInLeftState extends State<FadeInLeft>
+    with SingleTickerProviderStateMixin, AnimateDoState {
   late AnimationController controller;
   bool disposed = false;
   late Animation<double> animation;
@@ -444,36 +477,33 @@ class FadeOutLeftState extends State<FadeOutLeft>
 
     controller = AnimationController(duration: widget.duration, vsync: this);
 
-    animation = Tween<double>(begin: 0, end: widget.from * -1)
+    animation = Tween<double>(begin: widget.from * -1, end: 0)
         .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
-    opacity = Tween<double>(begin: 1.0, end: 0.0).animate(
+    opacity = Tween<double>(begin: 0, end: 1).animate(
         CurvedAnimation(parent: controller, curve: const Interval(0, 0.65)));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        if (!disposed) {
-          controller.forward();
-        }
-      });
-    }
-
-    if (widget.controller is Function) {
-      widget.controller!(controller);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    configAnimation(
+      controller: controller,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate &&
-        widget.delay.inMilliseconds == 0 &&
-        widget.manualTrigger == false) {
-      controller.forward();
-    }
-
-    /// If FALSE, animate everything back to original
-    if (!widget.animate) {
-      controller.animateBack(0);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    buildAnimation(
+      controller: controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
 
     return AnimatedBuilder(
         animation: controller,
@@ -488,14 +518,14 @@ class FadeOutLeftState extends State<FadeOutLeft>
   }
 }
 
-/// Class [FadeOutLeftBig]:
+/// Class [FadeInLeftBig]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
-class FadeOutLeftBig extends StatelessWidget {
+class FadeInLeftBig extends StatelessWidget {
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -503,16 +533,18 @@ class FadeOutLeftBig extends StatelessWidget {
   final bool manualTrigger;
   final bool animate;
   final double from;
+  final Function(AnimateDoDirection direction)? onFinish;
 
-  FadeOutLeftBig(
+  FadeInLeftBig(
       {key,
       required this.child,
       this.duration = const Duration(milliseconds: 1300),
-      this.delay = const Duration(milliseconds: 0),
+      this.delay = Duration.zero,
       this.controller,
       this.manualTrigger = false,
-      this.animate = false,
-      this.from = 600})
+      this.animate = true,
+      this.from = 600,
+      this.onFinish})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -522,25 +554,26 @@ class FadeOutLeftBig extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) => FadeOutLeft(
+  Widget build(BuildContext context) => FadeInLeft(
         duration: duration,
         delay: delay,
         controller: controller,
         manualTrigger: manualTrigger,
         animate: animate,
         from: from,
+        onFinish: onFinish,
         child: child,
       );
 }
 
-/// Class [FadeOutRight]:
+/// Class [FadeInRight]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
-class FadeOutRight extends StatelessWidget {
+class FadeInRight extends StatefulWidget {
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -548,16 +581,18 @@ class FadeOutRight extends StatelessWidget {
   final bool manualTrigger;
   final bool animate;
   final double from;
+  final Function(AnimateDoDirection direction)? onFinish;
 
-  FadeOutRight(
+  FadeInRight(
       {key,
       required this.child,
       this.duration = const Duration(milliseconds: 800),
-      this.delay = const Duration(milliseconds: 0),
+      this.delay = Duration.zero,
       this.controller,
       this.manualTrigger = false,
-      this.animate = false,
-      this.from = 100})
+      this.animate = true,
+      this.from = 100,
+      this.onFinish})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -567,25 +602,79 @@ class FadeOutRight extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) => FadeOutLeft(
-        duration: duration,
-        delay: delay,
-        controller: controller,
-        manualTrigger: manualTrigger,
-        animate: animate,
-        from: from * -1,
-        child: child,
-      );
+  FadeInRightState createState() => FadeInRightState();
 }
 
-/// Class [FadeOutRightBig]:
+/// FadeState class
+/// The animation magic happens here
+class FadeInRightState extends State<FadeInRight>
+    with SingleTickerProviderStateMixin, AnimateDoState {
+  late AnimationController controller;
+  bool disposed = false;
+  late Animation<double> animation;
+  late Animation<double> opacity;
+  @override
+  void dispose() {
+    disposed = true;
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller = AnimationController(duration: widget.duration, vsync: this);
+
+    animation = Tween<double>(begin: widget.from, end: 0)
+        .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
+    opacity = Tween<double>(begin: 0, end: 1).animate(
+        CurvedAnimation(parent: controller, curve: const Interval(0, 0.65)));
+
+    /// Provided by the mixing [AnimateDoState] class
+    configAnimation(
+      controller: controller,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    /// Provided by the mixing [AnimateDoState] class
+    buildAnimation(
+      controller: controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
+
+    return AnimatedBuilder(
+        animation: controller,
+        builder: (BuildContext context, Widget? child) {
+          return Transform.translate(
+              offset: Offset(animation.value, 0),
+              child: Opacity(
+                opacity: opacity.value,
+                child: widget.child,
+              ));
+        });
+  }
+}
+
+/// Class [FadeInRightBig]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
-class FadeOutRightBig extends StatelessWidget {
+class FadeInRightBig extends StatelessWidget {
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -593,16 +682,18 @@ class FadeOutRightBig extends StatelessWidget {
   final bool manualTrigger;
   final bool animate;
   final double from;
+  final Function(AnimateDoDirection direction)? onFinish;
 
-  FadeOutRightBig(
+  FadeInRightBig(
       {key,
       required this.child,
       this.duration = const Duration(milliseconds: 1200),
-      this.delay = const Duration(milliseconds: 0),
+      this.delay = Duration.zero,
       this.controller,
       this.manualTrigger = false,
-      this.animate = false,
-      this.from = 600})
+      this.animate = true,
+      this.from = 600,
+      this.onFinish})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -612,13 +703,14 @@ class FadeOutRightBig extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) => FadeOutLeft(
+  Widget build(BuildContext context) => FadeInRight(
         duration: duration,
         delay: delay,
         controller: controller,
         manualTrigger: manualTrigger,
         animate: animate,
-        from: from * -1,
+        from: from,
+        onFinish: onFinish,
         child: child,
       );
 }

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../types/animate_do_mixins.dart';
+import '../types/animate_do_types.dart';
+
 /// Class [SlideInUp]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
@@ -14,6 +17,7 @@ class SlideInUp extends StatefulWidget {
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
+  final Function(AnimateDoDirection direction)? onFinish;
   final double from;
 
   SlideInUp(
@@ -24,7 +28,8 @@ class SlideInUp extends StatefulWidget {
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
-      this.from = 100})
+      this.from = 100,
+      this.onFinish})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -39,7 +44,7 @@ class SlideInUp extends StatefulWidget {
 
 /// State class, where the magic happens
 class SlideInUpState extends State<SlideInUp>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, AnimateDoState {
   late AnimationController controller;
   bool disposed = false;
   late Animation<double> animation;
@@ -60,31 +65,28 @@ class SlideInUpState extends State<SlideInUp>
     animation = Tween<double>(begin: widget.from, end: 0)
         .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        if (!disposed) {
-          controller.forward();
-        }
-      });
-    }
-
-    if (widget.controller is Function) {
-      widget.controller!(controller);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    configAnimation(
+      controller: controller,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate &&
-        widget.delay.inMilliseconds == 0 &&
-        widget.manualTrigger == false) {
-      controller.forward();
-    }
-
-    /// If FALSE, animate everything back to the original state
-    if (!widget.animate) {
-      controller.animateBack(0);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    buildAnimation(
+      controller: controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
 
     return AnimatedBuilder(
         animation: controller,
@@ -109,6 +111,7 @@ class SlideInDown extends StatelessWidget {
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
+  final Function(AnimateDoDirection direction)? onFinish;
   final double from;
 
   SlideInDown(
@@ -119,7 +122,8 @@ class SlideInDown extends StatelessWidget {
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
-      this.from = 100})
+      this.from = 100,
+      this.onFinish})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -136,6 +140,7 @@ class SlideInDown extends StatelessWidget {
         manualTrigger: manualTrigger,
         animate: animate,
         from: from * -1,
+        onFinish: onFinish,
         child: child,
       );
 }
@@ -154,6 +159,7 @@ class SlideInLeft extends StatefulWidget {
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
+  final Function(AnimateDoDirection direction)? onFinish;
   final double from;
 
   SlideInLeft(
@@ -164,7 +170,8 @@ class SlideInLeft extends StatefulWidget {
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
-      this.from = 100})
+      this.from = 100,
+      this.onFinish})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -179,7 +186,7 @@ class SlideInLeft extends StatefulWidget {
 
 /// State class, where the magic happens
 class SlideInLeftState extends State<SlideInLeft>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, AnimateDoState {
   late AnimationController controller;
   bool disposed = false;
   late Animation<double> animation;
@@ -200,31 +207,28 @@ class SlideInLeftState extends State<SlideInLeft>
     animation = Tween<double>(begin: widget.from * -1, end: 0)
         .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        if (!disposed) {
-          controller.forward();
-        }
-      });
-    }
-
-    if (widget.controller is Function) {
-      widget.controller!(controller);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    configAnimation(
+      controller: controller,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate &&
-        widget.delay.inMilliseconds == 0 &&
-        widget.manualTrigger == false) {
-      controller.forward();
-    }
-
-    /// If FALSE, animate everything back to the original state
-    if (!widget.animate) {
-      controller.animateBack(0);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    buildAnimation(
+      controller: controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
 
     return AnimatedBuilder(
         animation: controller,
@@ -249,6 +253,7 @@ class SlideInRight extends StatelessWidget {
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
+  final Function(AnimateDoDirection direction)? onFinish;
   final double from;
 
   SlideInRight(
@@ -259,7 +264,8 @@ class SlideInRight extends StatelessWidget {
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
-      this.from = 100})
+      this.from = 100,
+      this.onFinish})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -276,6 +282,7 @@ class SlideInRight extends StatelessWidget {
         manualTrigger: manualTrigger,
         animate: animate,
         from: from * -1,
+        onFinish: onFinish,
         child: child,
       );
 }

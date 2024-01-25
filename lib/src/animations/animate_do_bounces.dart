@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../types/animate_do_mixins.dart';
+import '../types/animate_do_types.dart';
+
 /// Class [BounceInDown]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
@@ -14,6 +17,7 @@ class BounceInDown extends StatefulWidget {
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
+  final Function(AnimateDoDirection direction)? onFinish;
   final double from;
 
   BounceInDown(
@@ -24,7 +28,8 @@ class BounceInDown extends StatefulWidget {
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
-      this.from = 75})
+      this.from = 75,
+      this.onFinish})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -39,7 +44,7 @@ class BounceInDown extends StatefulWidget {
 
 /// Bounce class State, this is where the magic happens
 class BounceInDownState extends State<BounceInDown>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, AnimateDoState {
   late AnimationController controller;
   bool disposed = false;
   late Animation<double> animation;
@@ -63,31 +68,28 @@ class BounceInDownState extends State<BounceInDown>
     animation = Tween<double>(begin: widget.from * -1, end: 0)
         .animate(CurvedAnimation(parent: controller, curve: Curves.bounceOut));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        if (!disposed) {
-          controller.forward();
-        }
-      });
-    }
-
-    if (widget.controller is Function) {
-      widget.controller!(controller);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    configAnimation(
+      controller: controller,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate &&
-        widget.delay.inMilliseconds == 0 &&
-        widget.manualTrigger == false) {
-      controller.forward();
-    }
-
-    /// If FALSE, animate everything back to the original state
-    if (!widget.animate) {
-      controller.animateBack(0);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    buildAnimation(
+      controller: controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
 
     return AnimatedBuilder(
         animation: controller,
@@ -113,6 +115,7 @@ class BounceInUp extends StatelessWidget {
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
+  final Function(AnimateDoDirection direction)? onFinish;
   final double from;
 
   BounceInUp(
@@ -123,7 +126,8 @@ class BounceInUp extends StatelessWidget {
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
-      this.from = 75})
+      this.from = 75,
+      this.onFinish})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -140,6 +144,7 @@ class BounceInUp extends StatelessWidget {
         manualTrigger: manualTrigger,
         animate: animate,
         from: from * -1,
+        onFinish: onFinish,
         child: child,
       );
 }
@@ -158,6 +163,7 @@ class BounceInLeft extends StatefulWidget {
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
+  final Function(AnimateDoDirection direction)? onFinish;
   final double from;
 
   BounceInLeft(
@@ -168,7 +174,8 @@ class BounceInLeft extends StatefulWidget {
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
-      this.from = 75})
+      this.from = 75,
+      this.onFinish})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -182,9 +189,9 @@ class BounceInLeft extends StatefulWidget {
 }
 
 /// Bounce class State,
-/// It controls the opacity and bouncing mechanims
+/// It controls the opacity and bouncing mechanism
 class BounceInLeftState extends State<BounceInLeft>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, AnimateDoState {
   late AnimationController controller;
   bool disposed = false;
   late Animation<double> animation;
@@ -207,31 +214,28 @@ class BounceInLeftState extends State<BounceInLeft>
     animation = Tween<double>(begin: widget.from * -1, end: 0)
         .animate(CurvedAnimation(parent: controller, curve: Curves.bounceOut));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        if (!disposed) {
-          controller.forward();
-        }
-      });
-    }
-
-    if (widget.controller is Function) {
-      widget.controller!(controller);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    configAnimation(
+      controller: controller,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate &&
-        widget.delay.inMilliseconds == 0 &&
-        widget.manualTrigger == false) {
-      controller.forward();
-    }
-
-    /// If FALSE, animate everything back to the original state
-    if (!widget.animate) {
-      controller.animateBack(0);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    buildAnimation(
+      controller: controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
 
     return AnimatedBuilder(
         animation: controller,
@@ -260,6 +264,7 @@ class BounceInRight extends StatelessWidget {
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
+  final Function(AnimateDoDirection direction)? onFinish;
   final double from;
 
   BounceInRight(
@@ -270,7 +275,8 @@ class BounceInRight extends StatelessWidget {
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
-      this.from = 75})
+      this.from = 75,
+      this.onFinish})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -287,6 +293,7 @@ class BounceInRight extends StatelessWidget {
         manualTrigger: manualTrigger,
         animate: animate,
         from: from * -1,
+        onFinish: onFinish,
         child: child,
       );
 }

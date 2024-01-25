@@ -1,5 +1,9 @@
 import 'dart:math' show pi, sin;
+
 import 'package:flutter/material.dart';
+
+import '../types/animate_do_mixins.dart';
+import '../types/animate_do_types.dart';
 
 /// Class [Bounce]:
 /// [key]: optional widget key reference
@@ -18,6 +22,7 @@ class Bounce extends StatefulWidget {
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
+  final Function(AnimateDoDirection direction)? onFinish;
   final double from;
 
   Bounce(
@@ -29,7 +34,8 @@ class Bounce extends StatefulWidget {
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
-      this.from = 50})
+      this.from = 50,
+      this.onFinish})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -43,7 +49,8 @@ class Bounce extends StatefulWidget {
 }
 
 /// State class, where the magic happens
-class BounceState extends State<Bounce> with SingleTickerProviderStateMixin {
+class BounceState extends State<Bounce>
+    with SingleTickerProviderStateMixin, AnimateDoState {
   late AnimationController controller;
   bool disposed = false;
   late Animation<double> animationBounce;
@@ -72,31 +79,28 @@ class BounceState extends State<Bounce> with SingleTickerProviderStateMixin {
             curve: const Interval(0.35, 1, curve: Curves.bounceOut),
             parent: controller));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        if (!disposed) {
-          (widget.infinite) ? controller.repeat() : controller.forward();
-        }
-      });
-    }
-
-    if (widget.controller is Function) {
-      widget.controller!(controller);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    configAnimation(
+      controller: controller,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate &&
-        widget.delay.inMilliseconds == 0 &&
-        widget.manualTrigger == false) {
-      (widget.infinite) ? controller.repeat() : controller.forward();
-    }
-
-    /// If FALSE, animate everything back to the original state
-    if (!widget.animate) {
-      controller.animateBack(0);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    buildAnimation(
+      controller: controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
 
     return AnimatedBuilder(
         animation: controller,
@@ -129,6 +133,7 @@ class Flash extends StatefulWidget {
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
+  final Function(AnimateDoDirection direction)? onFinish;
 
   Flash(
       {key,
@@ -138,7 +143,8 @@ class Flash extends StatefulWidget {
       this.infinite = false,
       this.controller,
       this.manualTrigger = false,
-      this.animate = true})
+      this.animate = true,
+      this.onFinish})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -152,7 +158,8 @@ class Flash extends StatefulWidget {
 }
 
 /// State class, where the magic happens
-class FlashState extends State<Flash> with SingleTickerProviderStateMixin {
+class FlashState extends State<Flash>
+    with SingleTickerProviderStateMixin, AnimateDoState {
   late AnimationController controller;
   bool disposed = false;
   late Animation<double> opacityOut1;
@@ -181,31 +188,28 @@ class FlashState extends State<Flash> with SingleTickerProviderStateMixin {
     opacityIn2 = Tween<double>(begin: 0, end: 1).animate(
         CurvedAnimation(parent: controller, curve: const Interval(0.75, 1)));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        if (!disposed) {
-          (widget.infinite) ? controller.repeat() : controller.forward();
-        }
-      });
-    }
-
-    if (widget.controller is Function) {
-      widget.controller!(controller);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    configAnimation(
+      controller: controller,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate &&
-        widget.delay.inMilliseconds == 0 &&
-        widget.manualTrigger == false) {
-      (widget.infinite) ? controller.repeat() : controller.forward();
-    }
-
-    /// If FALSE, animate everything back to the original state
-    if (!widget.animate) {
-      controller.animateBack(0);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    buildAnimation(
+      controller: controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
 
     return AnimatedBuilder(
         animation: controller,
@@ -240,6 +244,7 @@ class Pulse extends StatefulWidget {
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
+  final Function(AnimateDoDirection direction)? onFinish;
 
   Pulse(
       {key,
@@ -249,7 +254,8 @@ class Pulse extends StatefulWidget {
       this.infinite = false,
       this.controller,
       this.manualTrigger = false,
-      this.animate = true})
+      this.animate = true,
+      this.onFinish})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -263,7 +269,8 @@ class Pulse extends StatefulWidget {
 }
 
 /// State class, where the magic happens
-class PulseState extends State<Pulse> with SingleTickerProviderStateMixin {
+class PulseState extends State<Pulse>
+    with SingleTickerProviderStateMixin, AnimateDoState {
   late AnimationController controller;
   bool disposed = false;
   late Animation<double> animationInc;
@@ -289,31 +296,28 @@ class PulseState extends State<Pulse> with SingleTickerProviderStateMixin {
         parent: controller,
         curve: const Interval(0.5, 1, curve: Curves.easeIn)));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        if (!disposed) {
-          (widget.infinite) ? controller.repeat() : controller.forward();
-        }
-      });
-    }
-
-    if (widget.controller is Function) {
-      widget.controller!(controller);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    configAnimation(
+      controller: controller,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate &&
-        widget.delay.inMilliseconds == 0 &&
-        widget.manualTrigger == false) {
-      (widget.infinite) ? controller.repeat() : controller.forward();
-    }
-
-    /// If FALSE, animate everything back to the original state
-    if (!widget.animate) {
-      controller.animateBack(0);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    buildAnimation(
+      controller: controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
 
     return AnimatedBuilder(
         animation: controller,
@@ -345,6 +349,7 @@ class Swing extends StatefulWidget {
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
+  final Function(AnimateDoDirection direction)? onFinish;
 
   Swing(
       {key,
@@ -354,7 +359,8 @@ class Swing extends StatefulWidget {
       this.infinite = false,
       this.controller,
       this.manualTrigger = false,
-      this.animate = true})
+      this.animate = true,
+      this.onFinish})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -368,7 +374,8 @@ class Swing extends StatefulWidget {
 }
 
 /// State class, where the magic happens
-class SwingState extends State<Swing> with SingleTickerProviderStateMixin {
+class SwingState extends State<Swing>
+    with SingleTickerProviderStateMixin, AnimateDoState {
   late AnimationController controller;
   bool disposed = false;
   late Animation<double> animationRotation1;
@@ -420,31 +427,28 @@ class SwingState extends State<Swing> with SingleTickerProviderStateMixin {
             parent: controller,
             curve: const Interval(0.8333, 1, curve: Curves.easeOut)));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        if (!disposed) {
-          (widget.infinite) ? controller.repeat() : controller.forward();
-        }
-      });
-    }
-
-    if (widget.controller is Function) {
-      widget.controller!(controller);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    configAnimation(
+      controller: controller,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate &&
-        widget.delay.inMilliseconds == 0 &&
-        widget.manualTrigger == false) {
-      (widget.infinite) ? controller.repeat() : controller.forward();
-    }
-
-    /// If FALSE, animate everything back to the original state
-    if (!widget.animate) {
-      controller.animateBack(0);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    buildAnimation(
+      controller: controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
 
     return AnimatedBuilder(
         animation: controller,
@@ -487,6 +491,7 @@ class Spin extends StatefulWidget {
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
+  final Function(AnimateDoDirection direction)? onFinish;
   final double spins;
 
   Spin(
@@ -498,7 +503,8 @@ class Spin extends StatefulWidget {
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
-      this.spins = 1})
+      this.spins = 1,
+      this.onFinish})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -512,7 +518,8 @@ class Spin extends StatefulWidget {
 }
 
 /// State class, where the magic happens
-class SpinState extends State<Spin> with SingleTickerProviderStateMixin {
+class SpinState extends State<Spin>
+    with SingleTickerProviderStateMixin, AnimateDoState {
   late AnimationController controller;
   bool disposed = false;
   late Animation<double> spin;
@@ -533,31 +540,28 @@ class SpinState extends State<Spin> with SingleTickerProviderStateMixin {
     spin = Tween<double>(begin: 0, end: widget.spins * 2)
         .animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        if (!disposed) {
-          (widget.infinite) ? controller.repeat() : controller.forward();
-        }
-      });
-    }
-
-    if (widget.controller is Function) {
-      widget.controller!(controller);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    configAnimation(
+      controller: controller,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate &&
-        widget.delay.inMilliseconds == 0 &&
-        widget.manualTrigger == false) {
-      (widget.infinite) ? controller.repeat() : controller.forward();
-    }
-
-    /// If FALSE, animate everything back to the original state
-    if (!widget.animate) {
-      controller.animateBack(0);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    buildAnimation(
+      controller: controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
 
     return AnimatedBuilder(
         animation: controller,
@@ -587,6 +591,7 @@ class SpinPerfect extends StatefulWidget {
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
+  final Function(AnimateDoDirection direction)? onFinish;
   final double spins;
 
   SpinPerfect(
@@ -598,7 +603,8 @@ class SpinPerfect extends StatefulWidget {
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
-      this.spins = 1})
+      this.spins = 1,
+      this.onFinish})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -613,7 +619,7 @@ class SpinPerfect extends StatefulWidget {
 
 /// State class, where the magic happens
 class SpinPerfectState extends State<SpinPerfect>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, AnimateDoState {
   late AnimationController controller;
   bool disposed = false;
   late Animation<double> spin;
@@ -634,31 +640,28 @@ class SpinPerfectState extends State<SpinPerfect>
     spin = Tween<double>(begin: 0, end: widget.spins * 2)
         .animate(CurvedAnimation(parent: controller, curve: Curves.linear));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        if (!disposed) {
-          (widget.infinite) ? controller.repeat() : controller.forward();
-        }
-      });
-    }
-
-    if (widget.controller is Function) {
-      widget.controller!(controller);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    configAnimation(
+      controller: controller,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate &&
-        widget.delay.inMilliseconds == 0 &&
-        widget.manualTrigger == false) {
-      (widget.infinite) ? controller.repeat() : controller.forward();
-    }
-
-    /// If FALSE, animate everything back to the original state
-    if (!widget.animate) {
-      controller.animateBack(0);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    buildAnimation(
+      controller: controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
 
     return AnimatedBuilder(
         animation: controller,
@@ -688,6 +691,7 @@ class Dance extends StatefulWidget {
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
+  final Function(AnimateDoDirection direction)? onFinish;
 
   Dance(
       {key,
@@ -697,7 +701,8 @@ class Dance extends StatefulWidget {
       this.infinite = false,
       this.controller,
       this.manualTrigger = false,
-      this.animate = true})
+      this.animate = true,
+      this.onFinish})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -711,7 +716,8 @@ class Dance extends StatefulWidget {
 }
 
 /// State class, where the magic happens
-class DanceState extends State<Dance> with SingleTickerProviderStateMixin {
+class DanceState extends State<Dance>
+    with SingleTickerProviderStateMixin, AnimateDoState {
   late AnimationController controller;
   bool disposed = false;
   late Animation<double> step1;
@@ -743,31 +749,28 @@ class DanceState extends State<Dance> with SingleTickerProviderStateMixin {
         parent: controller,
         curve: const Interval(0.6666, 1, curve: Curves.bounceOut)));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        if (!disposed) {
-          (widget.infinite) ? controller.repeat() : controller.forward();
-        }
-      });
-    }
-
-    if (widget.controller is Function) {
-      widget.controller!(controller);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    configAnimation(
+      controller: controller,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate &&
-        widget.delay.inMilliseconds == 0 &&
-        widget.manualTrigger == false) {
-      (widget.infinite) ? controller.repeat() : controller.forward();
-    }
-
-    /// If FALSE, animate everything back to the original state
-    if (!widget.animate) {
-      controller.animateBack(0);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    buildAnimation(
+      controller: controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
 
     return AnimatedBuilder(
         animation: controller,
@@ -803,6 +806,7 @@ class Roulette extends StatefulWidget {
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
+  final Function(AnimateDoDirection direction)? onFinish;
   final double spins;
 
   Roulette(
@@ -814,7 +818,8 @@ class Roulette extends StatefulWidget {
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
-      this.spins = 2})
+      this.spins = 2,
+      this.onFinish})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -829,7 +834,7 @@ class Roulette extends StatefulWidget {
 
 /// State class, where the magic happens
 class RouletteState extends State<Roulette>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, AnimateDoState {
   late AnimationController controller;
   bool disposed = false;
   late Animation<double> spin;
@@ -850,31 +855,28 @@ class RouletteState extends State<Roulette>
     spin = Tween<double>(begin: 0, end: widget.spins * 2)
         .animate(CurvedAnimation(parent: controller, curve: Curves.elasticOut));
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        if (!disposed) {
-          (widget.infinite) ? controller.repeat() : controller.forward();
-        }
-      });
-    }
-
-    if (widget.controller is Function) {
-      widget.controller!(controller);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    configAnimation(
+      controller: controller,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate &&
-        widget.delay.inMilliseconds == 0 &&
-        widget.manualTrigger == false) {
-      (widget.infinite) ? controller.repeat() : controller.forward();
-    }
-
-    /// If FALSE, animate everything back to the original state
-    if (!widget.animate) {
-      controller.animateBack(0);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    buildAnimation(
+      controller: controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
 
     return AnimatedBuilder(
         animation: controller,
@@ -904,6 +906,7 @@ class ShakeX extends StatefulWidget {
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
+  final Function(AnimateDoDirection direction)? onFinish;
   final double from;
 
   ShakeX(
@@ -915,7 +918,8 @@ class ShakeX extends StatefulWidget {
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
-      this.from = 10})
+      this.from = 10,
+      this.onFinish})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -930,7 +934,8 @@ class ShakeX extends StatefulWidget {
 
 /// State class,
 /// Controls the animations flow
-class ShakeXState extends State<ShakeX> with SingleTickerProviderStateMixin {
+class ShakeXState extends State<ShakeX>
+    with SingleTickerProviderStateMixin, AnimateDoState {
   late AnimationController controller;
   bool disposed = false;
 
@@ -947,31 +952,28 @@ class ShakeXState extends State<ShakeX> with SingleTickerProviderStateMixin {
 
     controller = AnimationController(duration: widget.duration, vsync: this);
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        if (!disposed) {
-          (widget.infinite) ? controller.repeat() : controller.forward();
-        }
-      });
-    }
-
-    if (widget.controller is Function) {
-      widget.controller!(controller);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    configAnimation(
+      controller: controller,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate &&
-        widget.delay.inMilliseconds == 0 &&
-        widget.manualTrigger == false) {
-      (widget.infinite) ? controller.repeat() : controller.forward();
-    }
-
-    /// If FALSE, animate everything back to the original state
-    if (!widget.animate) {
-      controller.animateBack(0);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    buildAnimation(
+      controller: controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
 
     return AnimatedBuilder(
         animation: controller,
@@ -1001,6 +1003,7 @@ class ShakeY extends StatefulWidget {
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
+  final Function(AnimateDoDirection direction)? onFinish;
   final double from;
 
   ShakeY(
@@ -1012,7 +1015,8 @@ class ShakeY extends StatefulWidget {
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
-      this.from = 80})
+      this.from = 80,
+      this.onFinish})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -1027,7 +1031,8 @@ class ShakeY extends StatefulWidget {
 
 /// State class,
 /// Controls the animations flow
-class ShakeYState extends State<ShakeY> with SingleTickerProviderStateMixin {
+class ShakeYState extends State<ShakeY>
+    with SingleTickerProviderStateMixin, AnimateDoState {
   late AnimationController controller;
   bool disposed = false;
 
@@ -1044,31 +1049,28 @@ class ShakeYState extends State<ShakeY> with SingleTickerProviderStateMixin {
 
     controller = AnimationController(duration: widget.duration, vsync: this);
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        if (!disposed) {
-          (widget.infinite) ? controller.repeat() : controller.forward();
-        }
-      });
-    }
-
-    if (widget.controller is Function) {
-      widget.controller!(controller);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    configAnimation(
+      controller: controller,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate &&
-        widget.delay.inMilliseconds == 0 &&
-        widget.manualTrigger == false) {
-      (widget.infinite) ? controller.repeat() : controller.forward();
-    }
-
-    /// If FALSE, animate everything back to the original state
-    if (!widget.animate) {
-      controller.animateBack(0);
-    }
+    /// Provided by the mixing [AnimateDoState] class
+    buildAnimation(
+      controller: controller,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      delay: widget.delay,
+      disposed: disposed,
+    );
 
     return AnimatedBuilder(
         animation: controller,

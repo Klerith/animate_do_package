@@ -1,3 +1,13 @@
+#### [3.2.0] - New Docs
+* onFinish added
+* fix delay bug
+* reformat code
+* AnimateDoState Mixing added
+* AnimateDoDirection type added
+
+
+
+
 #### [3.1.2] - New Docs
 * Dart format .
   
