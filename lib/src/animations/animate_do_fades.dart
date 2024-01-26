@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../types/animate_do_mixins.dart';
 import '../types/animate_do_types.dart';
 
-/// Class [FadeIn]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
@@ -108,7 +107,6 @@ class FadeInState extends State<FadeIn>
   }
 }
 
-/// Class [FadeIn]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
@@ -222,7 +220,6 @@ class FadeInDownState extends State<FadeInDown>
   }
 }
 
-/// Class [FadeInDownBig]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
@@ -274,7 +271,6 @@ class FadeInDownBig extends StatelessWidget {
       child: child);
 }
 
-/// Class [FadeInUp]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
@@ -388,7 +384,6 @@ class FadeInUpState extends State<FadeInUp>
   }
 }
 
-/// Class [FadeInUpBig]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
@@ -442,7 +437,6 @@ class FadeInUpBig extends StatelessWidget {
       );
 }
 
-/// Class [FadeInLeft]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
@@ -548,7 +542,6 @@ class FadeInLeftState extends State<FadeInLeft>
   }
 }
 
-/// Class [FadeInLeftBig]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
@@ -602,7 +595,6 @@ class FadeInLeftBig extends StatelessWidget {
       );
 }
 
-/// Class [FadeInRight]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
@@ -708,7 +700,6 @@ class FadeInRightState extends State<FadeInRight>
   }
 }
 
-/// Class [FadeInRightBig]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take

@@ -12,26 +12,21 @@ class MyApp extends StatelessWidget {
       title: 'Material App',
       theme: ThemeData.light(useMaterial3: true),
       home: Scaffold(
-      body: Center(
-
+        body: Center(
           child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-
-              FadeInLeft(child: const Square() ),
-              FadeInUp(child: const Square() ),
-              FadeInDown(child: const Square() ),
-              FadeInRight(child: const Square() ),
-              
-          ],
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              FadeInLeft(child: const Square()),
+              FadeInUp(child: const Square()),
+              FadeInDown(child: const Square()),
+              FadeInRight(child: const Square()),
+            ],
           ),
-
+        ),
       ),
-  ),
     );
   }
 }
-
 
 class Square extends StatelessWidget {
   const Square({Key? key}) : super(key: key);

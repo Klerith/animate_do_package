@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 import '../types/animate_do_mixins.dart';
 import '../types/animate_do_types.dart';
 
-/// Class [FadeOut]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// the controller can be use to repeat, reverse and anything you want, its just an animation controller
+/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
+/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
+/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
+/// [curve]: curve for the animation
 class FadeOut extends StatefulWidget {
   final Widget child;
   final Duration duration;
@@ -98,13 +100,15 @@ class FadeOutState extends State<FadeOut>
   }
 }
 
-/// Class [FadeOutDown]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// the controller can be use to repeat, reverse and anything you want, its just an animation controller
+/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
+/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
+/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
+/// [curve]: curve for the animation
 class FadeOutDown extends StatefulWidget {
   final Widget child;
   final Duration duration;
@@ -202,13 +206,15 @@ class FadeOutDownState extends State<FadeOutDown>
   }
 }
 
-/// Class [FadeOutDownBig]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// the controller can be use to repeat, reverse and anything you want, its just an animation controller
+/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
+/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
+/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
+/// [curve]: curve for the animation
 class FadeOutDownBig extends StatelessWidget {
   final Widget child;
   final Duration duration;
@@ -253,13 +259,15 @@ class FadeOutDownBig extends StatelessWidget {
       );
 }
 
-/// Class [FadeOutUp]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// the controller can be use to repeat, reverse and anything you want, its just an animation controller
+/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
+/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
+/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
+/// [curve]: curve for the animation
 class FadeOutUp extends StatefulWidget {
   final Widget child;
   final Duration duration;
@@ -355,13 +363,15 @@ class FadeOutUpState extends State<FadeOutUp>
   }
 }
 
-/// Class [FadeOutUpBig]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// the controller can be use to repeat, reverse and anything you want, its just an animation controller
+/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
+/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
+/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
+/// [curve]: curve for the animation
 class FadeOutUpBig extends StatelessWidget {
   final Widget child;
   final Duration duration;
@@ -406,13 +416,15 @@ class FadeOutUpBig extends StatelessWidget {
       );
 }
 
-/// Class [FadeOutLeft]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// the controller can be use to repeat, reverse and anything you want, its just an animation controller
+/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
+/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
+/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
+/// [curve]: curve for the animation
 class FadeOutLeft extends StatefulWidget {
   final Widget child;
   final Duration duration;
@@ -508,13 +520,15 @@ class FadeOutLeftState extends State<FadeOutLeft>
   }
 }
 
-/// Class [FadeOutLeftBig]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// the controller can be use to repeat, reverse and anything you want, its just an animation controller
+/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
+/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
+/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
+/// [curve]: curve for the animation
 class FadeOutLeftBig extends StatelessWidget {
   final Widget child;
   final Duration duration;
@@ -559,13 +573,15 @@ class FadeOutLeftBig extends StatelessWidget {
       );
 }
 
-/// Class [FadeOutRight]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// the controller can be use to repeat, reverse and anything you want, its just an animation controller
+/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
+/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
+/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
+/// [curve]: curve for the animation
 class FadeOutRight extends StatelessWidget {
   final Widget child;
   final Duration duration;
@@ -610,13 +626,15 @@ class FadeOutRight extends StatelessWidget {
       );
 }
 
-/// Class [FadeOutRightBig]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// the controller can be use to repeat, reverse and anything you want, its just an animation controller
+/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
+/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
+/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
+/// [curve]: curve for the animation
 class FadeOutRightBig extends StatelessWidget {
   final Widget child;
   final Duration duration;

@@ -5,15 +5,17 @@ import 'package:flutter/material.dart';
 import '../types/animate_do_mixins.dart';
 import '../types/animate_do_types.dart';
 
-/// Class [Bounce]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// the controller can be use to repeat, reverse and anything you want, its just an animation controller
-/// [from] from where you want to start the animation
-/// [infinite] loops the animation until the widget is destroyed
+/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
+/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
+/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
+/// [curve]: curve for the animation
+/// [infinite]: loops the animation until the widget is destroyed
+/// [from]: starting point for the animation
 class Bounce extends StatefulWidget {
   final Widget child;
   final Duration duration;
@@ -119,15 +121,16 @@ class BounceState extends State<Bounce>
   }
 }
 
-/// Class [Flash]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// the controller can be use to repeat, reverse and anything you want, its just an animation controller
-/// [from] from where you want to start the animation
-/// [infinite] loops the animation until the widget is destroyed
+/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
+/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
+/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
+/// [curve]: curve for the animation
+/// [infinite]: loops the animation until the widget is destroyed
 class Flash extends StatefulWidget {
   final Widget child;
   final Duration duration;
@@ -233,15 +236,16 @@ class FlashState extends State<Flash>
   }
 }
 
-/// Class [Pulse]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// the controller can be use to repeat, reverse and anything you want, its just an animation controller
-/// [from] from where you want to start the animation
-/// [infinite] loops the animation until the widget is destroyed
+/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
+/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
+/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
+/// [curve]: curve for the animation
+/// [infinite]: loops the animation until the widget is destroyed
 class Pulse extends StatefulWidget {
   final Widget child;
   final Duration duration;
@@ -341,15 +345,16 @@ class PulseState extends State<Pulse>
   }
 }
 
-/// Class [Swing]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// the controller can be use to repeat, reverse and anything you want, its just an animation controller
-/// [from] from where you want to start the animation
-/// [infinite] loops the animation until the widget is destroyed
+/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
+/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
+/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
+/// [curve]: curve for the animation
+/// [infinite]: loops the animation until the widget is destroyed
 class Swing extends StatefulWidget {
   final Widget child;
   final Duration duration;
@@ -485,16 +490,17 @@ class SwingState extends State<Swing>
   }
 }
 
-/// Class [Spin]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// the controller can be use to repeat, reverse and anything you want, its just an animation controller
-/// [from] from where you want to start the animation
-/// [infinite] loops the animation until the widget is destroyed
-/// [spins] number of spins that you want
+/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
+/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
+/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
+/// [curve]: curve for the animation
+/// [infinite]: loops the animation until the widget is destroyed
+/// [spins]: how many spins you want to do
 class Spin extends StatefulWidget {
   final Widget child;
   final Duration duration;
@@ -589,15 +595,17 @@ class SpinState extends State<Spin>
   }
 }
 
-/// Class [SpinPerfect]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// the controller can be use to repeat, reverse and anything you want, its just an animation controller
-/// [from] from where you want to start the animation
-/// [infinite] loops the animation until the widget is destroyed
+/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
+/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
+/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
+/// [curve]: curve for the animation
+/// [infinite]: loops the animation until the widget is destroyed
+/// [spins]: how many spins you want to do
 class SpinPerfect extends StatelessWidget {
   final Widget child;
   final Duration duration;
@@ -641,15 +649,16 @@ class SpinPerfect extends StatelessWidget {
       child: child);
 }
 
-/// Class [Dance]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// the controller can be use to repeat, reverse and anything you want, its just an animation controller
-/// [from] from where you want to start the animation
-/// [infinite] loops the animation until the widget is destroyed
+/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
+/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
+/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
+/// [curve]: curve for the animation
+/// [infinite]: loops the animation until the widget is destroyed
 class Dance extends StatefulWidget {
   final Widget child;
   final Duration duration;
@@ -757,15 +766,17 @@ class DanceState extends State<Dance>
   }
 }
 
-/// Class [Roulette]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// the controller can be use to repeat, reverse and anything you want, its just an animation controller
-/// [from] from where you want to start the animation
-/// [infinite] loops the animation until the widget is destroyed
+/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
+/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
+/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
+/// [curve]: curve for the animation
+/// [infinite]: loops the animation until the widget is destroyed
+/// [spins]: how many spins you want to do
 class Roulette extends StatefulWidget {
   final Widget child;
   final Duration duration;
@@ -860,15 +871,17 @@ class RouletteState extends State<Roulette>
   }
 }
 
-/// Class [ShakeX]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// the controller can be use to repeat, reverse and anything you want, its just an animation controller
-/// [from] from where you want to start the animation
-/// [infinite] loops the animation until the widget is destroyed
+/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
+/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
+/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
+/// [curve]: curve for the animation
+/// [infinite]: loops the animation until the widget is destroyed
+/// [spins]: how many spins you want to do
 class ShakeX extends StatefulWidget {
   final Widget child;
   final Duration duration;

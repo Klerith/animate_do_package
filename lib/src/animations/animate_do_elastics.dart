@@ -4,13 +4,15 @@ import '../types/animate_do_mixins.dart';
 import '../types/animate_do_types.dart';
 import 'animate_do_fades.dart';
 
-/// Class [ElasticIn]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// the controller can be use to repeat, reverse and anything you want, its just an animation controller
+/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
+/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
+/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
+/// [curve]: curve for the animation
 class ElasticIn extends StatefulWidget {
   final Widget child;
   final Duration duration;
