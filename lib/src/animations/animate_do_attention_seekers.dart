@@ -23,6 +23,7 @@ class Bounce extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
+  final Curve curve;
   final double from;
 
   Bounce(
@@ -35,7 +36,8 @@ class Bounce extends StatefulWidget {
       this.manualTrigger = false,
       this.animate = true,
       this.from = 50,
-      this.onFinish})
+      this.onFinish,
+      this.curve = Curves.bounceOut})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -76,8 +78,7 @@ class BounceState extends State<Bounce>
 
     animationBounce = Tween<double>(begin: widget.from * -1, end: 0.0).animate(
         CurvedAnimation(
-            curve: const Interval(0.35, 1, curve: Curves.bounceOut),
-            parent: controller));
+            curve: Interval(0.35, 1, curve: widget.curve), parent: controller));
 
     /// Provided by the mixing [AnimateDoState] class
     configAnimation(
@@ -88,6 +89,7 @@ class BounceState extends State<Bounce>
       manualTrigger: widget.manualTrigger,
       delay: widget.delay,
       disposed: disposed,
+      infinite: widget.infinite,
     );
   }
 
@@ -100,6 +102,7 @@ class BounceState extends State<Bounce>
       manualTrigger: widget.manualTrigger,
       delay: widget.delay,
       disposed: disposed,
+      infinite: widget.infinite,
     );
 
     return AnimatedBuilder(
@@ -134,6 +137,7 @@ class Flash extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
+  final Curve curve;
 
   Flash(
       {key,
@@ -144,7 +148,8 @@ class Flash extends StatefulWidget {
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
-      this.onFinish})
+      this.onFinish,
+      this.curve = Curves.linearToEaseOut})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -179,25 +184,25 @@ class FlashState extends State<Flash>
 
     controller = AnimationController(duration: widget.duration, vsync: this);
 
-    opacityOut1 = Tween<double>(begin: 1, end: 0).animate(
-        CurvedAnimation(parent: controller, curve: const Interval(0, 0.25)));
-    opacityIn1 = Tween<double>(begin: 0, end: 1).animate(
-        CurvedAnimation(parent: controller, curve: const Interval(0.25, 0.5)));
-    opacityOut2 = Tween<double>(begin: 1, end: 0).animate(
-        CurvedAnimation(parent: controller, curve: const Interval(0.5, 0.75)));
-    opacityIn2 = Tween<double>(begin: 0, end: 1).animate(
-        CurvedAnimation(parent: controller, curve: const Interval(0.75, 1)));
+    opacityOut1 = Tween<double>(begin: 1, end: 0).animate(CurvedAnimation(
+        parent: controller, curve: Interval(0, 0.25, curve: widget.curve)));
+    opacityIn1 = Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(
+        parent: controller, curve: Interval(0.25, 0.5, curve: widget.curve)));
+    opacityOut2 = Tween<double>(begin: 1, end: 0).animate(CurvedAnimation(
+        parent: controller, curve: Interval(0.5, 0.75, curve: widget.curve)));
+    opacityIn2 = Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(
+        parent: controller, curve: Interval(0.75, 1, curve: widget.curve)));
 
     /// Provided by the mixing [AnimateDoState] class
     configAnimation(
-      controller: controller,
-      onFinish: widget.onFinish,
-      controllerCallback: widget.controller,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
-    );
+        controller: controller,
+        onFinish: widget.onFinish,
+        controllerCallback: widget.controller,
+        animate: widget.animate,
+        manualTrigger: widget.manualTrigger,
+        delay: widget.delay,
+        disposed: disposed,
+        infinite: widget.infinite);
   }
 
   @override
@@ -209,6 +214,7 @@ class FlashState extends State<Flash>
       manualTrigger: widget.manualTrigger,
       delay: widget.delay,
       disposed: disposed,
+      infinite: widget.infinite,
     );
 
     return AnimatedBuilder(
@@ -245,6 +251,7 @@ class Pulse extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
+  final Curve curve;
 
   Pulse(
       {key,
@@ -255,7 +262,8 @@ class Pulse extends StatefulWidget {
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
-      this.onFinish})
+      this.onFinish,
+      this.curve = Curves.easeOut})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -290,22 +298,22 @@ class PulseState extends State<Pulse>
 
     animationInc = Tween<double>(begin: 1, end: 1.5).animate(CurvedAnimation(
         parent: controller,
-        curve: const Interval(0, 0.5, curve: Curves.easeOut)));
+        curve: Interval(0, 0.5, curve: widget.curve))); // Curves.easeOut
 
     animationDec = Tween<double>(begin: 1.5, end: 1).animate(CurvedAnimation(
         parent: controller,
-        curve: const Interval(0.5, 1, curve: Curves.easeIn)));
+        curve: Interval(0.5, 1, curve: widget.curve))); // Curves.easeIn
 
     /// Provided by the mixing [AnimateDoState] class
     configAnimation(
-      controller: controller,
-      onFinish: widget.onFinish,
-      controllerCallback: widget.controller,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
-    );
+        controller: controller,
+        onFinish: widget.onFinish,
+        controllerCallback: widget.controller,
+        animate: widget.animate,
+        manualTrigger: widget.manualTrigger,
+        delay: widget.delay,
+        disposed: disposed,
+        infinite: widget.infinite);
   }
 
   @override
@@ -317,6 +325,7 @@ class PulseState extends State<Pulse>
       manualTrigger: widget.manualTrigger,
       delay: widget.delay,
       disposed: disposed,
+      infinite: widget.infinite,
     );
 
     return AnimatedBuilder(
@@ -350,6 +359,7 @@ class Swing extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
+  final Curve curve;
 
   Swing(
       {key,
@@ -360,7 +370,8 @@ class Swing extends StatefulWidget {
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
-      this.onFinish})
+      this.onFinish,
+      this.curve = Curves.easeOut})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -405,22 +416,22 @@ class SwingState extends State<Swing>
     animationRotation2 = Tween<double>(begin: -0.5, end: 0.5).animate(
         CurvedAnimation(
             parent: controller,
-            curve: const Interval(0.1666, 0.3333, curve: Curves.easeInOut)));
+            curve: Interval(0.1666, 0.3333, curve: widget.curve)));
 
     animationRotation3 = Tween<double>(begin: 0.5, end: -0.5).animate(
         CurvedAnimation(
             parent: controller,
-            curve: const Interval(0.3333, 0.4999, curve: Curves.easeInOut)));
+            curve: Interval(0.3333, 0.4999, curve: widget.curve)));
 
     animationRotation4 = Tween<double>(begin: -0.5, end: 0.4).animate(
         CurvedAnimation(
             parent: controller,
-            curve: const Interval(0.4999, 0.6666, curve: Curves.easeInOut)));
+            curve: Interval(0.4999, 0.6666, curve: widget.curve)));
 
     animationRotation5 = Tween<double>(begin: 0.4, end: -0.4).animate(
         CurvedAnimation(
             parent: controller,
-            curve: const Interval(0.6666, 0.8333, curve: Curves.easeInOut)));
+            curve: Interval(0.6666, 0.8333, curve: widget.curve)));
 
     animationRotation6 = Tween<double>(begin: -0.4, end: 0).animate(
         CurvedAnimation(
@@ -429,14 +440,14 @@ class SwingState extends State<Swing>
 
     /// Provided by the mixing [AnimateDoState] class
     configAnimation(
-      controller: controller,
-      onFinish: widget.onFinish,
-      controllerCallback: widget.controller,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
-    );
+        controller: controller,
+        onFinish: widget.onFinish,
+        controllerCallback: widget.controller,
+        animate: widget.animate,
+        manualTrigger: widget.manualTrigger,
+        delay: widget.delay,
+        disposed: disposed,
+        infinite: widget.infinite);
   }
 
   @override
@@ -448,6 +459,7 @@ class SwingState extends State<Swing>
       manualTrigger: widget.manualTrigger,
       delay: widget.delay,
       disposed: disposed,
+      infinite: widget.infinite,
     );
 
     return AnimatedBuilder(
@@ -492,6 +504,7 @@ class Spin extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
+  final Curve curve;
   final double spins;
 
   Spin(
@@ -504,7 +517,8 @@ class Spin extends StatefulWidget {
       this.manualTrigger = false,
       this.animate = true,
       this.spins = 1,
-      this.onFinish})
+      this.onFinish,
+      this.curve = Curves.easeInOut})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -538,18 +552,18 @@ class SpinState extends State<Spin>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     spin = Tween<double>(begin: 0, end: widget.spins * 2)
-        .animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut));
+        .animate(CurvedAnimation(parent: controller, curve: widget.curve));
 
     /// Provided by the mixing [AnimateDoState] class
     configAnimation(
-      controller: controller,
-      onFinish: widget.onFinish,
-      controllerCallback: widget.controller,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
-    );
+        controller: controller,
+        onFinish: widget.onFinish,
+        controllerCallback: widget.controller,
+        animate: widget.animate,
+        manualTrigger: widget.manualTrigger,
+        delay: widget.delay,
+        disposed: disposed,
+        infinite: widget.infinite);
   }
 
   @override
@@ -561,6 +575,7 @@ class SpinState extends State<Spin>
       manualTrigger: widget.manualTrigger,
       delay: widget.delay,
       disposed: disposed,
+      infinite: widget.infinite,
     );
 
     return AnimatedBuilder(
@@ -583,7 +598,7 @@ class SpinState extends State<Spin>
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
 /// [from] from where you want to start the animation
 /// [infinite] loops the animation until the widget is destroyed
-class SpinPerfect extends StatefulWidget {
+class SpinPerfect extends StatelessWidget {
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -592,6 +607,7 @@ class SpinPerfect extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
+  final Curve curve;
   final double spins;
 
   SpinPerfect(
@@ -604,7 +620,8 @@ class SpinPerfect extends StatefulWidget {
       this.manualTrigger = false,
       this.animate = true,
       this.spins = 1,
-      this.onFinish})
+      this.onFinish,
+      this.curve = Curves.linear})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -614,64 +631,14 @@ class SpinPerfect extends StatefulWidget {
   }
 
   @override
-  SpinPerfectState createState() => SpinPerfectState();
-}
-
-/// State class, where the magic happens
-class SpinPerfectState extends State<SpinPerfect>
-    with SingleTickerProviderStateMixin, AnimateDoState {
-  late AnimationController controller;
-  bool disposed = false;
-  late Animation<double> spin;
-
-  @override
-  void dispose() {
-    disposed = true;
-    controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    controller = AnimationController(duration: widget.duration, vsync: this);
-
-    spin = Tween<double>(begin: 0, end: widget.spins * 2)
-        .animate(CurvedAnimation(parent: controller, curve: Curves.linear));
-
-    /// Provided by the mixing [AnimateDoState] class
-    configAnimation(
+  Widget build(BuildContext context) => Spin(
+      duration: duration,
+      delay: delay,
       controller: controller,
-      onFinish: widget.onFinish,
-      controllerCallback: widget.controller,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    /// Provided by the mixing [AnimateDoState] class
-    buildAnimation(
-      controller: controller,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
-    );
-
-    return AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget? child) {
-          return Transform.rotate(
-            angle: spin.value * 3.141516,
-            child: widget.child,
-          );
-        });
-  }
+      manualTrigger: manualTrigger,
+      animate: animate,
+      curve: curve,
+      child: child);
 }
 
 /// Class [Dance]:
@@ -692,6 +659,7 @@ class Dance extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
+  final Curve curve;
 
   Dance(
       {key,
@@ -702,7 +670,8 @@ class Dance extends StatefulWidget {
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
-      this.onFinish})
+      this.onFinish,
+      this.curve = Curves.bounceOut})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -738,27 +707,25 @@ class DanceState extends State<Dance>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     step1 = Tween<double>(begin: 0, end: -0.2).animate(CurvedAnimation(
-        parent: controller,
-        curve: const Interval(0, 0.3333, curve: Curves.bounceOut)));
+        parent: controller, curve: Interval(0, 0.3333, curve: widget.curve)));
 
     step2 = Tween<double>(begin: -0.2, end: 0.2).animate(CurvedAnimation(
         parent: controller,
-        curve: const Interval(0.3333, 0.6666, curve: Curves.bounceOut)));
+        curve: Interval(0.3333, 0.6666, curve: widget.curve)));
 
     step3 = Tween<double>(begin: 0.2, end: 0).animate(CurvedAnimation(
-        parent: controller,
-        curve: const Interval(0.6666, 1, curve: Curves.bounceOut)));
+        parent: controller, curve: Interval(0.6666, 1, curve: widget.curve)));
 
     /// Provided by the mixing [AnimateDoState] class
     configAnimation(
-      controller: controller,
-      onFinish: widget.onFinish,
-      controllerCallback: widget.controller,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
-    );
+        controller: controller,
+        onFinish: widget.onFinish,
+        controllerCallback: widget.controller,
+        animate: widget.animate,
+        manualTrigger: widget.manualTrigger,
+        delay: widget.delay,
+        disposed: disposed,
+        infinite: widget.infinite);
   }
 
   @override
@@ -770,6 +737,7 @@ class DanceState extends State<Dance>
       manualTrigger: widget.manualTrigger,
       delay: widget.delay,
       disposed: disposed,
+      infinite: widget.infinite,
     );
 
     return AnimatedBuilder(
@@ -807,6 +775,7 @@ class Roulette extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
+  final Curve curve;
   final double spins;
 
   Roulette(
@@ -819,7 +788,8 @@ class Roulette extends StatefulWidget {
       this.manualTrigger = false,
       this.animate = true,
       this.spins = 2,
-      this.onFinish})
+      this.onFinish,
+      this.curve = Curves.elasticOut})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -853,18 +823,18 @@ class RouletteState extends State<Roulette>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     spin = Tween<double>(begin: 0, end: widget.spins * 2)
-        .animate(CurvedAnimation(parent: controller, curve: Curves.elasticOut));
+        .animate(CurvedAnimation(parent: controller, curve: widget.curve));
 
     /// Provided by the mixing [AnimateDoState] class
     configAnimation(
-      controller: controller,
-      onFinish: widget.onFinish,
-      controllerCallback: widget.controller,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
-    );
+        controller: controller,
+        onFinish: widget.onFinish,
+        controllerCallback: widget.controller,
+        animate: widget.animate,
+        manualTrigger: widget.manualTrigger,
+        delay: widget.delay,
+        disposed: disposed,
+        infinite: widget.infinite);
   }
 
   @override
@@ -876,6 +846,7 @@ class RouletteState extends State<Roulette>
       manualTrigger: widget.manualTrigger,
       delay: widget.delay,
       disposed: disposed,
+      infinite: widget.infinite,
     );
 
     return AnimatedBuilder(
@@ -907,19 +878,21 @@ class ShakeX extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
+  final Curve curve;
   final double from;
 
   ShakeX(
       {key,
       required this.child,
-      this.duration = const Duration(milliseconds: 800),
+      this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.infinite = false,
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
-      this.from = 10,
-      this.onFinish})
+      this.from = 20,
+      this.onFinish,
+      this.curve = Curves.easeInOut})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -937,6 +910,8 @@ class ShakeX extends StatefulWidget {
 class ShakeXState extends State<ShakeX>
     with SingleTickerProviderStateMixin, AnimateDoState {
   late AnimationController controller;
+  late Animation<double> shakeAnimation;
+
   bool disposed = false;
 
   @override
@@ -952,16 +927,18 @@ class ShakeXState extends State<ShakeX>
 
     controller = AnimationController(duration: widget.duration, vsync: this);
 
+    shakeAnimation = CurvedAnimation(parent: controller, curve: widget.curve);
+
     /// Provided by the mixing [AnimateDoState] class
     configAnimation(
-      controller: controller,
-      onFinish: widget.onFinish,
-      controllerCallback: widget.controller,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
-    );
+        controller: controller,
+        onFinish: widget.onFinish,
+        controllerCallback: widget.controller,
+        animate: widget.animate,
+        manualTrigger: widget.manualTrigger,
+        delay: widget.delay,
+        disposed: disposed,
+        infinite: widget.infinite);
   }
 
   @override
@@ -973,13 +950,14 @@ class ShakeXState extends State<ShakeX>
       manualTrigger: widget.manualTrigger,
       delay: widget.delay,
       disposed: disposed,
+      infinite: widget.infinite,
     );
 
     return AnimatedBuilder(
         animation: controller,
         builder: (context, child) {
           return Transform.translate(
-            offset: Offset(sin(4 * pi * controller.value) * widget.from, 0),
+            offset: Offset(sin(4 * pi * shakeAnimation.value) * widget.from, 0),
             child: widget.child,
           );
         });
@@ -1004,6 +982,7 @@ class ShakeY extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
+  final Curve curve;
   final double from;
 
   ShakeY(
@@ -1015,8 +994,9 @@ class ShakeY extends StatefulWidget {
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
-      this.from = 80,
-      this.onFinish})
+      this.from = 20,
+      this.onFinish,
+      this.curve = Curves.easeInOut})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -1034,6 +1014,7 @@ class ShakeY extends StatefulWidget {
 class ShakeYState extends State<ShakeY>
     with SingleTickerProviderStateMixin, AnimateDoState {
   late AnimationController controller;
+  late Animation<double> shakeAnimation;
   bool disposed = false;
 
   @override
@@ -1048,17 +1029,18 @@ class ShakeYState extends State<ShakeY>
     super.initState();
 
     controller = AnimationController(duration: widget.duration, vsync: this);
+    shakeAnimation = CurvedAnimation(parent: controller, curve: widget.curve);
 
     /// Provided by the mixing [AnimateDoState] class
     configAnimation(
-      controller: controller,
-      onFinish: widget.onFinish,
-      controllerCallback: widget.controller,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
-    );
+        controller: controller,
+        onFinish: widget.onFinish,
+        controllerCallback: widget.controller,
+        animate: widget.animate,
+        manualTrigger: widget.manualTrigger,
+        delay: widget.delay,
+        disposed: disposed,
+        infinite: widget.infinite);
   }
 
   @override
@@ -1070,13 +1052,14 @@ class ShakeYState extends State<ShakeY>
       manualTrigger: widget.manualTrigger,
       delay: widget.delay,
       disposed: disposed,
+      infinite: widget.infinite,
     );
 
     return AnimatedBuilder(
         animation: controller,
         builder: (context, child) {
           return Transform.translate(
-            offset: Offset(0, sin(4 * pi * controller.value) * widget.from),
+            offset: Offset(0, sin(4 * pi * shakeAnimation.value) * widget.from),
             child: widget.child,
           );
         });

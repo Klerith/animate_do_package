@@ -18,6 +18,7 @@ class JelloIn extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
+  final Curve curve;
 
   JelloIn(
       {key,
@@ -27,7 +28,8 @@ class JelloIn extends StatefulWidget {
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
-      this.onFinish})
+      this.onFinish,
+      this.curve = Curves.bounceOut})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -62,7 +64,7 @@ class JelloInState extends State<JelloIn>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     rotation = Tween<double>(begin: 1.5, end: 0.0)
-        .animate(CurvedAnimation(parent: controller, curve: Curves.bounceOut));
+        .animate(CurvedAnimation(parent: controller, curve: widget.curve));
 
     opacity = Tween<double>(begin: 0, end: 1).animate(
         CurvedAnimation(parent: controller, curve: const Interval(0, 0.65)));

@@ -19,18 +19,20 @@ class ZoomIn extends StatefulWidget {
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
   final double from;
+  final Curve curve;
 
-  ZoomIn(
-      {key,
-      required this.child,
-      this.duration = const Duration(milliseconds: 500),
-      this.delay = const Duration(milliseconds: 0),
-      this.controller,
-      this.manualTrigger = false,
-      this.animate = true,
-      this.from = 1.0,
-      this.onFinish})
-      : super(key: key) {
+  ZoomIn({
+    key,
+    required this.child,
+    this.duration = const Duration(milliseconds: 800),
+    this.delay = const Duration(milliseconds: 0),
+    this.controller,
+    this.manualTrigger = false,
+    this.animate = true,
+    this.from = 1.0,
+    this.onFinish,
+    this.curve = Curves.easeInOutCubicEmphasized,
+  }) : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
           'Then you must provide the controller property, that is a callback like:\n\n'
@@ -48,7 +50,6 @@ class ZoomInState extends State<ZoomIn>
   late AnimationController controller;
   bool disposed = false;
   late Animation<double> zoom;
-  late Animation<double> opacity;
 
   @override
   void dispose() {
@@ -64,10 +65,7 @@ class ZoomInState extends State<ZoomIn>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     zoom = Tween(begin: 0.0, end: widget.from)
-        .animate(CurvedAnimation(curve: Curves.easeOut, parent: controller));
-
-    opacity = Tween<double>(begin: 0.0, end: 1.0).animate(
-        CurvedAnimation(parent: controller, curve: const Interval(0, 0.65)));
+        .animate(CurvedAnimation(curve: widget.curve, parent: controller));
 
     /// Provided by the mixing [AnimateDoState] class
     configAnimation(
@@ -97,10 +95,7 @@ class ZoomInState extends State<ZoomIn>
         builder: (BuildContext context, Widget? child) {
           return Transform.scale(
             scale: zoom.value,
-            child: Opacity(
-              opacity: opacity.value,
-              child: widget.child,
-            ),
+            child: widget.child,
           );
         });
   }
@@ -122,18 +117,20 @@ class ZoomOut extends StatefulWidget {
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
   final double from;
+  final Curve curve;
 
-  ZoomOut(
-      {key,
-      required this.child,
-      this.duration = const Duration(milliseconds: 500),
-      this.delay = const Duration(milliseconds: 0),
-      this.controller,
-      this.manualTrigger = false,
-      this.animate = true,
-      this.from = 0.0,
-      this.onFinish})
-      : super(key: key) {
+  ZoomOut({
+    key,
+    required this.child,
+    this.duration = const Duration(milliseconds: 800),
+    this.delay = const Duration(milliseconds: 0),
+    this.controller,
+    this.manualTrigger = false,
+    this.animate = true,
+    this.from = 0.0,
+    this.onFinish,
+    this.curve = Curves.easeInOutCubicEmphasized,
+  }) : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
           'Then you must provide the controller property, that is a callback like:\n\n'
@@ -151,7 +148,6 @@ class ZoomOutState extends State<ZoomOut>
   late AnimationController controller;
   bool disposed = false;
   late Animation<double> zoom;
-  late Animation<double> opacity;
 
   @override
   void dispose() {
@@ -167,10 +163,7 @@ class ZoomOutState extends State<ZoomOut>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     zoom = Tween(begin: 1.0, end: widget.from)
-        .animate(CurvedAnimation(curve: Curves.easeOut, parent: controller));
-
-    opacity = Tween<double>(begin: 1.0, end: 0.0).animate(
-        CurvedAnimation(parent: controller, curve: const Interval(0, 0.65)));
+        .animate(CurvedAnimation(curve: widget.curve, parent: controller));
 
     /// Provided by the mixing [AnimateDoState] class
     configAnimation(
@@ -198,13 +191,7 @@ class ZoomOutState extends State<ZoomOut>
     return AnimatedBuilder(
         animation: controller,
         builder: (BuildContext context, Widget? child) {
-          return Transform.scale(
-            scale: zoom.value,
-            child: Opacity(
-              opacity: opacity.value,
-              child: widget.child,
-            ),
-          );
+          return Transform.scale(scale: zoom.value, child: widget.child);
         });
   }
 }

@@ -18,17 +18,19 @@ class FlipInX extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
+  final Curve curve;
 
-  FlipInX(
-      {key,
-      required this.child,
-      this.duration = const Duration(milliseconds: 800),
-      this.delay = const Duration(milliseconds: 0),
-      this.controller,
-      this.manualTrigger = false,
-      this.animate = true,
-      this.onFinish})
-      : super(key: key) {
+  FlipInX({
+    key,
+    required this.child,
+    this.duration = const Duration(milliseconds: 800),
+    this.delay = const Duration(milliseconds: 0),
+    this.controller,
+    this.manualTrigger = false,
+    this.animate = true,
+    this.onFinish,
+    this.curve = Curves.easeOut,
+  }) : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
           'Then you must provide the controller property, that is a callback like:\n\n'
@@ -62,7 +64,7 @@ class FlipInXState extends State<FlipInX>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     rotation = Tween<double>(begin: 1.5, end: 0.0)
-        .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
+        .animate(CurvedAnimation(parent: controller, curve: widget.curve));
 
     opacity = Tween<double>(begin: 0, end: 1).animate(
         CurvedAnimation(parent: controller, curve: const Interval(0, 0.65)));
@@ -119,17 +121,19 @@ class FlipInY extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
+  final Curve curve;
 
-  FlipInY(
-      {key,
-      required this.child,
-      this.duration = const Duration(milliseconds: 800),
-      this.delay = const Duration(milliseconds: 0),
-      this.controller,
-      this.manualTrigger = false,
-      this.animate = true,
-      this.onFinish})
-      : super(key: key) {
+  FlipInY({
+    key,
+    required this.child,
+    this.duration = const Duration(milliseconds: 800),
+    this.delay = const Duration(milliseconds: 0),
+    this.controller,
+    this.manualTrigger = false,
+    this.animate = true,
+    this.onFinish,
+    this.curve = Curves.easeOut,
+  }) : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
           'Then you must provide the controller property, that is a callback like:\n\n'
@@ -163,7 +167,7 @@ class FlipInYState extends State<FlipInY>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     rotation = Tween<double>(begin: 1.5, end: 0.0)
-        .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
+        .animate(CurvedAnimation(parent: controller, curve: widget.curve));
 
     opacity = Tween<double>(begin: 0, end: 1).animate(
         CurvedAnimation(parent: controller, curve: const Interval(0, 0.65)));

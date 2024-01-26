@@ -19,18 +19,20 @@ class SlideInUp extends StatefulWidget {
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
   final double from;
+  final Curve curve;
 
-  SlideInUp(
-      {key,
-      required this.child,
-      this.duration = const Duration(milliseconds: 600),
-      this.delay = const Duration(milliseconds: 0),
-      this.controller,
-      this.manualTrigger = false,
-      this.animate = true,
-      this.from = 100,
-      this.onFinish})
-      : super(key: key) {
+  SlideInUp({
+    key,
+    required this.child,
+    this.duration = const Duration(milliseconds: 600),
+    this.delay = const Duration(milliseconds: 0),
+    this.controller,
+    this.manualTrigger = false,
+    this.animate = true,
+    this.from = 100,
+    this.onFinish,
+    this.curve = Curves.easeOut,
+  }) : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
           'Then you must provide the controller property, that is a callback like:\n\n'
@@ -63,7 +65,7 @@ class SlideInUpState extends State<SlideInUp>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     animation = Tween<double>(begin: widget.from, end: 0)
-        .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
+        .animate(CurvedAnimation(parent: controller, curve: widget.curve));
 
     /// Provided by the mixing [AnimateDoState] class
     configAnimation(
@@ -113,18 +115,20 @@ class SlideInDown extends StatelessWidget {
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
   final double from;
+  final Curve curve;
 
-  SlideInDown(
-      {key,
-      required this.child,
-      this.duration = const Duration(milliseconds: 600),
-      this.delay = const Duration(milliseconds: 0),
-      this.controller,
-      this.manualTrigger = false,
-      this.animate = true,
-      this.from = 100,
-      this.onFinish})
-      : super(key: key) {
+  SlideInDown({
+    key,
+    required this.child,
+    this.duration = const Duration(milliseconds: 600),
+    this.delay = const Duration(milliseconds: 0),
+    this.controller,
+    this.manualTrigger = false,
+    this.animate = true,
+    this.from = 100,
+    this.onFinish,
+    this.curve = Curves.easeOut,
+  }) : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
           'Then you must provide the controller property, that is a callback like:\n\n'
@@ -141,6 +145,7 @@ class SlideInDown extends StatelessWidget {
         animate: animate,
         from: from * -1,
         onFinish: onFinish,
+        curve: curve,
         child: child,
       );
 }
@@ -161,18 +166,20 @@ class SlideInLeft extends StatefulWidget {
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
   final double from;
+  final Curve curve;
 
-  SlideInLeft(
-      {key,
-      required this.child,
-      this.duration = const Duration(milliseconds: 600),
-      this.delay = const Duration(milliseconds: 0),
-      this.controller,
-      this.manualTrigger = false,
-      this.animate = true,
-      this.from = 100,
-      this.onFinish})
-      : super(key: key) {
+  SlideInLeft({
+    key,
+    required this.child,
+    this.duration = const Duration(milliseconds: 600),
+    this.delay = const Duration(milliseconds: 0),
+    this.controller,
+    this.manualTrigger = false,
+    this.animate = true,
+    this.from = 100,
+    this.onFinish,
+    this.curve = Curves.easeOut,
+  }) : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
           'Then you must provide the controller property, that is a callback like:\n\n'
@@ -205,7 +212,7 @@ class SlideInLeftState extends State<SlideInLeft>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     animation = Tween<double>(begin: widget.from * -1, end: 0)
-        .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
+        .animate(CurvedAnimation(parent: controller, curve: widget.curve));
 
     /// Provided by the mixing [AnimateDoState] class
     configAnimation(
@@ -255,18 +262,20 @@ class SlideInRight extends StatelessWidget {
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
   final double from;
+  final Curve curve;
 
-  SlideInRight(
-      {key,
-      required this.child,
-      this.duration = const Duration(milliseconds: 600),
-      this.delay = const Duration(milliseconds: 0),
-      this.controller,
-      this.manualTrigger = false,
-      this.animate = true,
-      this.from = 100,
-      this.onFinish})
-      : super(key: key) {
+  SlideInRight({
+    key,
+    required this.child,
+    this.duration = const Duration(milliseconds: 600),
+    this.delay = const Duration(milliseconds: 0),
+    this.controller,
+    this.manualTrigger = false,
+    this.animate = true,
+    this.from = 100,
+    this.onFinish,
+    this.curve = Curves.easeOut,
+  }) : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
           'Then you must provide the controller property, that is a callback like:\n\n'
@@ -283,6 +292,7 @@ class SlideInRight extends StatelessWidget {
         animate: animate,
         from: from * -1,
         onFinish: onFinish,
+        curve: curve,
         child: child,
       );
 }

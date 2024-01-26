@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../types/animate_do_mixins.dart';
@@ -19,16 +18,19 @@ class FadeOut extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
+  final Curve curve;
 
-  FadeOut(
-      {key,
-      required this.child,
-      this.duration = const Duration(milliseconds: 300),
-      this.delay = const Duration(milliseconds: 0),
-      this.controller,
-      this.manualTrigger = false,
-      this.animate = false, this.onFinish})
-      : super(key: key) {
+  FadeOut({
+    key,
+    required this.child,
+    this.duration = const Duration(milliseconds: 300),
+    this.delay = const Duration(milliseconds: 0),
+    this.controller,
+    this.manualTrigger = false,
+    this.animate = false,
+    this.onFinish,
+    this.curve = Curves.easeOut,
+  }) : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
           'Then you must provide the controller property, that is a callback like:\n\n'
@@ -41,7 +43,8 @@ class FadeOut extends StatefulWidget {
 }
 
 /// State class, where the magic happens
-class FadeOutState extends State<FadeOut> with SingleTickerProviderStateMixin, AnimateDoState {
+class FadeOutState extends State<FadeOut>
+    with SingleTickerProviderStateMixin, AnimateDoState {
   late AnimationController controller;
   bool disposed = false;
   late Animation<double> animation;
@@ -59,9 +62,9 @@ class FadeOutState extends State<FadeOut> with SingleTickerProviderStateMixin, A
 
     controller = AnimationController(duration: widget.duration, vsync: this);
     animation = Tween(begin: 1.0, end: 0.0)
-        .animate(CurvedAnimation(curve: Curves.easeOut, parent: controller));
+        .animate(CurvedAnimation(curve: widget.curve, parent: controller));
 
-        /// Provided by the mixing [AnimateDoState] class
+    /// Provided by the mixing [AnimateDoState] class
     configAnimation(
       controller: controller,
       onFinish: widget.onFinish,
@@ -83,7 +86,6 @@ class FadeOutState extends State<FadeOut> with SingleTickerProviderStateMixin, A
       delay: widget.delay,
       disposed: disposed,
     );
-
 
     return AnimatedBuilder(
         animation: animation,
@@ -111,6 +113,7 @@ class FadeOutDown extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
+  final Curve curve;
   final double from;
 
   FadeOutDown(
@@ -121,7 +124,9 @@ class FadeOutDown extends StatefulWidget {
       this.controller,
       this.manualTrigger = false,
       this.animate = false,
-      this.from = 100, this.onFinish})
+      this.from = 100,
+      this.onFinish,
+      this.curve = Curves.easeOut})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -156,12 +161,12 @@ class FadeOutDownState extends State<FadeOutDown>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     animation = Tween<double>(begin: 0, end: widget.from)
-        .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
+        .animate(CurvedAnimation(parent: controller, curve: widget.curve));
 
     opacity = Tween<double>(begin: 1.0, end: 0.0).animate(
         CurvedAnimation(parent: controller, curve: const Interval(0, 0.65)));
 
-        /// Provided by the mixing [AnimateDoState] class
+    /// Provided by the mixing [AnimateDoState] class
     configAnimation(
       controller: controller,
       onFinish: widget.onFinish,
@@ -183,7 +188,6 @@ class FadeOutDownState extends State<FadeOutDown>
       delay: widget.delay,
       disposed: disposed,
     );
-
 
     return AnimatedBuilder(
         animation: controller,
@@ -213,18 +217,21 @@ class FadeOutDownBig extends StatelessWidget {
   final bool manualTrigger;
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
+  final Curve curve;
   final double from;
 
-  FadeOutDownBig(
-      {key,
-      required this.child,
-      this.duration = const Duration(milliseconds: 1300),
-      this.delay = const Duration(milliseconds: 0),
-      this.controller,
-      this.manualTrigger = false,
-      this.animate = false,
-      this.from = 600, this.onFinish})
-      : super(key: key) {
+  FadeOutDownBig({
+    key,
+    required this.child,
+    this.duration = const Duration(milliseconds: 1300),
+    this.delay = const Duration(milliseconds: 0),
+    this.controller,
+    this.manualTrigger = false,
+    this.animate = false,
+    this.from = 600,
+    this.onFinish,
+    this.curve = Curves.easeOut,
+  }) : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
           'Then you must provide the controller property, that is a callback like:\n\n'
@@ -241,6 +248,7 @@ class FadeOutDownBig extends StatelessWidget {
         animate: animate,
         from: from,
         onFinish: onFinish,
+        curve: curve,
         child: child,
       );
 }
@@ -260,18 +268,21 @@ class FadeOutUp extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
+  final Curve curve;
   final double from;
 
-  FadeOutUp(
-      {key,
-      required this.child,
-      this.duration = const Duration(milliseconds: 800),
-      this.delay = const Duration(milliseconds: 0),
-      this.controller,
-      this.manualTrigger = false,
-      this.animate = false,
-      this.from = 100, this.onFinish})
-      : super(key: key) {
+  FadeOutUp({
+    key,
+    required this.child,
+    this.duration = const Duration(milliseconds: 800),
+    this.delay = const Duration(milliseconds: 0),
+    this.controller,
+    this.manualTrigger = false,
+    this.animate = false,
+    this.from = 100,
+    this.onFinish,
+    this.curve = Curves.easeOut,
+  }) : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
           'Then you must provide the controller property, that is a callback like:\n\n'
@@ -304,11 +315,11 @@ class FadeOutUpState extends State<FadeOutUp>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     animation = Tween<double>(begin: 0.0, end: widget.from * -1)
-        .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
+        .animate(CurvedAnimation(parent: controller, curve: widget.curve));
     opacity = Tween<double>(begin: 1.0, end: 0.0).animate(
         CurvedAnimation(parent: controller, curve: const Interval(0, 0.65)));
 
-        /// Provided by the mixing [AnimateDoState] class
+    /// Provided by the mixing [AnimateDoState] class
     configAnimation(
       controller: controller,
       onFinish: widget.onFinish,
@@ -330,7 +341,6 @@ class FadeOutUpState extends State<FadeOutUp>
       delay: widget.delay,
       disposed: disposed,
     );
-
 
     return AnimatedBuilder(
         animation: controller,
@@ -360,18 +370,21 @@ class FadeOutUpBig extends StatelessWidget {
   final bool manualTrigger;
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
+  final Curve curve;
   final double from;
 
-  FadeOutUpBig(
-      {key,
-      required this.child,
-      this.duration = const Duration(milliseconds: 1300),
-      this.delay = const Duration(milliseconds: 0),
-      this.controller,
-      this.manualTrigger = false,
-      this.animate = false,
-      this.from = 600, this.onFinish})
-      : super(key: key) {
+  FadeOutUpBig({
+    key,
+    required this.child,
+    this.duration = const Duration(milliseconds: 1300),
+    this.delay = const Duration(milliseconds: 0),
+    this.controller,
+    this.manualTrigger = false,
+    this.animate = false,
+    this.from = 600,
+    this.onFinish,
+    this.curve = Curves.easeOut,
+  }) : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
           'Then you must provide the controller property, that is a callback like:\n\n'
@@ -388,6 +401,7 @@ class FadeOutUpBig extends StatelessWidget {
         animate: animate,
         from: from,
         onFinish: onFinish,
+        curve: curve,
         child: child,
       );
 }
@@ -407,18 +421,21 @@ class FadeOutLeft extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
+  final Curve curve;
   final double from;
 
-  FadeOutLeft(
-      {key,
-      required this.child,
-      this.duration = const Duration(milliseconds: 800),
-      this.delay = const Duration(milliseconds: 0),
-      this.controller,
-      this.manualTrigger = false,
-      this.animate = false,
-      this.from = 100, this.onFinish})
-      : super(key: key) {
+  FadeOutLeft({
+    key,
+    required this.child,
+    this.duration = const Duration(milliseconds: 800),
+    this.delay = const Duration(milliseconds: 0),
+    this.controller,
+    this.manualTrigger = false,
+    this.animate = false,
+    this.from = 100,
+    this.onFinish,
+    this.curve = Curves.easeOut,
+  }) : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
           'Then you must provide the controller property, that is a callback like:\n\n'
@@ -451,11 +468,11 @@ class FadeOutLeftState extends State<FadeOutLeft>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     animation = Tween<double>(begin: 0, end: widget.from * -1)
-        .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
+        .animate(CurvedAnimation(parent: controller, curve: widget.curve));
     opacity = Tween<double>(begin: 1.0, end: 0.0).animate(
         CurvedAnimation(parent: controller, curve: const Interval(0, 0.65)));
 
-        /// Provided by the mixing [AnimateDoState] class
+    /// Provided by the mixing [AnimateDoState] class
     configAnimation(
       controller: controller,
       onFinish: widget.onFinish,
@@ -477,7 +494,6 @@ class FadeOutLeftState extends State<FadeOutLeft>
       delay: widget.delay,
       disposed: disposed,
     );
-
 
     return AnimatedBuilder(
         animation: controller,
@@ -507,18 +523,21 @@ class FadeOutLeftBig extends StatelessWidget {
   final bool manualTrigger;
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
+  final Curve curve;
   final double from;
 
-  FadeOutLeftBig(
-      {key,
-      required this.child,
-      this.duration = const Duration(milliseconds: 1300),
-      this.delay = const Duration(milliseconds: 0),
-      this.controller,
-      this.manualTrigger = false,
-      this.animate = false,
-      this.from = 600, this.onFinish})
-      : super(key: key) {
+  FadeOutLeftBig({
+    key,
+    required this.child,
+    this.duration = const Duration(milliseconds: 1300),
+    this.delay = const Duration(milliseconds: 0),
+    this.controller,
+    this.manualTrigger = false,
+    this.animate = false,
+    this.from = 600,
+    this.onFinish,
+    this.curve = Curves.easeOut,
+  }) : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
           'Then you must provide the controller property, that is a callback like:\n\n'
@@ -535,6 +554,7 @@ class FadeOutLeftBig extends StatelessWidget {
         animate: animate,
         from: from,
         onFinish: onFinish,
+        curve: curve,
         child: child,
       );
 }
@@ -554,18 +574,21 @@ class FadeOutRight extends StatelessWidget {
   final bool manualTrigger;
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
+  final Curve curve;
   final double from;
 
-  FadeOutRight(
-      {key,
-      required this.child,
-      this.duration = const Duration(milliseconds: 800),
-      this.delay = const Duration(milliseconds: 0),
-      this.controller,
-      this.manualTrigger = false,
-      this.animate = false,
-      this.from = 100, this.onFinish})
-      : super(key: key) {
+  FadeOutRight({
+    key,
+    required this.child,
+    this.duration = const Duration(milliseconds: 800),
+    this.delay = const Duration(milliseconds: 0),
+    this.controller,
+    this.manualTrigger = false,
+    this.animate = false,
+    this.from = 100,
+    this.onFinish,
+    this.curve = Curves.easeOut,
+  }) : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
           'Then you must provide the controller property, that is a callback like:\n\n'
@@ -582,6 +605,7 @@ class FadeOutRight extends StatelessWidget {
         animate: animate,
         from: from * -1,
         onFinish: onFinish,
+        curve: curve,
         child: child,
       );
 }
@@ -601,18 +625,21 @@ class FadeOutRightBig extends StatelessWidget {
   final bool manualTrigger;
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
+  final Curve curve;
   final double from;
 
-  FadeOutRightBig(
-      {key,
-      required this.child,
-      this.duration = const Duration(milliseconds: 1200),
-      this.delay = const Duration(milliseconds: 0),
-      this.controller,
-      this.manualTrigger = false,
-      this.animate = false,
-      this.from = 600, this.onFinish})
-      : super(key: key) {
+  FadeOutRightBig({
+    key,
+    required this.child,
+    this.duration = const Duration(milliseconds: 1200),
+    this.delay = const Duration(milliseconds: 0),
+    this.controller,
+    this.manualTrigger = false,
+    this.animate = false,
+    this.from = 600,
+    this.onFinish,
+    this.curve = Curves.easeOut,
+  }) : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
           'Then you must provide the controller property, that is a callback like:\n\n'
@@ -629,6 +656,7 @@ class FadeOutRightBig extends StatelessWidget {
         animate: animate,
         from: from * -1,
         onFinish: onFinish,
+        curve: curve,
         child: child,
       );
 }

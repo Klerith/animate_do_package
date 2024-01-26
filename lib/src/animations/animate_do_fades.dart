@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../types/animate_do_mixins.dart';
@@ -11,7 +10,9 @@ import '../types/animate_do_types.dart';
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
-/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired inmediatelly
+/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
+/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
+/// [curve]: curve for the animation
 class FadeIn extends StatefulWidget {
   final Widget child;
   final Duration duration;
@@ -20,6 +21,7 @@ class FadeIn extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
+  final Curve curve;
 
   FadeIn({
     key,
@@ -30,6 +32,7 @@ class FadeIn extends StatefulWidget {
     this.manualTrigger = false,
     this.animate = true,
     this.onFinish,
+    this.curve = Curves.easeOut,
   }) : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -68,7 +71,7 @@ class FadeInState extends State<FadeIn>
 
     /// Creates the animation controller
     controller = AnimationController(duration: widget.duration, vsync: this);
-    animation = CurvedAnimation(curve: Curves.easeOut, parent: controller);
+    animation = CurvedAnimation(curve: widget.curve, parent: controller);
 
     /// Provided by the mixing [AnimateDoState] class
     configAnimation(
@@ -105,13 +108,16 @@ class FadeInState extends State<FadeIn>
   }
 }
 
-/// Class [FadeInDown]:
+/// Class [FadeIn]:
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// the controller can be use to repeat, reverse and anything you want, its just an animation controller
+/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
+/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
+/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
+/// [curve]: curve for the animation
 class FadeInDown extends StatefulWidget {
   final Widget child;
   final Duration duration;
@@ -121,6 +127,7 @@ class FadeInDown extends StatefulWidget {
   final bool animate;
   final double from;
   final Function(AnimateDoDirection direction)? onFinish;
+  final Curve curve;
 
   FadeInDown(
       {key,
@@ -131,7 +138,8 @@ class FadeInDown extends StatefulWidget {
       this.manualTrigger = false,
       this.animate = true,
       this.from = 100,
-      this.onFinish})
+      this.onFinish,
+      this.curve = Curves.easeOut})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -173,7 +181,7 @@ class FadeInDownState extends State<FadeInDown>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     animation = Tween<double>(begin: widget.from * -1, end: 0)
-        .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
+        .animate(CurvedAnimation(parent: controller, curve: widget.curve));
 
     opacity = Tween<double>(begin: 0, end: 1).animate(
         CurvedAnimation(parent: controller, curve: const Interval(0, 0.65)));
@@ -220,7 +228,10 @@ class FadeInDownState extends State<FadeInDown>
 /// [duration]: how much time the animation should take
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// the controller can be use to repeat, reverse and anything you want, its just an animation controller
+/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
+/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
+/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
+/// [curve]: curve for the animation
 class FadeInDownBig extends StatelessWidget {
   final Widget child;
   final Duration duration;
@@ -230,6 +241,7 @@ class FadeInDownBig extends StatelessWidget {
   final bool animate;
   final double from;
   final Function(AnimateDoDirection direction)? onFinish;
+  final Curve curve;
 
   FadeInDownBig(
       {key,
@@ -240,7 +252,8 @@ class FadeInDownBig extends StatelessWidget {
       this.manualTrigger = false,
       this.animate = true,
       this.from = 600,
-      this.onFinish})
+      this.onFinish,
+      this.curve = Curves.easeOut})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -257,6 +270,7 @@ class FadeInDownBig extends StatelessWidget {
       manualTrigger: manualTrigger,
       animate: animate,
       from: from,
+      curve: curve,
       child: child);
 }
 
@@ -266,7 +280,10 @@ class FadeInDownBig extends StatelessWidget {
 /// [duration]: how much time the animation should take
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// the controller can be use to repeat, reverse and anything you want, its just an animation controller
+/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
+/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
+/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
+/// [curve]: curve for the animation
 class FadeInUp extends StatefulWidget {
   final Widget child;
   final Duration duration;
@@ -276,6 +293,7 @@ class FadeInUp extends StatefulWidget {
   final bool animate;
   final double from;
   final Function(AnimateDoDirection direction)? onFinish;
+  final Curve curve;
 
   FadeInUp(
       {key,
@@ -286,7 +304,8 @@ class FadeInUp extends StatefulWidget {
       this.manualTrigger = false,
       this.animate = true,
       this.from = 100,
-      this.onFinish})
+      this.onFinish,
+      this.curve = Curves.easeOut})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -329,7 +348,7 @@ class FadeInUpState extends State<FadeInUp>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     animation = Tween<double>(begin: widget.from, end: 0)
-        .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
+        .animate(CurvedAnimation(parent: controller, curve: widget.curve));
     opacity = Tween<double>(begin: 0, end: 1).animate(
         CurvedAnimation(parent: controller, curve: const Interval(0, 0.65)));
 
@@ -375,7 +394,10 @@ class FadeInUpState extends State<FadeInUp>
 /// [duration]: how much time the animation should take
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// the controller can be use to repeat, reverse and anything you want, its just an animation controller
+/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
+/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
+/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
+/// [curve]: curve for the animation
 class FadeInUpBig extends StatelessWidget {
   final Widget child;
   final Duration duration;
@@ -385,6 +407,7 @@ class FadeInUpBig extends StatelessWidget {
   final bool animate;
   final double from;
   final Function(AnimateDoDirection direction)? onFinish;
+  final Curve curve;
 
   FadeInUpBig(
       {key,
@@ -395,7 +418,8 @@ class FadeInUpBig extends StatelessWidget {
       this.manualTrigger = false,
       this.animate = true,
       this.from = 600,
-      this.onFinish})
+      this.onFinish,
+      this.curve = Curves.easeOut})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -413,6 +437,7 @@ class FadeInUpBig extends StatelessWidget {
         animate: animate,
         from: from,
         onFinish: onFinish,
+        curve: curve,
         child: child,
       );
 }
@@ -423,7 +448,10 @@ class FadeInUpBig extends StatelessWidget {
 /// [duration]: how much time the animation should take
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// the controller can be use to repeat, reverse and anything you want, its just an animation controller
+/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
+/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
+/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
+/// [curve]: curve for the animation
 class FadeInLeft extends StatefulWidget {
   final Widget child;
   final Duration duration;
@@ -433,6 +461,7 @@ class FadeInLeft extends StatefulWidget {
   final bool animate;
   final double from;
   final Function(AnimateDoDirection direction)? onFinish;
+  final Curve curve;
 
   FadeInLeft(
       {key,
@@ -443,7 +472,8 @@ class FadeInLeft extends StatefulWidget {
       this.manualTrigger = false,
       this.animate = true,
       this.from = 100,
-      this.onFinish})
+      this.onFinish,
+      this.curve = Curves.easeOut})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -478,7 +508,7 @@ class FadeInLeftState extends State<FadeInLeft>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     animation = Tween<double>(begin: widget.from * -1, end: 0)
-        .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
+        .animate(CurvedAnimation(parent: controller, curve: widget.curve));
     opacity = Tween<double>(begin: 0, end: 1).animate(
         CurvedAnimation(parent: controller, curve: const Interval(0, 0.65)));
 
@@ -524,7 +554,10 @@ class FadeInLeftState extends State<FadeInLeft>
 /// [duration]: how much time the animation should take
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// the controller can be use to repeat, reverse and anything you want, its just an animation controller
+/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
+/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
+/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
+/// [curve]: curve for the animation
 class FadeInLeftBig extends StatelessWidget {
   final Widget child;
   final Duration duration;
@@ -534,6 +567,7 @@ class FadeInLeftBig extends StatelessWidget {
   final bool animate;
   final double from;
   final Function(AnimateDoDirection direction)? onFinish;
+  final Curve curve;
 
   FadeInLeftBig(
       {key,
@@ -544,7 +578,8 @@ class FadeInLeftBig extends StatelessWidget {
       this.manualTrigger = false,
       this.animate = true,
       this.from = 600,
-      this.onFinish})
+      this.onFinish,
+      this.curve = Curves.easeOut})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -562,6 +597,7 @@ class FadeInLeftBig extends StatelessWidget {
         animate: animate,
         from: from,
         onFinish: onFinish,
+        curve: curve,
         child: child,
       );
 }
@@ -572,7 +608,10 @@ class FadeInLeftBig extends StatelessWidget {
 /// [duration]: how much time the animation should take
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// the controller can be use to repeat, reverse and anything you want, its just an animation controller
+/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
+/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
+/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
+/// [curve]: curve for the animation
 class FadeInRight extends StatefulWidget {
   final Widget child;
   final Duration duration;
@@ -582,6 +621,7 @@ class FadeInRight extends StatefulWidget {
   final bool animate;
   final double from;
   final Function(AnimateDoDirection direction)? onFinish;
+  final Curve curve;
 
   FadeInRight(
       {key,
@@ -592,7 +632,8 @@ class FadeInRight extends StatefulWidget {
       this.manualTrigger = false,
       this.animate = true,
       this.from = 100,
-      this.onFinish})
+      this.onFinish,
+      this.curve = Curves.easeOut})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -627,7 +668,7 @@ class FadeInRightState extends State<FadeInRight>
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     animation = Tween<double>(begin: widget.from, end: 0)
-        .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
+        .animate(CurvedAnimation(parent: controller, curve: widget.curve));
     opacity = Tween<double>(begin: 0, end: 1).animate(
         CurvedAnimation(parent: controller, curve: const Interval(0, 0.65)));
 
@@ -673,7 +714,10 @@ class FadeInRightState extends State<FadeInRight>
 /// [duration]: how much time the animation should take
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// the controller can be use to repeat, reverse and anything you want, its just an animation controller
+/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
+/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
+/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
+/// [curve]: curve for the animation
 class FadeInRightBig extends StatelessWidget {
   final Widget child;
   final Duration duration;
@@ -683,6 +727,7 @@ class FadeInRightBig extends StatelessWidget {
   final bool animate;
   final double from;
   final Function(AnimateDoDirection direction)? onFinish;
+  final Curve curve;
 
   FadeInRightBig(
       {key,
@@ -693,7 +738,8 @@ class FadeInRightBig extends StatelessWidget {
       this.manualTrigger = false,
       this.animate = true,
       this.from = 600,
-      this.onFinish})
+      this.onFinish,
+      this.curve = Curves.easeOut})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -711,6 +757,7 @@ class FadeInRightBig extends StatelessWidget {
         animate: animate,
         from: from,
         onFinish: onFinish,
+        curve: curve,
         child: child,
       );
 }

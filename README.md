@@ -27,6 +27,7 @@ This package is simple to use. Every single animation contains default values th
 | manualTrigger | **boolean**  | if you're going to trigger the animation manually (required the controller property)                                                                    |
 | controller    | **Function** | Function that exposes the controller (advanced use cases the majority don't need this)                                                                  |
 | onFinish      | **Function** | Function that is called when the animation finished (With argument: forward or backward )                                                               |
+| curve      | **Curve** |  You can change the curve animation of any Animated widget in order to customize it                                        |
 
 # Available **Animations**
 
@@ -219,6 +220,7 @@ class Square extends StatelessWidget {
 There is a new property called `onFinish` that is called when the animation finished, and it returns a value of type `AnimateDoDirection` with the direction of the animation (forward or backward)
 
 ### Example:
+
 ```
 FadeIn(
   animate: animate,
@@ -227,8 +229,6 @@ FadeIn(
   child: const Square(),
 ),
 ```
-
-
 
 ## Manual Trigger
 
@@ -241,7 +241,6 @@ However, with all the new features added, this is not needed for the majority of
 Usually its easier now to use the animate property, and just toggle it to true or false to trigger the animation.
 
 #### Example
-
 
 ```
 class FadeOutDownBig extends StatelessWidget/StatefulWidget {
@@ -263,9 +262,8 @@ child: FadeInUp(
 
 ```
 
-
 ### More examples
-Check the [**repository for more examples**](https://github.com/Klerith/animate_do_package), or the example folder inside the package.
 
+Check the [**repository for more examples**](https://github.com/Klerith/animate_do_package), or the example folder inside the package.
 
 Don't forget to like the package if you find it useful, and if you have any suggestion, please let me know.

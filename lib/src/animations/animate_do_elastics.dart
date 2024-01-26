@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../types/animate_do_mixins.dart';
 import '../types/animate_do_types.dart';
+import 'animate_do_fades.dart';
 
 /// Class [ElasticIn]:
 /// [key]: optional widget key reference
@@ -18,6 +19,7 @@ class ElasticIn extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
+  final Curve curve;
 
   ElasticIn(
       {key,
@@ -27,7 +29,8 @@ class ElasticIn extends StatefulWidget {
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
-      this.onFinish})
+      this.onFinish,
+      this.curve = Curves.elasticOut})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -64,7 +67,7 @@ class ElasticInState extends State<ElasticIn>
         CurvedAnimation(parent: controller, curve: const Interval(0, 0.45)));
 
     bouncing = Tween<double>(begin: 0, end: 1)
-        .animate(CurvedAnimation(parent: controller, curve: Curves.elasticOut));
+        .animate(CurvedAnimation(parent: controller, curve: widget.curve));
 
     /// Provided by the mixing [AnimateDoState] class
     configAnimation(
@@ -110,7 +113,7 @@ class ElasticInState extends State<ElasticIn>
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
-class ElasticInDown extends StatefulWidget {
+class ElasticInDown extends StatelessWidget {
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -118,6 +121,7 @@ class ElasticInDown extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
+  final Curve curve;
   final double from;
   final double to;
 
@@ -131,7 +135,10 @@ class ElasticInDown extends StatefulWidget {
       this.animate = true,
       this.from = 200,
       this.to = 100,
-      this.onFinish})
+
+      /// Is marked as optional, but I have plans to use it later
+      this.onFinish,
+      this.curve = Curves.elasticOut})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -141,81 +148,16 @@ class ElasticInDown extends StatefulWidget {
   }
 
   @override
-  ElasticInDownState createState() => ElasticInDownState();
-}
-
-/// StateClass, where the magic happens
-class ElasticInDownState extends State<ElasticInDown>
-    with SingleTickerProviderStateMixin, AnimateDoState {
-  late AnimationController controller;
-  bool disposed = false;
-  late Animation<double> bouncing;
-  late Animation<double> falling;
-  late Animation<double> opacity;
-  @override
-  void dispose() {
-    disposed = true;
-    controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    controller = AnimationController(duration: widget.duration, vsync: this);
-
-    opacity = Tween<double>(begin: 0, end: 1).animate(
-        CurvedAnimation(parent: controller, curve: const Interval(0, 0.45)));
-
-    falling = Tween<double>(begin: widget.from * -1, end: widget.to * -1)
-        .animate(CurvedAnimation(
-            parent: controller,
-            curve: const Interval(0, 0.30, curve: Curves.linear)));
-
-    bouncing = Tween<double>(begin: widget.to * -1, end: 0).animate(
-        CurvedAnimation(
-            parent: controller,
-            curve: const Interval(0.30, 1, curve: Curves.elasticOut)));
-
-    /// Provided by the mixing [AnimateDoState] class
-    configAnimation(
+  Widget build(BuildContext context) => FadeInDown(
+      duration: duration,
+      delay: delay,
       controller: controller,
-      onFinish: widget.onFinish,
-      controllerCallback: widget.controller,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    /// Provided by the mixing [AnimateDoState] class
-    buildAnimation(
-      controller: controller,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
-    );
-
-    return AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget? child) {
-          return Transform.translate(
-              offset: Offset(
-                  0,
-                  (falling.value == (widget.to * -1))
-                      ? bouncing.value
-                      : falling.value),
-              child: Opacity(
-                opacity: opacity.value,
-                child: widget.child,
-              ));
-        });
-  }
+      manualTrigger: manualTrigger,
+      animate: animate,
+      from: from,
+      onFinish: onFinish,
+      curve: curve,
+      child: child);
 }
 
 /// Class [ElasticInUp]:
@@ -233,6 +175,7 @@ class ElasticInUp extends StatelessWidget {
   final bool manualTrigger;
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
+  final Curve curve;
   final double from;
 
   ElasticInUp(
@@ -244,7 +187,8 @@ class ElasticInUp extends StatelessWidget {
       this.manualTrigger = false,
       this.animate = true,
       this.from = 200,
-      this.onFinish})
+      this.onFinish,
+      this.curve = Curves.elasticOut})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -254,17 +198,16 @@ class ElasticInUp extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) => ElasticInDown(
-        duration: duration,
-        delay: delay,
-        controller: controller,
-        manualTrigger: manualTrigger,
-        animate: animate,
-        from: from * -1,
-        to: 100,
-        onFinish: onFinish,
-        child: child,
-      );
+  Widget build(BuildContext context) => FadeInUp(
+      duration: duration,
+      delay: delay,
+      controller: controller,
+      manualTrigger: manualTrigger,
+      animate: animate,
+      from: from,
+      onFinish: onFinish,
+      curve: curve,
+      child: child);
 }
 
 /// Class [ElasticInLeft]:
@@ -274,7 +217,7 @@ class ElasticInUp extends StatelessWidget {
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
-class ElasticInLeft extends StatefulWidget {
+class ElasticInLeft extends StatelessWidget {
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -282,6 +225,7 @@ class ElasticInLeft extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
+  final Curve curve;
   final double from;
   final double to;
 
@@ -295,7 +239,8 @@ class ElasticInLeft extends StatefulWidget {
       this.animate = true,
       this.from = 200,
       this.to = 100,
-      this.onFinish})
+      this.onFinish,
+      this.curve = Curves.elasticOut})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -305,81 +250,16 @@ class ElasticInLeft extends StatefulWidget {
   }
 
   @override
-  ElasticInLeftState createState() => ElasticInLeftState();
-}
-
-/// StateClass, where the magic happens
-class ElasticInLeftState extends State<ElasticInLeft>
-    with SingleTickerProviderStateMixin, AnimateDoState {
-  late AnimationController controller;
-  bool disposed = false;
-  late Animation<double> bouncing;
-  late Animation<double> falling;
-  late Animation<double> opacity;
-  @override
-  void dispose() {
-    disposed = true;
-    controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    controller = AnimationController(duration: widget.duration, vsync: this);
-
-    opacity = Tween<double>(begin: 0, end: 1).animate(
-        CurvedAnimation(parent: controller, curve: const Interval(0, 0.45)));
-
-    falling = Tween<double>(begin: widget.from * -1, end: widget.to * -1)
-        .animate(CurvedAnimation(
-            parent: controller,
-            curve: const Interval(0, 0.30, curve: Curves.linear)));
-
-    bouncing = Tween<double>(begin: widget.to * -1, end: 0).animate(
-        CurvedAnimation(
-            parent: controller,
-            curve: const Interval(0.30, 1, curve: Curves.elasticOut)));
-
-    /// Provided by the mixing [AnimateDoState] class
-    configAnimation(
+  Widget build(BuildContext context) => FadeInLeft(
+      duration: duration,
+      delay: delay,
       controller: controller,
-      onFinish: widget.onFinish,
-      controllerCallback: widget.controller,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    /// Provided by the mixing [AnimateDoState] class
-    buildAnimation(
-      controller: controller,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
-    );
-
-    return AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget? child) {
-          return Transform.translate(
-              offset: Offset(
-                  (falling.value == (widget.to * -1))
-                      ? bouncing.value
-                      : falling.value,
-                  0),
-              child: Opacity(
-                opacity: opacity.value,
-                child: widget.child,
-              ));
-        });
-  }
+      manualTrigger: manualTrigger,
+      animate: animate,
+      from: from,
+      onFinish: onFinish,
+      curve: curve,
+      child: child);
 }
 
 /// Class [ElasticInRight]:
@@ -397,6 +277,7 @@ class ElasticInRight extends StatelessWidget {
   final bool manualTrigger;
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
+  final Curve curve;
   final double from;
 
   ElasticInRight(
@@ -408,7 +289,8 @@ class ElasticInRight extends StatelessWidget {
       this.manualTrigger = false,
       this.animate = true,
       this.from = 200,
-      this.onFinish})
+      this.onFinish,
+      this.curve = Curves.elasticOut})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -418,14 +300,14 @@ class ElasticInRight extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) => ElasticInLeft(
+  Widget build(BuildContext context) => FadeInRight(
       duration: duration,
       delay: delay,
       controller: controller,
       manualTrigger: manualTrigger,
       animate: animate,
-      from: from * -1,
-      to: -100,
+      from: from,
       onFinish: onFinish,
+      curve: curve,
       child: child);
 }
