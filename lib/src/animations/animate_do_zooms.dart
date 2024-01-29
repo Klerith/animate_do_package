@@ -50,8 +50,6 @@ class ZoomIn extends StatefulWidget {
 /// State class, where the magic happens
 class ZoomInState extends State<ZoomIn>
     with SingleTickerProviderStateMixin, AnimateDoState {
-  late AnimationController controller;
-  bool disposed = false;
   late Animation<double> zoom;
 
   @override
@@ -72,13 +70,12 @@ class ZoomInState extends State<ZoomIn>
 
     /// Provided by the mixing [AnimateDoState] class
     configAnimation(
-      controller: controller,
-      onFinish: widget.onFinish,
-      controllerCallback: widget.controller,
+      delay: widget.delay,
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
+      infinite: false,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
     );
   }
 
@@ -86,11 +83,12 @@ class ZoomInState extends State<ZoomIn>
   Widget build(BuildContext context) {
     /// Provided by the mixing [AnimateDoState] class
     buildAnimation(
-      controller: controller,
+      delay: widget.delay,
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
+      infinite: false,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
     );
 
     return AnimatedBuilder(
@@ -151,8 +149,6 @@ class ZoomOut extends StatefulWidget {
 /// State class, where the magic happens
 class ZoomOutState extends State<ZoomOut>
     with SingleTickerProviderStateMixin, AnimateDoState {
-  late AnimationController controller;
-  bool disposed = false;
   late Animation<double> zoom;
 
   @override
@@ -173,13 +169,12 @@ class ZoomOutState extends State<ZoomOut>
 
     /// Provided by the mixing [AnimateDoState] class
     configAnimation(
-      controller: controller,
-      onFinish: widget.onFinish,
-      controllerCallback: widget.controller,
+      delay: widget.delay,
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
+      infinite: false,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
     );
   }
 
@@ -187,11 +182,12 @@ class ZoomOutState extends State<ZoomOut>
   Widget build(BuildContext context) {
     /// Provided by the mixing [AnimateDoState] class
     buildAnimation(
-      controller: controller,
+      delay: widget.delay,
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
+      infinite: false,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
     );
 
     return AnimatedBuilder(

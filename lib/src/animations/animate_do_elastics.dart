@@ -48,8 +48,6 @@ class ElasticIn extends StatefulWidget {
 /// StateClass, where the magic happens
 class ElasticInState extends State<ElasticIn>
     with SingleTickerProviderStateMixin, AnimateDoState {
-  late AnimationController controller;
-  bool disposed = false;
   late Animation<double> bouncing;
   late Animation<double> opacity;
   @override
@@ -73,13 +71,12 @@ class ElasticInState extends State<ElasticIn>
 
     /// Provided by the mixing [AnimateDoState] class
     configAnimation(
-      controller: controller,
-      onFinish: widget.onFinish,
-      controllerCallback: widget.controller,
+      delay: widget.delay,
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
+      infinite: false,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
     );
   }
 
@@ -87,11 +84,12 @@ class ElasticInState extends State<ElasticIn>
   Widget build(BuildContext context) {
     /// Provided by the mixing [AnimateDoState] class
     buildAnimation(
-      controller: controller,
+      delay: widget.delay,
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
+      infinite: false,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
     );
 
     return AnimatedBuilder(

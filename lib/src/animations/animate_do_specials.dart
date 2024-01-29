@@ -48,8 +48,6 @@ class JelloIn extends StatefulWidget {
 /// State class, where the magic happens
 class JelloInState extends State<JelloIn>
     with SingleTickerProviderStateMixin, AnimateDoState {
-  late AnimationController controller;
-  bool disposed = false;
   late Animation<double> rotation;
   late Animation<double> opacity;
 
@@ -74,13 +72,12 @@ class JelloInState extends State<JelloIn>
 
     /// Provided by the mixing [AnimateDoState] class
     configAnimation(
-      controller: controller,
-      onFinish: widget.onFinish,
-      controllerCallback: widget.controller,
+      delay: widget.delay,
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
+      infinite: false,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
     );
   }
 
@@ -88,11 +85,12 @@ class JelloInState extends State<JelloIn>
   Widget build(BuildContext context) {
     /// Provided by the mixing [AnimateDoState] class
     buildAnimation(
-      controller: controller,
+      delay: widget.delay,
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
+      infinite: false,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
     );
 
     return AnimatedBuilder(

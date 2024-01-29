@@ -48,8 +48,6 @@ class FlipInX extends StatefulWidget {
 /// State class, where the magic happens
 class FlipInXState extends State<FlipInX>
     with SingleTickerProviderStateMixin, AnimateDoState {
-  late AnimationController controller;
-  bool disposed = false;
   late Animation<double> rotation;
   late Animation<double> opacity;
 
@@ -74,13 +72,12 @@ class FlipInXState extends State<FlipInX>
 
     /// Provided by the mixing [AnimateDoState] class
     configAnimation(
-      controller: controller,
-      onFinish: widget.onFinish,
-      controllerCallback: widget.controller,
+      delay: widget.delay,
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
+      infinite: false,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
     );
   }
 
@@ -88,11 +85,12 @@ class FlipInXState extends State<FlipInX>
   Widget build(BuildContext context) {
     /// Provided by the mixing [AnimateDoState] class
     buildAnimation(
-      controller: controller,
+      delay: widget.delay,
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
+      infinite: false,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
     );
 
     return AnimatedBuilder(
@@ -154,8 +152,6 @@ class FlipInY extends StatefulWidget {
 /// State class, where the magic happens
 class FlipInYState extends State<FlipInY>
     with SingleTickerProviderStateMixin, AnimateDoState {
-  late AnimationController controller;
-  bool disposed = false;
   late Animation<double> rotation;
   late Animation<double> opacity;
 
@@ -180,13 +176,12 @@ class FlipInYState extends State<FlipInY>
 
     /// Provided by the mixing [AnimateDoState] class
     configAnimation(
-      controller: controller,
-      onFinish: widget.onFinish,
-      controllerCallback: widget.controller,
+      delay: widget.delay,
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
+      infinite: false,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
     );
   }
 
@@ -194,11 +189,12 @@ class FlipInYState extends State<FlipInY>
   Widget build(BuildContext context) {
     /// Provided by the mixing [AnimateDoState] class
     buildAnimation(
-      controller: controller,
+      delay: widget.delay,
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
+      infinite: false,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
     );
 
     return AnimatedBuilder(

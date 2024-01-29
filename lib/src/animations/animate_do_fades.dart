@@ -48,12 +48,6 @@ class FadeIn extends StatefulWidget {
 /// The animation magic happens here
 class FadeInState extends State<FadeIn>
     with SingleTickerProviderStateMixin, AnimateDoState {
-  /// Animation controller that controls this animation
-  late AnimationController controller;
-
-  /// is the widget disposed?
-  bool disposed = false;
-
   /// Animation movement value
   late Animation<double> animation;
 
@@ -74,13 +68,12 @@ class FadeInState extends State<FadeIn>
 
     /// Provided by the mixing [AnimateDoState] class
     configAnimation(
-      controller: controller,
-      onFinish: widget.onFinish,
-      controllerCallback: widget.controller,
+      delay: widget.delay,
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
+      infinite: false,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
     );
   }
 
@@ -88,11 +81,12 @@ class FadeInState extends State<FadeIn>
   Widget build(BuildContext context) {
     /// Provided by the mixing [AnimateDoState] class
     buildAnimation(
-      controller: controller,
+      delay: widget.delay,
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
+      infinite: false,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
     );
 
     /// Builds the animation with the corresponding
@@ -154,11 +148,6 @@ class FadeInDown extends StatefulWidget {
 /// The animation magic happens here
 class FadeInDownState extends State<FadeInDown>
     with SingleTickerProviderStateMixin, AnimateDoState {
-  late AnimationController controller;
-
-  /// is the widget disposed?
-  bool disposed = false;
-
   /// animation movement
   late Animation<double> animation;
 
@@ -186,13 +175,12 @@ class FadeInDownState extends State<FadeInDown>
 
     /// Provided by the mixing [AnimateDoState] class
     configAnimation(
-      controller: controller,
-      onFinish: widget.onFinish,
-      controllerCallback: widget.controller,
+      delay: widget.delay,
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
+      infinite: false,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
     );
   }
 
@@ -200,11 +188,12 @@ class FadeInDownState extends State<FadeInDown>
   Widget build(BuildContext context) {
     /// Provided by the mixing [AnimateDoState] class
     buildAnimation(
-      controller: controller,
+      delay: widget.delay,
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
+      infinite: false,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
     );
 
     return AnimatedBuilder(
@@ -319,10 +308,6 @@ class FadeInUp extends StatefulWidget {
 class FadeInUpState extends State<FadeInUp>
     with SingleTickerProviderStateMixin, AnimateDoState {
   /// Animation controller if requested
-  late AnimationController controller;
-
-  /// widget is disposed?
-  bool disposed = false;
 
   /// Animation movement
   late Animation<double> animation;
@@ -350,13 +335,12 @@ class FadeInUpState extends State<FadeInUp>
 
     /// Provided by the mixing [AnimateDoState] class
     configAnimation(
-      controller: controller,
-      onFinish: widget.onFinish,
-      controllerCallback: widget.controller,
+      delay: widget.delay,
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
+      infinite: false,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
     );
   }
 
@@ -364,11 +348,12 @@ class FadeInUpState extends State<FadeInUp>
   Widget build(BuildContext context) {
     /// Provided by the mixing [AnimateDoState] class
     buildAnimation(
-      controller: controller,
+      delay: widget.delay,
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
+      infinite: false,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
     );
 
     return AnimatedBuilder(
@@ -484,8 +469,6 @@ class FadeInLeft extends StatefulWidget {
 /// The animation magic happens here
 class FadeInLeftState extends State<FadeInLeft>
     with SingleTickerProviderStateMixin, AnimateDoState {
-  late AnimationController controller;
-  bool disposed = false;
   late Animation<double> animation;
   late Animation<double> opacity;
   @override
@@ -508,13 +491,12 @@ class FadeInLeftState extends State<FadeInLeft>
 
     /// Provided by the mixing [AnimateDoState] class
     configAnimation(
-      controller: controller,
-      onFinish: widget.onFinish,
-      controllerCallback: widget.controller,
+      delay: widget.delay,
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
+      infinite: false,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
     );
   }
 
@@ -522,11 +504,12 @@ class FadeInLeftState extends State<FadeInLeft>
   Widget build(BuildContext context) {
     /// Provided by the mixing [AnimateDoState] class
     buildAnimation(
-      controller: controller,
+      delay: widget.delay,
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
+      infinite: false,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
     );
 
     return AnimatedBuilder(
@@ -642,8 +625,6 @@ class FadeInRight extends StatefulWidget {
 /// The animation magic happens here
 class FadeInRightState extends State<FadeInRight>
     with SingleTickerProviderStateMixin, AnimateDoState {
-  late AnimationController controller;
-  bool disposed = false;
   late Animation<double> animation;
   late Animation<double> opacity;
   @override
@@ -666,13 +647,12 @@ class FadeInRightState extends State<FadeInRight>
 
     /// Provided by the mixing [AnimateDoState] class
     configAnimation(
-      controller: controller,
-      onFinish: widget.onFinish,
-      controllerCallback: widget.controller,
+      delay: widget.delay,
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
+      infinite: false,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
     );
   }
 
@@ -680,11 +660,12 @@ class FadeInRightState extends State<FadeInRight>
   Widget build(BuildContext context) {
     /// Provided by the mixing [AnimateDoState] class
     buildAnimation(
-      controller: controller,
+      delay: widget.delay,
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
+      infinite: false,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
     );
 
     return AnimatedBuilder(

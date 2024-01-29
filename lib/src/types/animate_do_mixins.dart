@@ -4,19 +4,20 @@ import '../types/animate_do_types.dart';
 
 /// Provides a common interface for [AnimateDoState]
 mixin AnimateDoState {
+  late AnimationController controller;
+  bool disposed = false;
+
   /// All the animations are controlled by a [AnimationController]
   /// The controller is created in the [initState] method of the parent AnimatedWidget
   /// This method controls the flow of the animation
 
   void configAnimation({
-    required AnimationController controller,
-    required bool disposed,
+    required Duration delay,
     required bool animate,
     required bool manualTrigger,
-    required Function? onFinish,
-    required Duration delay,
-    required Function(AnimationController controller)? controllerCallback,
-    bool infinite = false,
+    required bool infinite,
+    Function? onFinish,
+    Function(AnimationController controller)? controllerCallback,
   }) {
     /// If the user wants to check if the animation finished, we add a listener
     if (onFinish != null) {
@@ -33,6 +34,7 @@ mixin AnimateDoState {
     if (!manualTrigger && animate) {
       Future.delayed(delay, () {
         if (disposed) return;
+
         if (infinite) {
           controller.repeat();
         } else {
@@ -48,12 +50,12 @@ mixin AnimateDoState {
   }
 
   void buildAnimation({
-    required AnimationController controller,
-    required bool disposed,
-    required bool animate,
     required Duration delay,
+    required bool animate,
     required bool manualTrigger,
-    bool infinite = false,
+    required bool infinite,
+    Function? onFinish,
+    Function(AnimationController controller)? controllerCallback,
   }) {
     /// Launch the animation ASAP or wait until needed
     if (animate && !manualTrigger) {
@@ -67,6 +69,7 @@ mixin AnimateDoState {
 
     /// If the animation already happen, we can animate it back
     if (!animate) {
+      if (disposed) return;
       controller.animateBack(0);
     }
   }

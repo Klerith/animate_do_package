@@ -55,11 +55,9 @@ class Bounce extends StatefulWidget {
 /// State class, where the magic happens
 class BounceState extends State<Bounce>
     with SingleTickerProviderStateMixin, AnimateDoState {
-  late AnimationController controller;
-  bool disposed = false;
   late Animation<double> animationBounce;
-
   late Animation<double> animationUp;
+
   @override
   void dispose() {
     disposed = true;
@@ -84,14 +82,12 @@ class BounceState extends State<Bounce>
 
     /// Provided by the mixing [AnimateDoState] class
     configAnimation(
-      controller: controller,
-      onFinish: widget.onFinish,
-      controllerCallback: widget.controller,
+      delay: widget.delay,
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
       infinite: widget.infinite,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
     );
   }
 
@@ -99,12 +95,12 @@ class BounceState extends State<Bounce>
   Widget build(BuildContext context) {
     /// Provided by the mixing [AnimateDoState] class
     buildAnimation(
-      controller: controller,
+      delay: widget.delay,
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
       infinite: widget.infinite,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
     );
 
     return AnimatedBuilder(
@@ -168,8 +164,6 @@ class Flash extends StatefulWidget {
 /// State class, where the magic happens
 class FlashState extends State<Flash>
     with SingleTickerProviderStateMixin, AnimateDoState {
-  late AnimationController controller;
-  bool disposed = false;
   late Animation<double> opacityOut1;
   late Animation<double> opacityIn1;
   late Animation<double> opacityOut2;
@@ -198,26 +192,25 @@ class FlashState extends State<Flash>
 
     /// Provided by the mixing [AnimateDoState] class
     configAnimation(
-        controller: controller,
-        onFinish: widget.onFinish,
-        controllerCallback: widget.controller,
-        animate: widget.animate,
-        manualTrigger: widget.manualTrigger,
-        delay: widget.delay,
-        disposed: disposed,
-        infinite: widget.infinite);
+      delay: widget.delay,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      infinite: widget.infinite,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     /// Provided by the mixing [AnimateDoState] class
     buildAnimation(
-      controller: controller,
+      delay: widget.delay,
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
       infinite: widget.infinite,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
     );
 
     return AnimatedBuilder(
@@ -283,8 +276,6 @@ class Pulse extends StatefulWidget {
 /// State class, where the magic happens
 class PulseState extends State<Pulse>
     with SingleTickerProviderStateMixin, AnimateDoState {
-  late AnimationController controller;
-  bool disposed = false;
   late Animation<double> animationInc;
   late Animation<double> animationDec;
   @override
@@ -310,26 +301,25 @@ class PulseState extends State<Pulse>
 
     /// Provided by the mixing [AnimateDoState] class
     configAnimation(
-        controller: controller,
-        onFinish: widget.onFinish,
-        controllerCallback: widget.controller,
-        animate: widget.animate,
-        manualTrigger: widget.manualTrigger,
-        delay: widget.delay,
-        disposed: disposed,
-        infinite: widget.infinite);
+      delay: widget.delay,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      infinite: widget.infinite,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     /// Provided by the mixing [AnimateDoState] class
     buildAnimation(
-      controller: controller,
+      delay: widget.delay,
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
       infinite: widget.infinite,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
     );
 
     return AnimatedBuilder(
@@ -392,8 +382,6 @@ class Swing extends StatefulWidget {
 /// State class, where the magic happens
 class SwingState extends State<Swing>
     with SingleTickerProviderStateMixin, AnimateDoState {
-  late AnimationController controller;
-  bool disposed = false;
   late Animation<double> animationRotation1;
   late Animation<double> animationRotation2;
   late Animation<double> animationRotation3;
@@ -445,26 +433,25 @@ class SwingState extends State<Swing>
 
     /// Provided by the mixing [AnimateDoState] class
     configAnimation(
-        controller: controller,
-        onFinish: widget.onFinish,
-        controllerCallback: widget.controller,
-        animate: widget.animate,
-        manualTrigger: widget.manualTrigger,
-        delay: widget.delay,
-        disposed: disposed,
-        infinite: widget.infinite);
+      delay: widget.delay,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      infinite: widget.infinite,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     /// Provided by the mixing [AnimateDoState] class
     buildAnimation(
-      controller: controller,
+      delay: widget.delay,
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
       infinite: widget.infinite,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
     );
 
     return AnimatedBuilder(
@@ -540,8 +527,6 @@ class Spin extends StatefulWidget {
 /// State class, where the magic happens
 class SpinState extends State<Spin>
     with SingleTickerProviderStateMixin, AnimateDoState {
-  late AnimationController controller;
-  bool disposed = false;
   late Animation<double> spin;
 
   @override
@@ -562,26 +547,25 @@ class SpinState extends State<Spin>
 
     /// Provided by the mixing [AnimateDoState] class
     configAnimation(
-        controller: controller,
-        onFinish: widget.onFinish,
-        controllerCallback: widget.controller,
-        animate: widget.animate,
-        manualTrigger: widget.manualTrigger,
-        delay: widget.delay,
-        disposed: disposed,
-        infinite: widget.infinite);
+      delay: widget.delay,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      infinite: widget.infinite,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     /// Provided by the mixing [AnimateDoState] class
     buildAnimation(
-      controller: controller,
+      delay: widget.delay,
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
       infinite: widget.infinite,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
     );
 
     return AnimatedBuilder(
@@ -696,8 +680,6 @@ class Dance extends StatefulWidget {
 /// State class, where the magic happens
 class DanceState extends State<Dance>
     with SingleTickerProviderStateMixin, AnimateDoState {
-  late AnimationController controller;
-  bool disposed = false;
   late Animation<double> step1;
   late Animation<double> step2;
   late Animation<double> step3;
@@ -727,26 +709,25 @@ class DanceState extends State<Dance>
 
     /// Provided by the mixing [AnimateDoState] class
     configAnimation(
-        controller: controller,
-        onFinish: widget.onFinish,
-        controllerCallback: widget.controller,
-        animate: widget.animate,
-        manualTrigger: widget.manualTrigger,
-        delay: widget.delay,
-        disposed: disposed,
-        infinite: widget.infinite);
+      delay: widget.delay,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      infinite: widget.infinite,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     /// Provided by the mixing [AnimateDoState] class
     buildAnimation(
-      controller: controller,
+      delay: widget.delay,
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
       infinite: widget.infinite,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
     );
 
     return AnimatedBuilder(
@@ -816,8 +797,6 @@ class Roulette extends StatefulWidget {
 /// State class, where the magic happens
 class RouletteState extends State<Roulette>
     with SingleTickerProviderStateMixin, AnimateDoState {
-  late AnimationController controller;
-  bool disposed = false;
   late Animation<double> spin;
 
   @override
@@ -838,26 +817,25 @@ class RouletteState extends State<Roulette>
 
     /// Provided by the mixing [AnimateDoState] class
     configAnimation(
-        controller: controller,
-        onFinish: widget.onFinish,
-        controllerCallback: widget.controller,
-        animate: widget.animate,
-        manualTrigger: widget.manualTrigger,
-        delay: widget.delay,
-        disposed: disposed,
-        infinite: widget.infinite);
+      delay: widget.delay,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      infinite: widget.infinite,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     /// Provided by the mixing [AnimateDoState] class
     buildAnimation(
-      controller: controller,
+      delay: widget.delay,
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
       infinite: widget.infinite,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
     );
 
     return AnimatedBuilder(
@@ -922,10 +900,7 @@ class ShakeX extends StatefulWidget {
 /// Controls the animations flow
 class ShakeXState extends State<ShakeX>
     with SingleTickerProviderStateMixin, AnimateDoState {
-  late AnimationController controller;
   late Animation<double> shakeAnimation;
-
-  bool disposed = false;
 
   @override
   void dispose() {
@@ -944,26 +919,25 @@ class ShakeXState extends State<ShakeX>
 
     /// Provided by the mixing [AnimateDoState] class
     configAnimation(
-        controller: controller,
-        onFinish: widget.onFinish,
-        controllerCallback: widget.controller,
-        animate: widget.animate,
-        manualTrigger: widget.manualTrigger,
-        delay: widget.delay,
-        disposed: disposed,
-        infinite: widget.infinite);
+      delay: widget.delay,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      infinite: widget.infinite,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     /// Provided by the mixing [AnimateDoState] class
     buildAnimation(
-      controller: controller,
+      delay: widget.delay,
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
       infinite: widget.infinite,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
     );
 
     return AnimatedBuilder(
@@ -1026,9 +1000,7 @@ class ShakeY extends StatefulWidget {
 /// Controls the animations flow
 class ShakeYState extends State<ShakeY>
     with SingleTickerProviderStateMixin, AnimateDoState {
-  late AnimationController controller;
   late Animation<double> shakeAnimation;
-  bool disposed = false;
 
   @override
   void dispose() {
@@ -1046,26 +1018,25 @@ class ShakeYState extends State<ShakeY>
 
     /// Provided by the mixing [AnimateDoState] class
     configAnimation(
-        controller: controller,
-        onFinish: widget.onFinish,
-        controllerCallback: widget.controller,
-        animate: widget.animate,
-        manualTrigger: widget.manualTrigger,
-        delay: widget.delay,
-        disposed: disposed,
-        infinite: widget.infinite);
+      delay: widget.delay,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      infinite: widget.infinite,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     /// Provided by the mixing [AnimateDoState] class
     buildAnimation(
-      controller: controller,
+      delay: widget.delay,
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
-      delay: widget.delay,
-      disposed: disposed,
       infinite: widget.infinite,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
     );
 
     return AnimatedBuilder(
