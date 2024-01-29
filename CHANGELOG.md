@@ -1,3 +1,8 @@
+#### [3.3.1] - On disposed bug fixed
+
+- fixed the issue when you dispose the widget before the animation takes place, was throwing an error.
+
+
 #### [3.3.0] - New Docs
 
 - curve property added
