@@ -248,7 +248,7 @@ class Pulse extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
-  final Curve curveIn;
+  final Curve curve;
   final Curve curveOut;
   final double from;
   final double to;
@@ -262,7 +262,7 @@ class Pulse extends StatefulWidget {
     this.manualTrigger = false,
     this.animate = true,
     this.onFinish,
-    this.curveIn = Curves.easeOut,
+    this.curve = Curves.easeOut,
     this.curveOut = Curves.easeIn,
     this.from = 1,
     this.to = 1.05, // original value: 1.5
@@ -300,7 +300,7 @@ class PulseState extends State<Pulse>
     animationInc = Tween<double>(begin: widget.from, end: widget.to).animate(
         CurvedAnimation(
             parent: controller,
-            curve: Interval(0, 0.2, curve: widget.curveIn))); // Curves.easeOut
+            curve: Interval(0, 0.2, curve: widget.curve))); // Curves.easeOut
 
     animationDec = Tween<double>(begin: widget.to, end: widget.from).animate(
         CurvedAnimation(
