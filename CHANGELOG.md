@@ -1,3 +1,7 @@
+#### [3.3.2] - PR Merge
+
+- Fixed pulse animation - curve and curveOut added
+
 #### [3.3.1] - On disposed bug fixed
 
 - fixed the issue when you dispose the widget before the animation takes place, was throwing an error.
