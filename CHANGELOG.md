@@ -1,3 +1,7 @@
+#### [3.3.3] - Spin bug fixed
+
+- Fixed spin bug, now it works as expected + less code needed
+ 
 #### [3.3.2] - PR Merge
 
 - Fixed pulse animation - curve and curveOut added
