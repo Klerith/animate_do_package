@@ -1,5 +1,4 @@
 import 'package:animate_do/src/types/animate_do_mixins.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 

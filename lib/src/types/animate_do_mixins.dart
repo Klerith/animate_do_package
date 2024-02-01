@@ -34,12 +34,7 @@ mixin AnimateDoState {
     if (!manualTrigger && animate) {
       Future.delayed(delay, () {
         if (disposed) return;
-
-        if (infinite) {
-          controller.repeat();
-        } else {
-          controller.forward();
-        }
+        (infinite) ? controller.repeat() : controller.forward();
       });
     }
 
@@ -61,7 +56,10 @@ mixin AnimateDoState {
     if (animate && !manualTrigger) {
       Future.delayed(delay, () {
         if (disposed) return;
-        if (infinite) return;
+        if (infinite){ 
+          controller.repeat();
+          return;
+        }
 
         (animate) ? controller.forward() : controller.animateBack(0);
       });
@@ -70,6 +68,10 @@ mixin AnimateDoState {
     /// If the animation already happen, we can animate it back
     if (!animate) {
       if (disposed) return;
+      if ( infinite ) {
+        controller.stop();
+        return;
+      }
       controller.animateBack(0);
     }
   }
