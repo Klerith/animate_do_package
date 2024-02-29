@@ -1,3 +1,7 @@
+#### [3.3.4] - ZoomIn and ZoomOut bug fixed
+
+- Fixed ZoomIn and ZoomOut bug, now it works as expected
+
 #### [3.3.3] - Spin bug fixed
 
 - Fixed spin bug, now it works as expected + less code needed
