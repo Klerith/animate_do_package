@@ -56,19 +56,19 @@ mixin AnimateDoState {
     if (animate && !manualTrigger) {
       Future.delayed(delay, () {
         if (disposed) return;
-        if (infinite){ 
+        if (infinite) {
           controller.repeat();
           return;
         }
 
-        (animate) ? controller.forward() : controller.animateBack(0);
+        (animate) ? controller.forward() : controller.reverse();
       });
     }
 
     /// If the animation already happen, we can animate it back
     if (!animate) {
       if (disposed) return;
-      if ( infinite ) {
+      if (infinite) {
         controller.stop();
         return;
       }

@@ -2,8 +2,6 @@ import 'package:animate_do/src/types/animate_do_mixins.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-
-
 class MockAnimatedState extends Mock with AnimateDoState {}
 
 void main() {
@@ -24,9 +22,6 @@ void main() {
         onFinish: () {},
         controllerCallback: (controller) {},
       );
-
-
-
     });
   });
 }
