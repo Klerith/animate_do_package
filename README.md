@@ -108,7 +108,7 @@ All of the following animations could be infinite with a property called `infini
 
 ## Example: 01-Basic
 
-```
+```dart
 home: Scaffold(
     body: Center(
 
@@ -151,7 +151,7 @@ Just add the property animate to **true** to trigger the animation, and to **fal
 Just toggle the **animate** property to animate in or out easily.
 Check the full code inside the example folder
 
-```
+```dart
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -200,7 +200,7 @@ class _MyAppState extends State<MyApp> {
 
 ### Note: Square, is just a Square blue container
 
-```
+```dart
 class Square extends StatelessWidget {
   const Square({Key? key}) : super(key: key);
   @override
@@ -221,7 +221,7 @@ There is a new property called `onFinish` that is called when the animation fini
 
 ### Example:
 
-```
+```dart
 FadeIn(
   animate: animate,
   delay: const Duration(milliseconds: 100),
@@ -242,7 +242,7 @@ Usually its easier now to use the animate property, and just toggle it to true o
 
 #### Example
 
-```
+```dart
 class FadeOutDownBig extends StatelessWidget/StatefulWidget {
 
 AnimationController animateController;
