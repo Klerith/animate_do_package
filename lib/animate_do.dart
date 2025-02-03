@@ -1,11 +1,11 @@
-///  Author: Fernando Herrera
-///  website: fernando-herrera.com
+/// Author: Fernando Herrera
+/// Website: https://fernando-herrera.com
 
-///  Null-Safety: checked!
-///  Prefer Const: checked!
+/// Null-Safety: ✓
+/// Prefer const: ✓
 
-/// Animate_do offers a simple and easy way to animate widgets using only native widgets
-/// This library is inspired on Animate.css
+/// Animate_do provides a simple and elegant way to add animations to Flutter widgets
+/// using only native widgets. This library is inspired by Animate.css.
 library animate_do;
 
 export 'src/animations/animate_do_attention_seekers.dart';
