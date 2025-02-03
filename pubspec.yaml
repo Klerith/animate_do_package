@@ -1,6 +1,7 @@
 name: animate_do
-description: Beautiful animations inspired on Animate.css, every animation is a
-  customizable widget.
+description:
+  Beautiful animations inspired by Animate.css, where every animation is a
+  customizable widget. (no external dependencies)
 version: 3.3.4
 homepage: https://fernando-herrera.com
 repository: https://github.com/Klerith/animate_do_package
@@ -16,7 +17,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  mocktail: ^1.0.3
+  mocktail: ^1.0.4
 
 screenshots:
   - description: 'Animate_do example logo'
