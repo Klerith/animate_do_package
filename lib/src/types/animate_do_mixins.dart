@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/widgets.dart';
 
 import '../types/animate_do_types.dart';
@@ -85,6 +86,8 @@ mixin AnimateDoState {
   }) {
     /// Launch the animation ASAP or wait until needed
     if (animate && !manualTrigger) {
+      controller.value = 0;
+      
       Future.delayed(delay, () {
         if (disposed) return;
         if (infinite) {
@@ -103,7 +106,18 @@ mixin AnimateDoState {
         controller.stop();
         return;
       }
+      
+      // if is RubberBand or Bounce, we need to reset the animation to the original state
+      
+      if (this is RubberBandState || this is BounceState) {
+        controller.value = 0;
+        controller.forward();
+        return;
+      }
+
       controller.animateBack(0);
+      
+      
     }
   }
 }
