@@ -249,6 +249,8 @@ class Pulse extends StatefulWidget {
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
   final Curve curve;
+  final double begin;
+  final double end;
 
   Pulse(
       {key,
@@ -260,7 +262,9 @@ class Pulse extends StatefulWidget {
       this.manualTrigger = false,
       this.animate = true,
       this.onFinish,
-      this.curve = Curves.easeOut})
+      this.curve = Curves.easeOut,
+      this.begin = 1,
+      this.end = 1.5})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -291,11 +295,11 @@ class PulseState extends State<Pulse>
 
     controller = AnimationController(duration: widget.duration, vsync: this);
 
-    animationInc = Tween<double>(begin: 1, end: 1.5).animate(CurvedAnimation(
+    animationInc = Tween<double>(begin: widget.begin, end: widget.end).animate(CurvedAnimation(
         parent: controller,
         curve: Interval(0, 0.5, curve: widget.curve))); // Curves.easeOut
 
-    animationDec = Tween<double>(begin: 1.5, end: 1).animate(CurvedAnimation(
+    animationDec = Tween<double>(begin: widget.end, end: widget.begin).animate(CurvedAnimation(
         parent: controller,
         curve: Interval(0.5, 1, curve: widget.curve))); // Curves.easeIn
 
