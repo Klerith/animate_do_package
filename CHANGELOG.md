@@ -1,3 +1,8 @@
+#### [3.3.6] - RubberBand and Bounce bug fixed
+
+- New RubberBand animation
+- New Bounce animation toggle
+
 #### [3.3.5] - Swing bug fixed
 
 - Fixed swing bug, now it works as expected

@@ -90,6 +90,8 @@ This package is simple to use. Every animation contains default values that look
 ## Special Animations
 
 - JelloIn
+- RubberBand
+- Bounce
 
 ## Attention Seekers
 
