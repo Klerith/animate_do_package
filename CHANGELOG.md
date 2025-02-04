@@ -1,3 +1,8 @@
+#### [3.3.5] - Swing bug fixed
+
+- Fixed swing bug, now it works as expected
+- from and to properties added to Pulse animation
+
 #### [3.3.4] - ZoomIn and ZoomOut bug fixed
 
 - Fixed ZoomIn and ZoomOut bug, now it works as expected
@@ -5,7 +10,7 @@
 #### [3.3.3] - Spin bug fixed
 
 - Fixed spin bug, now it works as expected + less code needed
- 
+
 #### [3.3.2] - PR Merge
 
 - Fixed pulse animation - curve and curveOut added
@@ -13,7 +18,6 @@
 #### [3.3.1] - On disposed bug fixed
 
 - fixed the issue when you dispose the widget before the animation takes place, was throwing an error.
-
 
 #### [3.3.0] - New Docs
 
