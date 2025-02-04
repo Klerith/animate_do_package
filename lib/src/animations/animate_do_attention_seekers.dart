@@ -249,8 +249,8 @@ class Pulse extends StatefulWidget {
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
   final Curve curve;
-  final double begin;
-  final double end;
+  final double from;
+  final double to;
 
   Pulse(
       {key,
@@ -263,8 +263,8 @@ class Pulse extends StatefulWidget {
       this.animate = true,
       this.onFinish,
       this.curve = Curves.easeOut,
-      this.begin = 1,
-      this.end = 1.5})
+      this.from = 1,
+      this.to = 1.5})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -295,11 +295,11 @@ class PulseState extends State<Pulse>
 
     controller = AnimationController(duration: widget.duration, vsync: this);
 
-    animationInc = Tween<double>(begin: widget.begin, end: widget.end).animate(CurvedAnimation(
+    animationInc = Tween<double>(begin: widget.from, end: widget.to).animate(CurvedAnimation(
         parent: controller,
         curve: Interval(0, 0.5, curve: widget.curve))); // Curves.easeOut
 
-    animationDec = Tween<double>(begin: widget.end, end: widget.begin).animate(CurvedAnimation(
+    animationDec = Tween<double>(begin: widget.to, end: widget.from).animate(CurvedAnimation(
         parent: controller,
         curve: Interval(0.5, 1, curve: widget.curve))); // Curves.easeIn
 
@@ -359,6 +359,8 @@ class Swing extends StatefulWidget {
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
   final Curve curve;
+  final double from;
+  final double to;
 
   Swing(
       {key,
@@ -370,7 +372,9 @@ class Swing extends StatefulWidget {
       this.manualTrigger = false,
       this.animate = true,
       this.onFinish,
-      this.curve = Curves.easeOut})
+      this.curve = Curves.easeOut,
+      this.from = 0,
+      this.to = 0.5})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -413,7 +417,7 @@ class SwingState extends State<Swing>
     animationRotation2 = Tween<double>(begin: -0.5, end: 0.5).animate(
         CurvedAnimation(
             parent: controller,
-            curve: Interval(0.1666, 0.3333, curve: widget.curve)));
+            curve: Interval(0.1666, 0.3333, curve: widget.curve,)));
 
     animationRotation3 = Tween<double>(begin: 0.5, end: -0.5).animate(
         CurvedAnimation(
