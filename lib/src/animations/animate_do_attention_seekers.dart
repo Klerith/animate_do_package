@@ -1084,6 +1084,7 @@ class HeartBeat extends StatefulWidget {
     this.infinite = false,
     this.onFinish,
     this.curve = Curves.easeOutQuad,
+
   }) : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('Si desea usar manualTrigger:true, \n\n'

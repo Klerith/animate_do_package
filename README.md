@@ -107,6 +107,7 @@ All of the following animations can be made infinite using the `infinite` proper
 - Spin
 - SpinPerfect
 - Swing
+- HeartBeat
 
 ## Example: 01-Basic
 
