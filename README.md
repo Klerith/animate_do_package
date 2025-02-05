@@ -92,6 +92,8 @@ This package is simple to use. Every animation contains default values that look
 - JelloIn
 - RubberBand
 - Bounce
+- FlipX
+- FlipY
 
 ## Attention Seekers
 
