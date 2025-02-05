@@ -1,3 +1,8 @@
+#### [3.3.7] - RubberBand and Bounce bug fixed
+
+- New animation toggle for RubberBand, HeartBeat and Bounce
+- New animation HeartBeat added
+
 #### [3.3.6] - RubberBand and Bounce bug fixed
 
 - New RubberBand animation
