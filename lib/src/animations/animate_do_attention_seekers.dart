@@ -1059,3 +1059,98 @@ class ShakeYState extends State<ShakeY>
         });
   }
 }
+
+
+/// HeartBeat
+class HeartBeat extends StatefulWidget {
+  final Widget child;
+  final Duration duration;
+  final Duration delay;
+  final Function(AnimationController)? controller;
+  final bool manualTrigger;
+  final bool animate;
+  final bool infinite;
+  final Function(AnimateDoDirection direction)? onFinish;
+  final Curve curve;
+
+  HeartBeat({
+    Key? key,
+    required this.child,
+    this.duration = const Duration(milliseconds: 1500),
+    this.delay = Duration.zero,
+    this.controller,
+    this.manualTrigger = false,
+    this.animate = true,
+    this.infinite = false,
+    this.onFinish,
+    this.curve = Curves.easeInOut,
+  }) : super(key: key) {
+    if (manualTrigger == true && controller == null) {
+      throw FlutterError('Si desea usar manualTrigger:true, \n\n'
+          'Debe proporcionar la propiedad controller, que es un callback como:\n\n'
+          ' ( controller: AnimationController) => yourController = controller \n\n');
+    }
+  }
+
+  @override
+  HeartBeatState createState() => HeartBeatState();
+}
+
+class HeartBeatState extends State<HeartBeat>
+    with SingleTickerProviderStateMixin, AnimateDoState {
+  late Animation<double> scale;
+
+  @override
+  void dispose() {
+    disposed = true;
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller = AnimationController(duration: widget.duration, vsync: this);
+
+    scale = TweenSequence<double>([
+      TweenSequenceItem(tween: Tween(begin: 1.0, end: 1.3), weight: 14),
+      TweenSequenceItem(tween: Tween(begin: 1.3, end: 1.0), weight: 14),
+      TweenSequenceItem(tween: Tween(begin: 1.0, end: 1.3), weight: 14),
+      TweenSequenceItem(tween: Tween(begin: 1.3, end: 1.0), weight: 28),
+      TweenSequenceItem(tween: Tween(begin: 1.0, end: 1.0), weight: 30),
+    ]).animate(CurvedAnimation(parent: controller, curve: widget.curve));
+
+    configAnimation(
+      delay: widget.delay,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      infinite: widget.infinite,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    buildAnimation(
+      delay: widget.delay,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      infinite: widget.infinite,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
+    );
+
+    return AnimatedBuilder(
+      animation: controller,
+      builder: (BuildContext context, Widget? child) {
+        return Transform.scale(
+          scale: scale.value,
+          child: widget.child,
+        );
+      },
+    );
+  }
+}
+

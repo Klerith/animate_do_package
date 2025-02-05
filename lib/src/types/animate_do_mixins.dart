@@ -1,7 +1,15 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/widgets.dart';
 
-import '../types/animate_do_types.dart';
+
+
+// The following classes need to be reset to the original state
+// after the animation is finished
+final List<Type> resetAnimationClasses = [
+  RubberBandState,
+  BounceState,
+  HeartBeatState,
+];
 
 /// A mixin that provides animation control functionality for Animate_do widgets.
 ///
@@ -18,6 +26,7 @@ mixin AnimateDoState {
 
   /// Whether this animation state has been disposed
   bool disposed = false;
+  bool isFirstTime = true;
 
   /// Configures and starts the animation based on the provided parameters.
   ///
@@ -107,17 +116,16 @@ mixin AnimateDoState {
         return;
       }
       
-      // if is RubberBand or Bounce, we need to reset the animation to the original state
-      
-      if (this is RubberBandState || this is BounceState) {
+      // If the animation is finished, we need to reset the animation to the original state
+      // after the animation is finished just for the following classes:
+      if (resetAnimationClasses.contains(this.runtimeType) && !isFirstTime) {
         controller.value = 0;
         controller.forward();
         return;
       }
 
       controller.animateBack(0);
-      
-      
+      isFirstTime = false;
     }
   }
 }
