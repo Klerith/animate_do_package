@@ -87,14 +87,6 @@ This package is simple to use. Every animation contains default values that look
 - ZoomIn
 - ZoomOut
 
-## Special Animations
-
-- JelloIn
-- RubberBand
-- Bounce
-- FlipX
-- FlipY
-
 ## Attention Seekers
 
 All of the following animations can be made infinite using the `infinite` property (type: bool)
@@ -110,6 +102,10 @@ All of the following animations can be made infinite using the `infinite` proper
 - SpinPerfect
 - Swing
 - HeartBeat
+- Wobble
+- Jello
+- Tada
+- RubberBand
 
 ## Example: 01-Basic
 
