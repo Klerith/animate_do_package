@@ -56,3 +56,29 @@ class BounceInDown extends StatelessWidget {
         child: child,
       );
 }
+
+extension BounceInDownExtension on Widget {
+  /// Applies a bounce-in-down animation with customizable options 
+  Widget bounceInDown({
+    Duration duration = const Duration(milliseconds: 1000),
+    Duration delay = const Duration(milliseconds: 0),
+    Function(AnimationController)? controller,
+    bool manualTrigger = false,
+    bool animate = true,
+    double from = 75,
+    Function(AnimateDoDirection direction)? onFinish,
+    Curve curve = Curves.bounceOut,
+  }) {
+    return BounceInDown(
+      duration: duration,
+      delay: delay,
+      controller: controller,
+      manualTrigger: manualTrigger,
+      animate: animate,
+      from: from,
+      onFinish: onFinish,
+      curve: curve,
+      child: this,
+    );
+  }
+}

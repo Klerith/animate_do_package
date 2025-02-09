@@ -131,3 +131,28 @@ class _BounceInState extends State<BounceIn>
     );
   }
 }
+
+  extension BounceInExtension on Widget {
+  /// Applies a bounce-in animation with customizable options
+  Widget bounceIn({
+    Duration duration = const Duration(milliseconds: 1000),
+    Duration delay = const Duration(milliseconds: 0),
+    Function(AnimationController)? controller,
+    bool manualTrigger = false,
+    bool animate = true,
+    Function(AnimateDoDirection direction)? onFinish,
+    Curve curve = Curves.bounceOut,
+  }) {
+    return BounceIn(
+      duration: duration,
+      delay: delay,
+      controller: controller,
+      manualTrigger: manualTrigger,
+      animate: animate,
+      onFinish: onFinish,
+      curve: curve,
+      child: this,
+    );
+  }
+}
+

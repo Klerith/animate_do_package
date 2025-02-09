@@ -21,5 +21,3 @@ export 'src/animations/animate_do_zooms.dart';
 /// Types
 export 'src/types/animate_do_types.dart';
 
-/// Sugar
-export 'src/sugar/widget_bounce_extension.dart';
