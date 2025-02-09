@@ -11,6 +11,7 @@ class BounceIn extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
+  final Curve curve;
 
   BounceIn({
     Key? key,
@@ -21,6 +22,7 @@ class BounceIn extends StatefulWidget {
     this.manualTrigger = false,
     this.animate = true,
     this.onFinish,
+    this.curve = Curves.easeOutCubic,
   }) : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -46,7 +48,7 @@ class _BounceInState extends State<BounceIn> with SingleTickerProviderStateMixin
 
     final CurvedAnimation curvedAnimation = CurvedAnimation(
       parent: controller,
-      curve: Curves.easeOutCubic,
+      curve: widget.curve,
     );
 
     scale = TweenSequence<double>([
