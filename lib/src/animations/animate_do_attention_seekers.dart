@@ -341,155 +341,6 @@ class PulseState extends State<Pulse>
   }
 }
 
-/// [key]: optional widget key reference
-/// [child]: mandatory, widget to animate
-/// [duration]: how much time the animation should take
-/// [delay]: delay before the animation starts
-/// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
-/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
-/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
-/// [curve]: curve for the animation
-/// [infinite]: loops the animation until the widget is destroyed
-class Swing extends StatefulWidget {
-  final Widget child;
-  final Duration duration;
-  final Duration delay;
-  final bool infinite;
-  final Function(AnimationController)? controller;
-  final bool manualTrigger;
-  final bool animate;
-  final Function(AnimateDoDirection direction)? onFinish;
-  final Curve curve;
-  final double from;
-  final double to;
-
-  Swing(
-      {key,
-      required this.child,
-      this.duration = const Duration(milliseconds: 1000),
-      this.delay = const Duration(milliseconds: 0),
-      this.infinite = false,
-      this.controller,
-      this.manualTrigger = false,
-      this.animate = true,
-      this.onFinish,
-      this.curve = Curves.easeOut,
-      this.from = 0,
-      this.to = 0.5})
-      : super(key: key) {
-    if (manualTrigger == true && controller == null) {
-      throw FlutterError('If you want to use manualTrigger:true, \n\n'
-          'Then you must provide the controller property, that is a callback like:\n\n'
-          ' ( controller: AnimationController) => yourController = controller \n\n');
-    }
-  }
-
-  @override
-  SwingState createState() => SwingState();
-}
-
-/// State class, where the magic happens
-class SwingState extends State<Swing>
-    with SingleTickerProviderStateMixin, AnimateDoState {
-  late Animation<double> animationRotation1;
-  late Animation<double> animationRotation2;
-  late Animation<double> animationRotation3;
-  late Animation<double> animationRotation4;
-  late Animation<double> animationRotation5;
-  late Animation<double> animationRotation6;
-  @override
-  void dispose() {
-    disposed = true;
-    controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    controller = AnimationController(duration: widget.duration, vsync: this);
-
-    animationRotation1 = Tween<double>(begin: 0, end: -0.5).animate(
-        CurvedAnimation(
-            parent: controller,
-            curve: const Interval(0, 0.1666, curve: Curves.easeOut)));
-
-    animationRotation2 =
-        Tween<double>(begin: -0.5, end: 0.5).animate(CurvedAnimation(
-            parent: controller,
-            curve: Interval(
-              0.1666,
-              0.3333,
-              curve: widget.curve,
-            )));
-
-    animationRotation3 = Tween<double>(begin: 0.5, end: -0.5).animate(
-        CurvedAnimation(
-            parent: controller,
-            curve: Interval(0.3333, 0.4999, curve: widget.curve)));
-
-    animationRotation4 = Tween<double>(begin: -0.5, end: 0.4).animate(
-        CurvedAnimation(
-            parent: controller,
-            curve: Interval(0.4999, 0.6666, curve: widget.curve)));
-
-    animationRotation5 = Tween<double>(begin: 0.4, end: -0.4).animate(
-        CurvedAnimation(
-            parent: controller,
-            curve: Interval(0.6666, 0.8333, curve: widget.curve)));
-
-    animationRotation6 = Tween<double>(begin: -0.4, end: 0).animate(
-        CurvedAnimation(
-            parent: controller,
-            curve: const Interval(0.8333, 1, curve: Curves.easeOut)));
-
-    /// Provided by the mixing [AnimateDoState] class
-    configAnimation(
-      delay: widget.delay,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      infinite: widget.infinite,
-      onFinish: widget.onFinish,
-      controllerCallback: widget.controller,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    /// Provided by the mixing [AnimateDoState] class
-    buildAnimation(
-      delay: widget.delay,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      infinite: widget.infinite,
-      onFinish: widget.onFinish,
-      controllerCallback: widget.controller,
-    );
-
-    return AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget? child) {
-          double angle = (animationRotation1.value != -0.5)
-              ? animationRotation1.value
-              : (animationRotation2.value != 0.5)
-                  ? animationRotation2.value
-                  : (animationRotation3.value != -0.5)
-                      ? animationRotation3.value
-                      : (animationRotation4.value != 0.4)
-                          ? animationRotation4.value
-                          : (animationRotation5.value != -0.4)
-                              ? animationRotation5.value
-                              : animationRotation6.value;
-
-          return Transform.rotate(
-            angle: angle,
-            child: widget.child,
-          );
-        });
-  }
-}
 
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
@@ -1158,3 +1009,99 @@ class HeartBeatState extends State<HeartBeat>
     );
   }
 }
+
+
+// Swing 
+/// A widget that creates a swinging animation effect on its child widget.
+///
+/// [key]: optional widget key reference
+/// [child]: mandatory, widget to animate
+/// [duration]: how much time the animation should take
+/// [delay]: delay before the animation starts
+/// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
+/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
+/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
+/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
+/// [curve]: curve for the animation
+/// [infinite]: loops the animation until the widget is destroyed
+class Swing extends StatefulWidget {
+  final Widget child;
+  final Duration duration;
+  final Duration delay;
+  final bool infinite;
+  final Function(AnimationController)? controller;
+  final bool manualTrigger;
+  final bool animate;
+  final Function(AnimateDoDirection direction)? onFinish;
+  final Curve curve;
+
+  Swing({
+    key,
+    required this.child,
+    this.duration = const Duration(milliseconds: 1000),
+    this.delay = const Duration(milliseconds: 0),
+    this.infinite = false,
+    this.controller,
+    this.manualTrigger = false,
+    this.animate = true,
+    this.onFinish,
+    this.curve = Curves.easeOut,
+  }) : super(key: key);
+
+  @override
+  SwingState createState() => SwingState();
+}
+
+class SwingState extends State<Swing> with SingleTickerProviderStateMixin, AnimateDoState {
+  late AnimationController controller;
+  late Animation<double> rotation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller = AnimationController(duration: widget.duration, vsync: this);
+
+    rotation = TweenSequence<double>([
+      TweenSequenceItem(tween: Tween(begin: 0.0, end: 0.261799), weight: 20), // 15 degrees
+      TweenSequenceItem(tween: Tween(begin: 0.261799, end: -0.174533), weight: 20), // -10 degrees
+      TweenSequenceItem(tween: Tween(begin: -0.174533, end: 0.087266), weight: 20), // 5 degrees
+      TweenSequenceItem(tween: Tween(begin: 0.087266, end: -0.087266), weight: 20), // -5 degrees
+      TweenSequenceItem(tween: Tween(begin: -0.087266, end: 0.0), weight: 20), // 0 degrees
+    ]).animate(CurvedAnimation(parent: controller, curve: widget.curve));
+
+    configAnimation(
+      delay: widget.delay,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      infinite: widget.infinite,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    buildAnimation(
+      delay: widget.delay,
+      animate: widget.animate,
+      manualTrigger: widget.manualTrigger,
+      infinite: widget.infinite,
+      onFinish: widget.onFinish,
+      controllerCallback: widget.controller,
+    );
+
+    return AnimatedBuilder(
+      animation: controller,
+      builder: (BuildContext context, Widget? child) {
+        return Transform(
+          transform: Matrix4.identity()..rotateZ(rotation.value),
+          alignment: Alignment.topCenter,
+          child: widget.child,
+        );
+      },
+    );
+  }
+}
+
+
