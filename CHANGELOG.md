@@ -1,3 +1,8 @@
+### [3.3.10] - New animations
+
+- New animations added
+  - BounceIn
+
 ### [3.3.9] - New animations
 
 - New animations added
