@@ -1,3 +1,10 @@
+### [3.3.9] - New animations
+
+- New animations added
+  - Tada
+  - Swing (updated animation)
+- Fixed the structure of the attention_seekers folder
+
 #### [3.3.8] - RubberBand and Bounce bug fixed
 
 - Fixed bug when state changes

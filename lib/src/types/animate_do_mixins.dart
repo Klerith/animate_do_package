@@ -1,10 +1,12 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/widgets.dart';
+
+import '../animations/attention_seekers/index.dart';
+import '../types/animate_do_types.dart';
 
 // The following classes need to be reset to the original state
 // after the animation is finished
 final List<Type> resetAnimationClasses = [
-  RubberBandState,
+  RubberBand,
   BounceState,
   HeartBeatState,
   Swing,
