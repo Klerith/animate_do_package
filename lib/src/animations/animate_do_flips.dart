@@ -212,7 +212,6 @@ class FlipInYState extends State<FlipInY>
   }
 }
 
-
 /// FlipX
 class FlipX extends StatefulWidget {
   final Widget child;
@@ -297,12 +296,10 @@ class FlipXState extends State<FlipX>
           return Transform(
               alignment: FractionalOffset.center,
               transform: Matrix4.identity()..rotateY(rotation.value),
-              child: widget.child
-          );
+              child: widget.child);
         });
   }
 }
-
 
 // FlipY
 /// [key]: optional widget key reference
@@ -397,8 +394,7 @@ class FlipYState extends State<FlipY>
           return Transform(
               alignment: FractionalOffset.center,
               transform: Matrix4.identity()..rotateX(rotation.value),
-              child: widget.child
-          );
+              child: widget.child);
         });
   }
 }

@@ -295,13 +295,15 @@ class PulseState extends State<Pulse>
 
     controller = AnimationController(duration: widget.duration, vsync: this);
 
-    animationInc = Tween<double>(begin: widget.from, end: widget.to).animate(CurvedAnimation(
-        parent: controller,
-        curve: Interval(0, 0.5, curve: widget.curve))); // Curves.easeOut
+    animationInc = Tween<double>(begin: widget.from, end: widget.to).animate(
+        CurvedAnimation(
+            parent: controller,
+            curve: Interval(0, 0.5, curve: widget.curve))); // Curves.easeOut
 
-    animationDec = Tween<double>(begin: widget.to, end: widget.from).animate(CurvedAnimation(
-        parent: controller,
-        curve: Interval(0.5, 1, curve: widget.curve))); // Curves.easeIn
+    animationDec = Tween<double>(begin: widget.to, end: widget.from).animate(
+        CurvedAnimation(
+            parent: controller,
+            curve: Interval(0.5, 1, curve: widget.curve))); // Curves.easeIn
 
     /// Provided by the mixing [AnimateDoState] class
     configAnimation(
@@ -414,10 +416,14 @@ class SwingState extends State<Swing>
             parent: controller,
             curve: const Interval(0, 0.1666, curve: Curves.easeOut)));
 
-    animationRotation2 = Tween<double>(begin: -0.5, end: 0.5).animate(
-        CurvedAnimation(
+    animationRotation2 =
+        Tween<double>(begin: -0.5, end: 0.5).animate(CurvedAnimation(
             parent: controller,
-            curve: Interval(0.1666, 0.3333, curve: widget.curve,)));
+            curve: Interval(
+              0.1666,
+              0.3333,
+              curve: widget.curve,
+            )));
 
     animationRotation3 = Tween<double>(begin: 0.5, end: -0.5).animate(
         CurvedAnimation(
@@ -1060,7 +1066,6 @@ class ShakeYState extends State<ShakeY>
   }
 }
 
-
 /// HeartBeat
 class HeartBeat extends StatefulWidget {
   final Widget child;
@@ -1084,7 +1089,6 @@ class HeartBeat extends StatefulWidget {
     this.infinite = false,
     this.onFinish,
     this.curve = Curves.easeOutQuad,
-
   }) : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('Si desea usar manualTrigger:true, \n\n'
@@ -1154,4 +1158,3 @@ class HeartBeatState extends State<HeartBeat>
     );
   }
 }
-

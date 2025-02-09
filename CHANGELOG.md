@@ -1,3 +1,7 @@
+#### [3.3.8] - RubberBand and Bounce bug fixed
+
+- Fixed bug when state changes
+
 #### [3.3.7] - RubberBand and Bounce bug fixed
 
 - New animation toggle for RubberBand, HeartBeat and Bounce

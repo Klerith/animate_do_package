@@ -1,8 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/widgets.dart';
 
-
-
 // The following classes need to be reset to the original state
 // after the animation is finished
 final List<Type> resetAnimationClasses = [
@@ -94,9 +92,11 @@ mixin AnimateDoState {
     Function(AnimationController controller)? controllerCallback,
   }) {
     /// Launch the animation ASAP or wait until needed
+    print("animate: $animate");
+
     if (animate && !manualTrigger) {
-      controller.value = 0;
-      
+      // controller.value = 0;
+
       Future.delayed(delay, () {
         if (disposed) return;
         if (infinite) {
@@ -115,12 +115,11 @@ mixin AnimateDoState {
         controller.stop();
         return;
       }
-      
+
       // If the animation is finished, we need to reset the animation to the original state
       // after the animation is finished just for the following classes:
       if (resetAnimationClasses.contains(this.runtimeType) && !isFirstTime) {
         controller.value = 0;
-        controller.forward();
         return;
       }
 
