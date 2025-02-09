@@ -20,4 +20,3 @@ export 'src/animations/animate_do_zooms.dart';
 
 /// Types
 export 'src/types/animate_do_types.dart';
-

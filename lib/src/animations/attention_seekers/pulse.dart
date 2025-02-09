@@ -114,3 +114,33 @@ class PulseState extends State<Pulse>
         });
   }
 }
+
+extension PulseExtension on Widget {
+  /// Applies a pulse animation with customizable options
+  Widget pulse({
+    Duration duration = const Duration(milliseconds: 1000),
+    Duration delay = const Duration(milliseconds: 0),
+    Function(AnimationController)? controller,
+    bool manualTrigger = false,
+    bool animate = true,
+    bool infinite = false,
+    Function(AnimateDoDirection direction)? onFinish,
+    Curve curve = Curves.easeOut,
+    double from = 1,
+    double to = 1.5,
+  }) {
+    return Pulse(
+      duration: duration,
+      delay: delay,
+      controller: controller,
+      manualTrigger: manualTrigger,
+      animate: animate,
+      infinite: infinite,
+      onFinish: onFinish,
+      curve: curve,
+      from: from,
+      to: to,
+      child: this,
+    );
+  }
+}

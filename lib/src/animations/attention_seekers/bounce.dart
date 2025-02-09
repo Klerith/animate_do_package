@@ -114,3 +114,29 @@ class BounceState extends State<Bounce>
         });
   }
 }
+
+extension BounceExtension on Widget {
+  /// Applies a bounce animation with customizable options
+  Widget bounce({
+    Duration duration = const Duration(milliseconds: 1300),
+    Duration delay = const Duration(milliseconds: 0),
+    Function(AnimationController)? controller,
+    bool manualTrigger = false,
+    bool animate = true,
+    Function(AnimateDoDirection direction)? onFinish,
+    Curve curve = Curves.bounceOut,
+    double from = 50,
+  }) {
+    return Bounce(
+      duration: duration,
+      delay: delay,
+      controller: controller,
+      manualTrigger: manualTrigger,
+      animate: animate,
+      from: from,
+      onFinish: onFinish,
+      curve: curve,
+      child: this,
+    );
+  }
+}

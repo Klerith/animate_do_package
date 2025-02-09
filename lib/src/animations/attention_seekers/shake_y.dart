@@ -103,3 +103,31 @@ class ShakeYState extends State<ShakeY>
         });
   }
 }
+
+extension ShakeYExtension on Widget {
+  /// Aplica una animación de sacudida vertical con opciones personalizables
+  Widget shakeY({
+    Duration duration = const Duration(milliseconds: 1000),
+    Duration delay = const Duration(milliseconds: 0),
+    Function(AnimationController)? controller,
+    bool manualTrigger = false,
+    bool animate = true,
+    bool infinite = false,
+    Function(AnimateDoDirection direction)? onFinish,
+    Curve curve = Curves.easeOut,
+    double from = 10,
+  }) {
+    return ShakeY(
+      duration: duration,
+      delay: delay,
+      controller: controller,
+      manualTrigger: manualTrigger,
+      animate: animate,
+      infinite: infinite,
+      onFinish: onFinish,
+      curve: curve,
+      from: from,
+      child: this,
+    );
+  }
+}

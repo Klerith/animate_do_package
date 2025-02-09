@@ -108,3 +108,27 @@ class JelloInState extends State<JelloIn>
         });
   }
 }
+
+extension JelloInExtension on Widget {
+  /// Applies a jello-in animation with customizable options
+  Widget jelloIn({
+    Duration duration = const Duration(milliseconds: 800),
+    Duration delay = const Duration(milliseconds: 0),
+    Function(AnimationController)? controller,
+    bool manualTrigger = false,
+    bool animate = true,
+    Function(AnimateDoDirection direction)? onFinish,
+    Curve curve = Curves.bounceOut,
+  }) {
+    return JelloIn(
+      duration: duration,
+      delay: delay,
+      controller: controller,
+      manualTrigger: manualTrigger,
+      animate: animate,
+      onFinish: onFinish,
+      curve: curve,
+      child: this,
+    );
+  }
+}

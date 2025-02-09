@@ -57,7 +57,6 @@ class BounceInRight extends StatelessWidget {
       );
 }
 
-
 extension BounceInRightExtension on Widget {
   /// Applies a bounce-in-right animation with customizable options
   Widget bounceInRight({

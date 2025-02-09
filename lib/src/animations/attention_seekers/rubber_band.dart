@@ -124,3 +124,28 @@ class RubberBandState extends State<RubberBand>
     );
   }
 }
+
+extension RubberBandExtension on Widget {
+  /// Aplica una animación de banda elástica con opciones personalizables
+  Widget rubberBand({
+    Duration duration = const Duration(milliseconds: 1000),
+    Duration delay = const Duration(milliseconds: 0),
+    Function(AnimationController)? controller,
+    bool manualTrigger = false,
+    bool animate = true,
+    bool infinite = false,
+    Function(AnimateDoDirection direction)? onFinish,
+    Curve curve = Curves.easeOut,
+  }) {
+    return RubberBand(
+      duration: duration,
+      delay: delay,
+      controller: controller,
+      manualTrigger: manualTrigger,
+      animate: animate,
+      onFinish: onFinish,
+      curve: curve,
+      child: this,
+    );
+  }
+}

@@ -58,7 +58,7 @@ class BounceInDown extends StatelessWidget {
 }
 
 extension BounceInDownExtension on Widget {
-  /// Applies a bounce-in-down animation with customizable options 
+  /// Applies a bounce-in-down animation with customizable options
   Widget bounceInDown({
     Duration duration = const Duration(milliseconds: 1000),
     Duration delay = const Duration(milliseconds: 0),

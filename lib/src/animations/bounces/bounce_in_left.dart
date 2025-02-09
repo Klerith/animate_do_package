@@ -57,7 +57,6 @@ class BounceInLeft extends StatelessWidget {
       );
 }
 
-
 extension BounceInLeftExtension on Widget {
   /// Applies a bounce-in-left animation with customizable options
   Widget bounceInLeft({
@@ -82,4 +81,4 @@ extension BounceInLeftExtension on Widget {
       child: this,
     );
   }
-} 
+}

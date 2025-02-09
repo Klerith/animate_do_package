@@ -132,7 +132,7 @@ class _BounceInState extends State<BounceIn>
   }
 }
 
-  extension BounceInExtension on Widget {
+extension BounceInExtension on Widget {
   /// Applies a bounce-in animation with customizable options
   Widget bounceIn({
     Duration duration = const Duration(milliseconds: 1000),
@@ -155,4 +155,3 @@ class _BounceInState extends State<BounceIn>
     );
   }
 }
-

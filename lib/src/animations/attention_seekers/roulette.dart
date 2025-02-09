@@ -104,3 +104,31 @@ class RouletteState extends State<Roulette>
         });
   }
 }
+
+extension RouletteExtension on Widget {
+  /// Applies a roulette animation with customizable options
+  Widget roulette({
+    Duration duration = const Duration(milliseconds: 3500),
+    Duration delay = const Duration(milliseconds: 0),
+    Function(AnimationController)? controller,
+    bool manualTrigger = false,
+    bool animate = true,
+    bool infinite = false,
+    Function(AnimateDoDirection direction)? onFinish,
+    Curve curve = Curves.elasticOut,
+    double spins = 2,
+  }) {
+    return Roulette(
+      duration: duration,
+      delay: delay,
+      controller: controller,
+      manualTrigger: manualTrigger,
+      animate: animate,
+      infinite: infinite,
+      onFinish: onFinish,
+      curve: curve,
+      spins: spins,
+      child: this,
+    );
+  }
+}

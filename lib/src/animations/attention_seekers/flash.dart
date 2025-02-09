@@ -114,3 +114,29 @@ class FlashState extends State<Flash>
         });
   }
 }
+
+extension FlashExtension on Widget {
+  /// Applies a flash animation with customizable options
+  Widget flash({
+    Duration duration = const Duration(milliseconds: 1000),
+    Duration delay = const Duration(milliseconds: 0),
+    Function(AnimationController)? controller,
+    bool manualTrigger = false,
+    bool animate = true,
+    Function(AnimateDoDirection direction)? onFinish,
+    Curve curve = Curves.linearToEaseOut,
+    bool infinite = false,
+  }) {
+    return Flash(
+      duration: duration,
+      delay: delay,
+      controller: controller,
+      manualTrigger: manualTrigger,
+      animate: animate,
+      onFinish: onFinish,
+      curve: curve,
+      infinite: infinite,
+      child: this,
+    );
+  }
+}

@@ -138,3 +138,29 @@ class JelloState extends State<Jello>
     );
   }
 }
+
+extension JelloExtension on Widget {
+  /// Applies a jello animation with customizable options
+  Widget jello({
+    Duration duration = const Duration(milliseconds: 1200),
+    Duration delay = const Duration(milliseconds: 0),
+    Function(AnimationController)? controller,
+    bool manualTrigger = false,
+    bool animate = true,
+    bool infinite = false,
+    Function(AnimateDoDirection direction)? onFinish,
+    Curve curve = Curves.easeOut,
+  }) {
+    return Jello(
+      duration: duration,
+      delay: delay,
+      controller: controller,
+      manualTrigger: manualTrigger,
+      animate: animate,
+      infinite: infinite,
+      onFinish: onFinish,
+      curve: curve,
+      child: this,
+    );
+  }
+}

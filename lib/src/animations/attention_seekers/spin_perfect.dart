@@ -58,3 +58,31 @@ class SpinPerfect extends StatelessWidget {
       curve: curve,
       child: child);
 }
+
+extension SpinPerfectExtension on Widget {
+  /// Aplica una animación de giro perfecto con opciones personalizables
+  Widget spinPerfect({
+    Duration duration = const Duration(milliseconds: 1000),
+    Duration delay = const Duration(milliseconds: 0),
+    Function(AnimationController)? controller,
+    bool manualTrigger = false,
+    bool animate = true,
+    bool infinite = false,
+    Function(AnimateDoDirection direction)? onFinish,
+    Curve curve = Curves.linear,
+    double spins = 1,
+  }) {
+    return SpinPerfect(
+      duration: duration,
+      delay: delay,
+      controller: controller,
+      manualTrigger: manualTrigger,
+      animate: animate,
+      infinite: infinite,
+      onFinish: onFinish,
+      curve: curve,
+      spins: spins,
+      child: this,
+    );
+  }
+}

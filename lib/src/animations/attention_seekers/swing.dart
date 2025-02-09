@@ -104,3 +104,29 @@ class SwingState extends State<Swing>
     );
   }
 }
+
+extension SwingExtension on Widget {
+  /// Aplica una animación de balanceo con opciones personalizables
+  Widget swing({
+    Duration duration = const Duration(milliseconds: 1000),
+    Duration delay = const Duration(milliseconds: 0),
+    Function(AnimationController)? controller,
+    bool manualTrigger = false,
+    bool animate = true,
+    bool infinite = false,
+    Function(AnimateDoDirection direction)? onFinish,
+    Curve curve = Curves.easeOut,
+  }) {
+    return Swing(
+      duration: duration,
+      delay: delay,
+      controller: controller,
+      manualTrigger: manualTrigger,
+      animate: animate,
+      infinite: infinite,
+      onFinish: onFinish,
+      curve: curve,
+      child: this,
+    );
+  }
+}

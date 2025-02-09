@@ -120,3 +120,29 @@ class WobbleState extends State<Wobble>
     );
   }
 }
+
+extension WobbleExtension on Widget {
+  /// Aplica una animación de tambaleo con opciones personalizables
+  Widget wobble({
+    Duration duration = const Duration(milliseconds: 1000),
+    Duration delay = const Duration(milliseconds: 0),
+    Function(AnimationController)? controller,
+    bool manualTrigger = false,
+    bool animate = true,
+    bool infinite = false,
+    Function(AnimateDoDirection direction)? onFinish,
+    Curve curve = Curves.easeOut,
+  }) {
+    return Wobble(
+      duration: duration,
+      delay: delay,
+      controller: controller,
+      manualTrigger: manualTrigger,
+      animate: animate,
+      infinite: infinite,
+      onFinish: onFinish,
+      curve: curve,
+      child: this,
+    );
+  }
+}

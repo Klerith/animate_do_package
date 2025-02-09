@@ -116,3 +116,29 @@ class DanceState extends State<Dance>
         });
   }
 }
+
+extension DanceExtension on Widget {
+  /// Applies a dance animation with customizable options
+  Widget dance({
+    Duration duration = const Duration(milliseconds: 1000),
+    Duration delay = const Duration(milliseconds: 0),
+    Function(AnimationController)? controller,
+    bool manualTrigger = false,
+    bool animate = true,
+    Function(AnimateDoDirection direction)? onFinish,
+    Curve curve = Curves.bounceOut,
+    bool infinite = false,
+  }) {
+    return Dance(
+      duration: duration,
+      delay: delay,
+      controller: controller,
+      manualTrigger: manualTrigger,
+      animate: animate,
+      onFinish: onFinish,
+      curve: curve,
+      infinite: infinite,
+      child: this,
+    );
+  }
+}
