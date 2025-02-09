@@ -1,10 +1,7 @@
-
 import 'package:flutter/material.dart';
 
 import '../../types/animate_do_mixins.dart';
 import '../../types/animate_do_types.dart';
-
-
 
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate

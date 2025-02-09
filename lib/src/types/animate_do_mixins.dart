@@ -12,7 +12,6 @@ final List<Type> resetAnimationClasses = [
   Swing,
   Wobble,
   Jello,
-  
 ];
 
 /// A mixin that provides animation control functionality for Animate_do widgets.

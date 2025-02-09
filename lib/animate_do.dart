@@ -8,7 +8,6 @@
 /// using only native widgets. This library is inspired by Animate.css.
 library animate_do;
 
-
 export 'src/animations/attention_seekers/index.dart';
 
 export 'src/animations/animate_do_bounces.dart';

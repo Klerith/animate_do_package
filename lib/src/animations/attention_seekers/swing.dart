@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 import '../../types/animate_do_mixins.dart';
 import '../../types/animate_do_types.dart';
 
-
-
-
-// Swing 
+// Swing
 /// A widget that creates a swinging animation effect on its child widget.
 ///
 /// [key]: optional widget key reference
@@ -47,7 +44,8 @@ class Swing extends StatefulWidget {
   SwingState createState() => SwingState();
 }
 
-class SwingState extends State<Swing> with SingleTickerProviderStateMixin, AnimateDoState {
+class SwingState extends State<Swing>
+    with SingleTickerProviderStateMixin, AnimateDoState {
   late AnimationController controller;
   late Animation<double> rotation;
 
@@ -58,11 +56,19 @@ class SwingState extends State<Swing> with SingleTickerProviderStateMixin, Anima
     controller = AnimationController(duration: widget.duration, vsync: this);
 
     rotation = TweenSequence<double>([
-      TweenSequenceItem(tween: Tween(begin: 0.0, end: 0.261799), weight: 20), // 15 degrees
-      TweenSequenceItem(tween: Tween(begin: 0.261799, end: -0.174533), weight: 20), // -10 degrees
-      TweenSequenceItem(tween: Tween(begin: -0.174533, end: 0.087266), weight: 20), // 5 degrees
-      TweenSequenceItem(tween: Tween(begin: 0.087266, end: -0.087266), weight: 20), // -5 degrees
-      TweenSequenceItem(tween: Tween(begin: -0.087266, end: 0.0), weight: 20), // 0 degrees
+      TweenSequenceItem(
+          tween: Tween(begin: 0.0, end: 0.261799), weight: 20), // 15 degrees
+      TweenSequenceItem(
+          tween: Tween(begin: 0.261799, end: -0.174533),
+          weight: 20), // -10 degrees
+      TweenSequenceItem(
+          tween: Tween(begin: -0.174533, end: 0.087266),
+          weight: 20), // 5 degrees
+      TweenSequenceItem(
+          tween: Tween(begin: 0.087266, end: -0.087266),
+          weight: 20), // -5 degrees
+      TweenSequenceItem(
+          tween: Tween(begin: -0.087266, end: 0.0), weight: 20), // 0 degrees
     ]).animate(CurvedAnimation(parent: controller, curve: widget.curve));
 
     configAnimation(

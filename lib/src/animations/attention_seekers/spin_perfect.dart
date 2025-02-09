@@ -3,11 +3,6 @@ import 'package:flutter/material.dart';
 import '../../types/animate_do_types.dart';
 import '../attention_seekers/spin.dart';
 
-
-
-
-
-
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
 /// [duration]: how much time the animation should take

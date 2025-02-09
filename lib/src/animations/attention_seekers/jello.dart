@@ -72,9 +72,12 @@ class JelloState extends State<Jello>
       TweenSequenceItem(tween: Tween(begin: -12.5, end: 6.25), weight: 11.1),
       TweenSequenceItem(tween: Tween(begin: 6.25, end: -3.125), weight: 11.1),
       TweenSequenceItem(tween: Tween(begin: -3.125, end: 1.5625), weight: 11.1),
-      TweenSequenceItem(tween: Tween(begin: 1.5625, end: -0.78125), weight: 11.1),
-      TweenSequenceItem(tween: Tween(begin: -0.78125, end: 0.390625), weight: 11.1),
-      TweenSequenceItem(tween: Tween(begin: 0.390625, end: -0.1953125), weight: 11.1),
+      TweenSequenceItem(
+          tween: Tween(begin: 1.5625, end: -0.78125), weight: 11.1),
+      TweenSequenceItem(
+          tween: Tween(begin: -0.78125, end: 0.390625), weight: 11.1),
+      TweenSequenceItem(
+          tween: Tween(begin: 0.390625, end: -0.1953125), weight: 11.1),
       TweenSequenceItem(tween: Tween(begin: -0.1953125, end: 0), weight: 11.2),
     ]).animate(CurvedAnimation(
       parent: controller,
@@ -87,9 +90,12 @@ class JelloState extends State<Jello>
       TweenSequenceItem(tween: Tween(begin: -12.5, end: 6.25), weight: 11.1),
       TweenSequenceItem(tween: Tween(begin: 6.25, end: -3.125), weight: 11.1),
       TweenSequenceItem(tween: Tween(begin: -3.125, end: 1.5625), weight: 11.1),
-      TweenSequenceItem(tween: Tween(begin: 1.5625, end: -0.78125), weight: 11.1),
-      TweenSequenceItem(tween: Tween(begin: -0.78125, end: 0.390625), weight: 11.1),
-      TweenSequenceItem(tween: Tween(begin: 0.390625, end: -0.1953125), weight: 11.1),
+      TweenSequenceItem(
+          tween: Tween(begin: 1.5625, end: -0.78125), weight: 11.1),
+      TweenSequenceItem(
+          tween: Tween(begin: -0.78125, end: 0.390625), weight: 11.1),
+      TweenSequenceItem(
+          tween: Tween(begin: 0.390625, end: -0.1953125), weight: 11.1),
       TweenSequenceItem(tween: Tween(begin: -0.1953125, end: 0), weight: 11.2),
     ]).animate(CurvedAnimation(
       parent: controller,
@@ -132,4 +138,3 @@ class JelloState extends State<Jello>
     );
   }
 }
-

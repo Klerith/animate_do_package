@@ -55,21 +55,34 @@ class WobbleState extends State<Wobble>
 
     controller = AnimationController(duration: widget.duration, vsync: this);
     translateX = TweenSequence<double>([
-      TweenSequenceItem(tween: Tween(begin: 0.0, end: -0.15), weight: 15), // -15%
-      TweenSequenceItem(tween: Tween(begin: -0.15, end: 0.12), weight: 15), // 12%
-      TweenSequenceItem(tween: Tween(begin: 0.12, end: -0.09), weight: 15), // -9%
-      TweenSequenceItem(tween: Tween(begin: -0.09, end: 0.06), weight: 15), // 6%
-      TweenSequenceItem(tween: Tween(begin: 0.06, end: -0.03), weight: 15), // -3%
+      TweenSequenceItem(
+          tween: Tween(begin: 0.0, end: -0.15), weight: 15), // -15%
+      TweenSequenceItem(
+          tween: Tween(begin: -0.15, end: 0.12), weight: 15), // 12%
+      TweenSequenceItem(
+          tween: Tween(begin: 0.12, end: -0.09), weight: 15), // -9%
+      TweenSequenceItem(
+          tween: Tween(begin: -0.09, end: 0.06), weight: 15), // 6%
+      TweenSequenceItem(
+          tween: Tween(begin: 0.06, end: -0.03), weight: 15), // -3%
       TweenSequenceItem(tween: Tween(begin: -0.03, end: 0.0), weight: 25), // 0%
     ]).animate(CurvedAnimation(parent: controller, curve: widget.curve));
 
     rotation = TweenSequence<double>([
-      TweenSequenceItem(tween: Tween(begin: 0.0, end: -0.0872665), weight: 15), // -5 deg
-      TweenSequenceItem(tween: Tween(begin: -0.0872665, end: 0.0523599), weight: 15), // 3 deg
-      TweenSequenceItem(tween: Tween(begin: 0.0523599, end: -0.0523599), weight: 15), // -3 deg
-      TweenSequenceItem(tween: Tween(begin: -0.0523599, end: 0.0349066), weight: 15), // 2 deg
-      TweenSequenceItem(tween: Tween(begin: 0.0349066, end: -0.0174533), weight: 15), // -1 deg
-      TweenSequenceItem(tween: Tween(begin: -0.0174533, end: 0.0), weight: 25), // 0 deg
+      TweenSequenceItem(
+          tween: Tween(begin: 0.0, end: -0.0872665), weight: 15), // -5 deg
+      TweenSequenceItem(
+          tween: Tween(begin: -0.0872665, end: 0.0523599), weight: 15), // 3 deg
+      TweenSequenceItem(
+          tween: Tween(begin: 0.0523599, end: -0.0523599),
+          weight: 15), // -3 deg
+      TweenSequenceItem(
+          tween: Tween(begin: -0.0523599, end: 0.0349066), weight: 15), // 2 deg
+      TweenSequenceItem(
+          tween: Tween(begin: 0.0349066, end: -0.0174533),
+          weight: 15), // -1 deg
+      TweenSequenceItem(
+          tween: Tween(begin: -0.0174533, end: 0.0), weight: 25), // 0 deg
     ]).animate(CurvedAnimation(parent: controller, curve: widget.curve));
 
     configAnimation(

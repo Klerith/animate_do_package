@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import '../../types/animate_do_mixins.dart';
 import '../../types/animate_do_types.dart';
 
-
-
 // Tada
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
@@ -76,13 +74,27 @@ class TadaState extends State<Tada>
     ]).animate(CurvedAnimation(parent: controller, curve: widget.curve));
 
     rotation = TweenSequence<double>([
-      TweenSequenceItem(tween: Tween(begin: 0.0, end: -0.0523599), weight: 10), // 0 to -3 degrees
-      TweenSequenceItem(tween: Tween(begin: -0.0523599, end: 0.0523599), weight: 15), // -3 to 3 degrees
-      TweenSequenceItem(tween: Tween(begin: 0.0523599, end: -0.0523599), weight: 15), // 3 to -3 degrees
-      TweenSequenceItem(tween: Tween(begin: -0.0523599, end: 0.0523599), weight: 15), // -3 to 3 degrees
-      TweenSequenceItem(tween: Tween(begin: 0.0523599, end: -0.0523599), weight: 15), // 3 to -3 degrees
-      TweenSequenceItem(tween: Tween(begin: -0.0523599, end: 0.0523599), weight: 15), // -3 to 3 degrees
-      TweenSequenceItem(tween: Tween(begin: 0.0523599, end: 0.0), weight: 15), // 3 to 0 degrees
+      TweenSequenceItem(
+          tween: Tween(begin: 0.0, end: -0.0523599),
+          weight: 10), // 0 to -3 degrees
+      TweenSequenceItem(
+          tween: Tween(begin: -0.0523599, end: 0.0523599),
+          weight: 15), // -3 to 3 degrees
+      TweenSequenceItem(
+          tween: Tween(begin: 0.0523599, end: -0.0523599),
+          weight: 15), // 3 to -3 degrees
+      TweenSequenceItem(
+          tween: Tween(begin: -0.0523599, end: 0.0523599),
+          weight: 15), // -3 to 3 degrees
+      TweenSequenceItem(
+          tween: Tween(begin: 0.0523599, end: -0.0523599),
+          weight: 15), // 3 to -3 degrees
+      TweenSequenceItem(
+          tween: Tween(begin: -0.0523599, end: 0.0523599),
+          weight: 15), // -3 to 3 degrees
+      TweenSequenceItem(
+          tween: Tween(begin: 0.0523599, end: 0.0),
+          weight: 15), // 3 to 0 degrees
     ]).animate(CurvedAnimation(parent: controller, curve: widget.curve));
 
     configAnimation(
@@ -120,4 +132,3 @@ class TadaState extends State<Tada>
     );
   }
 }
-
