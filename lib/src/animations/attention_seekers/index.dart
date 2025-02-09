@@ -13,3 +13,4 @@ export 'spin_perfect.dart';
 export 'spin.dart';
 export 'swing.dart';
 export 'tada.dart';
+export 'wobble.dart';
