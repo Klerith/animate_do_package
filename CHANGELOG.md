@@ -4,6 +4,7 @@
   - Tada
   - Swing (updated animation)
   - Jello
+  - Wobble
 - Fixed the structure of the attention_seekers folder
 
 #### [3.3.8] - RubberBand and Bounce bug fixed

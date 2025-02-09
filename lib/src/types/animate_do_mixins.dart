@@ -10,6 +10,9 @@ final List<Type> resetAnimationClasses = [
   BounceState,
   HeartBeatState,
   Swing,
+  Wobble,
+  Jello,
+  
 ];
 
 /// A mixin that provides animation control functionality for Animate_do widgets.
