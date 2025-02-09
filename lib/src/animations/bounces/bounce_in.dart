@@ -35,7 +35,8 @@ class BounceIn extends StatefulWidget {
   _BounceInState createState() => _BounceInState();
 }
 
-class _BounceInState extends State<BounceIn> with SingleTickerProviderStateMixin,  AnimateDoState {
+class _BounceInState extends State<BounceIn>
+    with SingleTickerProviderStateMixin, AnimateDoState {
   late AnimationController controller;
   late Animation<double> scale;
   late Animation<double> opacity;
@@ -96,7 +97,7 @@ class _BounceInState extends State<BounceIn> with SingleTickerProviderStateMixin
     );
   }
 
-    @override
+  @override
   void dispose() {
     disposed = true;
     controller.dispose();
@@ -105,7 +106,7 @@ class _BounceInState extends State<BounceIn> with SingleTickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
-     /// Provided by the mixing [AnimateDoState] class
+    /// Provided by the mixing [AnimateDoState] class
     buildAnimation(
       delay: widget.delay,
       animate: widget.animate,

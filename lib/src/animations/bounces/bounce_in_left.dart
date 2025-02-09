@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../types/animate_do_types.dart';
