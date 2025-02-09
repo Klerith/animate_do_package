@@ -9,8 +9,8 @@
 library animate_do;
 
 export 'src/animations/attention_seekers/index.dart';
+export 'src/animations/bounces/index.dart';
 
-export 'src/animations/animate_do_bounces.dart';
 export 'src/animations/animate_do_elastics.dart';
 export 'src/animations/animate_do_fadeouts.dart';
 export 'src/animations/animate_do_fades.dart';
