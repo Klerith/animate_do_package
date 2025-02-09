@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math' show pi;
 
 import '../../types/animate_do_mixins.dart';
 import '../../types/animate_do_types.dart';
@@ -38,7 +39,8 @@ class Spin extends StatefulWidget {
       this.spins = 1,
       this.onFinish,
       this.curve = Curves.easeInOut})
-      : super(key: key) {
+      : assert(spins > 0, 'The number of spins must be greater than 0'),
+        super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
           'Then you must provide the controller property, that is a callback like:\n\n'
@@ -68,7 +70,7 @@ class SpinState extends State<Spin>
 
     controller = AnimationController(duration: widget.duration, vsync: this);
 
-    spin = Tween<double>(begin: 0, end: widget.spins * 2)
+    spin = Tween<double>(begin: 0, end: widget.spins)
         .animate(CurvedAnimation(parent: controller, curve: widget.curve));
 
     /// Provided by the mixing [AnimateDoState] class
@@ -98,7 +100,7 @@ class SpinState extends State<Spin>
         animation: controller,
         builder: (BuildContext context, Widget? child) {
           return Transform.rotate(
-            angle: spin.value * 3.1415926535,
+            angle: spin.value * 2 * pi,
             child: widget.child,
           );
         });
