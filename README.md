@@ -116,6 +116,8 @@ Both syntaxes are supported, I have no plans to make the old one deprecated beca
 
 ### (new) Sugar Syntax example
 
+Check [the example folder](https://github.com/Klerith/animate_do_package/tree/master/example) for more details on how to use the sugar syntax.
+
 ```
 home: Scaffold(
     body: Center(
@@ -250,6 +252,18 @@ class Square extends StatelessWidget {
 There is a new property called `onFinish` that is called when the animation finishes. It returns a value of type `AnimateDoDirection` indicating the direction of the animation (forward or backward).
 
 ### Example:
+
+**Sugar syntax**
+
+```
+const Square()
+  .fadeIn(animate: animate,
+      delay: const Duration(milliseconds: 100),
+      onFinish: (direction) => print('$direction'),
+  ),
+```
+
+**Classic syntax**
 
 ```
 FadeIn(
