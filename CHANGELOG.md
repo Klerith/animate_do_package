@@ -1,3 +1,12 @@
+### [4.0.0] - New Api and project structure
+
+- New Api (Sugar Syntax)
+- New project structure
+- More animations
+- More examples
+- More documentation
+- Previous syntax is still available
+
 ### [3.3.10] - New animations
 
 - New animations added

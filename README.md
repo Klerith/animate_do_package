@@ -107,7 +107,36 @@ All of the following animations can be made infinite using the `infinite` proper
 - Tada
 - RubberBand
 
-## Example: 01-Basic
+## Two Syntaxes
+
+Both syntaxes are supported, I have no plans to make the old one deprecated because some people like the old syntax better.
+
+- Sugar Syntax
+- Class Syntax
+
+### (new) Sugar Syntax example
+
+```
+home: Scaffold(
+    body: Center(
+
+        child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+
+            const Square().fadeInLeft(),
+            const Square().fadeInUp(),
+            const Square().fadeInDown(),
+            const Square().fadeInRight(),
+
+        ],
+        ),
+
+    ),
+),
+```
+
+## (classic) Class Syntax example
 
 ```
 home: Scaffold(
