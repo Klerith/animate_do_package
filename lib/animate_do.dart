@@ -11,10 +11,11 @@ library animate_do;
 export 'src/animations/attention_seekers/index.dart';
 export 'src/animations/bounces/index.dart';
 export 'src/animations/zoom/index.dart';
+export 'src/animations/fade_ins/index.dart';
+export 'src/animations/elastics/index.dart';
 
-export 'src/animations/animate_do_elastics.dart';
 export 'src/animations/animate_do_fadeouts.dart';
-export 'src/animations/animate_do_fades.dart';
+
 export 'src/animations/animate_do_flips.dart';
 export 'src/animations/animate_do_slides.dart';
 

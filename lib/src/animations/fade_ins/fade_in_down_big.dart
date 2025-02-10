@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../types/animate_do_types.dart';
-import '../fade_ins/fade_in_up.dart';
+import 'fade_in_down.dart';
 
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
@@ -12,29 +12,28 @@ import '../fade_ins/fade_in_up.dart';
 /// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
 /// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
 /// [curve]: curve for the animation
-/// [from]: starting point for the animation
-class BounceInUp extends StatelessWidget {
+class FadeInDownBig extends StatelessWidget {
   final Widget child;
   final Duration duration;
   final Duration delay;
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
+  final double from;
   final Function(AnimateDoDirection direction)? onFinish;
   final Curve curve;
-  final double from;
 
-  BounceInUp(
+  FadeInDownBig(
       {key,
       required this.child,
-      this.duration = const Duration(milliseconds: 1000),
-      this.delay = const Duration(milliseconds: 0),
+      this.duration = const Duration(milliseconds: 1300),
+      this.delay = Duration.zero,
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
-      this.from = 75,
+      this.from = 600,
       this.onFinish,
-      this.curve = Curves.bounceOut})
+      this.curve = Curves.easeOut})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -44,32 +43,30 @@ class BounceInUp extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) => FadeInUp(
-        duration: duration,
-        delay: delay,
-        controller: controller,
-        manualTrigger: manualTrigger,
-        animate: animate,
-        from: from,
-        onFinish: onFinish,
-        curve: curve,
-        child: child,
-      );
+  Widget build(BuildContext context) => FadeInDown(
+      duration: duration,
+      delay: delay,
+      controller: controller,
+      manualTrigger: manualTrigger,
+      animate: animate,
+      from: from,
+      curve: curve,
+      child: child);
 }
 
-extension BounceInUpExtension on Widget {
-  /// Applies a bounce-in-up animation with customizable options
-  Widget bounceInUp({
-    Duration duration = const Duration(milliseconds: 1000),
+extension FadeInDownBigExtension on Widget {
+  /// Aplica una animación de fade in hacia abajo con opciones personalizables
+  Widget fadeInDownBig({
+    Duration duration = const Duration(milliseconds: 1300),
     Duration delay = const Duration(milliseconds: 0),
     Function(AnimationController)? controller,
     bool manualTrigger = false,
     bool animate = true,
-    double from = 75,
+    double from = 600,
     Function(AnimateDoDirection direction)? onFinish,
-    Curve curve = Curves.bounceOut,
+    Curve curve = Curves.easeOut,
   }) {
-    return BounceInUp(
+    return FadeInDownBig(
       duration: duration,
       delay: delay,
       controller: controller,

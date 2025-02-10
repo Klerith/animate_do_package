@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../types/animate_do_types.dart';
-import '../animate_do_fades.dart';
+import '../fade_ins/fade_in_right.dart';
 
 /// [key]: optional widget key reference
 /// [child]: mandatory, widget to animate
