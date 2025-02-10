@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../types/animate_do_types.dart';
-import '../fades/fade_in_right.dart';
+import '../fade_ins/fade_in_right.dart';
 
 /// Class [ElasticInRight]:
 /// [key]: optional widget key reference

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../types/animate_do_types.dart';
-import '../fades/fade_in_up.dart';
+import '../fade_ins/fade_in_up.dart';
 
 /// Class [ElasticInUp]:
 /// [key]: optional widget key reference
