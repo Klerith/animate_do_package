@@ -38,7 +38,6 @@ class _MyAppState extends State<MyApp> {
                 const Square().fadeInLeft(animate: animate),
                 const Square().fadeInRight(animate: animate),
               ],
-                
             ),
             const SizedBox(height: 20),
             ElevatedButton(

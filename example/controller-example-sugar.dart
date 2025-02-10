@@ -29,9 +29,9 @@ class _MyAppState extends State<MyApp> {
               children: <Widget>[
                 // Extract the controller
                 const Square().bounce(
-                    manualTrigger: true,
-                    controller: (animationCtrl) => controller = animationCtrl,
-                    ),
+                  manualTrigger: true,
+                  controller: (animationCtrl) => controller = animationCtrl,
+                ),
               ],
             ),
             const SizedBox(height: 20),

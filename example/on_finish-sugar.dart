@@ -32,13 +32,33 @@ class _MyAppState extends State<MyApp> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-                const Square().fadeIn(animate: animate, delay: const Duration(milliseconds: 0), onFinish: (direction) => print('$direction'),),
-                const Square().fadeInUp(animate: animate, delay: const Duration(milliseconds: 300), onFinish: (direction) => print('$direction'),),
-                const Square().fadeInDown(animate: animate, delay: const Duration(milliseconds: 600), onFinish: (direction) => print('$direction'),),
-                const Square().fadeInLeft(animate: animate, delay: const Duration(milliseconds: 900), onFinish: (direction) => print('$direction'),), 
-                const Square().fadeInRight(animate: animate, delay: const Duration(milliseconds: 1200), onFinish: (direction) => print('$direction'),),
-                  ],
+                const Square().fadeIn(
+                  animate: animate,
+                  delay: const Duration(milliseconds: 0),
+                  onFinish: (direction) => print('$direction'),
                 ),
+                const Square().fadeInUp(
+                  animate: animate,
+                  delay: const Duration(milliseconds: 300),
+                  onFinish: (direction) => print('$direction'),
+                ),
+                const Square().fadeInDown(
+                  animate: animate,
+                  delay: const Duration(milliseconds: 600),
+                  onFinish: (direction) => print('$direction'),
+                ),
+                const Square().fadeInLeft(
+                  animate: animate,
+                  delay: const Duration(milliseconds: 900),
+                  onFinish: (direction) => print('$direction'),
+                ),
+                const Square().fadeInRight(
+                  animate: animate,
+                  delay: const Duration(milliseconds: 1200),
+                  onFinish: (direction) => print('$direction'),
+                ),
+              ],
+            ),
             const SizedBox(height: 20),
             ElevatedButton(
                 onPressed: () {
