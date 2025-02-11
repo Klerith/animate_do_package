@@ -160,6 +160,17 @@ home: Scaffold(
 ),
 ```
 
+# Animation Chaining
+
+With the new syntax you can chain the animations like this:
+
+```dart
+Square()
+  .tada()
+  .wobble()
+  .fadeIn()
+```
+
 # Demos
 
 For complete examples, check the `example` folder inside the repository
