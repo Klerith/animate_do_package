@@ -69,7 +69,8 @@ class BackOutLeftState extends State<BackOutLeft>
 
     translateX = TweenSequence<double>([
       TweenSequenceItem(tween: Tween(begin: 0.0, end: 0.0), weight: 20),
-      TweenSequenceItem(tween: Tween(begin: 0.0, end: -widget.from), weight: 80),
+      TweenSequenceItem(
+          tween: Tween(begin: 0.0, end: -widget.from), weight: 80),
     ]).animate(CurvedAnimation(parent: controller, curve: widget.curve));
 
     configAnimation(

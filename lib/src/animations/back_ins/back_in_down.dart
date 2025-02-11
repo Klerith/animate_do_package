@@ -68,7 +68,8 @@ class BackInDownState extends State<BackInDown>
     ]).animate(CurvedAnimation(parent: controller, curve: widget.curve));
 
     translateY = TweenSequence<double>([
-      TweenSequenceItem(tween: Tween(begin: -widget.from, end: 0.0), weight: 80),
+      TweenSequenceItem(
+          tween: Tween(begin: -widget.from, end: 0.0), weight: 80),
       TweenSequenceItem(tween: Tween(begin: 0.0, end: 0.0), weight: 20),
     ]).animate(CurvedAnimation(parent: controller, curve: widget.curve));
 

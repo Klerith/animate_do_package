@@ -77,6 +77,20 @@ This package is simple to use. Every animation contains default values that look
 - SlideInLeft
 - SlideInRight
 
+## BackIn Animations
+
+- BackInDown
+- BackInUp
+- BackInLeft
+- BackInRight
+
+## BackOut Animations
+
+- BackOutDown
+- BackOutUp
+- BackOutLeft
+- BackOutRight
+
 ## FlipIn Animations
 
 - FlipInX
@@ -95,6 +109,7 @@ All of the following animations can be made infinite using the `infinite` proper
 - Dance
 - Flash
 - Pulse
+- Flip
 - Roulette
 - ShakeX
 - ShakeY

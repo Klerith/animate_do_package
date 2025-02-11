@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../types/animate_do_mixins.dart';
 import '../../types/animate_do_types.dart';
 
-
 class BackInRight extends StatefulWidget {
   final Widget child;
   final Duration duration;
