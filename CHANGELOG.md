@@ -6,6 +6,10 @@
   - BackInLeft
   - BackInRight
   - BackInUp
+  - BackOutDown
+  - BackOutLeft
+  - BackOutRight
+  - BackOutUp
 
 - Remove accidental print statement
 
