@@ -9,13 +9,14 @@
 library animate_do;
 
 export 'src/animations/attention_seekers/index.dart';
+export 'src/animations/back_entrances/index.dart';
 export 'src/animations/bounces/index.dart';
-export 'src/animations/zoom/index.dart';
-export 'src/animations/fade_ins/index.dart';
 export 'src/animations/elastics/index.dart';
+export 'src/animations/fade_ins/index.dart';
 export 'src/animations/fade_outs/index.dart';
 export 'src/animations/flips/index.dart';
 export 'src/animations/slides/index.dart';
+export 'src/animations/zoom/index.dart';
 
 /// Types
 export 'src/types/animate_do_types.dart';

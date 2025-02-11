@@ -1,3 +1,11 @@
+### [4.0.1] - New animations
+
+- New animations added
+  - BackInDown
+  - BackInLeft
+  - BackInRight
+  - BackInUp
+
 ### [4.0.0] - New Api and project structure
 
 - New Api (Sugar Syntax)
