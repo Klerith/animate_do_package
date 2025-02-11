@@ -97,7 +97,6 @@ mixin AnimateDoState {
     Function(AnimationController controller)? controllerCallback,
   }) {
     /// Launch the animation ASAP or wait until needed
-    print("animate: $animate");
 
     if (animate && !manualTrigger) {
       // controller.value = 0;

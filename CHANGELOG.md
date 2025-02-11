@@ -1,10 +1,13 @@
 ### [4.0.1] - New animations
 
 - New animations added
+
   - BackInDown
   - BackInLeft
   - BackInRight
   - BackInUp
+
+- Remove accidental print statement
 
 ### [4.0.0] - New Api and project structure
 
