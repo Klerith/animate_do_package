@@ -1,3 +1,8 @@
+## [4.1.0] - New animations
+
+- New animations added
+  - MoveTo
+
 ### [4.0.1] - New animations
 
 - New animations added

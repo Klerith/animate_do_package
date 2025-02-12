@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../types/animate_do_mixins.dart';
 import '../types/animate_do_types.dart';
 
+
 class MoveTo extends StatefulWidget {
   final Widget child;
   final Duration duration;
@@ -9,42 +10,46 @@ class MoveTo extends StatefulWidget {
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
-  final double? top;
-  final double? bottom;
-  final double? left;
-  final double? right;
   final Function(AnimateDoDirection direction)? onFinish;
   final Curve curve;
 
+  /// Movement parameters (relative displacement)
+  final double top;
+  final double bottom;
+  final double left;
+  final double right;
+
   MoveTo({
-    Key? key,
+    key,
     required this.child,
     this.duration = const Duration(milliseconds: 300),
-    this.delay = Duration.zero,
+    this.delay = const Duration(milliseconds: 0),
     this.controller,
     this.manualTrigger = false,
-    this.animate = true,
+    this.animate = false,
     this.onFinish,
-    this.top,
-    this.bottom,
-    this.left,
-    this.right,
     this.curve = Curves.easeOut,
+    this.top = 0.0,
+    this.bottom = 0.0,
+    this.left = 0.0,
+    this.right = 0.0,
   }) : super(key: key) {
+    // If manualTrigger is enabled, controller must be provided
     if (manualTrigger == true && controller == null) {
-      throw FlutterError('If you want to use manualTrigger:true, \n\n'
-          'You must provide the controller property, which is a callback like:\n\n'
-          ' ( controller: AnimationController) => yourController = controller \n\n');
+      throw FlutterError('If you use manualTrigger: true, \n\n'
+          'you must provide the controller property like this:\n\n'
+          ' (controller: AnimationController) => yourController = controller \n\n');
     }
   }
 
   @override
-  MoveToState createState() => MoveToState();
+  _MoveToState createState() => _MoveToState();
 }
 
-class MoveToState extends State<MoveTo>
+class _MoveToState extends State<MoveTo>
     with SingleTickerProviderStateMixin, AnimateDoState {
-  late Animation<double> moveAnimation;
+  late Animation<double> animationX;
+  late Animation<double> animationY;
 
   @override
   void dispose() {
@@ -59,40 +64,45 @@ class MoveToState extends State<MoveTo>
 
     controller = AnimationController(duration: widget.duration, vsync: this);
 
-    moveAnimation = Tween<double>(
-      begin: 0,
-      end: 1,
+    // Create animations for X and Y based on relative movement
+    animationX = Tween<double>(
+      begin: 0.0, // Start at the original position
+      end: widget.left != 0.0 ? -widget.left : widget.right,
     ).animate(CurvedAnimation(parent: controller, curve: widget.curve));
 
+    animationY = Tween<double>(
+      begin: 0.0, // Start at the original position
+      end: widget.top != 0.0 ? -widget.top : widget.bottom,
+    ).animate(CurvedAnimation(parent: controller, curve: widget.curve));
+
+    // Configure animation using AnimateDoState
     configAnimation(
       delay: widget.delay,
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
-      onFinish: widget.onFinish,
       infinite: false,
+      onFinish: widget.onFinish,
       controllerCallback: widget.controller,
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    // Build animation with AnimateDoState
     buildAnimation(
       delay: widget.delay,
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
-      onFinish: widget.onFinish,
       infinite: false,
+      onFinish: widget.onFinish,
       controllerCallback: widget.controller,
     );
 
     return AnimatedBuilder(
       animation: controller,
       builder: (BuildContext context, Widget? child) {
-        return Positioned(
-          top: widget.top != null ? widget.top! * moveAnimation.value : null,
-          bottom: widget.bottom != null ? widget.bottom! * moveAnimation.value : null,
-          left: widget.left != null ? widget.left! * moveAnimation.value : null,
-          right: widget.right != null ? widget.right! * moveAnimation.value : null,
+        return Transform.translate(
+          offset: Offset(animationX.value, animationY.value),
           child: widget.child,
         );
       },
@@ -108,10 +118,11 @@ extension MoveExtension on Widget {
     Function(AnimationController)? controller,
     bool manualTrigger = false,
     bool animate = true,
-    double? top,
-    double? bottom,
-    double? left,
-    double? right,
+    bool infinite = false,
+    double left = 0.0,
+    double right = 0.0,
+    double top = 0.0,
+    double bottom = 0.0,
     Function(AnimateDoDirection direction)? onFinish,
     Curve curve = Curves.easeOut,
   }) {
@@ -123,10 +134,10 @@ extension MoveExtension on Widget {
       manualTrigger: manualTrigger,
       animate: animate,
       onFinish: onFinish,
-      top: top,
-      bottom: bottom,
       left: left,
       right: right,
+      top: top,
+      bottom: bottom,
       curve: curve,
       child: this,
     );
