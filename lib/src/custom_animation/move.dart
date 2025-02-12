@@ -1,29 +1,34 @@
 import 'package:flutter/material.dart';
+import '../types/animate_do_mixins.dart';
+import '../types/animate_do_types.dart';
 
-import '../../types/animate_do_mixins.dart';
-import '../../types/animate_do_types.dart';
-
-class BackInDown extends StatefulWidget {
+class MoveTo extends StatefulWidget {
   final Widget child;
   final Duration duration;
   final Duration delay;
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
-  final double from;
+  final double? top;
+  final double? bottom;
+  final double? left;
+  final double? right;
   final Function(AnimateDoDirection direction)? onFinish;
   final Curve curve;
 
-  BackInDown({
+  MoveTo({
     Key? key,
     required this.child,
-    this.duration = const Duration(milliseconds: 1200),
+    this.duration = const Duration(milliseconds: 300),
     this.delay = Duration.zero,
     this.controller,
     this.manualTrigger = false,
     this.animate = true,
     this.onFinish,
-    this.from = 1000,
+    this.top,
+    this.bottom,
+    this.left,
+    this.right,
     this.curve = Curves.easeOut,
   }) : super(key: key) {
     if (manualTrigger == true && controller == null) {
@@ -34,14 +39,12 @@ class BackInDown extends StatefulWidget {
   }
 
   @override
-  BackInDownState createState() => BackInDownState();
+  MoveToState createState() => MoveToState();
 }
 
-class BackInDownState extends State<BackInDown>
+class MoveToState extends State<MoveTo>
     with SingleTickerProviderStateMixin, AnimateDoState {
-  late Animation<double> opacity;
-  late Animation<double> scale;
-  late Animation<double> translateY;
+  late Animation<double> moveAnimation;
 
   @override
   void dispose() {
@@ -56,22 +59,10 @@ class BackInDownState extends State<BackInDown>
 
     controller = AnimationController(duration: widget.duration, vsync: this);
 
-    opacity = TweenSequence<double>([
-      TweenSequenceItem(tween: Tween(begin: 0, end: 0.7), weight: 20),
-      TweenSequenceItem(tween: Tween(begin: 0.7, end: 0.7), weight: 60),
-      TweenSequenceItem(tween: Tween(begin: 0.7, end: 1.0), weight: 20),
-    ]).animate(CurvedAnimation(parent: controller, curve: widget.curve));
-
-    scale = TweenSequence<double>([
-      TweenSequenceItem(tween: Tween(begin: 0.7, end: 0.7), weight: 80),
-      TweenSequenceItem(tween: Tween(begin: 0.7, end: 1.0), weight: 20),
-    ]).animate(CurvedAnimation(parent: controller, curve: widget.curve));
-
-    translateY = TweenSequence<double>([
-      TweenSequenceItem(
-          tween: Tween(begin: -widget.from, end: 0.0), weight: 80),
-      TweenSequenceItem(tween: Tween(begin: 0.0, end: 0.0), weight: 20),
-    ]).animate(CurvedAnimation(parent: controller, curve: widget.curve));
+    moveAnimation = Tween<double>(
+      begin: 0,
+      end: 1,
+    ).animate(CurvedAnimation(parent: controller, curve: widget.curve));
 
     configAnimation(
       delay: widget.delay,
@@ -97,35 +88,34 @@ class BackInDownState extends State<BackInDown>
     return AnimatedBuilder(
       animation: controller,
       builder: (BuildContext context, Widget? child) {
-        return Transform.translate(
-          offset: Offset(0, translateY.value),
-          child: Transform.scale(
-            scale: scale.value,
-            child: Opacity(
-              opacity: opacity.value,
-              child: widget.child,
-            ),
-          ),
+        return Positioned(
+          top: widget.top != null ? widget.top! * moveAnimation.value : null,
+          bottom: widget.bottom != null ? widget.bottom! * moveAnimation.value : null,
+          left: widget.left != null ? widget.left! * moveAnimation.value : null,
+          right: widget.right != null ? widget.right! * moveAnimation.value : null,
+          child: widget.child,
         );
       },
     );
   }
 }
 
-extension BackInDownExtension on Widget {
-  Widget backInDown({
+extension MoveExtension on Widget {
+  Widget moveTo({
     Key? key,
-    Duration duration = const Duration(milliseconds: 1200),
+    Duration duration = const Duration(milliseconds: 300),
     Duration delay = Duration.zero,
     Function(AnimationController)? controller,
     bool manualTrigger = false,
     bool animate = true,
-    bool infinite = false,
-    double from = 1000,
+    double? top,
+    double? bottom,
+    double? left,
+    double? right,
     Function(AnimateDoDirection direction)? onFinish,
     Curve curve = Curves.easeOut,
   }) {
-    return BackInDown(
+    return MoveTo(
       key: key,
       duration: duration,
       delay: delay,
@@ -133,7 +123,10 @@ extension BackInDownExtension on Widget {
       manualTrigger: manualTrigger,
       animate: animate,
       onFinish: onFinish,
-      from: from,
+      top: top,
+      bottom: bottom,
+      left: left,
+      right: right,
       curve: curve,
       child: this,
     );

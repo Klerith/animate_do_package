@@ -23,3 +23,6 @@ export 'src/animations/zoom/index.dart';
 
 /// Types
 export 'src/types/animate_do_types.dart';
+
+// Custom Animation
+export 'src/custom_animation/index.dart';

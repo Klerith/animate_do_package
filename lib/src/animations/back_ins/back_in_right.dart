@@ -27,8 +27,8 @@ class BackInRight extends StatefulWidget {
     this.curve = Curves.easeOut,
   }) : super(key: key) {
     if (manualTrigger == true && controller == null) {
-      throw FlutterError('Si quieres usar manualTrigger:true, \n\n'
-          'Debes proporcionar la propiedad controller, que es un callback como:\n\n'
+      throw FlutterError('If you want to use manualTrigger:true, \n\n'
+          'You must provide the controller property, which is a callback like:\n\n'
           ' ( controller: AnimationController) => yourController = controller \n\n');
     }
   }
