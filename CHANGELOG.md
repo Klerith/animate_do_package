@@ -2,6 +2,7 @@
 
 - New animations added
   - MoveTo
+  - MoveToArc
 
 ### [4.0.1] - New animations
 
