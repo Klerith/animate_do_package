@@ -126,6 +126,8 @@ extension MoveExtension on Widget {
     Function(AnimateDoDirection direction)? onFinish,
     Curve curve = Curves.easeOut,
   }) {
+
+
     return MoveTo(
       key: key,
       duration: duration,
