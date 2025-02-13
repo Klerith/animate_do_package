@@ -101,7 +101,7 @@ class _MoveToArcState extends State<MoveToArc>
 
         // Calculate arc movement
         double radius = widget.bottom > 0 ? widget.bottom : widget.top;
-        double x = radius * sin(angle);
+        // double x = radius * sin(angle);
         double y = radius * (1 - cos(angle));
 
         // Apply horizontal movement
