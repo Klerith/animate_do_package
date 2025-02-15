@@ -1,3 +1,4 @@
+export 'fade_out.dart';
 export 'fade_out_left.dart';
 export 'fade_out_left_big.dart';
 export 'fade_out_right.dart';
