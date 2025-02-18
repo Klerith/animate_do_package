@@ -122,6 +122,13 @@ All of the following animations can be made infinite using the `infinite` proper
 - Tada
 - RubberBand
 
+## Custom Animations
+
+These two new animation Widgets or Widget Methods are used to create custom animations and move widgets around the screen. You can append them to previous animations to create custom ones.
+
+- MoveTo
+- MoveToArc
+
 ## Two Syntaxes
 
 Both syntaxes are supported, I have no plans to make the old one deprecated because some people like the old syntax better.
@@ -184,6 +191,27 @@ Square()
   .tada()
   .wobble()
   .fadeIn()
+```
+
+## Animation chaining with custom animations
+
+```dart
+const Square()
+  .moveTo(
+    top: 30
+  )
+  .moveTo(
+    left: 30,
+    delay: const Duration(seconds: 1)
+  )
+  .moveToArc(
+    bottom: 30,
+    right: 30,
+    delay: const Duration(seconds: 2)
+  )
+  .fadeOut(
+    delay: const Duration( seconds: 2)
+  )
 ```
 
 # Demos

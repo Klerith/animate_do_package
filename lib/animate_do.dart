@@ -12,7 +12,6 @@ export 'src/animations/attention_seekers/index.dart';
 
 export 'src/animations/back_ins/index.dart';
 export 'src/animations/back_outs/index.dart';
-
 export 'src/animations/bounces/index.dart';
 export 'src/animations/elastics/index.dart';
 export 'src/animations/fade_ins/index.dart';
@@ -22,8 +21,8 @@ export 'src/animations/slides/index.dart';
 export 'src/animations/zoom_ins/index.dart';
 export 'src/animations/zoom_outs/index.dart';
 
-/// Types
-export 'src/types/animate_do_types.dart';
-
 // Custom Animation
 export 'src/custom_animation/index.dart';
+
+/// Types
+export 'src/types/animate_do_types.dart';
