@@ -111,7 +111,7 @@ class _MoveToArcState extends State<MoveToArc>
         } else if (widget.right > 0) {
           horizontalMovement = widget.right * t;
         }
-        
+
         // Invert vertical direction if moving up
         if (widget.top > 0) {
           y = -y;

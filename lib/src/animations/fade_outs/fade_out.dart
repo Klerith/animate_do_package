@@ -29,7 +29,7 @@ class FadeOut extends StatefulWidget {
     this.delay = const Duration(milliseconds: 0),
     this.controller,
     this.manualTrigger = false,
-    this.animate =  true,
+    this.animate = true,
     this.onFinish,
     this.curve = Curves.easeOut,
   }) : super(key: key) {

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../types/animate_do_mixins.dart';
 import '../types/animate_do_types.dart';
 
-
 class MoveTo extends StatefulWidget {
   final Widget child;
   final Duration duration;
@@ -126,8 +125,6 @@ extension MoveExtension on Widget {
     Function(AnimateDoDirection direction)? onFinish,
     Curve curve = Curves.easeOut,
   }) {
-
-
     return MoveTo(
       key: key,
       duration: duration,

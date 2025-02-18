@@ -67,7 +67,9 @@ class ZoomInDownState extends State<ZoomInDown>
       TweenSequenceItem(tween: Tween(begin: 0.475, end: 1.0), weight: 40),
     ]).animate(CurvedAnimation(
       parent: controller,
-      curve: const Interval(0, 1, 
+      curve: const Interval(
+        0,
+        1,
         curve: Cubic(0.175, 0.885, 0.32, 1),
       ),
     ));
@@ -77,7 +79,9 @@ class ZoomInDownState extends State<ZoomInDown>
       TweenSequenceItem(tween: Tween(begin: 60, end: 0), weight: 40),
     ]).animate(CurvedAnimation(
       parent: controller,
-      curve: const Interval(0, 1,
+      curve: const Interval(
+        0,
+        1,
         curve: Cubic(0.175, 0.885, 0.32, 1),
       ),
     ));
