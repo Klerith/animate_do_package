@@ -1,4 +1,4 @@
-import 'dart:math' show pi, sin, cos;
+import 'dart:math' show pi, cos;
 
 import 'package:flutter/material.dart';
 

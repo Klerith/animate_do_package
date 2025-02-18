@@ -19,7 +19,8 @@ export 'src/animations/fade_ins/index.dart';
 export 'src/animations/fade_outs/index.dart';
 export 'src/animations/flips/index.dart';
 export 'src/animations/slides/index.dart';
-export 'src/animations/zoom/index.dart';
+export 'src/animations/zoom_ins/index.dart';
+export 'src/animations/zoom_outs/index.dart';
 
 /// Types
 export 'src/types/animate_do_types.dart';

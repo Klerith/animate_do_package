@@ -29,7 +29,7 @@ class FadeOut extends StatefulWidget {
     this.delay = const Duration(milliseconds: 0),
     this.controller,
     this.manualTrigger = false,
-    this.animate = false,
+    this.animate =  true,
     this.onFinish,
     this.curve = Curves.easeOut,
   }) : super(key: key) {
@@ -44,7 +44,6 @@ class FadeOut extends StatefulWidget {
   FadeOutState createState() => FadeOutState();
 }
 
-/// State class, where the magic happens
 class FadeOutState extends State<FadeOut>
     with SingleTickerProviderStateMixin, AnimateDoState {
   late Animation<double> animation;
@@ -64,7 +63,6 @@ class FadeOutState extends State<FadeOut>
     animation = Tween(begin: 1.0, end: 0.0)
         .animate(CurvedAnimation(curve: widget.curve, parent: controller));
 
-    /// Provided by the mixing [AnimateDoState] class
     configAnimation(
       delay: widget.delay,
       animate: widget.animate,
@@ -77,7 +75,6 @@ class FadeOutState extends State<FadeOut>
 
   @override
   Widget build(BuildContext context) {
-    /// Provided by the mixing [AnimateDoState] class
     buildAnimation(
       delay: widget.delay,
       animate: widget.animate,
@@ -87,29 +84,26 @@ class FadeOutState extends State<FadeOut>
       controllerCallback: widget.controller,
     );
 
-    return AnimatedBuilder(
-        animation: animation,
-        builder: (BuildContext context, Widget? child) {
-          return Opacity(
-            opacity: animation.value,
-            child: widget.child,
-          );
-        });
+    return FadeTransition(
+      opacity: animation,
+      child: widget.child,
+    );
   }
 }
 
 extension FadeOutExtension on Widget {
-  /// Aplica una animación fade-out con opciones personalizables
   Widget fadeOut({
+    Key? key,
     Duration duration = const Duration(milliseconds: 800),
     Duration delay = const Duration(milliseconds: 0),
     Function(AnimationController)? controller,
     bool manualTrigger = false,
-    bool animate = false,
+    bool animate = true, // Cambiado a true por defecto
     Function(AnimateDoDirection direction)? onFinish,
     Curve curve = Curves.easeOut,
   }) {
     return FadeOut(
+      key: key,
       duration: duration,
       delay: delay,
       controller: controller,
