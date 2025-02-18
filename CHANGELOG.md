@@ -3,6 +3,8 @@
 - New animations added
   - MoveTo
   - MoveToArc
+- Fixed bug when using the fadeOut animations
+  - FadeOut animations will trigger immediately, use animate or manualTrigger to control the animation
 
 ### [4.0.1] - New animations
 
