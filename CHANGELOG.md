@@ -1,3 +1,10 @@
+## [4.2.0] - Changes
+
+- Added moveToArc animation
+  - upward property added
+  - Fixed bug when using upward property on moveToArc
+- Fixed animation controller not being disposed when the widget is disposed
+
 ## [4.1.1] - New animations
 
 - New animations added

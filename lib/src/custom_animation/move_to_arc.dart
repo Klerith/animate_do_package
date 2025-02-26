@@ -106,7 +106,7 @@ class _MoveToArcState extends State<MoveToArc>
         // Calculate arc movement
         double radius = widget.bottom > 0 ? widget.bottom : widget.top;
         double y;
-        
+
         if (widget.upward) {
           // Upward arc (red line) using sin
           y = -radius * sin(angle);

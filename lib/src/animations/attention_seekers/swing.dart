@@ -50,6 +50,13 @@ class SwingState extends State<Swing>
   late Animation<double> rotation;
 
   @override
+  void dispose() {
+    disposed = true;
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
 
