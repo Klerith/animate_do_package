@@ -1,4 +1,4 @@
-import 'dart:math' show pi, cos;
+import 'dart:math' show pi, sin, cos;
 
 import 'package:flutter/material.dart';
 
@@ -21,6 +21,9 @@ class MoveToArc extends StatefulWidget {
   final double left;
   final double right;
 
+  /// Controls the arc path direction
+  final bool upward;
+
   MoveToArc({
     Key? key,
     required this.child,
@@ -35,6 +38,7 @@ class MoveToArc extends StatefulWidget {
     this.bottom = 0.0,
     this.left = 0.0,
     this.right = 0.0,
+    this.upward = false,
   }) : super(key: key) {
     // Ensure controller is provided if manualTrigger is enabled
     if (manualTrigger == true && controller == null) {
@@ -101,8 +105,19 @@ class _MoveToArcState extends State<MoveToArc>
 
         // Calculate arc movement
         double radius = widget.bottom > 0 ? widget.bottom : widget.top;
-        // double x = radius * sin(angle);
-        double y = radius * (1 - cos(angle));
+        double y;
+        
+        if (widget.upward) {
+          // Upward arc (red line) using sin
+          y = -radius * sin(angle);
+        } else {
+          // Downward arc (black line) using (1 - cos)
+          y = radius * (1 - cos(angle));
+          // Invert if moving up
+          if (widget.top > 0) {
+            y = -y;
+          }
+        }
 
         // Apply horizontal movement
         double horizontalMovement = 0;
@@ -110,11 +125,6 @@ class _MoveToArcState extends State<MoveToArc>
           horizontalMovement = -widget.left * t;
         } else if (widget.right > 0) {
           horizontalMovement = widget.right * t;
-        }
-
-        // Invert vertical direction if moving up
-        if (widget.top > 0) {
-          y = -y;
         }
 
         return Transform.translate(
@@ -135,6 +145,7 @@ extension MoveArcExtension on Widget {
     bool manualTrigger = false,
     bool animate = true,
     bool infinite = false,
+    bool upward = false,
     double left = 0.0,
     double right = 0.0,
     double top = 0.0,
@@ -154,6 +165,7 @@ extension MoveArcExtension on Widget {
       right: right,
       top: top,
       bottom: bottom,
+      upward: upward,
       curve: curve,
       child: this,
     );
