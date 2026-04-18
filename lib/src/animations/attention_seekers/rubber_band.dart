@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../types/animate_do_mixins.dart';
 import '../../types/animate_do_types.dart';
 
@@ -11,6 +10,7 @@ class RubberBand extends StatefulWidget {
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
+  final bool infinite;
   final Function(AnimateDoDirection direction)? onFinish;
   final Curve curve;
 
@@ -22,6 +22,7 @@ class RubberBand extends StatefulWidget {
     this.controller,
     this.manualTrigger = false,
     this.animate = true,
+    this.infinite = false,
     this.onFinish,
     this.curve = Curves.easeOut,
   }) : super(key: key) {
@@ -94,7 +95,7 @@ class RubberBandState extends State<RubberBand>
       delay: widget.delay,
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
-      infinite: false,
+      infinite: widget.infinite,
       onFinish: widget.onFinish,
       controllerCallback: widget.controller,
     );
@@ -107,7 +108,7 @@ class RubberBandState extends State<RubberBand>
       delay: widget.delay,
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
-      infinite: false,
+      infinite: widget.infinite,
       onFinish: widget.onFinish,
       controllerCallback: widget.controller,
     );
@@ -143,6 +144,7 @@ extension RubberBandExtension on Widget {
       controller: controller,
       manualTrigger: manualTrigger,
       animate: animate,
+      infinite: infinite,
       onFinish: onFinish,
       curve: curve,
       child: this,
