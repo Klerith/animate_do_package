@@ -25,6 +25,8 @@ class Bounce extends StatefulWidget {
   final Function(AnimateDoDirection direction)? onFinish;
   final Curve curve;
   final double from;
+  final Duration loopDelay;
+  final Function? onLoop;
 
   Bounce(
       {key,
@@ -37,7 +39,9 @@ class Bounce extends StatefulWidget {
       this.animate = true,
       this.from = 50,
       this.onFinish,
-      this.curve = Curves.bounceOut})
+      this.curve = Curves.bounceOut,
+      this.loopDelay = Duration.zero,
+      this.onLoop})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -84,7 +88,9 @@ class BounceState extends State<Bounce>
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
       infinite: widget.infinite,
+      loopDelay: widget.loopDelay,
       onFinish: widget.onFinish,
+      onLoop: widget.onLoop,
       controllerCallback: widget.controller,
     );
   }
@@ -97,7 +103,9 @@ class BounceState extends State<Bounce>
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
       infinite: widget.infinite,
+      loopDelay: widget.loopDelay,
       onFinish: widget.onFinish,
+      onLoop: widget.onLoop,
       controllerCallback: widget.controller,
     );
 
@@ -126,6 +134,8 @@ extension BounceExtension on Widget {
     Function(AnimateDoDirection direction)? onFinish,
     Curve curve = Curves.bounceOut,
     double from = 50,
+    Duration loopDelay = Duration.zero,
+    Function? onLoop,
   }) {
     return Bounce(
       duration: duration,
@@ -136,6 +146,8 @@ extension BounceExtension on Widget {
       from: from,
       onFinish: onFinish,
       curve: curve,
+      loopDelay: loopDelay,
+      onLoop: onLoop,
       child: this,
     );
   }

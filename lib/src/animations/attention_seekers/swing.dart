@@ -26,6 +26,8 @@ class Swing extends StatefulWidget {
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
   final Curve curve;
+  final Duration loopDelay;
+  final Function? onLoop;
 
   Swing({
     key,
@@ -38,6 +40,8 @@ class Swing extends StatefulWidget {
     this.animate = true,
     this.onFinish,
     this.curve = Curves.easeOut,
+    this.loopDelay = Duration.zero,
+    this.onLoop,
   }) : super(key: key);
 
   @override
@@ -83,7 +87,9 @@ class SwingState extends State<Swing>
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
       infinite: widget.infinite,
+      loopDelay: widget.loopDelay,
       onFinish: widget.onFinish,
+      onLoop: widget.onLoop,
       controllerCallback: widget.controller,
     );
   }
@@ -95,7 +101,9 @@ class SwingState extends State<Swing>
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
       infinite: widget.infinite,
+      loopDelay: widget.loopDelay,
       onFinish: widget.onFinish,
+      onLoop: widget.onLoop,
       controllerCallback: widget.controller,
     );
 
@@ -123,6 +131,8 @@ extension SwingExtension on Widget {
     bool infinite = false,
     Function(AnimateDoDirection direction)? onFinish,
     Curve curve = Curves.easeOut,
+    Duration loopDelay = Duration.zero,
+    Function? onLoop,
   }) {
     return Swing(
       duration: duration,
@@ -133,6 +143,8 @@ extension SwingExtension on Widget {
       infinite: infinite,
       onFinish: onFinish,
       curve: curve,
+      loopDelay: loopDelay,
+      onLoop: onLoop,
       child: this,
     );
   }

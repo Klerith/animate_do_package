@@ -13,6 +13,8 @@ class RubberBand extends StatefulWidget {
   final bool infinite;
   final Function(AnimateDoDirection direction)? onFinish;
   final Curve curve;
+  final Duration loopDelay;
+  final Function? onLoop;
 
   RubberBand({
     Key? key,
@@ -25,6 +27,8 @@ class RubberBand extends StatefulWidget {
     this.infinite = false,
     this.onFinish,
     this.curve = Curves.easeOut,
+    this.loopDelay = Duration.zero,
+    this.onLoop,
   }) : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -96,20 +100,23 @@ class RubberBandState extends State<RubberBand>
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
       infinite: widget.infinite,
+      loopDelay: widget.loopDelay,
       onFinish: widget.onFinish,
+      onLoop: widget.onLoop,
       controllerCallback: widget.controller,
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    /// Construye la animación
     buildAnimation(
       delay: widget.delay,
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
       infinite: widget.infinite,
+      loopDelay: widget.loopDelay,
       onFinish: widget.onFinish,
+      onLoop: widget.onLoop,
       controllerCallback: widget.controller,
     );
 
@@ -137,6 +144,8 @@ extension RubberBandExtension on Widget {
     bool infinite = false,
     Function(AnimateDoDirection direction)? onFinish,
     Curve curve = Curves.easeOut,
+    Duration loopDelay = Duration.zero,
+    Function? onLoop,
   }) {
     return RubberBand(
       duration: duration,
@@ -147,6 +156,8 @@ extension RubberBandExtension on Widget {
       infinite: infinite,
       onFinish: onFinish,
       curve: curve,
+      loopDelay: loopDelay,
+      onLoop: onLoop,
       child: this,
     );
   }

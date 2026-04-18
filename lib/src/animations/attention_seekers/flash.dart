@@ -23,6 +23,8 @@ class Flash extends StatefulWidget {
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
   final Curve curve;
+  final Duration loopDelay;
+  final Function? onLoop;
 
   Flash(
       {key,
@@ -34,7 +36,9 @@ class Flash extends StatefulWidget {
       this.manualTrigger = false,
       this.animate = true,
       this.onFinish,
-      this.curve = Curves.linearToEaseOut})
+      this.curve = Curves.linearToEaseOut,
+      this.loopDelay = Duration.zero,
+      this.onLoop})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -82,7 +86,9 @@ class FlashState extends State<Flash>
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
       infinite: widget.infinite,
+      loopDelay: widget.loopDelay,
       onFinish: widget.onFinish,
+      onLoop: widget.onLoop,
       controllerCallback: widget.controller,
     );
   }
@@ -95,7 +101,9 @@ class FlashState extends State<Flash>
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
       infinite: widget.infinite,
+      loopDelay: widget.loopDelay,
       onFinish: widget.onFinish,
+      onLoop: widget.onLoop,
       controllerCallback: widget.controller,
     );
 
@@ -126,6 +134,8 @@ extension FlashExtension on Widget {
     Function(AnimateDoDirection direction)? onFinish,
     Curve curve = Curves.linearToEaseOut,
     bool infinite = false,
+    Duration loopDelay = Duration.zero,
+    Function? onLoop,
   }) {
     return Flash(
       duration: duration,
@@ -136,6 +146,8 @@ extension FlashExtension on Widget {
       onFinish: onFinish,
       curve: curve,
       infinite: infinite,
+      loopDelay: loopDelay,
+      onLoop: onLoop,
       child: this,
     );
   }

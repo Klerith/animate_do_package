@@ -25,6 +25,8 @@ class ShakeY extends StatefulWidget {
   final Function(AnimateDoDirection direction)? onFinish;
   final Curve curve;
   final double from;
+  final Duration loopDelay;
+  final Function? onLoop;
 
   ShakeY(
       {key,
@@ -37,7 +39,9 @@ class ShakeY extends StatefulWidget {
       this.animate = true,
       this.from = 20,
       this.onFinish,
-      this.curve = Curves.easeInOut})
+      this.curve = Curves.easeInOut,
+      this.loopDelay = Duration.zero,
+      this.onLoop})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -76,7 +80,9 @@ class ShakeYState extends State<ShakeY>
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
       infinite: widget.infinite,
+      loopDelay: widget.loopDelay,
       onFinish: widget.onFinish,
+      onLoop: widget.onLoop,
       controllerCallback: widget.controller,
     );
   }
@@ -89,7 +95,9 @@ class ShakeYState extends State<ShakeY>
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
       infinite: widget.infinite,
+      loopDelay: widget.loopDelay,
       onFinish: widget.onFinish,
+      onLoop: widget.onLoop,
       controllerCallback: widget.controller,
     );
 
@@ -116,6 +124,8 @@ extension ShakeYExtension on Widget {
     Function(AnimateDoDirection direction)? onFinish,
     Curve curve = Curves.easeOut,
     double from = 10,
+    Duration loopDelay = Duration.zero,
+    Function? onLoop,
   }) {
     return ShakeY(
       duration: duration,
@@ -127,6 +137,8 @@ extension ShakeYExtension on Widget {
       onFinish: onFinish,
       curve: curve,
       from: from,
+      loopDelay: loopDelay,
+      onLoop: onLoop,
       child: this,
     );
   }

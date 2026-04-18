@@ -25,6 +25,8 @@ class SpinPerfect extends StatelessWidget {
   final Function(AnimateDoDirection direction)? onFinish;
   final Curve curve;
   final double spins;
+  final Duration loopDelay;
+  final Function? onLoop;
 
   SpinPerfect(
       {key,
@@ -37,7 +39,9 @@ class SpinPerfect extends StatelessWidget {
       this.animate = true,
       this.spins = 1,
       this.onFinish,
-      this.curve = Curves.linear})
+      this.curve = Curves.linear,
+      this.loopDelay = Duration.zero,
+      this.onLoop})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -56,6 +60,8 @@ class SpinPerfect extends StatelessWidget {
       infinite: infinite,
       onFinish: onFinish,
       curve: curve,
+      loopDelay: loopDelay,
+      onLoop: onLoop,
       child: child);
 }
 
@@ -71,6 +77,8 @@ extension SpinPerfectExtension on Widget {
     Function(AnimateDoDirection direction)? onFinish,
     Curve curve = Curves.linear,
     double spins = 1,
+    Duration loopDelay = Duration.zero,
+    Function? onLoop,
   }) {
     return SpinPerfect(
       duration: duration,
@@ -82,6 +90,8 @@ extension SpinPerfectExtension on Widget {
       onFinish: onFinish,
       curve: curve,
       spins: spins,
+      loopDelay: loopDelay,
+      onLoop: onLoop,
       child: this,
     );
   }

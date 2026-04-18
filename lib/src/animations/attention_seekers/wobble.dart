@@ -13,6 +13,8 @@ class Wobble extends StatefulWidget {
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
   final Curve curve;
+  final Duration loopDelay;
+  final Function? onLoop;
 
   Wobble(
       {Key? key,
@@ -24,7 +26,9 @@ class Wobble extends StatefulWidget {
       this.manualTrigger = false,
       this.animate = true,
       this.onFinish,
-      this.curve = Curves.easeInOut})
+      this.curve = Curves.easeInOut,
+      this.loopDelay = Duration.zero,
+      this.onLoop})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -90,7 +94,9 @@ class WobbleState extends State<Wobble>
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
       infinite: widget.infinite,
+      loopDelay: widget.loopDelay,
       onFinish: widget.onFinish,
+      onLoop: widget.onLoop,
       controllerCallback: widget.controller,
     );
   }
@@ -102,7 +108,9 @@ class WobbleState extends State<Wobble>
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
       infinite: widget.infinite,
+      loopDelay: widget.loopDelay,
       onFinish: widget.onFinish,
+      onLoop: widget.onLoop,
       controllerCallback: widget.controller,
     );
 
@@ -132,6 +140,8 @@ extension WobbleExtension on Widget {
     bool infinite = false,
     Function(AnimateDoDirection direction)? onFinish,
     Curve curve = Curves.easeOut,
+    Duration loopDelay = Duration.zero,
+    Function? onLoop,
   }) {
     return Wobble(
       duration: duration,
@@ -142,6 +152,8 @@ extension WobbleExtension on Widget {
       infinite: infinite,
       onFinish: onFinish,
       curve: curve,
+      loopDelay: loopDelay,
+      onLoop: onLoop,
       child: this,
     );
   }

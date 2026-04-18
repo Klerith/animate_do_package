@@ -25,6 +25,8 @@ class HeartBeat extends StatefulWidget {
   final bool infinite;
   final Function(AnimateDoDirection direction)? onFinish;
   final Curve curve;
+  final Duration loopDelay;
+  final Function? onLoop;
 
   HeartBeat({
     Key? key,
@@ -37,6 +39,8 @@ class HeartBeat extends StatefulWidget {
     this.infinite = false,
     this.onFinish,
     this.curve = Curves.easeOutQuad,
+    this.loopDelay = Duration.zero,
+    this.onLoop,
   }) : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -79,7 +83,9 @@ class HeartBeatState extends State<HeartBeat>
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
       infinite: widget.infinite,
+      loopDelay: widget.loopDelay,
       onFinish: widget.onFinish,
+      onLoop: widget.onLoop,
       controllerCallback: widget.controller,
     );
   }
@@ -91,7 +97,9 @@ class HeartBeatState extends State<HeartBeat>
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
       infinite: widget.infinite,
+      loopDelay: widget.loopDelay,
       onFinish: widget.onFinish,
+      onLoop: widget.onLoop,
       controllerCallback: widget.controller,
     );
 
@@ -118,6 +126,8 @@ extension HeartBeatExtension on Widget {
     bool infinite = false,
     Function(AnimateDoDirection direction)? onFinish,
     Curve curve = Curves.easeOutQuad,
+    Duration loopDelay = Duration.zero,
+    Function? onLoop,
   }) {
     return HeartBeat(
       duration: duration,
@@ -128,6 +138,8 @@ extension HeartBeatExtension on Widget {
       infinite: infinite,
       onFinish: onFinish,
       curve: curve,
+      loopDelay: loopDelay,
+      onLoop: onLoop,
       child: this,
     );
   }

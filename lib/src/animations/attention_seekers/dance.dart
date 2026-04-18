@@ -23,6 +23,8 @@ class Dance extends StatefulWidget {
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
   final Curve curve;
+  final Duration loopDelay;
+  final Function? onLoop;
 
   Dance(
       {key,
@@ -34,7 +36,9 @@ class Dance extends StatefulWidget {
       this.manualTrigger = false,
       this.animate = true,
       this.onFinish,
-      this.curve = Curves.bounceOut})
+      this.curve = Curves.bounceOut,
+      this.loopDelay = Duration.zero,
+      this.onLoop})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -83,7 +87,9 @@ class DanceState extends State<Dance>
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
       infinite: widget.infinite,
+      loopDelay: widget.loopDelay,
       onFinish: widget.onFinish,
+      onLoop: widget.onLoop,
       controllerCallback: widget.controller,
     );
   }
@@ -96,7 +102,9 @@ class DanceState extends State<Dance>
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
       infinite: widget.infinite,
+      loopDelay: widget.loopDelay,
       onFinish: widget.onFinish,
+      onLoop: widget.onLoop,
       controllerCallback: widget.controller,
     );
 
@@ -128,6 +136,8 @@ extension DanceExtension on Widget {
     Function(AnimateDoDirection direction)? onFinish,
     Curve curve = Curves.bounceOut,
     bool infinite = false,
+    Duration loopDelay = Duration.zero,
+    Function? onLoop,
   }) {
     return Dance(
       duration: duration,
@@ -138,6 +148,8 @@ extension DanceExtension on Widget {
       onFinish: onFinish,
       curve: curve,
       infinite: infinite,
+      loopDelay: loopDelay,
+      onLoop: onLoop,
       child: this,
     );
   }

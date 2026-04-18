@@ -23,6 +23,8 @@ class Jello extends StatefulWidget {
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
   final Curve curve;
+  final Duration loopDelay;
+  final Function? onLoop;
 
   Jello({
     key,
@@ -35,6 +37,8 @@ class Jello extends StatefulWidget {
     this.animate = true,
     this.onFinish,
     this.curve = Curves.easeOut,
+    this.loopDelay = Duration.zero,
+    this.onLoop,
   }) : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -107,7 +111,9 @@ class JelloState extends State<Jello>
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
       infinite: widget.infinite,
+      loopDelay: widget.loopDelay,
       onFinish: widget.onFinish,
+      onLoop: widget.onLoop,
       controllerCallback: widget.controller,
     );
   }
@@ -119,7 +125,9 @@ class JelloState extends State<Jello>
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
       infinite: widget.infinite,
+      loopDelay: widget.loopDelay,
       onFinish: widget.onFinish,
+      onLoop: widget.onLoop,
       controllerCallback: widget.controller,
     );
 
@@ -150,6 +158,8 @@ extension JelloExtension on Widget {
     bool infinite = false,
     Function(AnimateDoDirection direction)? onFinish,
     Curve curve = Curves.easeOut,
+    Duration loopDelay = Duration.zero,
+    Function? onLoop,
   }) {
     return Jello(
       duration: duration,
@@ -160,6 +170,8 @@ extension JelloExtension on Widget {
       infinite: infinite,
       onFinish: onFinish,
       curve: curve,
+      loopDelay: loopDelay,
+      onLoop: onLoop,
       child: this,
     );
   }

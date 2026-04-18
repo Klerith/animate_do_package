@@ -25,6 +25,8 @@ class Pulse extends StatefulWidget {
   final Curve curve;
   final double from;
   final double to;
+  final Duration loopDelay;
+  final Function? onLoop;
 
   Pulse(
       {key,
@@ -38,7 +40,9 @@ class Pulse extends StatefulWidget {
       this.onFinish,
       this.curve = Curves.easeOut,
       this.from = 1,
-      this.to = 1.5})
+      this.to = 1.5,
+      this.loopDelay = Duration.zero,
+      this.onLoop})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -85,7 +89,9 @@ class PulseState extends State<Pulse>
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
       infinite: widget.infinite,
+      loopDelay: widget.loopDelay,
       onFinish: widget.onFinish,
+      onLoop: widget.onLoop,
       controllerCallback: widget.controller,
     );
   }
@@ -98,7 +104,9 @@ class PulseState extends State<Pulse>
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
       infinite: widget.infinite,
+      loopDelay: widget.loopDelay,
       onFinish: widget.onFinish,
+      onLoop: widget.onLoop,
       controllerCallback: widget.controller,
     );
 
@@ -128,6 +136,8 @@ extension PulseExtension on Widget {
     Curve curve = Curves.easeOut,
     double from = 1,
     double to = 1.5,
+    Duration loopDelay = Duration.zero,
+    Function? onLoop,
   }) {
     return Pulse(
       duration: duration,
@@ -140,6 +150,8 @@ extension PulseExtension on Widget {
       curve: curve,
       from: from,
       to: to,
+      loopDelay: loopDelay,
+      onLoop: onLoop,
       child: this,
     );
   }

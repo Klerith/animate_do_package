@@ -26,6 +26,8 @@ class Spin extends StatefulWidget {
   final Function(AnimateDoDirection direction)? onFinish;
   final Curve curve;
   final double spins;
+  final Duration loopDelay;
+  final Function? onLoop;
 
   Spin(
       {key,
@@ -38,7 +40,9 @@ class Spin extends StatefulWidget {
       this.animate = true,
       this.spins = 1,
       this.onFinish,
-      this.curve = Curves.easeInOut})
+      this.curve = Curves.easeInOut,
+      this.loopDelay = Duration.zero,
+      this.onLoop})
       : assert(spins > 0, 'The number of spins must be greater than 0'),
         super(key: key) {
     if (manualTrigger == true && controller == null) {
@@ -79,7 +83,9 @@ class SpinState extends State<Spin>
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
       infinite: widget.infinite,
+      loopDelay: widget.loopDelay,
       onFinish: widget.onFinish,
+      onLoop: widget.onLoop,
       controllerCallback: widget.controller,
     );
   }
@@ -92,7 +98,9 @@ class SpinState extends State<Spin>
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
       infinite: widget.infinite,
+      loopDelay: widget.loopDelay,
       onFinish: widget.onFinish,
+      onLoop: widget.onLoop,
       controllerCallback: widget.controller,
     );
 
@@ -119,6 +127,8 @@ extension SpinExtension on Widget {
     Function(AnimateDoDirection direction)? onFinish,
     Curve curve = Curves.linear,
     double spins = 1,
+    Duration loopDelay = Duration.zero,
+    Function? onLoop,
   }) {
     return Spin(
       duration: duration,
@@ -130,6 +140,8 @@ extension SpinExtension on Widget {
       onFinish: onFinish,
       curve: curve,
       spins: spins,
+      loopDelay: loopDelay,
+      onLoop: onLoop,
       child: this,
     );
   }

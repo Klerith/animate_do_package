@@ -25,6 +25,8 @@ class Roulette extends StatefulWidget {
   final Function(AnimateDoDirection direction)? onFinish;
   final Curve curve;
   final double spins;
+  final Duration loopDelay;
+  final Function? onLoop;
 
   Roulette(
       {key,
@@ -37,7 +39,9 @@ class Roulette extends StatefulWidget {
       this.animate = true,
       this.spins = 2,
       this.onFinish,
-      this.curve = Curves.elasticOut})
+      this.curve = Curves.elasticOut,
+      this.loopDelay = Duration.zero,
+      this.onLoop})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -77,7 +81,9 @@ class RouletteState extends State<Roulette>
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
       infinite: widget.infinite,
+      loopDelay: widget.loopDelay,
       onFinish: widget.onFinish,
+      onLoop: widget.onLoop,
       controllerCallback: widget.controller,
     );
   }
@@ -90,7 +96,9 @@ class RouletteState extends State<Roulette>
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
       infinite: widget.infinite,
+      loopDelay: widget.loopDelay,
       onFinish: widget.onFinish,
+      onLoop: widget.onLoop,
       controllerCallback: widget.controller,
     );
 
@@ -117,6 +125,8 @@ extension RouletteExtension on Widget {
     Function(AnimateDoDirection direction)? onFinish,
     Curve curve = Curves.elasticOut,
     double spins = 2,
+    Duration loopDelay = Duration.zero,
+    Function? onLoop,
   }) {
     return Roulette(
       duration: duration,
@@ -128,6 +138,8 @@ extension RouletteExtension on Widget {
       onFinish: onFinish,
       curve: curve,
       spins: spins,
+      loopDelay: loopDelay,
+      onLoop: onLoop,
       child: this,
     );
   }

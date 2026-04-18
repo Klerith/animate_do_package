@@ -14,115 +14,93 @@ final List<Type> resetAnimationClasses = [
   Jello,
 ];
 
-/// A mixin that provides animation control functionality for Animate_do widgets.
-///
-/// This mixin handles the core animation logic including:
-/// - Animation controller initialization and disposal
-/// - Delayed animation triggering
-/// - Manual animation control
-/// - Infinite animation loops
-/// - Animation completion callbacks
-/// - Forward/backward animation direction
 mixin AnimateDoState {
-  /// The animation controller that drives the animation
   late AnimationController controller;
-
-  /// Whether this animation state has been disposed
   bool disposed = false;
   bool isFirstTime = true;
 
-  /// Configures and starts the animation based on the provided parameters.
-  ///
-  /// Parameters:
-  /// - [delay]: Duration to wait before starting the animation
-  /// - [animate]: Whether the animation should start automatically
-  /// - [manualTrigger]: Whether animation requires manual triggering
-  /// - [infinite]: Whether animation should loop infinitely
-  /// - [onFinish]: Callback function when animation completes
-  /// - [controllerCallback]: Callback to access the animation controller
+  /// True while waiting between loop iterations (loopDelay pause).
+  bool _loopTimerActive = false;
+
   void configAnimation({
     required Duration delay,
     required bool animate,
     required bool manualTrigger,
     required bool infinite,
+    Duration loopDelay = Duration.zero,
     Function? onFinish,
+    Function? onLoop,
     Function(AnimationController controller)? controllerCallback,
   }) {
-    /// If the user wants to check if the animation finished, we add a listener
-    if (onFinish != null) {
+    final bool hasLoopDelay = infinite && loopDelay > Duration.zero;
+
+    if (onFinish != null || hasLoopDelay) {
       controller.addStatusListener((AnimationStatus status) {
         if (status == AnimationStatus.completed) {
-          onFinish(AnimateDoDirection.forward);
+          onFinish?.call(AnimateDoDirection.forward);
+          if (hasLoopDelay) {
+            _loopTimerActive = true;
+            onLoop?.call();
+            Future.delayed(loopDelay, () {
+              _loopTimerActive = false;
+              if (disposed) return;
+              controller.forward(from: 0);
+            });
+          }
         } else if (status == AnimationStatus.dismissed) {
-          onFinish(AnimateDoDirection.backward);
+          onFinish?.call(AnimateDoDirection.backward);
         }
       });
     }
 
-    /// If the user wants to trigger the animation manually, we expose the controller
     if (!manualTrigger && animate) {
       Future.delayed(delay, () {
         if (disposed) return;
-        (infinite) ? controller.repeat() : controller.forward();
+        (infinite && loopDelay == Duration.zero)
+            ? controller.repeat()
+            : controller.forward();
       });
     }
 
-    /// Returns the controller if the user requires it
     if (controllerCallback != null) {
       controllerCallback(controller);
     }
   }
 
-  /// Builds and controls the animation based on the provided parameters.
-  ///
-  /// This method handles:
-  /// - Delayed animation start
-  /// - Infinite animation loops
-  /// - Animation reversal
-  /// - Manual animation control
-  ///
-  /// Parameters:
-  /// - [delay]: Duration to wait before starting the animation
-  /// - [animate]: Whether the animation should start automatically
-  /// - [manualTrigger]: Whether animation requires manual triggering
-  /// - [infinite]: Whether animation should loop infinitely
-  /// - [onFinish]: Callback function when animation completes
-  /// - [controllerCallback]: Callback to access the animation controller
   void buildAnimation({
     required Duration delay,
     required bool animate,
     required bool manualTrigger,
     required bool infinite,
+    Duration loopDelay = Duration.zero,
     Function? onFinish,
+    Function? onLoop,
     Function(AnimationController controller)? controllerCallback,
   }) {
-    /// Launch the animation ASAP or wait until needed
-
     if (animate && !manualTrigger) {
-      // controller.value = 0;
-
       Future.delayed(delay, () {
         if (disposed) return;
         if (infinite) {
-          controller.repeat();
+          if (loopDelay == Duration.zero) {
+            controller.repeat();
+          } else if (!_loopTimerActive) {
+            controller.forward();
+          }
           return;
         }
-
         (animate) ? controller.forward() : controller.reverse();
       });
     }
 
-    /// If the animation already happen, we can animate it back
     if (!animate) {
       if (disposed) return;
       if (infinite) {
+        _loopTimerActive = false;
         controller.stop();
         return;
       }
 
-      // If the animation is finished, we need to reset the animation to the original state
-      // after the animation is finished just for the following classes:
-      if (resetAnimationClasses.contains(this.runtimeType) && !isFirstTime) {
+      if (resetAnimationClasses.contains(runtimeType) && !isFirstTime) {
         controller.value = 0;
         return;
       }

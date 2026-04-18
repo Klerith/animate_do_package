@@ -24,6 +24,8 @@ class Tada extends StatefulWidget {
   final bool animate;
   final Function(AnimateDoDirection direction)? onFinish;
   final Curve curve;
+  final Duration loopDelay;
+  final Function? onLoop;
 
   Tada(
       {key,
@@ -35,7 +37,9 @@ class Tada extends StatefulWidget {
       this.manualTrigger = false,
       this.animate = true,
       this.onFinish,
-      this.curve = Curves.easeInOut})
+      this.curve = Curves.easeInOut,
+      this.loopDelay = Duration.zero,
+      this.onLoop})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -102,7 +106,9 @@ class TadaState extends State<Tada>
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
       infinite: widget.infinite,
+      loopDelay: widget.loopDelay,
       onFinish: widget.onFinish,
+      onLoop: widget.onLoop,
       controllerCallback: widget.controller,
     );
   }
@@ -114,7 +120,9 @@ class TadaState extends State<Tada>
       animate: widget.animate,
       manualTrigger: widget.manualTrigger,
       infinite: widget.infinite,
+      loopDelay: widget.loopDelay,
       onFinish: widget.onFinish,
+      onLoop: widget.onLoop,
       controllerCallback: widget.controller,
     );
 
@@ -144,6 +152,8 @@ extension TadaExtension on Widget {
     bool infinite = false,
     Function(AnimateDoDirection direction)? onFinish,
     Curve curve = Curves.easeOut,
+    Duration loopDelay = Duration.zero,
+    Function? onLoop,
   }) {
     return Tada(
       duration: duration,
@@ -154,6 +164,8 @@ extension TadaExtension on Widget {
       infinite: infinite,
       onFinish: onFinish,
       curve: curve,
+      loopDelay: loopDelay,
+      onLoop: onLoop,
       child: this,
     );
   }
