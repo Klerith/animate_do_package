@@ -1,154 +1,77 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-import '../../types/animate_do_mixins.dart';
-import '../../types/animate_do_types.dart';
+import '../../types/animate_do_base.dart';
+import '../../types/animate_do_typedefs.dart';
 
-/// [key]: optional widget key reference
-/// [child]: mandatory, widget to animate
-/// [duration]: how much time the animation should take
-/// [delay]: delay before the animation starts
-/// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
-/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
-/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
-/// [curve]: curve for the animation
-/// [infinite]: loops the animation until the widget is destroyed
-class Dance extends StatefulWidget {
-  final Widget child;
-  final Duration duration;
-  final Duration delay;
-  final bool infinite;
-  final Function(AnimationController)? controller;
-  final bool manualTrigger;
-  final bool animate;
-  final Function(AnimateDoDirection direction)? onFinish;
-  final Curve curve;
-  final Duration loopDelay;
-  final Function? onLoop;
-
-  Dance(
-      {key,
-      required this.child,
-      this.duration = const Duration(milliseconds: 1000),
-      this.delay = const Duration(milliseconds: 0),
-      this.infinite = false,
-      this.controller,
-      this.manualTrigger = false,
-      this.animate = true,
-      this.onFinish,
-      this.curve = Curves.bounceOut,
-      this.loopDelay = Duration.zero,
-      this.onLoop})
-      : super(key: key) {
-    if (manualTrigger == true && controller == null) {
-      throw FlutterError('If you want to use manualTrigger:true, \n\n'
-          'Then you must provide the controller property, that is a callback like:\n\n'
-          ' ( controller: AnimationController) => yourController = controller \n\n');
-    }
-  }
+/// Skews the [child] from neutral to -0.2, then to +0.2 and back to 0, in
+/// three equal time slices.
+class Dance extends AnimateDoBaseWidget {
+  const Dance({
+    super.key,
+    required super.child,
+    super.duration = const Duration(milliseconds: 1000),
+    super.delay,
+    super.curve = Curves.bounceOut,
+    super.animate,
+    super.infinite,
+    super.manualTrigger,
+    super.loopDelay,
+    super.controller,
+    super.onFinish,
+    super.onLoop,
+  });
 
   @override
-  DanceState createState() => DanceState();
+  State<Dance> createState() => DanceState();
 }
 
-/// State class, where the magic happens
-class DanceState extends State<Dance>
-    with SingleTickerProviderStateMixin, AnimateDoState {
-  late Animation<double> step1;
-  late Animation<double> step2;
-  late Animation<double> step3;
+class DanceState extends AnimateDoBaseState<Dance> {
+  late Animation<double> _skewY;
 
   @override
-  void dispose() {
-    disposed = true;
-    controller.dispose();
-    super.dispose();
+  void createTweens() {
+    _skewY = TweenSequence<double>(<TweenSequenceItem<double>>[
+      TweenSequenceItem(tween: Tween(begin: 0.0, end: -0.2), weight: 1),
+      TweenSequenceItem(tween: Tween(begin: -0.2, end: 0.2), weight: 1),
+      TweenSequenceItem(tween: Tween(begin: 0.2, end: 0.0), weight: 1),
+    ]).animate(CurvedAnimation(parent: controller, curve: widget.curve));
   }
 
   @override
-  void initState() {
-    super.initState();
-
-    controller = AnimationController(duration: widget.duration, vsync: this);
-
-    step1 = Tween<double>(begin: 0, end: -0.2).animate(CurvedAnimation(
-        parent: controller, curve: Interval(0, 0.3333, curve: widget.curve)));
-
-    step2 = Tween<double>(begin: -0.2, end: 0.2).animate(CurvedAnimation(
-        parent: controller,
-        curve: Interval(0.3333, 0.6666, curve: widget.curve)));
-
-    step3 = Tween<double>(begin: 0.2, end: 0).animate(CurvedAnimation(
-        parent: controller, curve: Interval(0.6666, 1, curve: widget.curve)));
-
-    /// Provided by the mixing [AnimateDoState] class
-    configAnimation(
-      delay: widget.delay,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      infinite: widget.infinite,
-      loopDelay: widget.loopDelay,
-      onFinish: widget.onFinish,
-      onLoop: widget.onLoop,
-      controllerCallback: widget.controller,
+  Widget buildAnimatedChild(BuildContext context, Widget child) {
+    return Transform(
+      alignment: FractionalOffset.center,
+      transform: Matrix4.skew(0, _skewY.value),
+      child: child,
     );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    /// Provided by the mixing [AnimateDoState] class
-    buildAnimation(
-      delay: widget.delay,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      infinite: widget.infinite,
-      loopDelay: widget.loopDelay,
-      onFinish: widget.onFinish,
-      onLoop: widget.onLoop,
-      controllerCallback: widget.controller,
-    );
-
-    return AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget? child) {
-          final animation = (step1.value != -0.2)
-              ? step1.value
-              : (step2.value != 0.2)
-                  ? step2.value
-                  : step3.value;
-
-          return Transform(
-              alignment: FractionalOffset.center,
-              transform: Matrix4.skew(0, animation),
-              child: widget.child);
-        });
   }
 }
 
 extension DanceExtension on Widget {
-  /// Applies a dance animation with customizable options
   Widget dance({
+    Key? key,
     Duration duration = const Duration(milliseconds: 1000),
-    Duration delay = const Duration(milliseconds: 0),
-    Function(AnimationController)? controller,
-    bool manualTrigger = false,
-    bool animate = true,
-    Function(AnimateDoDirection direction)? onFinish,
+    Duration delay = Duration.zero,
     Curve curve = Curves.bounceOut,
+    bool animate = true,
     bool infinite = false,
+    bool manualTrigger = false,
     Duration loopDelay = Duration.zero,
-    Function? onLoop,
+    AnimateDoControllerCallback? controller,
+    AnimateDoFinishCallback? onFinish,
+    AnimateDoLoopCallback? onLoop,
   }) {
     return Dance(
+      key: key,
       duration: duration,
       delay: delay,
-      controller: controller,
-      manualTrigger: manualTrigger,
-      animate: animate,
-      onFinish: onFinish,
       curve: curve,
+      animate: animate,
       infinite: infinite,
+      manualTrigger: manualTrigger,
       loopDelay: loopDelay,
+      controller: controller,
+      onFinish: onFinish,
       onLoop: onLoop,
       child: this,
     );

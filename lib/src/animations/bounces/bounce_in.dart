@@ -1,156 +1,80 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-import '../../types/animate_do_mixins.dart';
-import '../../types/animate_do_types.dart';
+import '../../types/animate_do_base.dart';
+import '../../types/animate_do_typedefs.dart';
 
-class BounceIn extends StatefulWidget {
-  final Widget child;
-  final Duration duration;
-  final Duration delay;
-  final Function(AnimationController)? controller;
-  final bool manualTrigger;
-  final bool animate;
-  final Function(AnimateDoDirection direction)? onFinish;
-  final Curve curve;
-
-  BounceIn({
-    Key? key,
-    required this.child,
-    this.duration = const Duration(milliseconds: 750),
-    this.delay = const Duration(milliseconds: 0),
-    this.controller,
-    this.manualTrigger = false,
-    this.animate = true,
-    this.onFinish,
-    this.curve = Curves.easeOutCubic,
-  }) : super(key: key) {
-    if (manualTrigger == true && controller == null) {
-      throw FlutterError('If you want to use manualTrigger:true, \n\n'
-          'Then you must provide the controller property, that is a callback like:\n\n'
-          ' ( controller: AnimationController) => yourController = controller \n\n');
-    }
-  }
+/// Scales the [child] in with an overshoot/bounce effect, mimicking the
+/// `bounceIn` animation from Animate.css.
+class BounceIn extends AnimateDoBaseWidget {
+  const BounceIn({
+    super.key,
+    required super.child,
+    super.duration = const Duration(milliseconds: 750),
+    super.delay,
+    super.curve = Curves.easeOutCubic,
+    super.animate,
+    super.manualTrigger,
+    super.controller,
+    super.onFinish,
+  });
 
   @override
-  _BounceInState createState() => _BounceInState();
+  State<BounceIn> createState() => BounceInState();
 }
 
-class _BounceInState extends State<BounceIn>
-    with SingleTickerProviderStateMixin, AnimateDoState {
-  late AnimationController controller;
-  late Animation<double> scale;
-  late Animation<double> opacity;
-  bool hasBeenInitialized = false;
+class BounceInState extends AnimateDoBaseState<BounceIn> {
+  late Animation<double> _scale;
+  late Animation<double> _opacity;
 
   @override
-  void initState() {
-    super.initState();
-    controller = AnimationController(duration: widget.duration, vsync: this);
+  void createTweens() {
+    final CurvedAnimation curved =
+        CurvedAnimation(parent: controller, curve: widget.curve);
 
-    final CurvedAnimation curvedAnimation = CurvedAnimation(
-      parent: controller,
-      curve: widget.curve,
-    );
+    _scale = TweenSequence<double>(<TweenSequenceItem<double>>[
+      TweenSequenceItem(tween: Tween(begin: 0.3, end: 1.1), weight: 20),
+      TweenSequenceItem(tween: Tween(begin: 1.1, end: 0.9), weight: 20),
+      TweenSequenceItem(tween: Tween(begin: 0.9, end: 1.03), weight: 20),
+      TweenSequenceItem(tween: Tween(begin: 1.03, end: 0.97), weight: 20),
+      TweenSequenceItem(tween: Tween(begin: 0.97, end: 1.0), weight: 20),
+    ]).animate(curved);
 
-    scale = TweenSequence<double>([
-      TweenSequenceItem(
-        tween: Tween(begin: 0.3, end: 1.1),
-        weight: 20,
-      ),
-      TweenSequenceItem(
-        tween: Tween(begin: 1.1, end: 0.9),
-        weight: 20,
-      ),
-      TweenSequenceItem(
-        tween: Tween(begin: 0.9, end: 1.03),
-        weight: 20,
-      ),
-      TweenSequenceItem(
-        tween: Tween(begin: 1.03, end: 0.97),
-        weight: 20,
-      ),
-      TweenSequenceItem(
-        tween: Tween(begin: 0.97, end: 1.0),
-        weight: 20,
-      ),
-    ]).animate(curvedAnimation);
-
-    opacity = TweenSequence<double>([
-      TweenSequenceItem(
-        tween: Tween(begin: 0.0, end: 1.0),
-        weight: 60,
-      ),
-      TweenSequenceItem(
-        tween: Tween(begin: 1.0, end: 1.0),
-        weight: 40,
-      ),
-    ]).animate(curvedAnimation);
-
-    /// Provided by the mixing [AnimateDoState] class
-    configAnimation(
-      delay: widget.delay,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      infinite: false,
-      onFinish: widget.onFinish,
-      controllerCallback: widget.controller,
-    );
+    _opacity = TweenSequence<double>(<TweenSequenceItem<double>>[
+      TweenSequenceItem(tween: Tween(begin: 0.0, end: 1.0), weight: 60),
+      TweenSequenceItem(tween: Tween(begin: 1.0, end: 1.0), weight: 40),
+    ]).animate(curved);
   }
 
   @override
-  void dispose() {
-    disposed = true;
-    controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    /// Provided by the mixing [AnimateDoState] class
-    buildAnimation(
-      delay: widget.delay,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      infinite: false,
-      onFinish: widget.onFinish,
-      controllerCallback: widget.controller,
-    );
-
-    return AnimatedBuilder(
-      animation: controller,
-      builder: (BuildContext context, Widget? child) {
-        return Transform.scale(
-          scale: scale.value,
-          alignment: Alignment.center,
-          child: Opacity(
-            opacity: opacity.value,
-            child: widget.child,
-          ),
-        );
-      },
+  Widget buildAnimatedChild(BuildContext context, Widget child) {
+    return Transform.scale(
+      scale: _scale.value,
+      alignment: Alignment.center,
+      child: Opacity(opacity: _opacity.value, child: child),
     );
   }
 }
 
 extension BounceInExtension on Widget {
-  /// Applies a bounce-in animation with customizable options
   Widget bounceIn({
+    Key? key,
     Duration duration = const Duration(milliseconds: 1000),
-    Duration delay = const Duration(milliseconds: 0),
-    Function(AnimationController)? controller,
-    bool manualTrigger = false,
-    bool animate = true,
-    Function(AnimateDoDirection direction)? onFinish,
+    Duration delay = Duration.zero,
     Curve curve = Curves.bounceOut,
+    bool animate = true,
+    bool manualTrigger = false,
+    AnimateDoControllerCallback? controller,
+    AnimateDoFinishCallback? onFinish,
   }) {
     return BounceIn(
+      key: key,
       duration: duration,
       delay: delay,
-      controller: controller,
-      manualTrigger: manualTrigger,
-      animate: animate,
-      onFinish: onFinish,
       curve: curve,
+      animate: animate,
+      manualTrigger: manualTrigger,
+      controller: controller,
+      onFinish: onFinish,
       child: this,
     );
   }

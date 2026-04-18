@@ -1,134 +1,74 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-import '../../types/animate_do_mixins.dart';
-import '../../types/animate_do_types.dart';
+import '../../types/animate_do_base.dart';
+import '../../types/animate_do_typedefs.dart';
 
-/// [key]: optional widget key reference
-/// [child]: mandatory, widget to animate
-/// [duration]: how much time the animation should take
-/// [delay]: delay before the animation starts
-/// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
-/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
-/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
-/// [curve]: curve for the animation
-/// [from]: starting point for the animation
-class ZoomOut extends StatefulWidget {
-  final Widget child;
-  final Duration duration;
-  final Duration delay;
-  final Function(AnimationController)? controller;
-  final bool manualTrigger;
-  final bool animate;
-  final Function(AnimateDoDirection direction)? onFinish;
-  final double from;
-  final Curve curve;
-
-  ZoomOut({
-    key,
-    required this.child,
-    this.duration = const Duration(milliseconds: 800),
-    this.delay = const Duration(milliseconds: 0),
-    this.controller,
-    this.manualTrigger = false,
-    this.animate = true,
+/// Scales the [child] from 1 down to [from] while fading it out.
+class ZoomOut extends AnimateDoBaseWidget {
+  const ZoomOut({
+    super.key,
+    required super.child,
+    super.duration = const Duration(milliseconds: 800),
+    super.delay,
+    super.curve = Curves.easeInOutCubicEmphasized,
+    super.animate,
+    super.manualTrigger,
+    super.controller,
+    super.onFinish,
     this.from = 0.0,
-    this.onFinish,
-    this.curve = Curves.easeInOutCubicEmphasized,
-  }) : super(key: key) {
-    if (manualTrigger == true && controller == null) {
-      throw FlutterError('If you want to use manualTrigger:true, \n\n'
-          'Then you must provide the controller property, that is a callback like:\n\n'
-          ' ( controller: AnimationController) => yourController = controller \n\n');
-    }
-  }
+  });
+
+  final double from;
 
   @override
-  ZoomOutState createState() => ZoomOutState();
+  State<ZoomOut> createState() => ZoomOutState();
 }
 
-/// State class, where the magic happens
-class ZoomOutState extends State<ZoomOut>
-    with SingleTickerProviderStateMixin, AnimateDoState {
-  late Animation<double> zoom;
-  late Animation<double> opacity;
+class ZoomOutState extends AnimateDoBaseState<ZoomOut> {
+  late Animation<double> _scale;
+  late Animation<double> _opacity;
 
   @override
-  void dispose() {
-    disposed = true;
-    controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    controller = AnimationController(duration: widget.duration, vsync: this);
-
-    zoom = Tween(begin: 1.0, end: widget.from)
-        .animate(CurvedAnimation(curve: widget.curve, parent: controller));
-
-    opacity = Tween<double>(begin: 1, end: 0).animate(
-        CurvedAnimation(parent: controller, curve: const Interval(0, 0.85)));
-
-    /// Provided by the mixing [AnimateDoState] class
-    configAnimation(
-      delay: widget.delay,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      infinite: false,
-      onFinish: widget.onFinish,
-      controllerCallback: widget.controller,
+  void createTweens() {
+    _scale = Tween<double>(begin: 1, end: widget.from).animate(
+      CurvedAnimation(parent: controller, curve: widget.curve),
+    );
+    _opacity = Tween<double>(begin: 1, end: 0).animate(
+      CurvedAnimation(parent: controller, curve: const Interval(0, 0.85)),
     );
   }
 
   @override
-  Widget build(BuildContext context) {
-    /// Provided by the mixing [AnimateDoState] class
-    buildAnimation(
-      delay: widget.delay,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      infinite: false,
-      onFinish: widget.onFinish,
-      controllerCallback: widget.controller,
+  Widget buildAnimatedChild(BuildContext context, Widget child) {
+    return Transform.scale(
+      scale: _scale.value,
+      child: Opacity(opacity: _opacity.value, child: child),
     );
-
-    return AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget? child) {
-          return Transform.scale(
-              scale: zoom.value,
-              child: AnimatedOpacity(
-                  duration: const Duration(milliseconds: 100),
-                  opacity: opacity.value,
-                  child: widget.child));
-        });
   }
 }
 
 extension ZoomOutExtension on Widget {
-  /// Aplica una animación de zoom out con opciones personalizables
   Widget zoomOut({
+    Key? key,
     Duration duration = const Duration(milliseconds: 800),
-    Duration delay = const Duration(milliseconds: 0),
-    Function(AnimationController)? controller,
-    bool manualTrigger = false,
-    bool animate = true,
-    Function(AnimateDoDirection direction)? onFinish,
-    double from = 0.0,
+    Duration delay = Duration.zero,
     Curve curve = Curves.easeInOutCubicEmphasized,
+    bool animate = true,
+    bool manualTrigger = false,
+    AnimateDoControllerCallback? controller,
+    AnimateDoFinishCallback? onFinish,
+    double from = 0.0,
   }) {
     return ZoomOut(
+      key: key,
       duration: duration,
       delay: delay,
-      controller: controller,
-      manualTrigger: manualTrigger,
+      curve: curve,
       animate: animate,
+      manualTrigger: manualTrigger,
+      controller: controller,
       onFinish: onFinish,
       from: from,
-      curve: curve,
       child: this,
     );
   }

@@ -1,137 +1,76 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-import '../../types/animate_do_mixins.dart';
-import '../../types/animate_do_types.dart';
+import '../../types/animate_do_base.dart';
+import '../../types/animate_do_typedefs.dart';
 
-/// [key]: optional widget key reference
-/// [child]: mandatory, widget to animate
-/// [duration]: how much time the animation should take
-/// [delay]: delay before the animation starts
-/// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
-/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
-/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
-/// [curve]: curve for the animation
-class FadeInDown extends StatefulWidget {
-  final Widget child;
-  final Duration duration;
-  final Duration delay;
-  final Function(AnimationController)? controller;
-  final bool manualTrigger;
-  final bool animate;
+/// Fades the [child] in while sliding it downward.
+class FadeInDown extends AnimateDoBaseWidget {
+  const FadeInDown({
+    super.key,
+    required super.child,
+    super.duration = const Duration(milliseconds: 800),
+    super.delay,
+    super.curve,
+    super.animate,
+    super.manualTrigger,
+    super.controller,
+    super.onFinish,
+    this.from = 100,
+  });
+
+  /// Vertical offset (in logical pixels) the child starts from. The value is
+  /// negated internally so the animation visually slides downward.
   final double from;
-  final Function(AnimateDoDirection direction)? onFinish;
-  final Curve curve;
-
-  FadeInDown(
-      {key,
-      required this.child,
-      this.duration = const Duration(milliseconds: 800),
-      this.delay = Duration.zero,
-      this.controller,
-      this.manualTrigger = false,
-      this.animate = true,
-      this.from = 100,
-      this.onFinish,
-      this.curve = Curves.easeOut})
-      : super(key: key) {
-    if (manualTrigger == true && controller == null) {
-      throw FlutterError('If you want to use manualTrigger:true, \n\n'
-          'Then you must provide the controller property, that is a callback like:\n\n'
-          ' ( controller: AnimationController) => yourController = controller \n\n');
-    }
-  }
 
   @override
-  FadeInDownState createState() => FadeInDownState();
+  State<FadeInDown> createState() => FadeInDownState();
 }
 
-/// FadeState class
-/// The animation magic happens here
-class FadeInDownState extends State<FadeInDown>
-    with SingleTickerProviderStateMixin, AnimateDoState {
-  /// animation movement
-  late Animation<double> animation;
-
-  /// animation opacity
-  late Animation<double> opacity;
+class FadeInDownState extends AnimateDoBaseState<FadeInDown> {
+  late Animation<double> _translate;
+  late Animation<double> _opacity;
 
   @override
-  void dispose() {
-    disposed = true;
-    controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    controller = AnimationController(duration: widget.duration, vsync: this);
-
-    animation = Tween<double>(begin: widget.from * -1, end: 0)
-        .animate(CurvedAnimation(parent: controller, curve: widget.curve));
-
-    opacity = Tween<double>(begin: 0, end: 1).animate(
-        CurvedAnimation(parent: controller, curve: const Interval(0, 0.65)));
-
-    /// Provided by the mixing [AnimateDoState] class
-    configAnimation(
-      delay: widget.delay,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      infinite: false,
-      onFinish: widget.onFinish,
-      controllerCallback: widget.controller,
+  void createTweens() {
+    _translate = Tween<double>(begin: -widget.from, end: 0).animate(
+      CurvedAnimation(parent: controller, curve: widget.curve),
+    );
+    _opacity = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(parent: controller, curve: const Interval(0, 0.65)),
     );
   }
 
   @override
-  Widget build(BuildContext context) {
-    /// Provided by the mixing [AnimateDoState] class
-    buildAnimation(
-      delay: widget.delay,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      infinite: false,
-      onFinish: widget.onFinish,
-      controllerCallback: widget.controller,
+  Widget buildAnimatedChild(BuildContext context, Widget child) {
+    return Transform.translate(
+      offset: Offset(0, _translate.value),
+      child: Opacity(opacity: _opacity.value, child: child),
     );
-
-    return AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget? child) {
-          return Transform.translate(
-              offset: Offset(0, animation.value),
-              child: Opacity(
-                opacity: opacity.value,
-                child: widget.child,
-              ));
-        });
   }
 }
 
 extension FadeInDownExtension on Widget {
-  /// Aplica una animación de fade in hacia abajo con opciones personalizables
   Widget fadeInDown({
+    Key? key,
     Duration duration = const Duration(milliseconds: 800),
-    Duration delay = const Duration(milliseconds: 0),
-    Function(AnimationController)? controller,
-    bool manualTrigger = false,
-    bool animate = true,
-    double from = 100,
-    Function(AnimateDoDirection direction)? onFinish,
+    Duration delay = Duration.zero,
     Curve curve = Curves.easeOut,
+    bool animate = true,
+    bool manualTrigger = false,
+    AnimateDoControllerCallback? controller,
+    AnimateDoFinishCallback? onFinish,
+    double from = 100,
   }) {
     return FadeInDown(
+      key: key,
       duration: duration,
       delay: delay,
-      controller: controller,
-      manualTrigger: manualTrigger,
-      animate: animate,
-      from: from,
-      onFinish: onFinish,
       curve: curve,
+      animate: animate,
+      manualTrigger: manualTrigger,
+      controller: controller,
+      onFinish: onFinish,
+      from: from,
       child: this,
     );
   }

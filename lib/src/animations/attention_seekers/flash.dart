@@ -1,152 +1,74 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-import '../../types/animate_do_mixins.dart';
-import '../../types/animate_do_types.dart';
+import '../../types/animate_do_base.dart';
+import '../../types/animate_do_typedefs.dart';
 
-/// [key]: optional widget key reference
-/// [child]: mandatory, widget to animate
-/// [duration]: how much time the animation should take
-/// [delay]: delay before the animation starts
-/// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
-/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
-/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
-/// [curve]: curve for the animation
-/// [infinite]: loops the animation until the widget is destroyed
-class Flash extends StatefulWidget {
-  final Widget child;
-  final Duration duration;
-  final Duration delay;
-  final bool infinite;
-  final Function(AnimationController)? controller;
-  final bool manualTrigger;
-  final bool animate;
-  final Function(AnimateDoDirection direction)? onFinish;
-  final Curve curve;
-  final Duration loopDelay;
-  final Function? onLoop;
-
-  Flash(
-      {key,
-      required this.child,
-      this.duration = const Duration(milliseconds: 1000),
-      this.delay = const Duration(milliseconds: 0),
-      this.infinite = false,
-      this.controller,
-      this.manualTrigger = false,
-      this.animate = true,
-      this.onFinish,
-      this.curve = Curves.linearToEaseOut,
-      this.loopDelay = Duration.zero,
-      this.onLoop})
-      : super(key: key) {
-    if (manualTrigger == true && controller == null) {
-      throw FlutterError('If you want to use manualTrigger:true, \n\n'
-          'Then you must provide the controller property, that is a callback like:\n\n'
-          ' ( controller: AnimationController) => yourController = controller \n\n');
-    }
-  }
+/// Quickly fades the [child] in and out twice, mimicking the `flash`
+/// animation from Animate.css.
+class Flash extends AnimateDoBaseWidget {
+  const Flash({
+    super.key,
+    required super.child,
+    super.duration = const Duration(milliseconds: 1000),
+    super.delay,
+    super.curve = Curves.linearToEaseOut,
+    super.animate,
+    super.infinite,
+    super.manualTrigger,
+    super.loopDelay,
+    super.controller,
+    super.onFinish,
+    super.onLoop,
+  });
 
   @override
-  FlashState createState() => FlashState();
+  State<Flash> createState() => FlashState();
 }
 
-/// State class, where the magic happens
-class FlashState extends State<Flash>
-    with SingleTickerProviderStateMixin, AnimateDoState {
-  late Animation<double> opacityOut1;
-  late Animation<double> opacityIn1;
-  late Animation<double> opacityOut2;
-  late Animation<double> opacityIn2;
+class FlashState extends AnimateDoBaseState<Flash> {
+  late Animation<double> _opacity;
+
   @override
-  void dispose() {
-    disposed = true;
-    controller.dispose();
-    super.dispose();
+  void createTweens() {
+    _opacity = TweenSequence<double>(<TweenSequenceItem<double>>[
+      TweenSequenceItem(tween: Tween(begin: 1, end: 0), weight: 25),
+      TweenSequenceItem(tween: Tween(begin: 0, end: 1), weight: 25),
+      TweenSequenceItem(tween: Tween(begin: 1, end: 0), weight: 25),
+      TweenSequenceItem(tween: Tween(begin: 0, end: 1), weight: 25),
+    ]).animate(CurvedAnimation(parent: controller, curve: widget.curve));
   }
 
   @override
-  void initState() {
-    super.initState();
-
-    controller = AnimationController(duration: widget.duration, vsync: this);
-
-    opacityOut1 = Tween<double>(begin: 1, end: 0).animate(CurvedAnimation(
-        parent: controller, curve: Interval(0, 0.25, curve: widget.curve)));
-    opacityIn1 = Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(
-        parent: controller, curve: Interval(0.25, 0.5, curve: widget.curve)));
-    opacityOut2 = Tween<double>(begin: 1, end: 0).animate(CurvedAnimation(
-        parent: controller, curve: Interval(0.5, 0.75, curve: widget.curve)));
-    opacityIn2 = Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(
-        parent: controller, curve: Interval(0.75, 1, curve: widget.curve)));
-
-    /// Provided by the mixing [AnimateDoState] class
-    configAnimation(
-      delay: widget.delay,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      infinite: widget.infinite,
-      loopDelay: widget.loopDelay,
-      onFinish: widget.onFinish,
-      onLoop: widget.onLoop,
-      controllerCallback: widget.controller,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    /// Provided by the mixing [AnimateDoState] class
-    buildAnimation(
-      delay: widget.delay,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      infinite: widget.infinite,
-      loopDelay: widget.loopDelay,
-      onFinish: widget.onFinish,
-      onLoop: widget.onLoop,
-      controllerCallback: widget.controller,
-    );
-
-    return AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget? child) {
-          return Opacity(
-              opacity: (controller.value < 0.25)
-                  ? opacityOut1.value
-                  : (controller.value < 0.5)
-                      ? opacityIn1.value
-                      : (controller.value < 0.75)
-                          ? opacityOut2.value
-                          : opacityIn2.value,
-              child: widget.child);
-        });
+  Widget buildAnimatedChild(BuildContext context, Widget child) {
+    return Opacity(opacity: _opacity.value, child: child);
   }
 }
 
 extension FlashExtension on Widget {
-  /// Applies a flash animation with customizable options
   Widget flash({
+    Key? key,
     Duration duration = const Duration(milliseconds: 1000),
-    Duration delay = const Duration(milliseconds: 0),
-    Function(AnimationController)? controller,
-    bool manualTrigger = false,
-    bool animate = true,
-    Function(AnimateDoDirection direction)? onFinish,
+    Duration delay = Duration.zero,
     Curve curve = Curves.linearToEaseOut,
+    bool animate = true,
     bool infinite = false,
+    bool manualTrigger = false,
     Duration loopDelay = Duration.zero,
-    Function? onLoop,
+    AnimateDoControllerCallback? controller,
+    AnimateDoFinishCallback? onFinish,
+    AnimateDoLoopCallback? onLoop,
   }) {
     return Flash(
+      key: key,
       duration: duration,
       delay: delay,
-      controller: controller,
-      manualTrigger: manualTrigger,
-      animate: animate,
-      onFinish: onFinish,
       curve: curve,
+      animate: animate,
       infinite: infinite,
+      manualTrigger: manualTrigger,
       loopDelay: loopDelay,
+      controller: controller,
+      onFinish: onFinish,
       onLoop: onLoop,
       child: this,
     );

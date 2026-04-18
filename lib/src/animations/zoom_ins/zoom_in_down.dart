@@ -1,126 +1,77 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-import '../../types/animate_do_mixins.dart';
-import '../../types/animate_do_types.dart';
+import '../../types/animate_do_base.dart';
+import '../../types/animate_do_typedefs.dart';
 
-class ZoomInDown extends StatefulWidget {
-  final Widget child;
-  final Duration duration;
-  final Duration delay;
-  final Function(AnimationController)? controller;
-  final bool manualTrigger;
-  final bool animate;
-  final double from;
-  final Function(AnimateDoDirection direction)? onFinish;
-
-  ZoomInDown({
-    Key? key,
-    required this.child,
-    this.duration = const Duration(milliseconds: 1200),
-    this.delay = Duration.zero,
-    this.controller,
-    this.manualTrigger = false,
-    this.animate = true,
+/// Scales the [child] in while sliding it down from above, mimicking the
+/// `zoomInDown` animation from Animate.css.
+class ZoomInDown extends AnimateDoBaseWidget {
+  const ZoomInDown({
+    super.key,
+    required super.child,
+    super.duration = const Duration(milliseconds: 1200),
+    super.delay,
+    super.animate,
+    super.manualTrigger,
+    super.controller,
+    super.onFinish,
     this.from = -1000,
-    this.onFinish,
-  }) : super(key: key) {
-    if (manualTrigger == true && controller == null) {
-      throw FlutterError('If you want to use manualTrigger:true, \n\n'
-          'You must provide the controller property, which is a callback like:\n\n'
-          ' ( controller: AnimationController) => yourController = controller \n\n');
-    }
-  }
+  }) : super(curve: Curves.easeInOut);
+
+  final double from;
 
   @override
-  ZoomInDownState createState() => ZoomInDownState();
+  State<ZoomInDown> createState() => ZoomInDownState();
 }
 
-class ZoomInDownState extends State<ZoomInDown>
-    with SingleTickerProviderStateMixin, AnimateDoState {
-  late Animation<double> opacity;
-  late Animation<double> scale;
-  late Animation<double> translateY;
+class ZoomInDownState extends AnimateDoBaseState<ZoomInDown> {
+  static const Cubic _easeOutBack = Cubic(0.175, 0.885, 0.32, 1);
+
+  late Animation<double> _opacity;
+  late Animation<double> _scale;
+  late Animation<double> _translate;
 
   @override
-  void dispose() {
-    disposed = true;
-    controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    controller = AnimationController(duration: widget.duration, vsync: this);
-
-    opacity = TweenSequence<double>([
+  void createTweens() {
+    _opacity = TweenSequence<double>(<TweenSequenceItem<double>>[
       TweenSequenceItem(tween: Tween(begin: 0, end: 1), weight: 60),
       TweenSequenceItem(tween: Tween(begin: 1, end: 1), weight: 40),
-    ]).animate(CurvedAnimation(
-      parent: controller,
-      curve: const Interval(0, 0.6, curve: Curves.easeInOut),
-    ));
+    ]).animate(
+      CurvedAnimation(
+        parent: controller,
+        curve: const Interval(0, 0.6, curve: Curves.easeInOut),
+      ),
+    );
 
-    scale = TweenSequence<double>([
+    _scale = TweenSequence<double>(<TweenSequenceItem<double>>[
       TweenSequenceItem(tween: Tween(begin: 0.1, end: 0.475), weight: 60),
       TweenSequenceItem(tween: Tween(begin: 0.475, end: 1.0), weight: 40),
-    ]).animate(CurvedAnimation(
-      parent: controller,
-      curve: const Interval(
-        0,
-        1,
-        curve: Cubic(0.175, 0.885, 0.32, 1),
+    ]).animate(
+      CurvedAnimation(
+        parent: controller,
+        curve: const Interval(0, 1, curve: _easeOutBack),
       ),
-    ));
+    );
 
-    translateY = TweenSequence<double>([
+    _translate = TweenSequence<double>(<TweenSequenceItem<double>>[
       TweenSequenceItem(tween: Tween(begin: widget.from, end: 60), weight: 60),
-      TweenSequenceItem(tween: Tween(begin: 60, end: 0), weight: 40),
-    ]).animate(CurvedAnimation(
-      parent: controller,
-      curve: const Interval(
-        0,
-        1,
-        curve: Cubic(0.175, 0.885, 0.32, 1),
+      TweenSequenceItem(tween: Tween(begin: 60.0, end: 0.0), weight: 40),
+    ]).animate(
+      CurvedAnimation(
+        parent: controller,
+        curve: const Interval(0, 1, curve: _easeOutBack),
       ),
-    ));
-
-    configAnimation(
-      delay: widget.delay,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      onFinish: widget.onFinish,
-      infinite: false,
-      controllerCallback: widget.controller,
     );
   }
 
   @override
-  Widget build(BuildContext context) {
-    buildAnimation(
-      delay: widget.delay,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      onFinish: widget.onFinish,
-      infinite: false,
-      controllerCallback: widget.controller,
-    );
-
-    return AnimatedBuilder(
-      animation: controller,
-      builder: (BuildContext context, Widget? child) {
-        return Transform.translate(
-          offset: Offset(0, translateY.value),
-          child: Transform.scale(
-            scale: scale.value,
-            child: Opacity(
-              opacity: opacity.value,
-              child: widget.child,
-            ),
-          ),
-        );
-      },
+  Widget buildAnimatedChild(BuildContext context, Widget child) {
+    return Transform.translate(
+      offset: Offset(0, _translate.value),
+      child: Transform.scale(
+        scale: _scale.value,
+        child: Opacity(opacity: _opacity.value, child: child),
+      ),
     );
   }
 }
@@ -130,21 +81,21 @@ extension ZoomInDownExtension on Widget {
     Key? key,
     Duration duration = const Duration(milliseconds: 1200),
     Duration delay = Duration.zero,
-    Function(AnimationController)? controller,
-    bool manualTrigger = false,
     bool animate = true,
+    bool manualTrigger = false,
+    AnimateDoControllerCallback? controller,
+    AnimateDoFinishCallback? onFinish,
     double from = -1000,
-    Function(AnimateDoDirection direction)? onFinish,
   }) {
     return ZoomInDown(
       key: key,
       duration: duration,
       delay: delay,
-      controller: controller,
-      manualTrigger: manualTrigger,
       animate: animate,
-      from: from,
+      manualTrigger: manualTrigger,
+      controller: controller,
       onFinish: onFinish,
+      from: from,
       child: this,
     );
   }

@@ -1,131 +1,76 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-import '../../types/animate_do_mixins.dart';
-import '../../types/animate_do_types.dart';
+import '../../types/animate_do_base.dart';
+import '../../types/animate_do_typedefs.dart';
 
-/// [key]: optional widget key reference
-/// [child]: mandatory, widget to animate
-/// [duration]: how much time the animation should take
-/// [delay]: delay before the animation starts
-/// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
-/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
-/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
-/// [curve]: curve for the animation
-class FadeOutLeft extends StatefulWidget {
-  final Widget child;
-  final Duration duration;
-  final Duration delay;
-  final Function(AnimationController)? controller;
-  final bool manualTrigger;
-  final bool animate;
-  final Function(AnimateDoDirection direction)? onFinish;
-  final Curve curve;
+/// Fades the [child] out while sliding it to the left.
+class FadeOutLeft extends AnimateDoBaseWidget {
+  const FadeOutLeft({
+    super.key,
+    required super.child,
+    super.duration = const Duration(milliseconds: 800),
+    super.delay,
+    super.curve,
+    super.animate,
+    super.manualTrigger,
+    super.controller,
+    super.onFinish,
+    this.from = 100,
+  });
+
+  /// Horizontal offset (in logical pixels) the child ends at. The value is
+  /// negated internally so the widget visually slides to the left.
   final double from;
 
-  FadeOutLeft({
-    key,
-    required this.child,
-    this.duration = const Duration(milliseconds: 800),
-    this.delay = const Duration(milliseconds: 0),
-    this.controller,
-    this.manualTrigger = false,
-    this.animate = true,
-    this.from = 100,
-    this.onFinish,
-    this.curve = Curves.easeOut,
-  }) : super(key: key) {
-    if (manualTrigger == true && controller == null) {
-      throw FlutterError('If you want to use manualTrigger:true, \n\n'
-          'Then you must provide the controller property, that is a callback like:\n\n'
-          ' ( controller: AnimationController) => yourController = controller \n\n');
-    }
-  }
-
   @override
-  FadeOutLeftState createState() => FadeOutLeftState();
+  State<FadeOutLeft> createState() => FadeOutLeftState();
 }
 
-/// State class, where the magic happens
-class FadeOutLeftState extends State<FadeOutLeft>
-    with SingleTickerProviderStateMixin, AnimateDoState {
-  late Animation<double> animation;
-  late Animation<double> opacity;
-  @override
-  void dispose() {
-    disposed = true;
-    controller.dispose();
-    super.dispose();
-  }
+class FadeOutLeftState extends AnimateDoBaseState<FadeOutLeft> {
+  late Animation<double> _translate;
+  late Animation<double> _opacity;
 
   @override
-  void initState() {
-    super.initState();
-
-    controller = AnimationController(duration: widget.duration, vsync: this);
-
-    animation = Tween<double>(begin: 0, end: widget.from * -1)
-        .animate(CurvedAnimation(parent: controller, curve: widget.curve));
-    opacity = Tween<double>(begin: 1.0, end: 0.0).animate(
-        CurvedAnimation(parent: controller, curve: const Interval(0, 0.65)));
-
-    /// Provided by the mixing [AnimateDoState] class
-    configAnimation(
-      delay: widget.delay,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      infinite: false,
-      onFinish: widget.onFinish,
-      controllerCallback: widget.controller,
+  void createTweens() {
+    _translate = Tween<double>(begin: 0, end: -widget.from).animate(
+      CurvedAnimation(parent: controller, curve: widget.curve),
+    );
+    _opacity = Tween<double>(begin: 1, end: 0).animate(
+      CurvedAnimation(parent: controller, curve: const Interval(0, 0.65)),
     );
   }
 
   @override
-  Widget build(BuildContext context) {
-    /// Provided by the mixing [AnimateDoState] class
-    buildAnimation(
-      delay: widget.delay,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      infinite: false,
-      onFinish: widget.onFinish,
-      controllerCallback: widget.controller,
+  Widget buildAnimatedChild(BuildContext context, Widget child) {
+    return Transform.translate(
+      offset: Offset(_translate.value, 0),
+      child: Opacity(opacity: _opacity.value, child: child),
     );
-
-    return AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget? child) {
-          return Transform.translate(
-              offset: Offset(animation.value, 0),
-              child: Opacity(
-                opacity: opacity.value,
-                child: widget.child,
-              ));
-        });
   }
 }
 
 extension FadeOutLeftExtension on Widget {
-  /// Aplica una animación fade-out-left con opciones personalizables
   Widget fadeOutLeft({
+    Key? key,
     Duration duration = const Duration(milliseconds: 800),
-    Duration delay = const Duration(milliseconds: 0),
-    Function(AnimationController)? controller,
-    bool manualTrigger = false,
-    bool animate = true,
-    double from = 100,
-    Function(AnimateDoDirection direction)? onFinish,
+    Duration delay = Duration.zero,
     Curve curve = Curves.easeOut,
+    bool animate = true,
+    bool manualTrigger = false,
+    AnimateDoControllerCallback? controller,
+    AnimateDoFinishCallback? onFinish,
+    double from = 100,
   }) {
     return FadeOutLeft(
+      key: key,
       duration: duration,
       delay: delay,
-      controller: controller,
-      manualTrigger: manualTrigger,
-      animate: animate,
-      from: from,
-      onFinish: onFinish,
       curve: curve,
+      animate: animate,
+      manualTrigger: manualTrigger,
+      controller: controller,
+      onFinish: onFinish,
+      from: from,
       child: this,
     );
   }

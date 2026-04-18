@@ -5,9 +5,13 @@ void main() {
   group('AnimateDoTypes', () {
     test('should ensure the types AnimateDo Types', () {
       expect(
-          AnimateDoDirection.forward.toString(), 'AnimateDoDirection.forward');
-      expect(AnimateDoDirection.backward.toString(),
-          'AnimateDoDirection.backward');
+        AnimateDoDirection.forward.toString(),
+        'AnimateDoDirection.forward',
+      );
+      expect(
+        AnimateDoDirection.backward.toString(),
+        'AnimateDoDirection.backward',
+      );
     });
   });
 }

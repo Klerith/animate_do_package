@@ -1,170 +1,112 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-import '../../types/animate_do_mixins.dart';
-import '../../types/animate_do_types.dart';
+import '../../types/animate_do_base.dart';
+import '../../types/animate_do_typedefs.dart';
 
-// Tada
-/// [key]: optional widget key reference
-/// [child]: mandatory, widget to animate
-/// [duration]: how much time the animation should take
-/// [delay]: delay before the animation starts
-/// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
-/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
-/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
-/// [curve]: curve for the animation
-/// [infinite]: loops the animation until the widget is destroyed
-class Tada extends StatefulWidget {
-  final Widget child;
-  final Duration duration;
-  final Duration delay;
-  final bool infinite;
-  final Function(AnimationController)? controller;
-  final bool manualTrigger;
-  final bool animate;
-  final Function(AnimateDoDirection direction)? onFinish;
-  final Curve curve;
-  final Duration loopDelay;
-  final Function? onLoop;
-
-  Tada(
-      {key,
-      required this.child,
-      this.duration = const Duration(milliseconds: 1000),
-      this.delay = const Duration(milliseconds: 0),
-      this.infinite = false,
-      this.controller,
-      this.manualTrigger = false,
-      this.animate = true,
-      this.onFinish,
-      this.curve = Curves.easeInOut,
-      this.loopDelay = Duration.zero,
-      this.onLoop})
-      : super(key: key) {
-    if (manualTrigger == true && controller == null) {
-      throw FlutterError('If you want to use manualTrigger:true, \n\n'
-          'Then you must provide the controller property, that is a callback like:\n\n'
-          ' ( controller: AnimationController) => yourController = controller \n\n');
-    }
-  }
+/// Combines a small scale-down/scale-up with several rotation flicks,
+/// mimicking the `tada` animation from Animate.css.
+class Tada extends AnimateDoBaseWidget {
+  const Tada({
+    super.key,
+    required super.child,
+    super.duration = const Duration(milliseconds: 1000),
+    super.delay,
+    super.curve = Curves.easeInOut,
+    super.animate,
+    super.infinite,
+    super.manualTrigger,
+    super.loopDelay,
+    super.controller,
+    super.onFinish,
+    super.onLoop,
+  });
 
   @override
-  TadaState createState() => TadaState();
+  State<Tada> createState() => TadaState();
 }
 
-/// State class, where the magic happens
-class TadaState extends State<Tada>
-    with SingleTickerProviderStateMixin, AnimateDoState {
-  late Animation<double> scale;
-  late Animation<double> rotation;
+class TadaState extends AnimateDoBaseState<Tada> {
+  late Animation<double> _scale;
+  late Animation<double> _rotation;
 
   @override
-  void dispose() {
-    disposed = true;
-    controller.dispose();
-    super.dispose();
-  }
+  void createTweens() {
+    final CurvedAnimation curved =
+        CurvedAnimation(parent: controller, curve: widget.curve);
 
-  @override
-  void initState() {
-    super.initState();
-
-    controller = AnimationController(duration: widget.duration, vsync: this);
-    scale = TweenSequence<double>([
+    _scale = TweenSequence<double>(<TweenSequenceItem<double>>[
       TweenSequenceItem(tween: Tween(begin: 1.0, end: 0.9), weight: 10),
       TweenSequenceItem(tween: Tween(begin: 0.9, end: 1.1), weight: 20),
       TweenSequenceItem(tween: Tween(begin: 1.1, end: 1.1), weight: 40),
       TweenSequenceItem(tween: Tween(begin: 1.1, end: 1.0), weight: 30),
-    ]).animate(CurvedAnimation(parent: controller, curve: widget.curve));
+    ]).animate(curved);
 
-    rotation = TweenSequence<double>([
+    _rotation = TweenSequence<double>(<TweenSequenceItem<double>>[
       TweenSequenceItem(
-          tween: Tween(begin: 0.0, end: -0.0523599),
-          weight: 10), // 0 to -3 degrees
+        tween: Tween(begin: 0.0, end: -0.0523599),
+        weight: 10,
+      ),
       TweenSequenceItem(
-          tween: Tween(begin: -0.0523599, end: 0.0523599),
-          weight: 15), // -3 to 3 degrees
+        tween: Tween(begin: -0.0523599, end: 0.0523599),
+        weight: 15,
+      ),
       TweenSequenceItem(
-          tween: Tween(begin: 0.0523599, end: -0.0523599),
-          weight: 15), // 3 to -3 degrees
+        tween: Tween(begin: 0.0523599, end: -0.0523599),
+        weight: 15,
+      ),
       TweenSequenceItem(
-          tween: Tween(begin: -0.0523599, end: 0.0523599),
-          weight: 15), // -3 to 3 degrees
+        tween: Tween(begin: -0.0523599, end: 0.0523599),
+        weight: 15,
+      ),
       TweenSequenceItem(
-          tween: Tween(begin: 0.0523599, end: -0.0523599),
-          weight: 15), // 3 to -3 degrees
+        tween: Tween(begin: 0.0523599, end: -0.0523599),
+        weight: 15,
+      ),
       TweenSequenceItem(
-          tween: Tween(begin: -0.0523599, end: 0.0523599),
-          weight: 15), // -3 to 3 degrees
-      TweenSequenceItem(
-          tween: Tween(begin: 0.0523599, end: 0.0),
-          weight: 15), // 3 to 0 degrees
-    ]).animate(CurvedAnimation(parent: controller, curve: widget.curve));
-
-    configAnimation(
-      delay: widget.delay,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      infinite: widget.infinite,
-      loopDelay: widget.loopDelay,
-      onFinish: widget.onFinish,
-      onLoop: widget.onLoop,
-      controllerCallback: widget.controller,
-    );
+        tween: Tween(begin: -0.0523599, end: 0.0523599),
+        weight: 15,
+      ),
+      TweenSequenceItem(tween: Tween(begin: 0.0523599, end: 0.0), weight: 15),
+    ]).animate(curved);
   }
 
   @override
-  Widget build(BuildContext context) {
-    buildAnimation(
-      delay: widget.delay,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      infinite: widget.infinite,
-      loopDelay: widget.loopDelay,
-      onFinish: widget.onFinish,
-      onLoop: widget.onLoop,
-      controllerCallback: widget.controller,
-    );
-
-    return AnimatedBuilder(
-      animation: controller,
-      builder: (BuildContext context, Widget? child) {
-        return Transform(
-          transform: Matrix4.identity()
-            ..scale(scale.value)
-            ..rotateZ(rotation.value),
-          alignment: Alignment.center,
-          child: widget.child,
-        );
-      },
+  Widget buildAnimatedChild(BuildContext context, Widget child) {
+    return Transform(
+      transform: Matrix4.identity()
+        ..scaleByDouble(_scale.value, _scale.value, 1, 1)
+        ..rotateZ(_rotation.value),
+      alignment: Alignment.center,
+      child: child,
     );
   }
 }
 
 extension TadaExtension on Widget {
-  /// Aplica una animación de tada con opciones personalizables
   Widget tada({
+    Key? key,
     Duration duration = const Duration(milliseconds: 1000),
-    Duration delay = const Duration(milliseconds: 0),
-    Function(AnimationController)? controller,
-    bool manualTrigger = false,
+    Duration delay = Duration.zero,
+    Curve curve = Curves.easeOut,
     bool animate = true,
     bool infinite = false,
-    Function(AnimateDoDirection direction)? onFinish,
-    Curve curve = Curves.easeOut,
+    bool manualTrigger = false,
     Duration loopDelay = Duration.zero,
-    Function? onLoop,
+    AnimateDoControllerCallback? controller,
+    AnimateDoFinishCallback? onFinish,
+    AnimateDoLoopCallback? onLoop,
   }) {
     return Tada(
+      key: key,
       duration: duration,
       delay: delay,
-      controller: controller,
-      manualTrigger: manualTrigger,
+      curve: curve,
       animate: animate,
       infinite: infinite,
-      onFinish: onFinish,
-      curve: curve,
+      manualTrigger: manualTrigger,
       loopDelay: loopDelay,
+      controller: controller,
+      onFinish: onFinish,
       onLoop: onLoop,
       child: this,
     );

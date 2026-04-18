@@ -9,6 +9,7 @@ issue_tracker: https://github.com/Klerith/animate_do_package/issues
 
 environment:
   sdk: '>=3.1.0 <4.0.0'
+  flutter: '>=3.13.0'
 
 dependencies:
   flutter:
@@ -17,7 +18,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  mocktail: ^1.0.4
+  flutter_lints: ^4.0.0
 
 screenshots:
   - description: 'Animate_do example logo'

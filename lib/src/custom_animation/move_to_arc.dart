@@ -1,137 +1,80 @@
 import 'dart:math' show pi, sin, cos;
 
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-import '../types/animate_do_mixins.dart';
-import '../types/animate_do_types.dart';
+import '../types/animate_do_base.dart';
+import '../types/animate_do_typedefs.dart';
 
-class MoveToArc extends StatefulWidget {
-  final Widget child;
-  final Duration duration;
-  final Duration delay;
-  final Function(AnimationController)? controller;
-  final bool manualTrigger;
-  final bool animate;
-  final Function(AnimateDoDirection direction)? onFinish;
-  final Curve curve;
-
-  /// Arc movement parameters in pixels
-  final double top;
-  final double bottom;
-  final double left;
-  final double right;
-
-  /// Controls the arc path direction
-  final bool upward;
-
-  MoveToArc({
-    Key? key,
-    required this.child,
-    this.duration = const Duration(milliseconds: 800),
-    this.delay = const Duration(milliseconds: 0),
-    this.controller,
-    this.manualTrigger = false,
-    this.animate = true,
-    this.onFinish,
-    this.curve = Curves.easeOut,
+/// Translates the [child] along an arc using a quarter-circle path.
+///
+/// The radius is taken from [bottom] (preferred) or [top]. Setting [upward]
+/// to `true` produces a sine-based arc; the default is a `(1 - cos)` arc.
+/// Horizontal displacement is interpolated linearly from [left] / [right].
+class MoveToArc extends AnimateDoBaseWidget {
+  const MoveToArc({
+    super.key,
+    required super.child,
+    super.duration = const Duration(milliseconds: 800),
+    super.delay,
+    super.curve,
+    super.animate,
+    super.manualTrigger,
+    super.controller,
+    super.onFinish,
     this.top = 0.0,
     this.bottom = 0.0,
     this.left = 0.0,
     this.right = 0.0,
     this.upward = false,
-  }) : super(key: key) {
-    // Ensure controller is provided if manualTrigger is enabled
-    if (manualTrigger == true && controller == null) {
-      throw FlutterError('If you use manualTrigger: true, \n\n'
-          'you must provide the controller property like this:\n\n'
-          ' (controller: AnimationController) => yourController = controller \n\n');
-    }
-  }
+  });
+
+  final double top;
+  final double bottom;
+  final double left;
+  final double right;
+  final bool upward;
 
   @override
-  _MoveToArcState createState() => _MoveToArcState();
+  State<MoveToArc> createState() => MoveToArcState();
 }
 
-class _MoveToArcState extends State<MoveToArc>
-    with SingleTickerProviderStateMixin, AnimateDoState {
-  late Animation<double> animationT;
+class MoveToArcState extends AnimateDoBaseState<MoveToArc> {
+  late Animation<double> _progress;
 
   @override
-  void dispose() {
-    disposed = true;
-    controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    controller = AnimationController(duration: widget.duration, vsync: this);
-
-    // Create animation parameter 't' (progress from 0 to 1)
-    animationT = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(parent: controller, curve: widget.curve));
-
-    // Configure animation using AnimateDoState
-    configAnimation(
-      delay: widget.delay,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      infinite: false,
-      onFinish: widget.onFinish,
-      controllerCallback: widget.controller,
+  void createTweens() {
+    _progress = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(parent: controller, curve: widget.curve),
     );
   }
 
   @override
-  Widget build(BuildContext context) {
-    // Build animation with AnimateDoState
-    buildAnimation(
-      delay: widget.delay,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      infinite: false,
-      onFinish: widget.onFinish,
-      controllerCallback: widget.controller,
-    );
-    return AnimatedBuilder(
-      animation: controller,
-      builder: (BuildContext context, Widget? child) {
-        double t = animationT.value;
-        double angle = t * pi / 2;
+  Widget buildAnimatedChild(BuildContext context, Widget child) {
+    final double t = _progress.value;
+    final double angle = t * pi / 2;
 
-        // Calculate arc movement
-        double radius = widget.bottom > 0 ? widget.bottom : widget.top;
-        double y;
+    final double radius = widget.bottom > 0 ? widget.bottom : widget.top;
+    double offsetY;
 
-        if (widget.upward) {
-          // Upward arc (red line) using sin
-          y = -radius * sin(angle);
-        } else {
-          // Downward arc (black line) using (1 - cos)
-          y = radius * (1 - cos(angle));
-          // Invert if moving up
-          if (widget.top > 0) {
-            y = -y;
-          }
-        }
+    if (widget.upward) {
+      offsetY = -radius * sin(angle);
+    } else {
+      offsetY = radius * (1 - cos(angle));
+      if (widget.top > 0) {
+        offsetY = -offsetY;
+      }
+    }
 
-        // Apply horizontal movement
-        double horizontalMovement = 0;
-        if (widget.left > 0) {
-          horizontalMovement = -widget.left * t;
-        } else if (widget.right > 0) {
-          horizontalMovement = widget.right * t;
-        }
+    double offsetX = 0;
+    if (widget.left > 0) {
+      offsetX = -widget.left * t;
+    } else if (widget.right > 0) {
+      offsetX = widget.right * t;
+    }
 
-        return Transform.translate(
-          offset: Offset(horizontalMovement, y),
-          child: widget.child,
-        );
-      },
+    return Transform.translate(
+      offset: Offset(offsetX, offsetY),
+      child: child,
     );
   }
 }
@@ -141,32 +84,31 @@ extension MoveArcExtension on Widget {
     Key? key,
     Duration duration = const Duration(milliseconds: 800),
     Duration delay = Duration.zero,
-    Function(AnimationController)? controller,
-    bool manualTrigger = false,
+    Curve curve = Curves.easeOut,
     bool animate = true,
-    bool infinite = false,
+    bool manualTrigger = false,
+    AnimateDoControllerCallback? controller,
+    AnimateDoFinishCallback? onFinish,
     bool upward = false,
     double left = 0.0,
     double right = 0.0,
     double top = 0.0,
     double bottom = 0.0,
-    Function(AnimateDoDirection direction)? onFinish,
-    Curve curve = Curves.easeOut,
   }) {
     return MoveToArc(
       key: key,
       duration: duration,
       delay: delay,
-      controller: controller,
-      manualTrigger: manualTrigger,
+      curve: curve,
       animate: animate,
+      manualTrigger: manualTrigger,
+      controller: controller,
       onFinish: onFinish,
       left: left,
       right: right,
       top: top,
       bottom: bottom,
       upward: upward,
-      curve: curve,
       child: this,
     );
   }

@@ -1,144 +1,77 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-import '../../types/animate_do_mixins.dart';
-import '../../types/animate_do_types.dart';
+import '../../types/animate_do_base.dart';
+import '../../types/animate_do_reset_marker.dart';
+import '../../types/animate_do_typedefs.dart';
 
-/// HeartBeat
-/// Class [HeartBeat]:
-/// [key]: optional widget key reference
-/// [child]: mandatory, widget to animate
-/// [duration]: how much time the animation should take
-/// [delay]: delay before the animation starts
-/// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
-/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
-/// [infinite]: loops the animation until the widget is destroyed
-/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
-/// [curve]: curve for the animation
-class HeartBeat extends StatefulWidget {
-  final Widget child;
-  final Duration duration;
-  final Duration delay;
-  final Function(AnimationController)? controller;
-  final bool manualTrigger;
-  final bool animate;
-  final bool infinite;
-  final Function(AnimateDoDirection direction)? onFinish;
-  final Curve curve;
-  final Duration loopDelay;
-  final Function? onLoop;
-
-  HeartBeat({
-    Key? key,
-    required this.child,
-    this.duration = const Duration(milliseconds: 2500),
-    this.delay = Duration.zero,
-    this.controller,
-    this.manualTrigger = false,
-    this.animate = true,
-    this.infinite = false,
-    this.onFinish,
-    this.curve = Curves.easeOutQuad,
-    this.loopDelay = Duration.zero,
-    this.onLoop,
-  }) : super(key: key) {
-    if (manualTrigger == true && controller == null) {
-      throw FlutterError('If you want to use manualTrigger:true, \n\n'
-          'Then you must provide the controller property, that is a callback like:\n\n'
-          ' ( controller: AnimationController) => yourController = controller \n\n');
-    }
-  }
+/// Mimics a heartbeat by scaling the [child] up twice, like the `heartBeat`
+/// animation from Animate.css.
+class HeartBeat extends AnimateDoBaseWidget {
+  const HeartBeat({
+    super.key,
+    required super.child,
+    super.duration = const Duration(milliseconds: 2500),
+    super.delay,
+    super.curve = Curves.easeOutQuad,
+    super.animate,
+    super.infinite,
+    super.manualTrigger,
+    super.loopDelay,
+    super.controller,
+    super.onFinish,
+    super.onLoop,
+  });
 
   @override
-  HeartBeatState createState() => HeartBeatState();
+  State<HeartBeat> createState() => HeartBeatState();
 }
 
-class HeartBeatState extends State<HeartBeat>
-    with SingleTickerProviderStateMixin, AnimateDoState {
-  late Animation<double> scale;
+class HeartBeatState extends AnimateDoBaseState<HeartBeat>
+    with ResetOnReverseAnimation {
+  late Animation<double> _scale;
 
   @override
-  void dispose() {
-    disposed = true;
-    controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    controller = AnimationController(duration: widget.duration, vsync: this);
-
-    scale = TweenSequence<double>([
+  void createTweens() {
+    _scale = TweenSequence<double>(<TweenSequenceItem<double>>[
       TweenSequenceItem(tween: Tween(begin: 1.0, end: 1.3), weight: 14),
       TweenSequenceItem(tween: Tween(begin: 1.3, end: 1.0), weight: 14),
       TweenSequenceItem(tween: Tween(begin: 1.0, end: 1.3), weight: 14),
       TweenSequenceItem(tween: Tween(begin: 1.3, end: 1.0), weight: 28),
       TweenSequenceItem(tween: Tween(begin: 1.0, end: 1.0), weight: 30),
     ]).animate(CurvedAnimation(parent: controller, curve: widget.curve));
-
-    configAnimation(
-      delay: widget.delay,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      infinite: widget.infinite,
-      loopDelay: widget.loopDelay,
-      onFinish: widget.onFinish,
-      onLoop: widget.onLoop,
-      controllerCallback: widget.controller,
-    );
   }
 
   @override
-  Widget build(BuildContext context) {
-    buildAnimation(
-      delay: widget.delay,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      infinite: widget.infinite,
-      loopDelay: widget.loopDelay,
-      onFinish: widget.onFinish,
-      onLoop: widget.onLoop,
-      controllerCallback: widget.controller,
-    );
-
-    return AnimatedBuilder(
-      animation: controller,
-      builder: (BuildContext context, Widget? child) {
-        return Transform.scale(
-          scale: scale.value,
-          child: widget.child,
-        );
-      },
-    );
+  Widget buildAnimatedChild(BuildContext context, Widget child) {
+    return Transform.scale(scale: _scale.value, child: child);
   }
 }
 
 extension HeartBeatExtension on Widget {
-  /// Applies a heart beat animation with customizable options
   Widget heartBeat({
+    Key? key,
     Duration duration = const Duration(milliseconds: 2500),
-    Duration delay = const Duration(milliseconds: 0),
-    Function(AnimationController)? controller,
-    bool manualTrigger = false,
+    Duration delay = Duration.zero,
+    Curve curve = Curves.easeOutQuad,
     bool animate = true,
     bool infinite = false,
-    Function(AnimateDoDirection direction)? onFinish,
-    Curve curve = Curves.easeOutQuad,
+    bool manualTrigger = false,
     Duration loopDelay = Duration.zero,
-    Function? onLoop,
+    AnimateDoControllerCallback? controller,
+    AnimateDoFinishCallback? onFinish,
+    AnimateDoLoopCallback? onLoop,
   }) {
     return HeartBeat(
+      key: key,
       duration: duration,
       delay: delay,
-      controller: controller,
-      manualTrigger: manualTrigger,
+      curve: curve,
       animate: animate,
       infinite: infinite,
-      onFinish: onFinish,
-      curve: curve,
+      manualTrigger: manualTrigger,
       loopDelay: loopDelay,
+      controller: controller,
+      onFinish: onFinish,
       onLoop: onLoop,
       child: this,
     );

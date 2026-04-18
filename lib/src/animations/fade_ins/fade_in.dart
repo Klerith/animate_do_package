@@ -1,125 +1,63 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-import '../../types/animate_do_mixins.dart';
-import '../../types/animate_do_types.dart';
+import '../../types/animate_do_base.dart';
+import '../../types/animate_do_typedefs.dart';
 
-/// [key]: optional widget key reference
-/// [child]: mandatory, widget to animate
-/// [duration]: how much time the animation should take
-/// [delay]: delay before the animation starts
-/// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
-/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
-/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
-/// [curve]: curve for the animation
-class FadeIn extends StatefulWidget {
-  final Widget child;
-  final Duration duration;
-  final Duration delay;
-  final Function(AnimationController)? controller;
-  final bool manualTrigger;
-  final bool animate;
-  final Function(AnimateDoDirection direction)? onFinish;
-  final Curve curve;
-
-  FadeIn({
-    key,
-    required this.child,
-    this.duration = const Duration(milliseconds: 500),
-    this.delay = Duration.zero,
-    this.controller,
-    this.manualTrigger = false,
-    this.animate = true,
-    this.onFinish,
-    this.curve = Curves.easeOut,
-  }) : super(key: key) {
-    if (manualTrigger == true && controller == null) {
-      throw FlutterError('If you want to use manualTrigger:true, \n\n'
-          'Then you must provide the controller property, that is a callback like:\n\n'
-          ' ( controller: AnimationController) => yourController = controller \n\n');
-    }
-  }
+/// Fades the [child] in by animating its opacity from 0 to 1.
+class FadeIn extends AnimateDoBaseWidget {
+  const FadeIn({
+    super.key,
+    required super.child,
+    super.duration = const Duration(milliseconds: 300),
+    super.delay,
+    super.curve,
+    super.animate,
+    super.manualTrigger,
+    super.controller,
+    super.onFinish,
+  });
 
   @override
-  FadeInState createState() => FadeInState();
+  State<FadeIn> createState() => FadeInState();
 }
 
-/// FadeState class
-/// The animation magic happens here
-class FadeInState extends State<FadeIn>
-    with SingleTickerProviderStateMixin, AnimateDoState {
-  /// Animation movement value
-  late Animation<double> animation;
+class FadeInState extends AnimateDoBaseState<FadeIn> {
+  late Animation<double> _opacity;
 
   @override
-  void dispose() {
-    disposed = true;
-    controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    /// Creates the animation controller
-    controller = AnimationController(duration: widget.duration, vsync: this);
-    animation = CurvedAnimation(curve: widget.curve, parent: controller);
-
-    /// Provided by the mixing [AnimateDoState] class
-    configAnimation(
-      delay: widget.delay,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      infinite: false,
-      onFinish: widget.onFinish,
-      controllerCallback: widget.controller,
+  void createTweens() {
+    _opacity = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(parent: controller, curve: widget.curve),
     );
   }
 
   @override
-  Widget build(BuildContext context) {
-    /// Provided by the mixing [AnimateDoState] class
-    buildAnimation(
-      delay: widget.delay,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      infinite: false,
-      onFinish: widget.onFinish,
-      controllerCallback: widget.controller,
-    );
-
-    /// Builds the animation with the corresponding
-    return AnimatedBuilder(
-        animation: animation,
-        builder: (BuildContext context, Widget? child) {
-          return Opacity(
-            opacity: animation.value,
-            child: widget.child,
-          );
-        });
+  Widget buildAnimatedChild(BuildContext context, Widget child) {
+    return Opacity(opacity: _opacity.value, child: child);
   }
 }
 
 extension FadeInExtension on Widget {
-  /// Aplica una animación de fade in con opciones personalizables
+  /// Wraps the widget with a [FadeIn] animation.
   Widget fadeIn({
-    Duration duration = const Duration(milliseconds: 800),
-    Duration delay = const Duration(milliseconds: 0),
-    Function(AnimationController)? controller,
-    bool manualTrigger = false,
-    bool animate = true,
-    Function(AnimateDoDirection direction)? onFinish,
+    Key? key,
+    Duration duration = const Duration(milliseconds: 300),
+    Duration delay = Duration.zero,
     Curve curve = Curves.easeOut,
+    bool animate = true,
+    bool manualTrigger = false,
+    AnimateDoControllerCallback? controller,
+    AnimateDoFinishCallback? onFinish,
   }) {
     return FadeIn(
+      key: key,
       duration: duration,
       delay: delay,
-      controller: controller,
-      manualTrigger: manualTrigger,
-      animate: animate,
-      onFinish: onFinish,
       curve: curve,
+      animate: animate,
+      manualTrigger: manualTrigger,
+      controller: controller,
+      onFinish: onFinish,
       child: this,
     );
   }

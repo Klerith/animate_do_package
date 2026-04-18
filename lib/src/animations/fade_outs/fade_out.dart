@@ -1,116 +1,62 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-import '../../types/animate_do_mixins.dart';
-import '../../types/animate_do_types.dart';
+import '../../types/animate_do_base.dart';
+import '../../types/animate_do_typedefs.dart';
 
-/// [key]: optional widget key reference
-/// [child]: mandatory, widget to animate
-/// [duration]: how much time the animation should take
-/// [delay]: delay before the animation starts
-/// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
-/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
-/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
-/// [curve]: curve for the animation
-class FadeOut extends StatefulWidget {
-  final Widget child;
-  final Duration duration;
-  final Duration delay;
-  final Function(AnimationController)? controller;
-  final bool manualTrigger;
-  final bool animate;
-  final Function(AnimateDoDirection direction)? onFinish;
-  final Curve curve;
-
-  FadeOut({
-    key,
-    required this.child,
-    this.duration = const Duration(milliseconds: 300),
-    this.delay = const Duration(milliseconds: 0),
-    this.controller,
-    this.manualTrigger = false,
-    this.animate = true,
-    this.onFinish,
-    this.curve = Curves.easeOut,
-  }) : super(key: key) {
-    if (manualTrigger == true && controller == null) {
-      throw FlutterError('If you want to use manualTrigger:true, \n\n'
-          'Then you must provide the controller property, that is a callback like:\n\n'
-          ' ( controller: AnimationController) => yourController = controller \n\n');
-    }
-  }
+/// Fades the [child] out by animating its opacity from 1 to 0.
+class FadeOut extends AnimateDoBaseWidget {
+  const FadeOut({
+    super.key,
+    required super.child,
+    super.duration = const Duration(milliseconds: 300),
+    super.delay,
+    super.curve,
+    super.animate,
+    super.manualTrigger,
+    super.controller,
+    super.onFinish,
+  });
 
   @override
-  FadeOutState createState() => FadeOutState();
+  State<FadeOut> createState() => FadeOutState();
 }
 
-class FadeOutState extends State<FadeOut>
-    with SingleTickerProviderStateMixin, AnimateDoState {
-  late Animation<double> animation;
+class FadeOutState extends AnimateDoBaseState<FadeOut> {
+  late Animation<double> _opacity;
 
   @override
-  void dispose() {
-    disposed = true;
-    controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    controller = AnimationController(duration: widget.duration, vsync: this);
-    animation = Tween(begin: 1.0, end: 0.0)
-        .animate(CurvedAnimation(curve: widget.curve, parent: controller));
-
-    configAnimation(
-      delay: widget.delay,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      infinite: false,
-      onFinish: widget.onFinish,
-      controllerCallback: widget.controller,
+  void createTweens() {
+    _opacity = Tween<double>(begin: 1, end: 0).animate(
+      CurvedAnimation(parent: controller, curve: widget.curve),
     );
   }
 
   @override
-  Widget build(BuildContext context) {
-    buildAnimation(
-      delay: widget.delay,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      infinite: false,
-      onFinish: widget.onFinish,
-      controllerCallback: widget.controller,
-    );
-
-    return FadeTransition(
-      opacity: animation,
-      child: widget.child,
-    );
+  Widget buildAnimatedChild(BuildContext context, Widget child) {
+    return Opacity(opacity: _opacity.value, child: child);
   }
 }
 
 extension FadeOutExtension on Widget {
   Widget fadeOut({
     Key? key,
-    Duration duration = const Duration(milliseconds: 800),
-    Duration delay = const Duration(milliseconds: 0),
-    Function(AnimationController)? controller,
-    bool manualTrigger = false,
-    bool animate = true, // Cambiado a true por defecto
-    Function(AnimateDoDirection direction)? onFinish,
+    Duration duration = const Duration(milliseconds: 300),
+    Duration delay = Duration.zero,
     Curve curve = Curves.easeOut,
+    bool animate = true,
+    bool manualTrigger = false,
+    AnimateDoControllerCallback? controller,
+    AnimateDoFinishCallback? onFinish,
   }) {
     return FadeOut(
       key: key,
       duration: duration,
       delay: delay,
-      controller: controller,
-      manualTrigger: manualTrigger,
-      animate: animate,
-      onFinish: onFinish,
       curve: curve,
+      animate: animate,
+      manualTrigger: manualTrigger,
+      controller: controller,
+      onFinish: onFinish,
       child: this,
     );
   }

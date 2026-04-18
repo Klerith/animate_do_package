@@ -1,149 +1,90 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-import '../../types/animate_do_mixins.dart';
-import '../../types/animate_do_types.dart';
+import '../../types/animate_do_base.dart';
+import '../../types/animate_do_reset_marker.dart';
+import '../../types/animate_do_typedefs.dart';
 
-// Swing
-/// A widget that creates a swinging animation effect on its child widget.
-///
-/// [key]: optional widget key reference
-/// [child]: mandatory, widget to animate
-/// [duration]: how much time the animation should take
-/// [delay]: delay before the animation starts
-/// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
-/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
-/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
-/// [curve]: curve for the animation
-/// [infinite]: loops the animation until the widget is destroyed
-class Swing extends StatefulWidget {
-  final Widget child;
-  final Duration duration;
-  final Duration delay;
-  final bool infinite;
-  final Function(AnimationController)? controller;
-  final bool manualTrigger;
-  final bool animate;
-  final Function(AnimateDoDirection direction)? onFinish;
-  final Curve curve;
-  final Duration loopDelay;
-  final Function? onLoop;
-
-  Swing({
-    key,
-    required this.child,
-    this.duration = const Duration(milliseconds: 1000),
-    this.delay = const Duration(milliseconds: 0),
-    this.infinite = false,
-    this.controller,
-    this.manualTrigger = false,
-    this.animate = true,
-    this.onFinish,
-    this.curve = Curves.easeOut,
-    this.loopDelay = Duration.zero,
-    this.onLoop,
-  }) : super(key: key);
+/// Rocks the [child] back and forth from its top edge, mimicking the `swing`
+/// animation from Animate.css.
+class Swing extends AnimateDoBaseWidget {
+  const Swing({
+    super.key,
+    required super.child,
+    super.duration = const Duration(milliseconds: 1000),
+    super.delay,
+    super.curve,
+    super.animate,
+    super.infinite,
+    super.manualTrigger,
+    super.loopDelay,
+    super.controller,
+    super.onFinish,
+    super.onLoop,
+  });
 
   @override
-  SwingState createState() => SwingState();
+  State<Swing> createState() => SwingState();
 }
 
-class SwingState extends State<Swing>
-    with SingleTickerProviderStateMixin, AnimateDoState {
-  late AnimationController controller;
-  late Animation<double> rotation;
+class SwingState extends AnimateDoBaseState<Swing>
+    with ResetOnReverseAnimation {
+  late Animation<double> _rotation;
 
   @override
-  void dispose() {
-    disposed = true;
-    controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    controller = AnimationController(duration: widget.duration, vsync: this);
-
-    rotation = TweenSequence<double>([
+  void createTweens() {
+    _rotation = TweenSequence<double>(<TweenSequenceItem<double>>[
+      TweenSequenceItem(tween: Tween(begin: 0.0, end: 0.261799), weight: 20),
       TweenSequenceItem(
-          tween: Tween(begin: 0.0, end: 0.261799), weight: 20), // 15 degrees
+        tween: Tween(begin: 0.261799, end: -0.174533),
+        weight: 20,
+      ),
       TweenSequenceItem(
-          tween: Tween(begin: 0.261799, end: -0.174533),
-          weight: 20), // -10 degrees
+        tween: Tween(begin: -0.174533, end: 0.087266),
+        weight: 20,
+      ),
       TweenSequenceItem(
-          tween: Tween(begin: -0.174533, end: 0.087266),
-          weight: 20), // 5 degrees
-      TweenSequenceItem(
-          tween: Tween(begin: 0.087266, end: -0.087266),
-          weight: 20), // -5 degrees
-      TweenSequenceItem(
-          tween: Tween(begin: -0.087266, end: 0.0), weight: 20), // 0 degrees
+        tween: Tween(begin: 0.087266, end: -0.087266),
+        weight: 20,
+      ),
+      TweenSequenceItem(tween: Tween(begin: -0.087266, end: 0.0), weight: 20),
     ]).animate(CurvedAnimation(parent: controller, curve: widget.curve));
-
-    configAnimation(
-      delay: widget.delay,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      infinite: widget.infinite,
-      loopDelay: widget.loopDelay,
-      onFinish: widget.onFinish,
-      onLoop: widget.onLoop,
-      controllerCallback: widget.controller,
-    );
   }
 
   @override
-  Widget build(BuildContext context) {
-    buildAnimation(
-      delay: widget.delay,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      infinite: widget.infinite,
-      loopDelay: widget.loopDelay,
-      onFinish: widget.onFinish,
-      onLoop: widget.onLoop,
-      controllerCallback: widget.controller,
-    );
-
-    return AnimatedBuilder(
-      animation: controller,
-      builder: (BuildContext context, Widget? child) {
-        return Transform(
-          transform: Matrix4.identity()..rotateZ(rotation.value),
-          alignment: Alignment.topCenter,
-          child: widget.child,
-        );
-      },
+  Widget buildAnimatedChild(BuildContext context, Widget child) {
+    return Transform(
+      transform: Matrix4.identity()..rotateZ(_rotation.value),
+      alignment: Alignment.topCenter,
+      child: child,
     );
   }
 }
 
 extension SwingExtension on Widget {
-  /// Aplica una animación de balanceo con opciones personalizables
   Widget swing({
+    Key? key,
     Duration duration = const Duration(milliseconds: 1000),
-    Duration delay = const Duration(milliseconds: 0),
-    Function(AnimationController)? controller,
-    bool manualTrigger = false,
+    Duration delay = Duration.zero,
+    Curve curve = Curves.easeOut,
     bool animate = true,
     bool infinite = false,
-    Function(AnimateDoDirection direction)? onFinish,
-    Curve curve = Curves.easeOut,
+    bool manualTrigger = false,
     Duration loopDelay = Duration.zero,
-    Function? onLoop,
+    AnimateDoControllerCallback? controller,
+    AnimateDoFinishCallback? onFinish,
+    AnimateDoLoopCallback? onLoop,
   }) {
     return Swing(
+      key: key,
       duration: duration,
       delay: delay,
-      controller: controller,
-      manualTrigger: manualTrigger,
+      curve: curve,
       animate: animate,
       infinite: infinite,
-      onFinish: onFinish,
-      curve: curve,
+      manualTrigger: manualTrigger,
       loopDelay: loopDelay,
+      controller: controller,
+      onFinish: onFinish,
       onLoop: onLoop,
       child: this,
     );

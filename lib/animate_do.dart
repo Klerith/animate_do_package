@@ -25,4 +25,5 @@ export 'src/animations/zoom_outs/index.dart';
 export 'src/custom_animation/index.dart';
 
 /// Types
+export 'src/types/animate_do_typedefs.dart';
 export 'src/types/animate_do_types.dart';

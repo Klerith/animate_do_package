@@ -1,158 +1,111 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-import '../../types/animate_do_mixins.dart';
-import '../../types/animate_do_types.dart';
+import '../../types/animate_do_base.dart';
+import '../../types/animate_do_reset_marker.dart';
+import '../../types/animate_do_typedefs.dart';
 
-class Wobble extends StatefulWidget {
-  final Widget child;
-  final Duration duration;
-  final Duration delay;
-  final bool infinite;
-  final Function(AnimationController)? controller;
-  final bool manualTrigger;
-  final bool animate;
-  final Function(AnimateDoDirection direction)? onFinish;
-  final Curve curve;
-  final Duration loopDelay;
-  final Function? onLoop;
-
-  Wobble(
-      {Key? key,
-      required this.child,
-      this.duration = const Duration(milliseconds: 1000),
-      this.delay = const Duration(milliseconds: 0),
-      this.infinite = false,
-      this.controller,
-      this.manualTrigger = false,
-      this.animate = true,
-      this.onFinish,
-      this.curve = Curves.easeInOut,
-      this.loopDelay = Duration.zero,
-      this.onLoop})
-      : super(key: key) {
-    if (manualTrigger == true && controller == null) {
-      throw FlutterError('If you want to use manualTrigger:true, \n\n'
-          'Then you must provide the controller property, that is a callback like:\n\n'
-          ' ( controller: AnimationController) => yourController = controller \n\n');
-    }
-  }
+/// Wobbles the [child] horizontally while rotating slightly, mimicking the
+/// `wobble` animation from Animate.css. The horizontal amount is a fraction
+/// of the available screen width.
+class Wobble extends AnimateDoBaseWidget {
+  const Wobble({
+    super.key,
+    required super.child,
+    super.duration = const Duration(milliseconds: 1000),
+    super.delay,
+    super.curve = Curves.easeInOut,
+    super.animate,
+    super.infinite,
+    super.manualTrigger,
+    super.loopDelay,
+    super.controller,
+    super.onFinish,
+    super.onLoop,
+  });
 
   @override
-  WobbleState createState() => WobbleState();
+  State<Wobble> createState() => WobbleState();
 }
 
-class WobbleState extends State<Wobble>
-    with SingleTickerProviderStateMixin, AnimateDoState {
-  late Animation<double> translateX;
-  late Animation<double> rotation;
+class WobbleState extends AnimateDoBaseState<Wobble>
+    with ResetOnReverseAnimation {
+  late Animation<double> _translateX;
+  late Animation<double> _rotation;
 
   @override
-  void dispose() {
-    disposed = true;
-    controller.dispose();
-    super.dispose();
+  void createTweens() {
+    final CurvedAnimation curved =
+        CurvedAnimation(parent: controller, curve: widget.curve);
+
+    _translateX = TweenSequence<double>(<TweenSequenceItem<double>>[
+      TweenSequenceItem(tween: Tween(begin: 0.0, end: -0.15), weight: 15),
+      TweenSequenceItem(tween: Tween(begin: -0.15, end: 0.12), weight: 15),
+      TweenSequenceItem(tween: Tween(begin: 0.12, end: -0.09), weight: 15),
+      TweenSequenceItem(tween: Tween(begin: -0.09, end: 0.06), weight: 15),
+      TweenSequenceItem(tween: Tween(begin: 0.06, end: -0.03), weight: 15),
+      TweenSequenceItem(tween: Tween(begin: -0.03, end: 0.0), weight: 25),
+    ]).animate(curved);
+
+    _rotation = TweenSequence<double>(<TweenSequenceItem<double>>[
+      TweenSequenceItem(tween: Tween(begin: 0.0, end: -0.0872665), weight: 15),
+      TweenSequenceItem(
+        tween: Tween(begin: -0.0872665, end: 0.0523599),
+        weight: 15,
+      ),
+      TweenSequenceItem(
+        tween: Tween(begin: 0.0523599, end: -0.0523599),
+        weight: 15,
+      ),
+      TweenSequenceItem(
+        tween: Tween(begin: -0.0523599, end: 0.0349066),
+        weight: 15,
+      ),
+      TweenSequenceItem(
+        tween: Tween(begin: 0.0349066, end: -0.0174533),
+        weight: 15,
+      ),
+      TweenSequenceItem(tween: Tween(begin: -0.0174533, end: 0.0), weight: 25),
+    ]).animate(curved);
   }
 
   @override
-  void initState() {
-    super.initState();
-
-    controller = AnimationController(duration: widget.duration, vsync: this);
-    translateX = TweenSequence<double>([
-      TweenSequenceItem(
-          tween: Tween(begin: 0.0, end: -0.15), weight: 15), // -15%
-      TweenSequenceItem(
-          tween: Tween(begin: -0.15, end: 0.12), weight: 15), // 12%
-      TweenSequenceItem(
-          tween: Tween(begin: 0.12, end: -0.09), weight: 15), // -9%
-      TweenSequenceItem(
-          tween: Tween(begin: -0.09, end: 0.06), weight: 15), // 6%
-      TweenSequenceItem(
-          tween: Tween(begin: 0.06, end: -0.03), weight: 15), // -3%
-      TweenSequenceItem(tween: Tween(begin: -0.03, end: 0.0), weight: 25), // 0%
-    ]).animate(CurvedAnimation(parent: controller, curve: widget.curve));
-
-    rotation = TweenSequence<double>([
-      TweenSequenceItem(
-          tween: Tween(begin: 0.0, end: -0.0872665), weight: 15), // -5 deg
-      TweenSequenceItem(
-          tween: Tween(begin: -0.0872665, end: 0.0523599), weight: 15), // 3 deg
-      TweenSequenceItem(
-          tween: Tween(begin: 0.0523599, end: -0.0523599),
-          weight: 15), // -3 deg
-      TweenSequenceItem(
-          tween: Tween(begin: -0.0523599, end: 0.0349066), weight: 15), // 2 deg
-      TweenSequenceItem(
-          tween: Tween(begin: 0.0349066, end: -0.0174533),
-          weight: 15), // -1 deg
-      TweenSequenceItem(
-          tween: Tween(begin: -0.0174533, end: 0.0), weight: 25), // 0 deg
-    ]).animate(CurvedAnimation(parent: controller, curve: widget.curve));
-
-    configAnimation(
-      delay: widget.delay,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      infinite: widget.infinite,
-      loopDelay: widget.loopDelay,
-      onFinish: widget.onFinish,
-      onLoop: widget.onLoop,
-      controllerCallback: widget.controller,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    buildAnimation(
-      delay: widget.delay,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      infinite: widget.infinite,
-      loopDelay: widget.loopDelay,
-      onFinish: widget.onFinish,
-      onLoop: widget.onLoop,
-      controllerCallback: widget.controller,
-    );
-
-    return AnimatedBuilder(
-      animation: controller,
-      builder: (BuildContext context, Widget? child) {
-        return Transform(
-          transform: Matrix4.identity()
-            ..translate(translateX.value * MediaQuery.of(context).size.width)
-            ..rotateZ(rotation.value),
-          alignment: Alignment.center,
-          child: widget.child,
-        );
-      },
+  Widget buildAnimatedChild(BuildContext context, Widget child) {
+    final double width = MediaQuery.of(context).size.width;
+    return Transform(
+      transform: Matrix4.identity()
+        ..translateByDouble(_translateX.value * width, 0, 0, 1)
+        ..rotateZ(_rotation.value),
+      alignment: Alignment.center,
+      child: child,
     );
   }
 }
 
 extension WobbleExtension on Widget {
-  /// Aplica una animación de tambaleo con opciones personalizables
   Widget wobble({
+    Key? key,
     Duration duration = const Duration(milliseconds: 1000),
-    Duration delay = const Duration(milliseconds: 0),
-    Function(AnimationController)? controller,
-    bool manualTrigger = false,
+    Duration delay = Duration.zero,
+    Curve curve = Curves.easeOut,
     bool animate = true,
     bool infinite = false,
-    Function(AnimateDoDirection direction)? onFinish,
-    Curve curve = Curves.easeOut,
+    bool manualTrigger = false,
     Duration loopDelay = Duration.zero,
-    Function? onLoop,
+    AnimateDoControllerCallback? controller,
+    AnimateDoFinishCallback? onFinish,
+    AnimateDoLoopCallback? onLoop,
   }) {
     return Wobble(
+      key: key,
       duration: duration,
       delay: delay,
-      controller: controller,
-      manualTrigger: manualTrigger,
+      curve: curve,
       animate: animate,
       infinite: infinite,
-      onFinish: onFinish,
-      curve: curve,
+      manualTrigger: manualTrigger,
       loopDelay: loopDelay,
+      controller: controller,
+      onFinish: onFinish,
       onLoop: onLoop,
       child: this,
     );

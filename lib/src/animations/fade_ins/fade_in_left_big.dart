@@ -1,82 +1,70 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-import '../../types/animate_do_types.dart';
+import '../../types/animate_do_typedefs.dart';
 import 'fade_in_left.dart';
 
-/// [key]: optional widget key reference
-/// [child]: mandatory, widget to animate
-/// [duration]: how much time the animation should take
-/// [delay]: delay before the animation starts
-/// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
-/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
-/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
-/// [curve]: curve for the animation
+/// Like [FadeInLeft] but with a longer default duration and offset, useful
+/// for large entrance animations.
 class FadeInLeftBig extends StatelessWidget {
+  const FadeInLeftBig({
+    super.key,
+    required this.child,
+    this.duration = const Duration(milliseconds: 1300),
+    this.delay = Duration.zero,
+    this.curve = Curves.easeOut,
+    this.animate = true,
+    this.manualTrigger = false,
+    this.controller,
+    this.onFinish,
+    this.from = 600,
+  });
+
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final Function(AnimationController)? controller;
-  final bool manualTrigger;
-  final bool animate;
-  final double from;
-  final Function(AnimateDoDirection direction)? onFinish;
   final Curve curve;
-
-  FadeInLeftBig(
-      {key,
-      required this.child,
-      this.duration = const Duration(milliseconds: 1300),
-      this.delay = Duration.zero,
-      this.controller,
-      this.manualTrigger = false,
-      this.animate = true,
-      this.from = 600,
-      this.onFinish,
-      this.curve = Curves.easeOut})
-      : super(key: key) {
-    if (manualTrigger == true && controller == null) {
-      throw FlutterError('If you want to use manualTrigger:true, \n\n'
-          'Then you must provide the controller property, that is a callback like:\n\n'
-          ' ( controller: AnimationController) => yourController = controller \n\n');
-    }
-  }
+  final bool animate;
+  final bool manualTrigger;
+  final AnimateDoControllerCallback? controller;
+  final AnimateDoFinishCallback? onFinish;
+  final double from;
 
   @override
   Widget build(BuildContext context) => FadeInLeft(
         duration: duration,
         delay: delay,
-        controller: controller,
-        manualTrigger: manualTrigger,
-        animate: animate,
-        from: from,
-        onFinish: onFinish,
         curve: curve,
+        animate: animate,
+        manualTrigger: manualTrigger,
+        controller: controller,
+        onFinish: onFinish,
+        from: from,
         child: child,
       );
 }
 
 extension FadeInLeftBigExtension on Widget {
-  /// Aplica una animación de fade in hacia la izquierda con opciones personalizables
   Widget fadeInLeftBig({
+    Key? key,
     Duration duration = const Duration(milliseconds: 1300),
-    Duration delay = const Duration(milliseconds: 0),
-    Function(AnimationController)? controller,
-    bool manualTrigger = false,
-    bool animate = true,
-    double from = 600,
-    Function(AnimateDoDirection direction)? onFinish,
+    Duration delay = Duration.zero,
     Curve curve = Curves.easeOut,
+    bool animate = true,
+    bool manualTrigger = false,
+    AnimateDoControllerCallback? controller,
+    AnimateDoFinishCallback? onFinish,
+    double from = 600,
   }) {
     return FadeInLeftBig(
+      key: key,
       duration: duration,
       delay: delay,
-      controller: controller,
-      manualTrigger: manualTrigger,
-      animate: animate,
-      from: from,
-      onFinish: onFinish,
       curve: curve,
+      animate: animate,
+      manualTrigger: manualTrigger,
+      controller: controller,
+      onFinish: onFinish,
+      from: from,
       child: this,
     );
   }

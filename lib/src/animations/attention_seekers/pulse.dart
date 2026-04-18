@@ -1,157 +1,88 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-import '../../types/animate_do_mixins.dart';
-import '../../types/animate_do_types.dart';
+import '../../types/animate_do_base.dart';
+import '../../types/animate_do_typedefs.dart';
 
-/// [key]: optional widget key reference
-/// [child]: mandatory, widget to animate
-/// [duration]: how much time the animation should take
-/// [delay]: delay before the animation starts
-/// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
-/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
-/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
-/// [curve]: curve for the animation
-/// [infinite]: loops the animation until the widget is destroyed
-class Pulse extends StatefulWidget {
-  final Widget child;
-  final Duration duration;
-  final Duration delay;
-  final bool infinite;
-  final Function(AnimationController)? controller;
-  final bool manualTrigger;
-  final bool animate;
-  final Function(AnimateDoDirection direction)? onFinish;
-  final Curve curve;
+/// Scales the [child] from [from] to [to] and back, mimicking the `pulse`
+/// animation from Animate.css.
+class Pulse extends AnimateDoBaseWidget {
+  const Pulse({
+    super.key,
+    required super.child,
+    super.duration = const Duration(milliseconds: 1000),
+    super.delay,
+    super.curve,
+    super.animate,
+    super.infinite,
+    super.manualTrigger,
+    super.loopDelay,
+    super.controller,
+    super.onFinish,
+    super.onLoop,
+    this.from = 1,
+    this.to = 1.5,
+  });
+
   final double from;
   final double to;
-  final Duration loopDelay;
-  final Function? onLoop;
-
-  Pulse(
-      {key,
-      required this.child,
-      this.duration = const Duration(milliseconds: 1000),
-      this.delay = const Duration(milliseconds: 0),
-      this.infinite = false,
-      this.controller,
-      this.manualTrigger = false,
-      this.animate = true,
-      this.onFinish,
-      this.curve = Curves.easeOut,
-      this.from = 1,
-      this.to = 1.5,
-      this.loopDelay = Duration.zero,
-      this.onLoop})
-      : super(key: key) {
-    if (manualTrigger == true && controller == null) {
-      throw FlutterError('If you want to use manualTrigger:true, \n\n'
-          'Then you must provide the controller property, that is a callback like:\n\n'
-          ' ( controller: AnimationController) => yourController = controller \n\n');
-    }
-  }
 
   @override
-  PulseState createState() => PulseState();
+  State<Pulse> createState() => PulseState();
 }
 
-/// State class, where the magic happens
-class PulseState extends State<Pulse>
-    with SingleTickerProviderStateMixin, AnimateDoState {
-  late Animation<double> animationInc;
-  late Animation<double> animationDec;
+class PulseState extends AnimateDoBaseState<Pulse> {
+  late Animation<double> _scale;
+
   @override
-  void dispose() {
-    disposed = true;
-    controller.dispose();
-    super.dispose();
+  void createTweens() {
+    _scale = TweenSequence<double>(<TweenSequenceItem<double>>[
+      TweenSequenceItem(
+        tween: Tween(begin: widget.from, end: widget.to),
+        weight: 50,
+      ),
+      TweenSequenceItem(
+        tween: Tween(begin: widget.to, end: widget.from),
+        weight: 50,
+      ),
+    ]).animate(CurvedAnimation(parent: controller, curve: widget.curve));
   }
 
   @override
-  void initState() {
-    super.initState();
-
-    controller = AnimationController(duration: widget.duration, vsync: this);
-
-    animationInc = Tween<double>(begin: widget.from, end: widget.to).animate(
-        CurvedAnimation(
-            parent: controller,
-            curve: Interval(0, 0.5, curve: widget.curve))); // Curves.easeOut
-
-    animationDec = Tween<double>(begin: widget.to, end: widget.from).animate(
-        CurvedAnimation(
-            parent: controller,
-            curve: Interval(0.5, 1, curve: widget.curve))); // Curves.easeIn
-
-    /// Provided by the mixing [AnimateDoState] class
-    configAnimation(
-      delay: widget.delay,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      infinite: widget.infinite,
-      loopDelay: widget.loopDelay,
-      onFinish: widget.onFinish,
-      onLoop: widget.onLoop,
-      controllerCallback: widget.controller,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    /// Provided by the mixing [AnimateDoState] class
-    buildAnimation(
-      delay: widget.delay,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      infinite: widget.infinite,
-      loopDelay: widget.loopDelay,
-      onFinish: widget.onFinish,
-      onLoop: widget.onLoop,
-      controllerCallback: widget.controller,
-    );
-
-    return AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget? child) {
-          return Transform.scale(
-            scale: (controller.value < 0.5)
-                ? animationInc.value
-                : animationDec.value,
-            child: widget.child,
-          );
-        });
+  Widget buildAnimatedChild(BuildContext context, Widget child) {
+    return Transform.scale(scale: _scale.value, child: child);
   }
 }
 
 extension PulseExtension on Widget {
-  /// Applies a pulse animation with customizable options
   Widget pulse({
+    Key? key,
     Duration duration = const Duration(milliseconds: 1000),
-    Duration delay = const Duration(milliseconds: 0),
-    Function(AnimationController)? controller,
-    bool manualTrigger = false,
+    Duration delay = Duration.zero,
+    Curve curve = Curves.easeOut,
     bool animate = true,
     bool infinite = false,
-    Function(AnimateDoDirection direction)? onFinish,
-    Curve curve = Curves.easeOut,
+    bool manualTrigger = false,
+    Duration loopDelay = Duration.zero,
+    AnimateDoControllerCallback? controller,
+    AnimateDoFinishCallback? onFinish,
+    AnimateDoLoopCallback? onLoop,
     double from = 1,
     double to = 1.5,
-    Duration loopDelay = Duration.zero,
-    Function? onLoop,
   }) {
     return Pulse(
+      key: key,
       duration: duration,
       delay: delay,
-      controller: controller,
-      manualTrigger: manualTrigger,
+      curve: curve,
       animate: animate,
       infinite: infinite,
+      manualTrigger: manualTrigger,
+      loopDelay: loopDelay,
+      controller: controller,
       onFinish: onFinish,
-      curve: curve,
+      onLoop: onLoop,
       from: from,
       to: to,
-      loopDelay: loopDelay,
-      onLoop: onLoop,
       child: this,
     );
   }

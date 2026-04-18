@@ -1,145 +1,82 @@
-import 'package:flutter/material.dart';
+import 'dart:math' show pi;
 
-import '../../types/animate_do_mixins.dart';
-import '../../types/animate_do_types.dart';
+import 'package:flutter/widgets.dart';
 
-/// [key]: optional widget key reference
-/// [child]: mandatory, widget to animate
-/// [duration]: how much time the animation should take
-/// [delay]: delay before the animation starts
-/// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
-/// [manualTrigger]: boolean that indicates if you want to trigger the animation manually with the controller
-/// [animate]: For a State controller property, if you re-render changing it from false to true, the animation will be fired immediately
-/// [onFinish]: callback that returns the direction of the animation, [AnimateDoDirection.forward] or [AnimateDoDirection.backward]
-/// [curve]: curve for the animation
-/// [infinite]: loops the animation until the widget is destroyed
-/// [spins]: how many spins you want to do
-class Roulette extends StatefulWidget {
-  final Widget child;
-  final Duration duration;
-  final Duration delay;
-  final bool infinite;
-  final Function(AnimationController)? controller;
-  final bool manualTrigger;
-  final bool animate;
-  final Function(AnimateDoDirection direction)? onFinish;
-  final Curve curve;
+import '../../types/animate_do_base.dart';
+import '../../types/animate_do_typedefs.dart';
+
+/// Rotates the [child] [spins] half turns and overshoots/elastic-stops at the
+/// end (the default curve is [Curves.elasticOut]).
+class Roulette extends AnimateDoBaseWidget {
+  const Roulette({
+    super.key,
+    required super.child,
+    super.duration = const Duration(milliseconds: 3500),
+    super.delay,
+    super.curve = Curves.elasticOut,
+    super.animate,
+    super.infinite,
+    super.manualTrigger,
+    super.loopDelay,
+    super.controller,
+    super.onFinish,
+    super.onLoop,
+    this.spins = 2,
+  });
+
   final double spins;
-  final Duration loopDelay;
-  final Function? onLoop;
-
-  Roulette(
-      {key,
-      required this.child,
-      this.duration = const Duration(milliseconds: 3500),
-      this.delay = const Duration(milliseconds: 0),
-      this.infinite = false,
-      this.controller,
-      this.manualTrigger = false,
-      this.animate = true,
-      this.spins = 2,
-      this.onFinish,
-      this.curve = Curves.elasticOut,
-      this.loopDelay = Duration.zero,
-      this.onLoop})
-      : super(key: key) {
-    if (manualTrigger == true && controller == null) {
-      throw FlutterError('If you want to use manualTrigger:true, \n\n'
-          'Then you must provide the controller property, that is a callback like:\n\n'
-          ' ( controller: AnimationController) => yourController = controller \n\n');
-    }
-  }
 
   @override
-  RouletteState createState() => RouletteState();
+  State<Roulette> createState() => RouletteState();
 }
 
-/// State class, where the magic happens
-class RouletteState extends State<Roulette>
-    with SingleTickerProviderStateMixin, AnimateDoState {
-  late Animation<double> spin;
+class RouletteState extends AnimateDoBaseState<Roulette> {
+  late Animation<double> _spin;
 
   @override
-  void dispose() {
-    disposed = true;
-    controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    controller = AnimationController(duration: widget.duration, vsync: this);
-
-    spin = Tween<double>(begin: 0, end: widget.spins * 2)
-        .animate(CurvedAnimation(parent: controller, curve: widget.curve));
-
-    /// Provided by the mixing [AnimateDoState] class
-    configAnimation(
-      delay: widget.delay,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      infinite: widget.infinite,
-      loopDelay: widget.loopDelay,
-      onFinish: widget.onFinish,
-      onLoop: widget.onLoop,
-      controllerCallback: widget.controller,
+  void createTweens() {
+    _spin = Tween<double>(begin: 0, end: widget.spins * 2).animate(
+      CurvedAnimation(parent: controller, curve: widget.curve),
     );
   }
 
   @override
-  Widget build(BuildContext context) {
-    /// Provided by the mixing [AnimateDoState] class
-    buildAnimation(
-      delay: widget.delay,
-      animate: widget.animate,
-      manualTrigger: widget.manualTrigger,
-      infinite: widget.infinite,
-      loopDelay: widget.loopDelay,
-      onFinish: widget.onFinish,
-      onLoop: widget.onLoop,
-      controllerCallback: widget.controller,
+  Widget buildAnimatedChild(BuildContext context, Widget child) {
+    return Transform.rotate(
+      angle: _spin.value * pi,
+      child: child,
     );
-
-    return AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget? child) {
-          return Transform.rotate(
-            angle: spin.value * 3.141516,
-            child: widget.child,
-          );
-        });
   }
 }
 
 extension RouletteExtension on Widget {
-  /// Applies a roulette animation with customizable options
   Widget roulette({
+    Key? key,
     Duration duration = const Duration(milliseconds: 3500),
-    Duration delay = const Duration(milliseconds: 0),
-    Function(AnimationController)? controller,
-    bool manualTrigger = false,
+    Duration delay = Duration.zero,
+    Curve curve = Curves.elasticOut,
     bool animate = true,
     bool infinite = false,
-    Function(AnimateDoDirection direction)? onFinish,
-    Curve curve = Curves.elasticOut,
-    double spins = 2,
+    bool manualTrigger = false,
     Duration loopDelay = Duration.zero,
-    Function? onLoop,
+    AnimateDoControllerCallback? controller,
+    AnimateDoFinishCallback? onFinish,
+    AnimateDoLoopCallback? onLoop,
+    double spins = 2,
   }) {
     return Roulette(
+      key: key,
       duration: duration,
       delay: delay,
-      controller: controller,
-      manualTrigger: manualTrigger,
+      curve: curve,
       animate: animate,
       infinite: infinite,
-      onFinish: onFinish,
-      curve: curve,
-      spins: spins,
+      manualTrigger: manualTrigger,
       loopDelay: loopDelay,
+      controller: controller,
+      onFinish: onFinish,
       onLoop: onLoop,
+      spins: spins,
       child: this,
     );
   }

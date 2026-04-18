@@ -1,0 +1,33 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  language:
+    strict-casts: true
+    strict-inference: true
+    strict-raw-types: true
+  errors:
+    # Treat the following as errors instead of warnings:
+    invalid_assignment: error
+    missing_return: error
+    dead_code: error
+
+linter:
+  rules:
+    prefer_const_constructors: true
+    prefer_const_constructors_in_immutables: true
+    prefer_const_declarations: true
+    prefer_const_literals_to_create_immutables: true
+    prefer_final_locals: true
+    prefer_final_in_for_each: true
+    avoid_print: true
+    avoid_returning_null_for_void: true
+    library_private_types_in_public_api: true
+    require_trailing_commas: true
+    sort_child_properties_last: true
+    use_super_parameters: true
+    unnecessary_lambdas: true
+    unnecessary_late: true
+    unnecessary_null_checks: true
+    unnecessary_null_in_if_null_operators: true
+    unnecessary_parenthesis: true
+    unnecessary_this: true
