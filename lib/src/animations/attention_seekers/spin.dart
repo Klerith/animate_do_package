@@ -5,14 +5,18 @@ import 'package:flutter/widgets.dart';
 import '../../types/animate_do_base.dart';
 import '../../types/animate_do_typedefs.dart';
 
+const Duration _defaultDuration = Duration(milliseconds: 1000);
+const Curve _defaultCurve = Curves.linear;
+const double _defaultSpins = 1;
+
 /// Rotates the [child] [spins] full turns.
 class Spin extends AnimateDoBaseWidget {
   const Spin({
     super.key,
     required super.child,
-    super.duration = const Duration(milliseconds: 1000),
+    super.duration = _defaultDuration,
     super.delay,
-    super.curve = Curves.easeInOut,
+    super.curve = _defaultCurve,
     super.animate,
     super.infinite,
     super.manualTrigger,
@@ -20,7 +24,7 @@ class Spin extends AnimateDoBaseWidget {
     super.controller,
     super.onFinish,
     super.onLoop,
-    this.spins = 1,
+    this.spins = _defaultSpins,
   }) : assert(spins > 0, 'The number of spins must be greater than 0');
 
   final double spins;
@@ -51,9 +55,9 @@ class SpinState extends AnimateDoBaseState<Spin> {
 extension SpinExtension on Widget {
   Widget spin({
     Key? key,
-    Duration duration = const Duration(milliseconds: 1000),
+    Duration duration = _defaultDuration,
     Duration delay = Duration.zero,
-    Curve curve = Curves.linear,
+    Curve curve = _defaultCurve,
     bool animate = true,
     bool infinite = false,
     bool manualTrigger = false,
@@ -61,7 +65,7 @@ extension SpinExtension on Widget {
     AnimateDoControllerCallback? controller,
     AnimateDoFinishCallback? onFinish,
     AnimateDoLoopCallback? onLoop,
-    double spins = 1,
+    double spins = _defaultSpins,
   }) {
     return Spin(
       key: key,

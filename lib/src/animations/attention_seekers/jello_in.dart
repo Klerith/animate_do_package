@@ -3,15 +3,18 @@ import 'package:flutter/widgets.dart';
 import '../../types/animate_do_base.dart';
 import '../../types/animate_do_typedefs.dart';
 
+const Duration _defaultDuration = Duration(milliseconds: 800);
+const Curve _defaultCurve = Curves.bounceOut;
+
 /// Stretches and rotates the [child] into place while fading it in, mimicking
 /// the `jelloIn` style entrance from Animate.css.
 class JelloIn extends AnimateDoBaseWidget {
   const JelloIn({
     super.key,
     required super.child,
-    super.duration = const Duration(milliseconds: 800),
+    super.duration = _defaultDuration,
     super.delay,
-    super.curve = Curves.bounceOut,
+    super.curve = _defaultCurve,
     super.animate,
     super.manualTrigger,
     super.controller,
@@ -51,9 +54,9 @@ class JelloInState extends AnimateDoBaseState<JelloIn> {
 extension JelloInExtension on Widget {
   Widget jelloIn({
     Key? key,
-    Duration duration = const Duration(milliseconds: 800),
+    Duration duration = _defaultDuration,
     Duration delay = Duration.zero,
-    Curve curve = Curves.bounceOut,
+    Curve curve = _defaultCurve,
     bool animate = true,
     bool manualTrigger = false,
     AnimateDoControllerCallback? controller,

@@ -3,15 +3,18 @@ import 'package:flutter/widgets.dart';
 import '../../types/animate_do_base.dart';
 import '../../types/animate_do_typedefs.dart';
 
+const Duration _defaultDuration = Duration(milliseconds: 750);
+const Curve _defaultCurve = Curves.easeOutCubic;
+
 /// Scales the [child] in with an overshoot/bounce effect, mimicking the
 /// `bounceIn` animation from Animate.css.
 class BounceIn extends AnimateDoBaseWidget {
   const BounceIn({
     super.key,
     required super.child,
-    super.duration = const Duration(milliseconds: 750),
+    super.duration = _defaultDuration,
     super.delay,
-    super.curve = Curves.easeOutCubic,
+    super.curve = _defaultCurve,
     super.animate,
     super.manualTrigger,
     super.controller,
@@ -58,9 +61,9 @@ class BounceInState extends AnimateDoBaseState<BounceIn> {
 extension BounceInExtension on Widget {
   Widget bounceIn({
     Key? key,
-    Duration duration = const Duration(milliseconds: 1000),
+    Duration duration = _defaultDuration,
     Duration delay = Duration.zero,
-    Curve curve = Curves.bounceOut,
+    Curve curve = _defaultCurve,
     bool animate = true,
     bool manualTrigger = false,
     AnimateDoControllerCallback? controller,

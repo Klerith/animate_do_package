@@ -3,12 +3,14 @@ import 'package:flutter/widgets.dart';
 import '../../types/animate_do_base.dart';
 import '../../types/animate_do_typedefs.dart';
 
+const Duration _defaultDuration = Duration(milliseconds: 300);
+
 /// Fades the [child] in by animating its opacity from 0 to 1.
 class FadeIn extends AnimateDoBaseWidget {
   const FadeIn({
     super.key,
     required super.child,
-    super.duration = const Duration(milliseconds: 300),
+    super.duration = _defaultDuration,
     super.delay,
     super.curve,
     super.animate,
@@ -41,7 +43,7 @@ extension FadeInExtension on Widget {
   /// Wraps the widget with a [FadeIn] animation.
   Widget fadeIn({
     Key? key,
-    Duration duration = const Duration(milliseconds: 300),
+    Duration duration = _defaultDuration,
     Duration delay = Duration.zero,
     Curve curve = Curves.easeOut,
     bool animate = true,

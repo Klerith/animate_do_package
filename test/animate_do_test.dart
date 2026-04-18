@@ -238,4 +238,229 @@ void main() {
       expect(AnimateDoDirection.backward.name, 'backward');
     });
   });
+
+  group('didUpdateWidget reactions', () {
+    testWidgets('updates AnimationController duration on rebuild',
+        (tester) async {
+      AnimationController? exposed;
+
+      Widget build({required Duration duration}) {
+        return wrap(
+          FadeIn(
+            manualTrigger: true,
+            duration: duration,
+            controller: (AnimationController c) => exposed = c,
+            child: _testChild(),
+          ),
+        );
+      }
+
+      await tester.pumpWidget(build(duration: const Duration(milliseconds: 100)));
+      expect(exposed!.duration, const Duration(milliseconds: 100));
+
+      await tester.pumpWidget(build(duration: const Duration(milliseconds: 750)));
+      expect(exposed!.duration, const Duration(milliseconds: 750));
+    });
+
+    testWidgets('re-invokes controller callback when it changes',
+        (tester) async {
+      AnimationController? firstController;
+      AnimationController? secondController;
+
+      Widget build({
+        required void Function(AnimationController) controller,
+      }) {
+        return wrap(
+          FadeIn(
+            manualTrigger: true,
+            duration: const Duration(milliseconds: 100),
+            controller: controller,
+            child: _testChild(),
+          ),
+        );
+      }
+
+      await tester.pumpWidget(
+        build(controller: (AnimationController c) => firstController = c),
+      );
+      expect(firstController, isNotNull);
+
+      await tester.pumpWidget(
+        build(controller: (AnimationController c) => secondController = c),
+      );
+      expect(secondController, isNotNull);
+      expect(identical(firstController, secondController), isTrue);
+    });
+  });
+
+  group('onFinish backward direction', () {
+    testWidgets('fires backward when animation reverses', (tester) async {
+      final List<AnimateDoDirection> received = <AnimateDoDirection>[];
+
+      Widget build({required bool animate}) {
+        return wrap(
+          FadeIn(
+            animate: animate,
+            duration: const Duration(milliseconds: 100),
+            onFinish: received.add,
+            child: _testChild(),
+          ),
+        );
+      }
+
+      await tester.pumpWidget(build(animate: true));
+      await tester.pumpAndSettle();
+      expect(received, <AnimateDoDirection>[AnimateDoDirection.forward]);
+
+      await tester.pumpWidget(build(animate: false));
+      await tester.pumpAndSettle();
+      expect(received, <AnimateDoDirection>[
+        AnimateDoDirection.forward,
+        AnimateDoDirection.backward,
+      ]);
+    });
+  });
+
+  group('Infinite animations', () {
+    testWidgets('Spin keeps running until widget is unmounted', (tester) async {
+      await tester.pumpWidget(
+        wrap(
+          Spin(
+            infinite: true,
+            duration: const Duration(milliseconds: 100),
+            child: _testChild(),
+          ),
+        ),
+      );
+
+      await tester.pump(const Duration(milliseconds: 50));
+      await tester.pump(const Duration(milliseconds: 250));
+      expect(find.byKey(_childKey), findsOneWidget);
+
+      await tester.pumpWidget(wrap(const SizedBox.shrink()));
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('loopDelay fires onLoop between iterations', (tester) async {
+      int loops = 0;
+
+      await tester.pumpWidget(
+        wrap(
+          Spin(
+            infinite: true,
+            duration: const Duration(milliseconds: 80),
+            loopDelay: const Duration(milliseconds: 40),
+            onLoop: () => loops += 1,
+            child: _testChild(),
+          ),
+        ),
+      );
+
+      await tester.pump(const Duration(milliseconds: 100));
+      expect(loops, 1);
+
+      await tester.runAsync(
+        () => Future<void>.delayed(const Duration(milliseconds: 100)),
+      );
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 120));
+
+      await tester.runAsync(
+        () => Future<void>.delayed(const Duration(milliseconds: 100)),
+      );
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 120));
+
+      expect(loops, greaterThanOrEqualTo(2));
+
+      await tester.pumpWidget(wrap(const SizedBox.shrink()));
+    });
+
+    testWidgets('toggling animate=false stops loop and resets value',
+        (tester) async {
+      AnimationController? exposed;
+
+      Widget build({required bool animate}) {
+        return wrap(
+          Spin(
+            animate: animate,
+            infinite: true,
+            duration: const Duration(milliseconds: 100),
+            controller: (AnimationController c) => exposed = c,
+            child: _testChild(),
+          ),
+        );
+      }
+
+      await tester.pumpWidget(build(animate: true));
+      await tester.pump(const Duration(milliseconds: 50));
+      expect(exposed!.isAnimating, isTrue);
+
+      await tester.pumpWidget(build(animate: false));
+      await tester.pump();
+      expect(exposed!.isAnimating, isFalse);
+      expect(exposed!.value, 0);
+    });
+  });
+
+  group('ResetOnReverseAnimation', () {
+    testWidgets('snaps Bounce back to initial value when animate flips off',
+        (tester) async {
+      Widget build({required bool animate}) {
+        return wrap(
+          Bounce(
+            animate: animate,
+            duration: const Duration(milliseconds: 100),
+            child: _testChild(),
+          ),
+        );
+      }
+
+      await tester.pumpWidget(build(animate: true));
+      await tester.pumpAndSettle();
+      Transform transform = tester.widget(find.byType(Transform));
+      expect(transform.transform.getTranslation().y, 0);
+
+      await tester.pumpWidget(build(animate: false));
+      await tester.pump();
+      transform = tester.widget(find.byType(Transform));
+      expect(transform.transform.getTranslation().y, 0);
+    });
+  });
+
+  group('MoveTo geometry', () {
+    testWidgets('right - left composes the horizontal offset', (tester) async {
+      await tester.pumpWidget(
+        wrap(
+          MoveTo(
+            left: 30,
+            right: 100,
+            duration: const Duration(milliseconds: 50),
+            child: _testChild(),
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+      final Transform transform = tester.widget(find.byType(Transform));
+      expect(transform.transform.getTranslation().x, 70);
+    });
+
+    testWidgets('negative values are accepted as their opposite',
+        (tester) async {
+      await tester.pumpWidget(
+        wrap(
+          MoveTo(
+            left: -50,
+            duration: const Duration(milliseconds: 50),
+            child: _testChild(),
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+      final Transform transform = tester.widget(find.byType(Transform));
+      expect(transform.transform.getTranslation().x, 50);
+    });
+  });
 }

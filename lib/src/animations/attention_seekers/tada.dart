@@ -3,15 +3,18 @@ import 'package:flutter/widgets.dart';
 import '../../types/animate_do_base.dart';
 import '../../types/animate_do_typedefs.dart';
 
+const Duration _defaultDuration = Duration(milliseconds: 1000);
+const Curve _defaultCurve = Curves.easeInOut;
+
 /// Combines a small scale-down/scale-up with several rotation flicks,
 /// mimicking the `tada` animation from Animate.css.
 class Tada extends AnimateDoBaseWidget {
   const Tada({
     super.key,
     required super.child,
-    super.duration = const Duration(milliseconds: 1000),
+    super.duration = _defaultDuration,
     super.delay,
-    super.curve = Curves.easeInOut,
+    super.curve = _defaultCurve,
     super.animate,
     super.infinite,
     super.manualTrigger,
@@ -85,9 +88,9 @@ class TadaState extends AnimateDoBaseState<Tada> {
 extension TadaExtension on Widget {
   Widget tada({
     Key? key,
-    Duration duration = const Duration(milliseconds: 1000),
+    Duration duration = _defaultDuration,
     Duration delay = Duration.zero,
-    Curve curve = Curves.easeOut,
+    Curve curve = _defaultCurve,
     bool animate = true,
     bool infinite = false,
     bool manualTrigger = false,

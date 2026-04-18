@@ -3,20 +3,24 @@ import 'package:flutter/widgets.dart';
 import '../../types/animate_do_base.dart';
 import '../../types/animate_do_typedefs.dart';
 
+const Duration _defaultDuration = Duration(milliseconds: 1200);
+const Curve _defaultCurve = Curves.easeOut;
+const double _defaultTo = 1000;
+
 /// Mirrors [BackInRight]: shrinks the [child] and slides it to the right
 /// while fading out.
 class BackOutRight extends AnimateDoBaseWidget {
   const BackOutRight({
     super.key,
     required super.child,
-    super.duration = const Duration(milliseconds: 1200),
+    super.duration = _defaultDuration,
     super.delay,
-    super.curve,
+    super.curve = _defaultCurve,
     super.animate,
     super.manualTrigger,
     super.controller,
     super.onFinish,
-    this.to = 1000,
+    this.to = _defaultTo,
   });
 
   /// Final horizontal offset (in logical pixels).
@@ -68,14 +72,14 @@ class BackOutRightState extends AnimateDoBaseState<BackOutRight> {
 extension BackOutRightExtension on Widget {
   Widget backOutRight({
     Key? key,
-    Duration duration = const Duration(milliseconds: 1200),
+    Duration duration = _defaultDuration,
     Duration delay = Duration.zero,
-    Curve curve = Curves.easeOut,
+    Curve curve = _defaultCurve,
     bool animate = true,
     bool manualTrigger = false,
     AnimateDoControllerCallback? controller,
     AnimateDoFinishCallback? onFinish,
-    double to = 1000,
+    double to = _defaultTo,
   }) {
     return BackOutRight(
       key: key,

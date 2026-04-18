@@ -4,15 +4,18 @@ import '../../types/animate_do_base.dart';
 import '../../types/animate_do_reset_marker.dart';
 import '../../types/animate_do_typedefs.dart';
 
+const Duration _defaultDuration = Duration(milliseconds: 1000);
+const Curve _defaultCurve = Curves.easeOut;
+
 /// Rocks the [child] back and forth from its top edge, mimicking the `swing`
 /// animation from Animate.css.
 class Swing extends AnimateDoBaseWidget {
   const Swing({
     super.key,
     required super.child,
-    super.duration = const Duration(milliseconds: 1000),
+    super.duration = _defaultDuration,
     super.delay,
-    super.curve,
+    super.curve = _defaultCurve,
     super.animate,
     super.infinite,
     super.manualTrigger,
@@ -63,9 +66,9 @@ class SwingState extends AnimateDoBaseState<Swing>
 extension SwingExtension on Widget {
   Widget swing({
     Key? key,
-    Duration duration = const Duration(milliseconds: 1000),
+    Duration duration = _defaultDuration,
     Duration delay = Duration.zero,
-    Curve curve = Curves.easeOut,
+    Curve curve = _defaultCurve,
     bool animate = true,
     bool infinite = false,
     bool manualTrigger = false,

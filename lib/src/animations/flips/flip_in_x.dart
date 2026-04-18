@@ -3,13 +3,15 @@ import 'package:flutter/widgets.dart';
 import '../../types/animate_do_base.dart';
 import '../../types/animate_do_typedefs.dart';
 
+const Duration _defaultDuration = Duration(milliseconds: 800);
+
 /// Flips the [child] around the X axis while fading it in, mimicking the
 /// `flipInX` animation from Animate.css.
 class FlipInX extends AnimateDoBaseWidget {
   const FlipInX({
     super.key,
     required super.child,
-    super.duration = const Duration(milliseconds: 800),
+    super.duration = _defaultDuration,
     super.delay,
     super.curve,
     super.animate,
@@ -49,7 +51,7 @@ class FlipInXState extends AnimateDoBaseState<FlipInX> {
 extension FlipInXExtension on Widget {
   Widget flipInX({
     Key? key,
-    Duration duration = const Duration(milliseconds: 800),
+    Duration duration = _defaultDuration,
     Duration delay = Duration.zero,
     Curve curve = Curves.easeOut,
     bool animate = true,

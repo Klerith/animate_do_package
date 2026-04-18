@@ -3,20 +3,24 @@ import 'package:flutter/widgets.dart';
 import '../../types/animate_do_typedefs.dart';
 import '../fade_ins/fade_in_up.dart';
 
+const Duration _defaultDuration = Duration(milliseconds: 1000);
+const Curve _defaultCurve = Curves.bounceOut;
+const double _defaultFrom = 75;
+
 /// Convenience wrapper around [FadeInUp] with a `bounceOut` curve and a
 /// short slide distance.
 class BounceInUp extends StatelessWidget {
   const BounceInUp({
     super.key,
     required this.child,
-    this.duration = const Duration(milliseconds: 1000),
+    this.duration = _defaultDuration,
     this.delay = Duration.zero,
-    this.curve = Curves.bounceOut,
+    this.curve = _defaultCurve,
     this.animate = true,
     this.manualTrigger = false,
     this.controller,
     this.onFinish,
-    this.from = 75,
+    this.from = _defaultFrom,
   });
 
   final Widget child;
@@ -46,14 +50,14 @@ class BounceInUp extends StatelessWidget {
 extension BounceInUpExtension on Widget {
   Widget bounceInUp({
     Key? key,
-    Duration duration = const Duration(milliseconds: 1000),
+    Duration duration = _defaultDuration,
     Duration delay = Duration.zero,
-    Curve curve = Curves.bounceOut,
+    Curve curve = _defaultCurve,
     bool animate = true,
     bool manualTrigger = false,
     AnimateDoControllerCallback? controller,
     AnimateDoFinishCallback? onFinish,
-    double from = 75,
+    double from = _defaultFrom,
   }) {
     return BounceInUp(
       key: key,

@@ -3,19 +3,23 @@ import 'package:flutter/widgets.dart';
 import '../types/animate_do_base.dart';
 import '../types/animate_do_typedefs.dart';
 
+const Duration _defaultDuration = Duration(milliseconds: 300);
+
 /// Translates the [child] by a relative offset specified through any
 /// combination of [top], [bottom], [left] and [right] (in pixels).
 ///
-/// When opposing axes are both non-zero (for example [left] and [right]),
-/// the [left] / [top] values take precedence.
+/// Opposing axes are composed: the final horizontal offset is
+/// `right - left` and the vertical one is `bottom - top`. Negative values
+/// are accepted and behave as their opposite (e.g. `left: -50` is the same
+/// as `right: 50`).
 class MoveTo extends AnimateDoBaseWidget {
   const MoveTo({
     super.key,
     required super.child,
-    super.duration = const Duration(milliseconds: 300),
+    super.duration = _defaultDuration,
     super.delay,
     super.curve,
-    super.animate = false,
+    super.animate,
     super.manualTrigger,
     super.controller,
     super.onFinish,
@@ -45,12 +49,12 @@ class MoveToState extends AnimateDoBaseState<MoveTo> {
 
     _translateX = Tween<double>(
       begin: 0,
-      end: widget.left != 0.0 ? -widget.left : widget.right,
+      end: widget.right - widget.left,
     ).animate(curved);
 
     _translateY = Tween<double>(
       begin: 0,
-      end: widget.top != 0.0 ? -widget.top : widget.bottom,
+      end: widget.bottom - widget.top,
     ).animate(curved);
   }
 
@@ -66,7 +70,7 @@ class MoveToState extends AnimateDoBaseState<MoveTo> {
 extension MoveExtension on Widget {
   Widget moveTo({
     Key? key,
-    Duration duration = const Duration(milliseconds: 300),
+    Duration duration = _defaultDuration,
     Duration delay = Duration.zero,
     Curve curve = Curves.easeOut,
     bool animate = true,

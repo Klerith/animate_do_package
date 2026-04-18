@@ -4,15 +4,19 @@ import '../../types/animate_do_base.dart';
 import '../../types/animate_do_reset_marker.dart';
 import '../../types/animate_do_typedefs.dart';
 
+const Duration _defaultDuration = Duration(milliseconds: 1300);
+const Curve _defaultCurve = Curves.bounceOut;
+const double _defaultFrom = 50;
+
 /// Slides the [child] up by [from] pixels and then bounces it back into place,
 /// mimicking the `bounce` animation from Animate.css.
 class Bounce extends AnimateDoBaseWidget {
   const Bounce({
     super.key,
     required super.child,
-    super.duration = const Duration(milliseconds: 1300),
+    super.duration = _defaultDuration,
     super.delay,
-    super.curve = Curves.bounceOut,
+    super.curve = _defaultCurve,
     super.animate,
     super.infinite,
     super.manualTrigger,
@@ -20,7 +24,7 @@ class Bounce extends AnimateDoBaseWidget {
     super.controller,
     super.onFinish,
     super.onLoop,
-    this.from = 50,
+    this.from = _defaultFrom,
   });
 
   final double from;
@@ -31,31 +35,29 @@ class Bounce extends AnimateDoBaseWidget {
 
 class BounceState extends AnimateDoBaseState<Bounce>
     with ResetOnReverseAnimation {
-  late Animation<double> _up;
-  late Animation<double> _bounce;
+  late Animation<double> _offsetY;
 
   @override
   void createTweens() {
-    _up = Tween<double>(begin: 0, end: widget.from * -1).animate(
-      CurvedAnimation(
-        parent: controller,
-        curve: const Interval(0, 0.35, curve: Curves.easeInOut),
+    final double peak = -widget.from;
+    _offsetY = TweenSequence<double>(<TweenSequenceItem<double>>[
+      TweenSequenceItem<double>(
+        tween: Tween<double>(begin: 0, end: peak)
+            .chain(CurveTween(curve: Curves.easeInOut)),
+        weight: 35,
       ),
-    );
-    _bounce = Tween<double>(begin: widget.from * -1, end: 0).animate(
-      CurvedAnimation(
-        parent: controller,
-        curve: Interval(0.35, 1, curve: widget.curve),
+      TweenSequenceItem<double>(
+        tween: Tween<double>(begin: peak, end: 0)
+            .chain(CurveTween(curve: widget.curve)),
+        weight: 65,
       ),
-    );
+    ]).animate(controller);
   }
 
   @override
   Widget buildAnimatedChild(BuildContext context, Widget child) {
-    final double offsetY =
-        _up.value == widget.from * -1 ? _bounce.value : _up.value;
     return Transform.translate(
-      offset: Offset(0, offsetY),
+      offset: Offset(0, _offsetY.value),
       child: child,
     );
   }
@@ -64,9 +66,9 @@ class BounceState extends AnimateDoBaseState<Bounce>
 extension BounceExtension on Widget {
   Widget bounce({
     Key? key,
-    Duration duration = const Duration(milliseconds: 1300),
+    Duration duration = _defaultDuration,
     Duration delay = Duration.zero,
-    Curve curve = Curves.bounceOut,
+    Curve curve = _defaultCurve,
     bool animate = true,
     bool infinite = false,
     bool manualTrigger = false,
@@ -74,7 +76,7 @@ extension BounceExtension on Widget {
     AnimateDoControllerCallback? controller,
     AnimateDoFinishCallback? onFinish,
     AnimateDoLoopCallback? onLoop,
-    double from = 50,
+    double from = _defaultFrom,
   }) {
     return Bounce(
       key: key,

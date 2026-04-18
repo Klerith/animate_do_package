@@ -4,15 +4,18 @@ import '../../types/animate_do_base.dart';
 import '../../types/animate_do_reset_marker.dart';
 import '../../types/animate_do_typedefs.dart';
 
+const Duration _defaultDuration = Duration(milliseconds: 2500);
+const Curve _defaultCurve = Curves.easeOutQuad;
+
 /// Mimics a heartbeat by scaling the [child] up twice, like the `heartBeat`
 /// animation from Animate.css.
 class HeartBeat extends AnimateDoBaseWidget {
   const HeartBeat({
     super.key,
     required super.child,
-    super.duration = const Duration(milliseconds: 2500),
+    super.duration = _defaultDuration,
     super.delay,
-    super.curve = Curves.easeOutQuad,
+    super.curve = _defaultCurve,
     super.animate,
     super.infinite,
     super.manualTrigger,
@@ -50,9 +53,9 @@ class HeartBeatState extends AnimateDoBaseState<HeartBeat>
 extension HeartBeatExtension on Widget {
   Widget heartBeat({
     Key? key,
-    Duration duration = const Duration(milliseconds: 2500),
+    Duration duration = _defaultDuration,
     Duration delay = Duration.zero,
-    Curve curve = Curves.easeOutQuad,
+    Curve curve = _defaultCurve,
     bool animate = true,
     bool infinite = false,
     bool manualTrigger = false,

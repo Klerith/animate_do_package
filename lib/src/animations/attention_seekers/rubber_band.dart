@@ -4,15 +4,18 @@ import '../../types/animate_do_base.dart';
 import '../../types/animate_do_reset_marker.dart';
 import '../../types/animate_do_typedefs.dart';
 
+const Duration _defaultDuration = Duration(milliseconds: 2000);
+const Curve _defaultCurve = Curves.easeOut;
+
 /// Stretches the [child] horizontally and vertically with decaying amplitude,
 /// mimicking the `rubberBand` animation from Animate.css.
 class RubberBand extends AnimateDoBaseWidget {
   const RubberBand({
     super.key,
     required super.child,
-    super.duration = const Duration(milliseconds: 2000),
+    super.duration = _defaultDuration,
     super.delay,
-    super.curve,
+    super.curve = _defaultCurve,
     super.animate,
     super.infinite,
     super.manualTrigger,
@@ -68,9 +71,9 @@ class RubberBandState extends AnimateDoBaseState<RubberBand>
 extension RubberBandExtension on Widget {
   Widget rubberBand({
     Key? key,
-    Duration duration = const Duration(milliseconds: 1000),
+    Duration duration = _defaultDuration,
     Duration delay = Duration.zero,
-    Curve curve = Curves.easeOut,
+    Curve curve = _defaultCurve,
     bool animate = true,
     bool infinite = false,
     bool manualTrigger = false,

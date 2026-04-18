@@ -93,10 +93,13 @@ mixin AnimateDoState {
     }
 
     if (!animate) {
+      _delayTimer?.cancel();
+
       if (infinite) {
         _loopTimerActive = false;
         _loopDelayTimer?.cancel();
         controller.stop();
+        controller.value = 0;
         return;
       }
 

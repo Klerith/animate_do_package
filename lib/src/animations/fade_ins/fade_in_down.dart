@@ -3,19 +3,22 @@ import 'package:flutter/widgets.dart';
 import '../../types/animate_do_base.dart';
 import '../../types/animate_do_typedefs.dart';
 
+const Duration _defaultDuration = Duration(milliseconds: 800);
+const double _defaultFrom = 100;
+
 /// Fades the [child] in while sliding it downward.
 class FadeInDown extends AnimateDoBaseWidget {
   const FadeInDown({
     super.key,
     required super.child,
-    super.duration = const Duration(milliseconds: 800),
+    super.duration = _defaultDuration,
     super.delay,
     super.curve,
     super.animate,
     super.manualTrigger,
     super.controller,
     super.onFinish,
-    this.from = 100,
+    this.from = _defaultFrom,
   });
 
   /// Vertical offset (in logical pixels) the child starts from. The value is
@@ -52,14 +55,14 @@ class FadeInDownState extends AnimateDoBaseState<FadeInDown> {
 extension FadeInDownExtension on Widget {
   Widget fadeInDown({
     Key? key,
-    Duration duration = const Duration(milliseconds: 800),
+    Duration duration = _defaultDuration,
     Duration delay = Duration.zero,
     Curve curve = Curves.easeOut,
     bool animate = true,
     bool manualTrigger = false,
     AnimateDoControllerCallback? controller,
     AnimateDoFinishCallback? onFinish,
-    double from = 100,
+    double from = _defaultFrom,
   }) {
     return FadeInDown(
       key: key,

@@ -3,15 +3,18 @@ import 'package:flutter/widgets.dart';
 import '../../types/animate_do_base.dart';
 import '../../types/animate_do_typedefs.dart';
 
+const Duration _defaultDuration = Duration(milliseconds: 1000);
+const Curve _defaultCurve = Curves.linearToEaseOut;
+
 /// Quickly fades the [child] in and out twice, mimicking the `flash`
 /// animation from Animate.css.
 class Flash extends AnimateDoBaseWidget {
   const Flash({
     super.key,
     required super.child,
-    super.duration = const Duration(milliseconds: 1000),
+    super.duration = _defaultDuration,
     super.delay,
-    super.curve = Curves.linearToEaseOut,
+    super.curve = _defaultCurve,
     super.animate,
     super.infinite,
     super.manualTrigger,
@@ -47,9 +50,9 @@ class FlashState extends AnimateDoBaseState<Flash> {
 extension FlashExtension on Widget {
   Widget flash({
     Key? key,
-    Duration duration = const Duration(milliseconds: 1000),
+    Duration duration = _defaultDuration,
     Duration delay = Duration.zero,
-    Curve curve = Curves.linearToEaseOut,
+    Curve curve = _defaultCurve,
     bool animate = true,
     bool infinite = false,
     bool manualTrigger = false,

@@ -4,15 +4,18 @@ import '../../types/animate_do_base.dart';
 import '../../types/animate_do_reset_marker.dart';
 import '../../types/animate_do_typedefs.dart';
 
+const Duration _defaultDuration = Duration(milliseconds: 1200);
+const Curve _defaultCurve = Curves.easeOut;
+
 /// Skews the [child] in alternating directions with decreasing amplitude,
 /// mimicking the `jello` animation from Animate.css.
 class Jello extends AnimateDoBaseWidget {
   const Jello({
     super.key,
     required super.child,
-    super.duration = const Duration(milliseconds: 1200),
+    super.duration = _defaultDuration,
     super.delay,
-    super.curve,
+    super.curve = _defaultCurve,
     super.animate,
     super.infinite,
     super.manualTrigger,
@@ -83,9 +86,9 @@ class JelloState extends AnimateDoBaseState<Jello>
 extension JelloExtension on Widget {
   Widget jello({
     Key? key,
-    Duration duration = const Duration(milliseconds: 1200),
+    Duration duration = _defaultDuration,
     Duration delay = Duration.zero,
-    Curve curve = Curves.easeOut,
+    Curve curve = _defaultCurve,
     bool animate = true,
     bool infinite = false,
     bool manualTrigger = false,

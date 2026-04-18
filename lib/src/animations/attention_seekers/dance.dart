@@ -3,15 +3,18 @@ import 'package:flutter/widgets.dart';
 import '../../types/animate_do_base.dart';
 import '../../types/animate_do_typedefs.dart';
 
+const Duration _defaultDuration = Duration(milliseconds: 1000);
+const Curve _defaultCurve = Curves.bounceOut;
+
 /// Skews the [child] from neutral to -0.2, then to +0.2 and back to 0, in
 /// three equal time slices.
 class Dance extends AnimateDoBaseWidget {
   const Dance({
     super.key,
     required super.child,
-    super.duration = const Duration(milliseconds: 1000),
+    super.duration = _defaultDuration,
     super.delay,
-    super.curve = Curves.bounceOut,
+    super.curve = _defaultCurve,
     super.animate,
     super.infinite,
     super.manualTrigger,
@@ -50,9 +53,9 @@ class DanceState extends AnimateDoBaseState<Dance> {
 extension DanceExtension on Widget {
   Widget dance({
     Key? key,
-    Duration duration = const Duration(milliseconds: 1000),
+    Duration duration = _defaultDuration,
     Duration delay = Duration.zero,
-    Curve curve = Curves.bounceOut,
+    Curve curve = _defaultCurve,
     bool animate = true,
     bool infinite = false,
     bool manualTrigger = false,

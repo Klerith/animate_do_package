@@ -3,20 +3,24 @@ import 'package:flutter/widgets.dart';
 import '../../types/animate_do_typedefs.dart';
 import '../fade_ins/fade_in_right.dart';
 
+const Duration _defaultDuration = Duration(milliseconds: 1500);
+const Curve _defaultCurve = Curves.elasticOut;
+const double _defaultFrom = 200;
+
 /// Convenience wrapper around [FadeInRight] with an `elasticOut` curve and a
 /// long slide distance.
 class ElasticInRight extends StatelessWidget {
   const ElasticInRight({
     super.key,
     required this.child,
-    this.duration = const Duration(milliseconds: 1500),
+    this.duration = _defaultDuration,
     this.delay = Duration.zero,
-    this.curve = Curves.elasticOut,
+    this.curve = _defaultCurve,
     this.animate = true,
     this.manualTrigger = false,
     this.controller,
     this.onFinish,
-    this.from = 200,
+    this.from = _defaultFrom,
   });
 
   final Widget child;
@@ -46,14 +50,14 @@ class ElasticInRight extends StatelessWidget {
 extension ElasticInRightExtension on Widget {
   Widget elasticInRight({
     Key? key,
-    Duration duration = const Duration(milliseconds: 1500),
+    Duration duration = _defaultDuration,
     Duration delay = Duration.zero,
-    Curve curve = Curves.elasticOut,
+    Curve curve = _defaultCurve,
     bool animate = true,
     bool manualTrigger = false,
     AnimateDoControllerCallback? controller,
     AnimateDoFinishCallback? onFinish,
-    double from = 200,
+    double from = _defaultFrom,
   }) {
     return ElasticInRight(
       key: key,

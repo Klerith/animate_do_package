@@ -1,3 +1,49 @@
+## [5.1.0] - Consistency, robustness and new features
+
+### Bug fixes
+
+- `Bounce`: replaced the fragile floating-point equality check with a
+  `TweenSequence`, producing a smoother and more reliable animation.
+- `Spin`: unified the default `curve` between the class and the extension to
+  `Curves.linear` (the extension previously used a different curve).
+- `MoveTo`: the class default for `animate` now matches the extension
+  (`true`), aligning with the rest of the package.
+- `MoveTo` / `MoveToArc`: negative values for `top`, `bottom`, `left`,
+  `right` are now composed as deltas (`right - left`, `bottom - top`),
+  giving consistent and predictable behavior. Documentation updated.
+- Multiple animation widgets had drifting defaults (`duration`, `curve`,
+  `from`, `to`) between the class constructor and its `Widget` extension.
+  All defaults are now defined as private `const` variables at the top of
+  each animation file and consumed in both places.
+- `BounceIn`: unified `duration` and `curve` defaults between the class
+  (`750ms` / `easeOutCubic`) and the extension.
+
+### New features
+
+- `FlipX` / `FlipY`: the `perspective` parameter is now actually applied to
+  the 3D transform via `Matrix4.setEntry(3, 2, 1 / perspective)`. Added an
+  `assert(perspective > 0)` and exposed `perspective` in the `flipX` /
+  `flipY` extensions.
+
+### Internal improvements
+
+- `AnimateDoState.handleAnimateChange`: cancel pending initial-delay timers
+  when `animate` flips to `false`.
+- Stopping an `infinite` animation now resets `controller.value` to `0`,
+  preventing widgets from getting stuck mid-animation visually.
+- `AnimateDoBaseState.didUpdateWidget`: if the `controller` callback
+  reference changes between rebuilds, it is re-invoked with the current
+  `AnimationController` so consumers always hold a valid reference.
+- Fixed a broken doc-link in `animate_do_typedefs.dart`.
+
+### Tests
+
+- Added widget tests covering: `didUpdateWidget` reactions (duration and
+  controller callback changes), `onFinish` firing with
+  `AnimateDoDirection.backward`, infinite animations
+  (`Spin` + `loopDelay` + `onLoop` + stop/reset), `ResetOnReverseAnimation`
+  via `Bounce`, and `MoveTo` geometry (composition and negative values).
+
 ## [5.0.0] - Major Release
 
 - Major refactor and simplification of all animation classes

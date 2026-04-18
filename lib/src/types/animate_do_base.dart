@@ -121,6 +121,9 @@ abstract class AnimateDoBaseState<T extends AnimateDoBaseWidget>
     if (oldWidget.duration != widget.duration) {
       controller.duration = widget.duration;
     }
+    if (oldWidget.controller != widget.controller) {
+      widget.controller?.call(controller);
+    }
     if (oldWidget.animate != widget.animate) {
       handleAnimateChange(
         delay: widget.delay,

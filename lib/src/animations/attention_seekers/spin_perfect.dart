@@ -3,15 +3,19 @@ import 'package:flutter/widgets.dart';
 import '../../types/animate_do_typedefs.dart';
 import 'spin.dart';
 
+const Duration _defaultDuration = Duration(milliseconds: 1000);
+const Curve _defaultCurve = Curves.linear;
+const double _defaultSpins = 1;
+
 /// Convenience wrapper around [Spin] using `Curves.linear` for a constant
 /// rotation speed.
 class SpinPerfect extends StatelessWidget {
   const SpinPerfect({
     super.key,
     required this.child,
-    this.duration = const Duration(milliseconds: 1000),
+    this.duration = _defaultDuration,
     this.delay = Duration.zero,
-    this.curve = Curves.linear,
+    this.curve = _defaultCurve,
     this.animate = true,
     this.infinite = false,
     this.manualTrigger = false,
@@ -19,7 +23,7 @@ class SpinPerfect extends StatelessWidget {
     this.controller,
     this.onFinish,
     this.onLoop,
-    this.spins = 1,
+    this.spins = _defaultSpins,
   });
 
   final Widget child;
@@ -55,9 +59,9 @@ class SpinPerfect extends StatelessWidget {
 extension SpinPerfectExtension on Widget {
   Widget spinPerfect({
     Key? key,
-    Duration duration = const Duration(milliseconds: 1000),
+    Duration duration = _defaultDuration,
     Duration delay = Duration.zero,
-    Curve curve = Curves.linear,
+    Curve curve = _defaultCurve,
     bool animate = true,
     bool infinite = false,
     bool manualTrigger = false,
@@ -65,7 +69,7 @@ extension SpinPerfectExtension on Widget {
     AnimateDoControllerCallback? controller,
     AnimateDoFinishCallback? onFinish,
     AnimateDoLoopCallback? onLoop,
-    double spins = 1,
+    double spins = _defaultSpins,
   }) {
     return SpinPerfect(
       key: key,

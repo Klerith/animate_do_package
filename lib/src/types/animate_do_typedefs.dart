@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 
+import 'animate_do_base.dart';
 import 'animate_do_types.dart';
 
 /// Callback fired when an animation finishes a forward or backward run.

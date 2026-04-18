@@ -3,19 +3,23 @@ import 'package:flutter/widgets.dart';
 import '../../types/animate_do_base.dart';
 import '../../types/animate_do_typedefs.dart';
 
+const Duration _defaultDuration = Duration(milliseconds: 800);
+const Curve _defaultCurve = Curves.easeInOutCubicEmphasized;
+const double _defaultFrom = 0.0;
+
 /// Scales the [child] from 1 down to [from] while fading it out.
 class ZoomOut extends AnimateDoBaseWidget {
   const ZoomOut({
     super.key,
     required super.child,
-    super.duration = const Duration(milliseconds: 800),
+    super.duration = _defaultDuration,
     super.delay,
-    super.curve = Curves.easeInOutCubicEmphasized,
+    super.curve = _defaultCurve,
     super.animate,
     super.manualTrigger,
     super.controller,
     super.onFinish,
-    this.from = 0.0,
+    this.from = _defaultFrom,
   });
 
   final double from;
@@ -50,14 +54,14 @@ class ZoomOutState extends AnimateDoBaseState<ZoomOut> {
 extension ZoomOutExtension on Widget {
   Widget zoomOut({
     Key? key,
-    Duration duration = const Duration(milliseconds: 800),
+    Duration duration = _defaultDuration,
     Duration delay = Duration.zero,
-    Curve curve = Curves.easeInOutCubicEmphasized,
+    Curve curve = _defaultCurve,
     bool animate = true,
     bool manualTrigger = false,
     AnimateDoControllerCallback? controller,
     AnimateDoFinishCallback? onFinish,
-    double from = 0.0,
+    double from = _defaultFrom,
   }) {
     return ZoomOut(
       key: key,

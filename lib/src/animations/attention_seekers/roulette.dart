@@ -5,15 +5,19 @@ import 'package:flutter/widgets.dart';
 import '../../types/animate_do_base.dart';
 import '../../types/animate_do_typedefs.dart';
 
+const Duration _defaultDuration = Duration(milliseconds: 3500);
+const Curve _defaultCurve = Curves.elasticOut;
+const double _defaultSpins = 2;
+
 /// Rotates the [child] [spins] half turns and overshoots/elastic-stops at the
 /// end (the default curve is [Curves.elasticOut]).
 class Roulette extends AnimateDoBaseWidget {
   const Roulette({
     super.key,
     required super.child,
-    super.duration = const Duration(milliseconds: 3500),
+    super.duration = _defaultDuration,
     super.delay,
-    super.curve = Curves.elasticOut,
+    super.curve = _defaultCurve,
     super.animate,
     super.infinite,
     super.manualTrigger,
@@ -21,7 +25,7 @@ class Roulette extends AnimateDoBaseWidget {
     super.controller,
     super.onFinish,
     super.onLoop,
-    this.spins = 2,
+    this.spins = _defaultSpins,
   });
 
   final double spins;
@@ -52,9 +56,9 @@ class RouletteState extends AnimateDoBaseState<Roulette> {
 extension RouletteExtension on Widget {
   Widget roulette({
     Key? key,
-    Duration duration = const Duration(milliseconds: 3500),
+    Duration duration = _defaultDuration,
     Duration delay = Duration.zero,
-    Curve curve = Curves.elasticOut,
+    Curve curve = _defaultCurve,
     bool animate = true,
     bool infinite = false,
     bool manualTrigger = false,
@@ -62,7 +66,7 @@ extension RouletteExtension on Widget {
     AnimateDoControllerCallback? controller,
     AnimateDoFinishCallback? onFinish,
     AnimateDoLoopCallback? onLoop,
-    double spins = 2,
+    double spins = _defaultSpins,
   }) {
     return Roulette(
       key: key,

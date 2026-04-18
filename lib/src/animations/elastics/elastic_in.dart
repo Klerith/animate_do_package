@@ -3,14 +3,17 @@ import 'package:flutter/widgets.dart';
 import '../../types/animate_do_base.dart';
 import '../../types/animate_do_typedefs.dart';
 
+const Duration _defaultDuration = Duration(milliseconds: 1500);
+const Curve _defaultCurve = Curves.elasticOut;
+
 /// Scales the [child] in with an elastic curve while fading it in.
 class ElasticIn extends AnimateDoBaseWidget {
   const ElasticIn({
     super.key,
     required super.child,
-    super.duration = const Duration(milliseconds: 1500),
+    super.duration = _defaultDuration,
     super.delay,
-    super.curve = Curves.elasticOut,
+    super.curve = _defaultCurve,
     super.animate,
     super.manualTrigger,
     super.controller,
@@ -47,9 +50,9 @@ class ElasticInState extends AnimateDoBaseState<ElasticIn> {
 extension ElasticInExtension on Widget {
   Widget elasticIn({
     Key? key,
-    Duration duration = const Duration(milliseconds: 1500),
+    Duration duration = _defaultDuration,
     Duration delay = Duration.zero,
-    Curve curve = Curves.elasticOut,
+    Curve curve = _defaultCurve,
     bool animate = true,
     bool manualTrigger = false,
     AnimateDoControllerCallback? controller,

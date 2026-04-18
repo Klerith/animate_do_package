@@ -3,18 +3,22 @@ import 'package:flutter/widgets.dart';
 import '../../types/animate_do_typedefs.dart';
 import 'fade_out_right.dart';
 
+const Duration _defaultDuration = Duration(milliseconds: 1200);
+const Curve _defaultCurve = Curves.easeOut;
+const double _defaultFrom = 600;
+
 class FadeOutRightBig extends StatelessWidget {
   const FadeOutRightBig({
     super.key,
     required this.child,
-    this.duration = const Duration(milliseconds: 1200),
+    this.duration = _defaultDuration,
     this.delay = Duration.zero,
-    this.curve = Curves.easeOut,
+    this.curve = _defaultCurve,
     this.animate = true,
     this.manualTrigger = false,
     this.controller,
     this.onFinish,
-    this.from = 600,
+    this.from = _defaultFrom,
   });
 
   final Widget child;
@@ -44,14 +48,14 @@ class FadeOutRightBig extends StatelessWidget {
 extension FadeOutRightBigExtension on Widget {
   Widget fadeOutRightBig({
     Key? key,
-    Duration duration = const Duration(milliseconds: 1200),
+    Duration duration = _defaultDuration,
     Duration delay = Duration.zero,
-    Curve curve = Curves.easeOut,
+    Curve curve = _defaultCurve,
     bool animate = true,
     bool manualTrigger = false,
     AnimateDoControllerCallback? controller,
     AnimateDoFinishCallback? onFinish,
-    double from = 600,
+    double from = _defaultFrom,
   }) {
     return FadeOutRightBig(
       key: key,

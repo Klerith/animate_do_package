@@ -3,19 +3,22 @@ import 'package:flutter/widgets.dart';
 import '../../types/animate_do_base.dart';
 import '../../types/animate_do_typedefs.dart';
 
+const Duration _defaultDuration = Duration(milliseconds: 1200);
+const double _defaultFrom = -1000;
+
 /// Scales the [child] in while sliding it down from above, mimicking the
 /// `zoomInDown` animation from Animate.css.
 class ZoomInDown extends AnimateDoBaseWidget {
   const ZoomInDown({
     super.key,
     required super.child,
-    super.duration = const Duration(milliseconds: 1200),
+    super.duration = _defaultDuration,
     super.delay,
     super.animate,
     super.manualTrigger,
     super.controller,
     super.onFinish,
-    this.from = -1000,
+    this.from = _defaultFrom,
   }) : super(curve: Curves.easeInOut);
 
   final double from;
@@ -79,13 +82,13 @@ class ZoomInDownState extends AnimateDoBaseState<ZoomInDown> {
 extension ZoomInDownExtension on Widget {
   Widget zoomInDown({
     Key? key,
-    Duration duration = const Duration(milliseconds: 1200),
+    Duration duration = _defaultDuration,
     Duration delay = Duration.zero,
     bool animate = true,
     bool manualTrigger = false,
     AnimateDoControllerCallback? controller,
     AnimateDoFinishCallback? onFinish,
-    double from = -1000,
+    double from = _defaultFrom,
   }) {
     return ZoomInDown(
       key: key,

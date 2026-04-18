@@ -3,15 +3,20 @@ import 'package:flutter/widgets.dart';
 import '../../types/animate_do_base.dart';
 import '../../types/animate_do_typedefs.dart';
 
+const Duration _defaultDuration = Duration(milliseconds: 1000);
+const Curve _defaultCurve = Curves.easeOut;
+const double _defaultFrom = 1;
+const double _defaultTo = 1.5;
+
 /// Scales the [child] from [from] to [to] and back, mimicking the `pulse`
 /// animation from Animate.css.
 class Pulse extends AnimateDoBaseWidget {
   const Pulse({
     super.key,
     required super.child,
-    super.duration = const Duration(milliseconds: 1000),
+    super.duration = _defaultDuration,
     super.delay,
-    super.curve,
+    super.curve = _defaultCurve,
     super.animate,
     super.infinite,
     super.manualTrigger,
@@ -19,8 +24,8 @@ class Pulse extends AnimateDoBaseWidget {
     super.controller,
     super.onFinish,
     super.onLoop,
-    this.from = 1,
-    this.to = 1.5,
+    this.from = _defaultFrom,
+    this.to = _defaultTo,
   });
 
   final double from;
@@ -56,9 +61,9 @@ class PulseState extends AnimateDoBaseState<Pulse> {
 extension PulseExtension on Widget {
   Widget pulse({
     Key? key,
-    Duration duration = const Duration(milliseconds: 1000),
+    Duration duration = _defaultDuration,
     Duration delay = Duration.zero,
-    Curve curve = Curves.easeOut,
+    Curve curve = _defaultCurve,
     bool animate = true,
     bool infinite = false,
     bool manualTrigger = false,
@@ -66,8 +71,8 @@ extension PulseExtension on Widget {
     AnimateDoControllerCallback? controller,
     AnimateDoFinishCallback? onFinish,
     AnimateDoLoopCallback? onLoop,
-    double from = 1,
-    double to = 1.5,
+    double from = _defaultFrom,
+    double to = _defaultTo,
   }) {
     return Pulse(
       key: key,

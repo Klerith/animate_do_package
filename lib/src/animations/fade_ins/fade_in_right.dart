@@ -3,19 +3,22 @@ import 'package:flutter/widgets.dart';
 import '../../types/animate_do_base.dart';
 import '../../types/animate_do_typedefs.dart';
 
+const Duration _defaultDuration = Duration(milliseconds: 800);
+const double _defaultFrom = 100;
+
 /// Fades the [child] in while sliding it from the right.
 class FadeInRight extends AnimateDoBaseWidget {
   const FadeInRight({
     super.key,
     required super.child,
-    super.duration = const Duration(milliseconds: 800),
+    super.duration = _defaultDuration,
     super.delay,
     super.curve,
     super.animate,
     super.manualTrigger,
     super.controller,
     super.onFinish,
-    this.from = 100,
+    this.from = _defaultFrom,
   });
 
   /// Horizontal offset (in logical pixels) the child starts from.
@@ -51,14 +54,14 @@ class FadeInRightState extends AnimateDoBaseState<FadeInRight> {
 extension FadeInRightExtension on Widget {
   Widget fadeInRight({
     Key? key,
-    Duration duration = const Duration(milliseconds: 800),
+    Duration duration = _defaultDuration,
     Duration delay = Duration.zero,
     Curve curve = Curves.easeOut,
     bool animate = true,
     bool manualTrigger = false,
     AnimateDoControllerCallback? controller,
     AnimateDoFinishCallback? onFinish,
-    double from = 100,
+    double from = _defaultFrom,
   }) {
     return FadeInRight(
       key: key,

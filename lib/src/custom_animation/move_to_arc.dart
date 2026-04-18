@@ -5,16 +5,20 @@ import 'package:flutter/widgets.dart';
 import '../types/animate_do_base.dart';
 import '../types/animate_do_typedefs.dart';
 
+const Duration _defaultDuration = Duration(milliseconds: 800);
+
 /// Translates the [child] along an arc using a quarter-circle path.
 ///
-/// The radius is taken from [bottom] (preferred) or [top]. Setting [upward]
-/// to `true` produces a sine-based arc; the default is a `(1 - cos)` arc.
-/// Horizontal displacement is interpolated linearly from [left] / [right].
+/// The vertical radius is `bottom - top`: a positive value arcs downward
+/// and a negative value arcs upward. Setting [upward] to `true` forces a
+/// sine-based arc that always opens upward regardless of sign; otherwise
+/// a `(1 - cos)` arc is used. The horizontal displacement is interpolated
+/// linearly as `right - left` (negative values are accepted).
 class MoveToArc extends AnimateDoBaseWidget {
   const MoveToArc({
     super.key,
     required super.child,
-    super.duration = const Duration(milliseconds: 800),
+    super.duration = _defaultDuration,
     super.delay,
     super.curve,
     super.animate,
@@ -53,24 +57,14 @@ class MoveToArcState extends AnimateDoBaseState<MoveToArc> {
     final double t = _progress.value;
     final double angle = t * pi / 2;
 
-    final double radius = widget.bottom > 0 ? widget.bottom : widget.top;
-    double offsetY;
+    final double verticalRadius = widget.bottom - widget.top;
+    final double horizontalDelta = widget.right - widget.left;
 
-    if (widget.upward) {
-      offsetY = -radius * sin(angle);
-    } else {
-      offsetY = radius * (1 - cos(angle));
-      if (widget.top > 0) {
-        offsetY = -offsetY;
-      }
-    }
+    final double offsetY = widget.upward
+        ? -verticalRadius.abs() * sin(angle)
+        : verticalRadius * (1 - cos(angle));
 
-    double offsetX = 0;
-    if (widget.left > 0) {
-      offsetX = -widget.left * t;
-    } else if (widget.right > 0) {
-      offsetX = widget.right * t;
-    }
+    final double offsetX = horizontalDelta * t;
 
     return Transform.translate(
       offset: Offset(offsetX, offsetY),
@@ -82,7 +76,7 @@ class MoveToArcState extends AnimateDoBaseState<MoveToArc> {
 extension MoveArcExtension on Widget {
   Widget moveToArc({
     Key? key,
-    Duration duration = const Duration(milliseconds: 800),
+    Duration duration = _defaultDuration,
     Duration delay = Duration.zero,
     Curve curve = Curves.easeOut,
     bool animate = true,

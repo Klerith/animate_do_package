@@ -3,20 +3,24 @@ import 'package:flutter/widgets.dart';
 import '../../types/animate_do_base.dart';
 import '../../types/animate_do_typedefs.dart';
 
+const Duration _defaultDuration = Duration(milliseconds: 1200);
+const Curve _defaultCurve = Curves.easeOut;
+const double _defaultFrom = 1000;
+
 /// Combines a small fade-in with a slide from the right, mimicking the
 /// `backInRight` animation from Animate.css.
 class BackInRight extends AnimateDoBaseWidget {
   const BackInRight({
     super.key,
     required super.child,
-    super.duration = const Duration(milliseconds: 1200),
+    super.duration = _defaultDuration,
     super.delay,
-    super.curve,
+    super.curve = _defaultCurve,
     super.animate,
     super.manualTrigger,
     super.controller,
     super.onFinish,
-    this.from = 1000,
+    this.from = _defaultFrom,
   });
 
   /// Horizontal offset (in logical pixels) the child starts from.
@@ -71,14 +75,14 @@ class BackInRightState extends AnimateDoBaseState<BackInRight> {
 extension BackInRightExtension on Widget {
   Widget backInRight({
     Key? key,
-    Duration duration = const Duration(milliseconds: 1200),
+    Duration duration = _defaultDuration,
     Duration delay = Duration.zero,
-    Curve curve = Curves.easeOut,
+    Curve curve = _defaultCurve,
     bool animate = true,
     bool manualTrigger = false,
     AnimateDoControllerCallback? controller,
     AnimateDoFinishCallback? onFinish,
-    double from = 1000,
+    double from = _defaultFrom,
   }) {
     return BackInRight(
       key: key,

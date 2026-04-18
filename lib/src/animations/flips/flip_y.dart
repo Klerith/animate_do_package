@@ -5,6 +5,9 @@ import 'package:flutter/widgets.dart';
 import '../../types/animate_do_base.dart';
 import '../../types/animate_do_typedefs.dart';
 
+const Duration _defaultDuration = Duration(milliseconds: 800);
+const double _defaultPerspective = 400.0;
+
 /// Performs a single full rotation of the [child] around the X axis.
 ///
 /// Note: despite the name, this rotates around X. Kept for backwards
@@ -13,17 +16,18 @@ class FlipY extends AnimateDoBaseWidget {
   const FlipY({
     super.key,
     required super.child,
-    super.duration = const Duration(milliseconds: 800),
+    super.duration = _defaultDuration,
     super.delay,
     super.curve,
     super.animate,
     super.manualTrigger,
     super.controller,
     super.onFinish,
-    this.perspective = 400.0,
-  });
+    this.perspective = _defaultPerspective,
+  }) : assert(perspective > 0, 'perspective must be greater than 0');
 
-  /// Currently unused. Kept for API backwards compatibility.
+  /// Distance (in logical pixels) from the camera to the rotation plane.
+  /// Lower values exaggerate the 3D effect; higher values flatten it.
   final double perspective;
 
   @override
@@ -44,7 +48,9 @@ class FlipYState extends AnimateDoBaseState<FlipY> {
   Widget buildAnimatedChild(BuildContext context, Widget child) {
     return Transform(
       alignment: FractionalOffset.center,
-      transform: Matrix4.identity()..rotateX(_rotation.value),
+      transform: Matrix4.identity()
+        ..setEntry(3, 2, 1 / widget.perspective)
+        ..rotateX(_rotation.value),
       child: child,
     );
   }
@@ -53,13 +59,14 @@ class FlipYState extends AnimateDoBaseState<FlipY> {
 extension FlipYExtension on Widget {
   Widget flipY({
     Key? key,
-    Duration duration = const Duration(milliseconds: 800),
+    Duration duration = _defaultDuration,
     Duration delay = Duration.zero,
     Curve curve = Curves.easeOut,
     bool animate = true,
     bool manualTrigger = false,
     AnimateDoControllerCallback? controller,
     AnimateDoFinishCallback? onFinish,
+    double perspective = _defaultPerspective,
   }) {
     return FlipY(
       key: key,
@@ -70,6 +77,7 @@ extension FlipYExtension on Widget {
       manualTrigger: manualTrigger,
       controller: controller,
       onFinish: onFinish,
+      perspective: perspective,
       child: this,
     );
   }

@@ -4,6 +4,9 @@ import '../../types/animate_do_base.dart';
 import '../../types/animate_do_reset_marker.dart';
 import '../../types/animate_do_typedefs.dart';
 
+const Duration _defaultDuration = Duration(milliseconds: 1000);
+const Curve _defaultCurve = Curves.easeInOut;
+
 /// Wobbles the [child] horizontally while rotating slightly, mimicking the
 /// `wobble` animation from Animate.css. The horizontal amount is a fraction
 /// of the available screen width.
@@ -11,9 +14,9 @@ class Wobble extends AnimateDoBaseWidget {
   const Wobble({
     super.key,
     required super.child,
-    super.duration = const Duration(milliseconds: 1000),
+    super.duration = _defaultDuration,
     super.delay,
-    super.curve = Curves.easeInOut,
+    super.curve = _defaultCurve,
     super.animate,
     super.infinite,
     super.manualTrigger,
@@ -84,9 +87,9 @@ class WobbleState extends AnimateDoBaseState<Wobble>
 extension WobbleExtension on Widget {
   Widget wobble({
     Key? key,
-    Duration duration = const Duration(milliseconds: 1000),
+    Duration duration = _defaultDuration,
     Duration delay = Duration.zero,
-    Curve curve = Curves.easeOut,
+    Curve curve = _defaultCurve,
     bool animate = true,
     bool infinite = false,
     bool manualTrigger = false,
