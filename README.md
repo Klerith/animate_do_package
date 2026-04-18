@@ -1,190 +1,155 @@
 # animate_do
 
-## Null-Safety, Dart 3, with zero external dependencies
+> A Flutter animation package inspired by [Animate.css](https://daneden.github.io/animate.css/), built with zero external dependencies.
 
-### iOS, Android, Linux, Mac, Web, Windows ready
-
-An animation package inspired by [Animate.css](https://daneden.github.io/animate.css/), built using only Flutter animations, with zero dependencies.
+![Dart 3](https://img.shields.io/badge/Dart-3-blue?logo=dart)
+![Null Safety](https://img.shields.io/badge/Null%20Safety-✔-brightgreen)
+![Platforms](https://img.shields.io/badge/Platforms-iOS%20%7C%20Android%20%7C%20Web%20%7C%20Desktop-lightgrey)
+![pub.dev](https://img.shields.io/pub/v/animate_do)
 
 ![Animate_do demo animation](https://raw.githubusercontent.com/Klerith/animate_do_package/master/screenshots/demo-01.gif 'Animate_do')
 
+---
+
 ## Getting Started
 
-This package is simple to use. Every animation contains default values that look beautiful, but you can customize the properties to meet your needs.
+Every animation widget ships with sensible defaults and is fully customizable. Drop it around any widget and you're done.
 
-## Properties in almost every animated widget:
+---
 
-| Property      | Type         | Description                                                                                       |
-| ------------- | ------------ | ------------------------------------------------------------------------------------------------- |
-| key           | **Key**      | (Optional) Widget key reference                                                                   |
-| child         | **Widget**   | Required widget to animate                                                                        |
-| duration      | **Duration** | Duration of the animation                                                                         |
-| delay         | **Duration** | Delay before the animation starts                                                                 |
-| from          | **double**   | Initial or final value for more pronounced slide/fade effects                                     |
-| animate       | **boolean**  | Toggle from false to true to trigger animation (works with setState, Bloc, Provider, Redux, etc.) |
-| infinite      | **boolean**  | Makes attention-seeking animations run indefinitely                                               |
-| spins         | **double**   | Number of rotations for applicable animations (Spin, Roulette, PerfectSpin)                       |
-| manualTrigger | **boolean**  | Enable manual animation triggering (requires controller property)                                 |
-| controller    | **Function** | Exposes animation controller for advanced use cases                                               |
-| onFinish      | **Function** | Callback triggered when animation completes (provides direction: forward/backward)                |
-| curve         | **Curve**    | Customizable animation curve for any animated widget                                              |
+## Properties
 
-# Available Animations
+| Property        | Type         | Description                                                                                        |
+| --------------- | ------------ | -------------------------------------------------------------------------------------------------- |
+| `key`           | **Key**      | Optional widget key reference                                                                      |
+| `child`         | **Widget**   | Required widget to animate                                                                         |
+| `duration`      | **Duration** | Duration of the animation                                                                          |
+| `delay`         | **Duration** | Delay before the animation starts                                                                  |
+| `from`          | **double**   | Initial or final value for more pronounced slide/fade effects                                      |
+| `animate`       | **bool**     | Toggle `false` → `true` to trigger; works with setState, Bloc, Provider, Redux, etc.               |
+| `infinite`      | **bool**     | Loops the animation indefinitely                                                                   |
+| `spins`         | **double**   | Number of rotations — applies to `Spin`, `Roulette`, `SpinPerfect`                                 |
+| `manualTrigger` | **bool**     | Disables auto-play; requires the `controller` callback to drive the animation                      |
+| `controller`    | **Function** | Exposes the `AnimationController` for advanced control                                             |
+| `onFinish`      | **Function** | Callback fired when the animation completes; receives an `AnimateDoDirection` (forward / backward) |
+| `curve`         | **Curve**    | Custom easing curve                                                                                |
 
-## FadeIn Animations
+---
 
-- FadeIn
-- FadeInDown
-- FadeInDownBig
-- FadeInUp
-- FadeInUpBig
-- FadeInLeft
-- FadeInLeftBig
-- FadeInRight
-- FadeInRightBig
+## Available Animations
 
-## FadeOut Animations
+### Fade In
 
-- FadeOut
-- FadeOutDown
-- FadeOutDownBig
-- FadeOutUp
-- FadeOutUpBig
-- FadeOutLeft
-- FadeOutLeftBig
-- FadeOutRight
-- FadeOutRightBig
+|                |            |               |             |
+| -------------- | ---------- | ------------- | ----------- |
+| FadeIn         | FadeInDown | FadeInDownBig | FadeInUp    |
+| FadeInUpBig    | FadeInLeft | FadeInLeftBig | FadeInRight |
+| FadeInRightBig |            |               |             |
 
-## BounceIn Animations
+### Fade Out
 
-- BounceInDown
-- BounceInUp
-- BounceInLeft
-- BounceInRight
+|                 |             |                |              |
+| --------------- | ----------- | -------------- | ------------ |
+| FadeOut         | FadeOutDown | FadeOutDownBig | FadeOutUp    |
+| FadeOutUpBig    | FadeOutLeft | FadeOutLeftBig | FadeOutRight |
+| FadeOutRightBig |             |                |              |
 
-## ElasticIn Animations
+### Bounce In
 
-- ElasticIn
-- ElasticInDown
-- ElasticInUp
-- ElasticInLeft
-- ElasticInRight
+|              |            |              |               |
+| ------------ | ---------- | ------------ | ------------- |
+| BounceInDown | BounceInUp | BounceInLeft | BounceInRight |
 
-## SlideIn Animations
+### Elastic In
 
-- SlideInDown
-- SlideInUp
-- SlideInLeft
-- SlideInRight
+|                |               |             |               |
+| -------------- | ------------- | ----------- | ------------- |
+| ElasticIn      | ElasticInDown | ElasticInUp | ElasticInLeft |
+| ElasticInRight |               |             |               |
 
-## BackIn Animations
+### Slide In
 
-- BackInDown
-- BackInUp
-- BackInLeft
-- BackInRight
+|             |           |             |              |
+| ----------- | --------- | ----------- | ------------ |
+| SlideInDown | SlideInUp | SlideInLeft | SlideInRight |
 
-## BackOut Animations
+### Back In / Back Out
 
-- BackOutDown
-- BackOutUp
-- BackOutLeft
-- BackOutRight
+|             |           |             |              |
+| ----------- | --------- | ----------- | ------------ |
+| BackInDown  | BackInUp  | BackInLeft  | BackInRight  |
+| BackOutDown | BackOutUp | BackOutLeft | BackOutRight |
 
-## FlipIn Animations
+### Flip In
 
-- FlipInX
-- FlipInY
+|         |         |
+| ------- | ------- |
+| FlipInX | FlipInY |
 
-## Zoom Animations
+### Zoom
 
-- ZoomIn
-- ZoomOut
+|        |         |
+| ------ | ------- |
+| ZoomIn | ZoomOut |
 
-## Attention Seekers
+### Attention Seekers
 
-All of the following animations can be made infinite using the `infinite` property (type: bool)
+All attention seekers support the `infinite` property to loop indefinitely.
 
-- Bounce
-- Dance
-- Flash
-- Pulse
-- Flip
-- Roulette
-- ShakeX
-- ShakeY
-- Spin
-- SpinPerfect
-- Swing
-- HeartBeat
-- Wobble
-- Jello
-- Tada
-- RubberBand
+|        |             |        |            |
+| ------ | ----------- | ------ | ---------- |
+| Bounce | Dance       | Flash  | Pulse      |
+| Flip   | Roulette    | ShakeX | ShakeY     |
+| Spin   | SpinPerfect | Swing  | HeartBeat  |
+| Wobble | Jello       | Tada   | RubberBand |
 
-## Custom Animations
+### Custom Animations
 
-These two new animation Widgets or Widget Methods are used to create custom animations and move widgets around the screen. You can append them to previous animations to create custom ones.
+These widgets let you move widgets around the screen and chain them with any other animation.
 
-- MoveTo
-- MoveToArc
+|        |           |
+| ------ | --------- |
+| MoveTo | MoveToArc |
+
+---
 
 ## Two Syntaxes
 
-Both syntaxes are supported, I have no plans to make the old one deprecated because some people like the old syntax better.
+Both syntaxes are fully supported. Use whichever feels more natural to you.
 
-- Sugar Syntax
-- Class Syntax
+### Sugar Syntax
 
-### (new) Sugar Syntax example
-
-Check [the example folder](https://github.com/Klerith/animate_do_package/tree/master/example) for more details on how to use the sugar syntax.
-
-```
-home: Scaffold(
-    body: Center(
-
-        child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-
-            const Square().fadeInLeft(),
-            const Square().fadeInUp(),
-            const Square().fadeInDown(),
-            const Square().fadeInRight(),
-
-        ],
-        ),
-
-    ),
-),
+```dart
+Row(
+  mainAxisAlignment: MainAxisAlignment.spaceAround,
+  children: [
+    const Square().fadeInLeft(),
+    const Square().fadeInUp(),
+    const Square().fadeInDown(),
+    const Square().fadeInRight(),
+  ],
+)
 ```
 
-## (classic) Class Syntax example
+### Class Syntax
 
-```
-home: Scaffold(
-    body: Center(
-
-        child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-
-            FadeInLeft(child: Square() ),
-            FadeInUp(child: Square() ),
-            FadeInDown(child: Square() ),
-            FadeInRight(child: Square() ),
-
-        ],
-        ),
-
-    ),
-),
+```dart
+Row(
+  mainAxisAlignment: MainAxisAlignment.spaceAround,
+  children: [
+    FadeInLeft(child: Square()),
+    FadeInUp(child: Square()),
+    FadeInDown(child: Square()),
+    FadeInRight(child: Square()),
+  ],
+)
 ```
 
-# Animation Chaining
+---
 
-With the new syntax you can chain the animations like this:
+## Animation Chaining
+
+Chain multiple animations sequentially using the sugar syntax:
 
 ```dart
 Square()
@@ -193,133 +158,62 @@ Square()
   .fadeIn()
 ```
 
-## Animation chaining with custom animations
+### Chaining with custom animations
 
 ```dart
 const Square()
-  .moveTo(
-    top: 30
-  )
+  .moveTo(top: 30)
   .moveTo(
     left: 30,
-    delay: const Duration(seconds: 1)
+    delay: const Duration(seconds: 1),
   )
   .moveToArc(
     bottom: 30,
     right: 30,
-    delay: const Duration(seconds: 2)
+    delay: const Duration(seconds: 2),
   )
   .fadeOut(
-    delay: const Duration( seconds: 2)
+    delay: const Duration(seconds: 2),
   )
 ```
 
-# Demos
+---
 
-For complete examples, check the `example` folder inside the repository
+## Triggering Animations
 
-![Animate_do demo animation](https://raw.githubusercontent.com/Klerith/animate_do_package/master/screenshots/demo-00.gif 'Animate_do demo-00')
+### Toggle with `animate`
 
-![Animate_do demo animation](https://raw.githubusercontent.com/Klerith/animate_do_package/master/screenshots/demo-02.gif 'Animate_do demo-02')
+Set `animate: true` to play forward, `animate: false` to reverse. Works with any state management solution.
 
-![Animate_do demo animation](https://raw.githubusercontent.com/Klerith/animate_do_package/master/screenshots/demo-04.gif 'Animate_do demo-04')
+![Animate_do animate property](https://raw.githubusercontent.com/Klerith/animate_do_package/master/screenshots/demo-03.gif 'animate property')
 
-![Animate_do demo animation](https://raw.githubusercontent.com/Klerith/animate_do_package/master/screenshots/demo-05.gif 'Animate_do demo-05')
-
-## Trigger animation manually (The easy way)
-
-Just add the property animate to **true** to trigger the animation, and to **false** to revert the animation.
-
-![Animate_do demo animation](https://raw.githubusercontent.com/Klerith/animate_do_package/master/screenshots/demo-03.gif 'animate property')
-
-## Example: 02-Basic - Now with toggle
-
-Just toggle the **animate** property to animate in or out easily.
-Check the full code inside the example folder
-
-```
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-
-  bool animate = true;
-  late AnimationController controller;
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Material App',
-      theme: ThemeData.light(useMaterial3: true),
-      home: Scaffold(
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-
-                /// The animations are just widgets
-                FadeIn(animate: animate,child: const Square(),),
-                FadeInUp(animate: animate,child: const Square(),),
-                FadeInDown(animate: animate,child: const Square(),),
-                FadeInLeft(animate: animate,child: const Square(),),
-                FadeInRight(animate: animate,child: const Square(),),
-
-              ],
-            ),
-
-
-          ],
-        ),
-      ),
-    );
-  }
-}
+```dart
+FadeIn(animate: animate, child: const Square())
+FadeInUp(animate: animate, child: const Square())
+FadeInDown(animate: animate, child: const Square())
+FadeInLeft(animate: animate, child: const Square())
+FadeInRight(animate: animate, child: const Square())
 ```
 
-### Note: Square, is just a Square blue container
+---
 
-```
-class Square extends StatelessWidget {
-  const Square({Key? key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 50,
-      height: 50,
-      color: const Color(0xff67549B),
-    );
-  }
-}
+## Events — `onFinish`
 
-```
-
-## Events
-
-There is a new property called `onFinish` that is called when the animation finishes. It returns a value of type `AnimateDoDirection` indicating the direction of the animation (forward or backward).
-
-### Example:
+The `onFinish` callback fires when an animation completes, passing an `AnimateDoDirection` value (`forward` or `backward`).
 
 **Sugar syntax**
 
-```
-const Square()
-  .fadeIn(animate: animate,
-      delay: const Duration(milliseconds: 100),
-      onFinish: (direction) => print('$direction'),
-  ),
+```dart
+const Square().fadeIn(
+  animate: animate,
+  delay: const Duration(milliseconds: 100),
+  onFinish: (direction) => print('$direction'),
+),
 ```
 
-**Classic syntax**
+**Class syntax**
 
-```
+```dart
 FadeIn(
   animate: animate,
   delay: const Duration(milliseconds: 100),
@@ -328,40 +222,43 @@ FadeIn(
 ),
 ```
 
+---
+
 ## Manual Trigger
 
-There is a way to get the AnimationController used inside the animation, which lets you control the animation by restarting it, changing its duration, repeating it, etc.
+Use `manualTrigger: true` together with the `controller` callback to drive the animation yourself — useful when you need full control over playback.
 
-However, with all the new features added, this is not needed for the majority of users, but if you need it, here is how to do it.
+> **Note:** When using `manualTrigger`, you are responsible for calling `controller.forward()` and `controller.reverse()` explicitly.
 
-**Important:** If you decide to go for the manual trigger, you have to control the animation entirely, which means running controller.forward() and controller.reverse() manually.
+```dart
+class _MyWidgetState extends State<MyWidget> {
+  late AnimationController animateController;
 
-Usually it's easier now to use the animate property and just toggle it to true or false to trigger the animation.
-
-#### Example
-
-```
-class FadeOutDownBig extends StatelessWidget/StatefulWidget {
-
-AnimationController animateController;
-...
-...
-...
-
-child: FadeInUp(
-
-    // (optional) if true, will not fire the animation on load
-    manualTrigger: true,
-
-    //(optional, but mandatory if you use manualTrigger:true) This callback exposes the AnimationController used for the selected animation. Then you can call animationController.forward() to trigger the animation wherever you like manually.
-    controller: ( controller ) => animateController = controller,
-
-    child: YourWidget(),
-
+  @override
+  Widget build(BuildContext context) {
+    return FadeInUp(
+      manualTrigger: true,
+      controller: (controller) => animateController = controller,
+      child: YourWidget(),
+    );
+  }
+}
 ```
 
-### More examples
+---
 
-Check the [**repository for more examples**](https://github.com/Klerith/animate_do_package), or the example folder inside the package.
+## Demos
 
-Don't forget to like the package if you find it useful, and if you have any suggestion, please let me know.
+![Animate_do demo](https://raw.githubusercontent.com/Klerith/animate_do_package/master/screenshots/demo-00.gif 'Animate_do demo-00')
+
+![Animate_do demo](https://raw.githubusercontent.com/Klerith/animate_do_package/master/screenshots/demo-02.gif 'Animate_do demo-02')
+
+![Animate_do demo](https://raw.githubusercontent.com/Klerith/animate_do_package/master/screenshots/demo-04.gif 'Animate_do demo-04')
+
+![Animate_do demo](https://raw.githubusercontent.com/Klerith/animate_do_package/master/screenshots/demo-05.gif 'Animate_do demo-05')
+
+For complete runnable examples, see the [`example` folder](https://github.com/Klerith/animate_do_package/tree/master/example).
+
+---
+
+If you find this package useful, consider leaving a like on [pub.dev](https://pub.dev/packages/animate_do). Feedback and suggestions are always welcome.
