@@ -1,3 +1,11 @@
+## [5.0.0] - Major Release
+
+- Major refactor and simplification of all animation classes
+- Performance optimizations across the board
+- Reduced package size
+- Fixed RubberBand animation
+- Various bug fixes
+
 ## [4.2.0] - Changes
 
 - Added moveToArc animation
